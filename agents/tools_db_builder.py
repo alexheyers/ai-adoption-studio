@@ -131,38 +131,76 @@ def research_category(cat_id: str, cat_label: str, known: str) -> dict:
         category_id=cat_id, category_name=cat_label, known_vendors=known, today=today,
     )
     try:
-        response = _anthropic.messages.create(
+        # Streaming, weil Web-Search-Calls länger als 10 Min dauern können
+        with _anthropic.messages.stream(
             model="claude-sonnet-4-6",
-            max_tokens=16000,
-            tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 6}],
+            max_tokens=24000,
+            tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}],
             messages=[{"role": "user", "content": prompt}],
-        )
+        ) as stream:
+            response = stream.get_final_message()
     except Exception as e:
         return {"category": cat_id, "error": f"web_search call failed: {e}"}
 
     payload = {}
+    raw_snippet = ""
     for block in response.content:
         bt = getattr(block, "type", "")
         if bt == "text":
             text = block.text
+            raw_snippet = text[:600]
+            # Versuch 1: ```json fenced
             fence_start = text.find("```json")
             if fence_start != -1:
                 fence_end = text.find("```", fence_start + 7)
                 if fence_end != -1:
-                    try:
-                        payload = json.loads(text[fence_start + 7:fence_end].strip())
-                    except json.JSONDecodeError:
-                        pass
+                    payload = _try_parse(text[fence_start + 7:fence_end].strip())
+            # Versuch 2: erste { bis letzte }
             if not payload:
                 first = text.find("{")
                 last = text.rfind("}")
                 if first != -1 and last != -1:
-                    try:
-                        payload = json.loads(text[first:last + 1])
-                    except json.JSONDecodeError:
-                        pass
+                    payload = _try_parse(text[first:last + 1])
+            if payload:
+                break
 
-    return payload or {"category": cat_id, "error": "no parseable JSON"}
+    if not payload:
+        return {"category": cat_id, "error": f"no parseable JSON · raw: {raw_snippet[:300]}"}
+    return payload
+
+
+def _try_parse(s: str) -> dict | None:
+    """Robuster Parser: tolerant gegen trailing-commas, unescaped newlines in strings,
+    abgeschnittene Tail-Bytes (max_tokens-Truncation)."""
+    import re
+    # Versuch 1: pur
+    try:
+        return json.loads(s)
+    except json.JSONDecodeError:
+        pass
+    # Versuch 2: trailing-commas killen
+    cleaned = re.sub(r",(\s*[}\]])", r"\1", s)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+    # Versuch 3: am letzten kompletten ``"<key>": <value>``-Eintrag abschneiden
+    # (Truncation-Recovery — schneidet vorletzte Klammer-Tiefe ab)
+    depth = 0
+    last_safe = -1
+    for i, ch in enumerate(cleaned):
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                last_safe = i + 1
+    if last_safe > 0:
+        try:
+            return json.loads(cleaned[:last_safe])
+        except json.JSONDecodeError:
+            pass
+    return None
 
 
 def load_existing_db() -> dict:

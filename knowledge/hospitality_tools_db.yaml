@@ -10424,6 +10424,1070 @@ categories:
       jedoch für Einzelhotels preislich und operativ anspruchsvoll — der Markttrend
       2026 zeigt eine Verschiebung hin zu KI-gestützter Hyperpersonalisierung (Pre-Arrival-Upselling,
       OTA-Winback, Predictive Send-Timing) als wesentlichem Differenzierungsmerkmal.'
-last_refresh: '2026-05-13T10:18:27.987522'
-category_count: 17
-total_vendor_count: 121
+  pos_cash:
+    category: pos_cash
+    category_label: Kassensysteme F&B + Handhelds
+    researched_at: '2026-05-13'
+    vendors:
+    - name: Vectron
+      website: https://www.vectron-systems.com
+      country_of_origin: DE
+      founded_year: 1990
+      tier: smb
+      monthly_cost_eur:
+        S: 40
+        M: 129
+        L: 300
+        note: POS 7 Smart ab 39,90 €/Monat; Komplettsysteme Leasing ab ca. 129 €/Monat;
+          Enterprise-Installationen on-quote
+      core_features:
+      - Stationäre & mobile POS-Hardware (POS 7, POS Life, POS M4 Pay) mit robuster
+        Eigenfertigung
+      - Kassensoftware mit Tischverwaltung, Gangsteuerung und Küchenmonitoren
+      - Warenwirtschaft, Filialmanagement und Umsatzreporting via myVectron Cloud
+      - Kundenbindungsprogramm bonVito nativ integriert
+      - DATEV-Kassenarchiv-Anbindung und BI-Schnittstelle für Reporting
+      - Inhouse- und Online-Ordering ohne externe Gebühren
+      - Fachhändler-Netzwerk für Installation, Schulung und Vor-Ort-Support
+      target_segment:
+      - stadthotel
+      - bediengastronomie
+      - baeckerei
+      - systemgastronomie
+      - resort
+      strengths:
+      - Größter europäischer POS-Hersteller mit ~250.000 verkauften Systemen und ~25
+        % DACH-Marktanteil
+      - Extrem robuste Eigenhardware mit Full-Service-Garantie und flächendeckendem
+        Fachhändler-Netz
+      - Umfangreiche Schnittstellenlandschaft (DATEV, PMS, BI, Reservierung)
+      watch_outs:
+      - Starke Abhängigkeit vom lokalen Fachhändler – Preise und Servicequalität variieren
+        je Partner
+      - Einstiegskosten für Komplettsysteme deutlich höher als Cloud-only-Wettbewerber
+      - Seit 2024 Teil von Shift4 Payments (US) – langfristige Roadmap und Datenhaltung
+        im Wandel
+      native_integrations:
+        pms:
+        - Protel
+        - Opera (via Partner)
+        - Fidelio (via Partner)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - resmio
+        - restablo
+        accounting:
+        - DATEV Kassenarchiv online
+      has_api: true
+      api_docs_url: https://www.vectron-systems.com (BI-Schnittstelle, nicht öffentlich
+        dokumentiert)
+      export_formats:
+      - DATEV
+      - CSV
+      - Excel
+      - DSFinV-K
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: true
+        gdpr_status: AVV verfügbar; Verfahrensdokumentation auf Anfrage
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: high (~25 %)
+      recent_news_2025_2026:
+      - '2024: Übernahme durch Shift4 Payments (USA) – strategische Neuausrichtung
+        Richtung integriertes Payment-Ökosystem'
+      - '2025: ELSTER-Kassenmeldepflicht-Unterstützung im myVectron-Portal ausgerollt'
+      - '2025/2026: Vectron Smart Portfolio ausgebaut (POS 7, POS Life, POS M4 Pay)
+        mit All-inclusive-Mietmodell'
+      typical_replacement_for:
+      - Ältere Registrierkassen (Olivetti, Sharp, Casio)
+      - Windows-PC-Kassen der 2000er Jahre
+      switching_complexity: medium
+    - name: Gastronovi
+      website: https://www.gastronovi.com
+      country_of_origin: DE
+      founded_year: 2010
+      tier: smb
+      monthly_cost_eur:
+        S: 68
+        M: 180
+        L: 400
+        note: Basis-Lizenz 59 €/Monat + Cloud-TSE 9 €/Monat; Module (Warenwirtschaft,
+          Reservierung, Newsletter etc.) je ca. 29–99 €/Monat zusätzlich
+      core_features:
+      - Cloudbasierter POS-Kern (iPad, Android, Browser) mit Single-Source-Datenprinzip
+      - Integrierte Tischreservierung, Warenwirtschaft, Einkaufssystem und Kalkulation
+      - Küchenmonitor (KDS) und Gangsteuerung nativ enthalten
+      - 'Marketing-Module: Newsletter, Digital Signage, Website-Integration'
+      - Gastronovi Pay – vollintegriertes Kartenzahlungssystem
+      - Zeiterfassung und Mehrbetriebsverwaltung für Ketten
+      - Ca. 200 automatische Cloud-Updates pro Jahr ohne Wartungskosten
+      target_segment:
+      - restaurant
+      - cafe
+      - boutique
+      - stadthotel
+      - resort
+      - bar
+      - baeckerei
+      strengths:
+      - Umfangsreichstes deutsches All-in-One-Gastro-System mit TÜV-Prüfung und breiter
+        Modulpalette
+      - 'Single-Source-Datenprinzip: Änderungen propagieren sofort in Speisekarte,
+        Website, Kasse und Online-Bestellung'
+      - Über 7.000 Betriebe in DACH – starke Community und plattformunabhängige Nutzung
+        (Windows, macOS, iOS, Android)
+      watch_outs:
+      - PMS-Integration limitiert – manuelle Prozesse bei Pauschalreisen/Halbpension
+        dokumentiert
+      - Gesamtkosten steigen stark mit Modulanzahl; vollständige Suite kann teuer
+        werden
+      - Onboarding komplex – Support-Pakete kosten extra (29 €/Monat oder 129 €/Stunde)
+      native_integrations:
+        pms:
+        - Protel (via API)
+        - Opera (eingeschränkt)
+        - Apaleo (unbekannt)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - eigenes Reservierungsmodul
+        accounting:
+        - DATEV
+        - CSV-Export
+      has_api: true
+      api_docs_url: https://gastronovi.com/schnittstellen (nicht vollständig öffentlich)
+      export_formats:
+      - DATEV
+      - CSV
+      - DSFinV-K
+      - Excel
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: true
+        gdpr_status: DSGVO-konform, AVV verfügbar; TÜV-Prüfung dokumentiert
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium-high
+      recent_news_2025_2026:
+      - '2025: ELSTER-Kassenmeldepflicht vollständig im System integriert'
+      - '2025/2026: Gastronovi Pay als vollintegriertes Payment-Produkt ausgebaut'
+      - '2026: Stärkere Fokussierung auf Hotelgastronomie-Pakete mit PMS-Schnittstellenausbau
+        angekündigt'
+      typical_replacement_for:
+      - orderbird
+      - Lightspeed Restaurant
+      - Ältere Insellösungen (Speisekarten-Software + separate Kasse)
+      switching_complexity: medium
+    - name: orderbird
+      website: https://www.orderbird.com
+      country_of_origin: DE
+      founded_year: 2011
+      tier: smb
+      monthly_cost_eur:
+        S: 22
+        M: 100
+        L: 250
+        note: MINI ab 22 €/Monat (5-Jahres-Lizenz) + Hardware 399 € einmalig; PRO
+          ab 99,90 €/Monat inkl. TSE; Mehrgeräte-Lizenzen skalieren linear
+      core_features:
+      - iPad-basiertes POS-System (PRO) für stationäre Gastronomie + MINI als mobiles
+        All-in-One-Gerät
+      - Funkbonierung und kabelloses Bondrucken an Küche, Schank und Gastraum
+      - QR-Code-Bestellung am Tisch (Self-Order) nativ integriert
+      - Online-TSE (cloud-basiert, kein physisches Gerät nötig) + automatische ELSTER-Kassenmeldung
+      - Integration zu Lieferdiensten (Lieferando, Wolt, UberEats) und Zahlungsplattformen
+      - MY orderbird Backend mit GoBD-Export und Steuerreporting
+      target_segment:
+      - restaurant
+      - cafe
+      - bar
+      - boutique
+      - foodtruck
+      - biergarten
+      strengths:
+      - Pionier iPad-POS in DACH mit über 17.000 Betrieben – einfachste Inbetriebnahme
+        (<10 Min.)
+      - Online-TSE ohne Hardwarekomponente – kein Verlust, kein Schaden möglich
+      - Herausragend bewerteter Kundensupport (24/7) mit Gastro-erfahrenem Team
+      watch_outs:
+      - Keine eigene API öffentlich verfügbar – Integrationen nur über Partnermarktplatz
+      - Keine integrierte Lagerverwaltung – CSV-Export für Inventur erforderlich
+      - Payment über Pflichtpartner Worldline/Bambora – keine freie PSP-Wahl, Transaktionsgebühr
+        1,75 %
+      native_integrations:
+        pms:
+        - unbekannt (einzelne über Partnermarktplatz)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        delivery:
+        - Lieferando
+        - Wolt
+        - UberEats
+        accounting:
+        - DATEV-Export
+      has_api: false
+      api_docs_url: n/a
+      export_formats:
+      - DATEV
+      - CSV
+      - GoBD-Export
+      - DSFinV-K
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: true
+        gdpr_status: DSGVO-Verfahrensdokumentation als PDF herunterladbar (MY orderbird)
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium
+      recent_news_2025_2026:
+      - '2025: ELSTER-Kassenmeldung direkt aus MY orderbird heraus (automatische Unterstützung)'
+      - '2025: QR-Code Self-Order als nativ integriertes Feature GA-released'
+      - '2025/2026: Weiterer Ausbau Lieferdienst-Integrationen; Kritik an fehlender
+        Produktentwicklung bei Stammkunden'
+      typical_replacement_for:
+      - Analoge Registrierkassen
+      - Zettle / SumUp (bei Wachstum)
+      - Windows-basierte Altsysteme
+      switching_complexity: low
+    - name: Lightspeed Restaurant
+      website: https://www.lightspeedhq.com/de
+      country_of_origin: CA
+      founded_year: 2005
+      tier: smb
+      monthly_cost_eur:
+        S: 69
+        M: 189
+        L: 350
+        note: Essential ab ca. 69 €/Monat; Premium ca. 189 €/Monat; Enterprise on-quote;
+          Preise Stand 2026 inkl. TSE-Anbindung
+      core_features:
+      - Cloud-POS (iPad-nativ) mit Multi-Standort-Management und zentraler Menüverwaltung
+      - Integriertes Rezept- und Abfallmanagement zur Lebensmittelkostenkontrolle
+      - Schichtplanung und Personaleinsatzoptimierung nativ
+      - Echtzeit-Insights und detailliertes Multi-Location-Reporting
+      - Lieferdienst-Synchronisierung (Menüs mit Delivery-Apps)
+      - Erweitertes Inventar-Management mit Lieferantenbestellungen
+      - TSE-konform für DE, umfangreicher Partnermarktplatz
+      target_segment:
+      - stadthotel
+      - restaurant_kette
+      - resort
+      - systemgastronomie
+      - multi_outlet
+      strengths:
+      - Stärkste Multi-Location-Funktionen und zentrales Menü-Management für Ketten
+        und Gruppen
+      - Sehr breiter Integrationsmarktplatz (PMS, Buchhaltung, Delivery, Loyalty)
+      - Offline-Fähigkeit auch bei Internetausfall
+      watch_outs:
+      - Kanadischer Anbieter – Datenhaltung in Irland (EU), aber kein DE-Hosting;
+        AVV-Transparenz prüfen
+      - Preisanstieg bei höheren Tiers und Add-ons; Premium-Pakete schnell kostspielig
+      - Support-Qualität für DACH-spezifische Compliance-Fragen (GoBD, KassenSichV)
+        teils limitiert
+      native_integrations:
+        pms:
+        - Mews
+        - Opera (via Marketplace)
+        - Apaleo (via Marketplace)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - DATEV (via Drittanbieter)
+        - QuickBooks
+        - Xero
+        delivery:
+        - Lieferando (via Integration)
+        - UberEats
+      has_api: true
+      api_docs_url: https://developers.lightspeedhq.com
+      export_formats:
+      - CSV
+      - Excel
+      - DATEV (via Partner)
+      - DSFinV-K
+      compliance:
+        eu_hosting: true
+        data_residency_country: IE
+        avv_available: true
+        gdpr_status: DPA / AVV verfügbar; Daten in EU (Irland)
+        ai_act_classification: limited
+        audit_trails: true
+        iso_certifications:
+        - SOC 2 Type II
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium
+      recent_news_2025_2026:
+      - '2025: Lightspeed bündelt AI-gestützte Umsatzanalyse (''Insights AI'') in
+        Premium-Tier'
+      - '2025: Stärkere Integration mit Mews PMS für Hotel-F&B-Szenarien angekündigt'
+      - '2026: Pricing-Restrukturierung – Einstiegstarif auf 69 €/Monat gesenkt für
+        DACH-Marktdurchdringung'
+      typical_replacement_for:
+      - orderbird
+      - Ältere iPad-POS-Lösungen
+      - NCR Aloha (in Mid-Market)
+      switching_complexity: medium
+    - name: Hypersoft ePOS
+      website: https://www.hypersoft.de
+      country_of_origin: DE
+      founded_year: 1993
+      tier: smb
+      monthly_cost_eur:
+        S: 105
+        M: 250
+        L: 500
+        note: Ab 105 €/Monat (Mietmodell); individuelle Angebote je nach Modulumfang
+          und Betriebsgröße
+      core_features:
+      - Hybrides POS-System (lokal + Cloud) auf Microsoft/SQL-Basis – kein reines
+        Cloud-System
+      - Über 100 gastronomie-spezifische Programme und 120+ Integrationen und Schnittstellen
+      - mPOS mobiles Orderterminal für Tischservice direkt am Gast
+      - TSE-Security und Fraud-Protection integriert
+      - Self-Order via QR-Code, Gutscheinverwaltung, Pagersysteme
+      - Hypersoft Pay mit integrierten Zahlungsterminals (EC, Kredit, Mobile Pay)
+      - Über 100 Berichte und Auswertungen mit Excel-Export und automatischem PDF-Mailversand
+      target_segment:
+      - systemgastronomie
+      - resort
+      - hotel
+      - fullservice_restaurant
+      - betriebsgastronomie
+      strengths:
+      - Über 20 Jahre DACH-Fokus mit tiefem Branchen-Know-how für Systemgastronomie
+        und Hotels
+      - Hybridarchitektur ermöglicht lokalen Betrieb ohne Cloud-Abhängigkeit – hohe
+        Ausfallsicherheit
+      - Umfangreichstes Funktionsangebot im DACH-Midmarket mit 120+ nativen Integrationen
+      watch_outs:
+      - Keine transparente öffentliche Preisliste – individuelle Angebotsprozesse
+        können Evaluierung verlangsamen
+      - Systemkomplexität erfordert professionelles Onboarding und längere Einführungszeiten
+      - Keine reine Cloud-Lösung – Betrieb von lokalem Server oder Hybrid-Infrastruktur
+        erforderlich
+      native_integrations:
+        pms:
+        - Protel
+        - Fidelio
+        - Opera
+        - Sihot
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - DATEV
+        - Excel
+      has_api: true
+      api_docs_url: unbekannt (nicht öffentlich dokumentiert)
+      export_formats:
+      - DATEV
+      - Excel
+      - PDF
+      - CSV
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: true
+        gdpr_status: DSGVO-konform; Verfahrensdokumentation verfügbar
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium
+      recent_news_2025_2026:
+      - '2025: ELSTER-Kassenmeldung in Hypersoft Security Suite integriert'
+      - '2025: Ausbau der Hotel-Gastronomie-Pakete mit erweiterten PMS-Schnittstellen'
+      - '2025/2026: Neue mPOS-Hardware-Generation mit integriertem Payment-Pad angekündigt'
+      typical_replacement_for:
+      - Ältere stationäre Registrierkassen
+      - Micros 3700 (Vorgänger-Generation)
+      - SIHOT.POS
+      switching_complexity: high
+    - name: Oracle MICROS Simphony
+      website: https://www.oracle.com/de/food-beverage/simphony-pos
+      country_of_origin: US
+      founded_year: 1977
+      tier: enterprise
+      monthly_cost_eur:
+        S: 55
+        M: 200
+        L: 600
+        note: Essentials ab ca. 55 USD/Monat/Terminal; Enterprise on-quote; Hardware
+          ab 1 USD mit Vertrag (Aktionspreise 2024–2026)
+      core_features:
+      - Enterprise Cloud-POS mit nativem OPERA PMS-Interface (Oracle Hospitality)
+      - Multi-Location-Menümanagement für globale Ketten
+      - Echtzeit-Reporting und Analytics über das Oracle MICROS Reporting Portal
+      - Kitchen Display System (KDS) und Order Management nativ
+      - Open API und umfangreicher Oracle Cloud Marketplace
+      - Mobile POS und Self-Service-Kiosk-Integration
+      - PCI-DSS-konformes Payment-Processing
+      target_segment:
+      - resort
+      - kettenhotel
+      - luxury
+      - airport_gastronomie
+      - convention_center
+      strengths:
+      - Stärkste native OPERA-PMS-Integration – de-facto-Standard in großen Hotelketten
+      - Globale Skalierbarkeit von einer Filiale bis zu tausenden Standorten
+      - Offene REST-API mit umfangreichem Marketplace-Ökosystem
+      watch_outs:
+      - Sehr steile Lernkurve – Implementierungszeit 3–6 Monate typisch, spezialisierte
+        Partner nötig
+      - Kundensupport-Qualität variiert stark; Reaktionszeiten im Krisenfall kritisiert
+      - Lock-in in Oracle-Hardware-Ökosystem; zusätzliche Funktionen oft kostenpflichtig
+      native_integrations:
+        pms:
+        - Oracle OPERA Cloud
+        - OPERA On-Premise
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - Oracle OPERA Booking
+        accounting:
+        - Oracle Financials
+        - SAP (via API)
+        other:
+        - Restaurant365
+        - Marketman
+      has_api: true
+      api_docs_url: https://docs.oracle.com/en/industries/food-beverage/simphony
+      export_formats:
+      - CSV
+      - Excel
+      - Oracle BI Publisher Reports
+      - JSON (API)
+      compliance:
+        eu_hosting: true
+        data_residency_country: IE
+        avv_available: true
+        gdpr_status: Oracle DPA verfügbar; EU Standard Contractual Clauses vorhanden
+        ai_act_classification: limited
+        audit_trails: true
+        iso_certifications:
+        - ISO 27001
+        - SOC 1 Type II
+        - SOC 2 Type II
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium (dominiert Enterprise-Hotellerie)
+      recent_news_2025_2026:
+      - '2024/2025: Neue Essentials-Preisstufe (ab ~55 USD/Monat) und 1-Dollar-Hardware-Programm
+        – Öffnung für Midmarket'
+      - '2025: Simphony Cloud Marketplace erweitert um DACH-spezifische DATEV-Connector-Partner'
+      - '2025/2026: Native Integration mit Oracle OPERA Cloud 25.x mit verbessertem
+        F&B-Charge-Routing'
+      typical_replacement_for:
+      - MICROS 3700
+      - MICROS 9700
+      - NCR Aloha (im Hotelkontext)
+      switching_complexity: high
+    - name: NCR Aloha (NCR Voyix)
+      website: https://www.ncrvoyix.com/restaurants/aloha-pos
+      country_of_origin: US
+      founded_year: 1884
+      tier: enterprise
+      monthly_cost_eur:
+        S: unbekannt
+        M: unbekannt
+        L: unbekannt
+        note: Keine öffentliche Preisliste; On-Premise-Lizenzmodell mit jährlicher
+          Wartungsgebühr; Schätzung Enterprise ab 500 €/Monat/Standort
+      core_features:
+      - Umfassendes Restaurant-Management für Quick-Service und Table-Service
+      - Kitchen Management System (KDS) und Takeout/Delivery-Management
+      - Connected Payments mit eigenem NCR Payment-Processing
+      - Loyalty-Programm und CRM nativ
+      - Enterprise-Reporting über NCR Back Office
+      - On-Premise-Architektur mit optionalem Cloud-Backstep
+      target_segment:
+      - systemgastronomie_kette
+      - quick_service
+      - airport_gastronomie
+      - stadion_gastronomie
+      strengths:
+      - Jahrzehnte-lange Installations-Basis in großen US-/internationalen Restaurantketten
+      - Stark in Quick-Service und Table-Service kombiniert in einem System
+      - Robuste On-Premise-Architektur – funktioniert auch ohne stabile Internetverbindung
+      watch_outs:
+      - Weitgehend On-Premise – nicht Cloud-nativ; schlechtere Skalierbarkeit vs.
+        moderne Wettbewerber
+      - Im DACH-Markt sehr limitierte Präsenz und Partnernetzwerk
+      - TSE- und GoBD-Zertifizierung für DE muss individuell durch Implementierungspartner
+        sichergestellt werden
+      native_integrations:
+        pms:
+        - unbekannt (kein nativer PMS-Connector für DACH bekannt)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - unbekannt
+      has_api: true
+      api_docs_url: https://developer.ncrcloud.com (NCR Developer Portal)
+      export_formats:
+      - CSV
+      - Excel
+      - unbekannt
+      compliance:
+        eu_hosting: unbekannt
+        data_residency_country: US
+        avv_available: unbekannt
+        gdpr_status: unbekannt
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: unbekannt
+        gobd_konform: unbekannt
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: low
+      recent_news_2025_2026:
+      - '2023: NCR Corp. aufgespalten in NCR Atleos (ATM/Banking) und NCR Voyix (Hospitality/Retail)
+        – Aloha gehört zu NCR Voyix'
+      - '2024: NCR Voyix verkauft Restaurant-Segment an Shift4 Payments – Aloha-Zukunft
+        unklarer'
+      - '2025: Shift4-Integration mit Vectron schafft Synergiepotenziale, DACH-Relevanz
+        von Aloha sinkt weiter'
+      typical_replacement_for:
+      - Ältere NCR-Systeme
+      - MICROS 3700
+      switching_complexity: high
+    - name: enfore
+      website: https://www.enfore.com
+      country_of_origin: DE
+      founded_year: 2009
+      tier: bootstrap
+      monthly_cost_eur:
+        S: 0
+        M: 49
+        L: 149
+        note: Hardware-Kauf einmalig (enforeDasher + enforePayPad); Software-Abo optional;
+          Basisnutzung ohne monatliche Gebühr möglich; Schätzung für Vollpaket
+      core_features:
+      - Cloud-basiertes POS auf eigener robuster Android-Hardware (enforeDasher Terminal)
+      - Kassen-, Inventar- und Mitarbeiterverwaltung in einer App
+      - Offline-Fähigkeit bei Netzwerkausfall
+      - Geräteübergreifender Datenzugriff (Desktop, Tablet, Smartphone, Browser)
+      - Integriertes Kartenzahlungssystem (enforePayPad)
+      - 'Zielgruppe: Einzelhandel, Dienstleister und Klein-Gastronomie'
+      target_segment:
+      - kleinbetrieb
+      - einzelhandel
+      - cafe
+      - foodtruck
+      - dienstleister
+      strengths:
+      - Einmaliger Hardware-Kauf ohne hohe laufende Abokosten – besonders attraktiv
+        für Kleinstbetriebe
+      - Eigens entwickelte robuste Hardware für Dauereinsatz im Ladenbetrieb
+      - Geräteunabhängiger Cloud-Datenzugriff von überall
+      watch_outs:
+      - Unternehmensfinanzierungsrisiko – dokumentierte 'Fast-Insolvenz' (2025); strategische
+        Zukunft ungewiss
+      - Sehr limitierte Gastronomie-Tieffunktionen (kein KDS, keine Gangsteuerung,
+        kein Tischplan)
+      - Schwaches Partnernetz und minimale DACH-Marktpräsenz
+      native_integrations:
+        pms:
+        - unbekannt
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - unbekannt
+      has_api: unbekannt
+      api_docs_url: unbekannt
+      export_formats:
+      - CSV
+      - unbekannt
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: unbekannt
+        gdpr_status: unbekannt
+        ai_act_classification: n_a
+        audit_trails: unbekannt
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: low
+      recent_news_2025_2026:
+      - '2025: Unternehmensnahe Insolvenz publik – Betrieb wurde fortgeführt, strategische
+        Neuausrichtung unklar'
+      - '2025/2026: Kaum öffentliche Produktankündigungen oder Release-Notes'
+      typical_replacement_for:
+      - Analoge Registrierkassen
+      - SumUp
+      - iZettle
+      switching_complexity: low
+    - name: Quorion
+      website: https://www.quorion.de
+      country_of_origin: DE
+      founded_year: 1996
+      tier: smb
+      monthly_cost_eur:
+        S: unbekannt
+        M: unbekannt
+        L: unbekannt
+        note: Hardware-Kaufmodell; keine öffentliche SaaS-Preisliste; Schätzung Einstieg
+          ab 500–1.500 € Hardware + Softwarelizenz
+      core_features:
+      - Android-basierte POS-Software auf eigener QMP-Hardware (Touchscreen-Terminals)
+      - Tischverwaltung mit individuellen Layouts und Farb-Statuscodes
+      - Cloud-basierte Kassenberichte und Remote-Zugriff
+      - TSE-konformes Kassensystem für DE
+      - 'Gastronomie-spezifische Funktionen: Tischservice, Imbiss, Cafés, Abholservice'
+      target_segment:
+      - restaurant
+      - imbiss
+      - cafe
+      - kleinbetrieb
+      strengths:
+      - Robuste Eigenhardware mit langer Lebensdauer – Made in Germany
+      - Einfache, übersichtliche Oberfläche – schnelle Einarbeitung
+      - TSE-zertifiziert ohne komplexe Cloud-Abhängigkeiten
+      watch_outs:
+      - Kaum öffentliche Informationen zu Cloud-Services, API und Integrationen
+      - Sehr limitierte Integrationstiefe mit PMS und Buchhaltungssystemen
+      - Kleines Unternehmen – Support-Kapazitäten und Entwicklungsroadmap unklar
+      native_integrations:
+        pms:
+        - unbekannt
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - unbekannt
+      has_api: unbekannt
+      api_docs_url: unbekannt
+      export_formats:
+      - unbekannt
+      compliance:
+        eu_hosting: unbekannt
+        data_residency_country: DE
+        avv_available: unbekannt
+        gdpr_status: unbekannt
+        ai_act_classification: n_a
+        audit_trails: unbekannt
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: unbekannt
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: low
+      recent_news_2025_2026:
+      - unbekannt – keine relevanten öffentlichen Pressemitteilungen oder Release-Notes
+        auffindbar
+      typical_replacement_for:
+      - Analoge ECR-Registrierkassen
+      - Ältere Quorion-Hardware
+      switching_complexity: low
+    - name: Helios (SIHOT.POS)
+      website: https://www.sihot.com
+      country_of_origin: DE
+      founded_year: 1986
+      tier: smb
+      monthly_cost_eur:
+        S: unbekannt
+        M: unbekannt
+        L: unbekannt
+        note: On-quote; typischerweise gebündelt mit SIHOT PMS-Lizenz; keine separaten
+          öffentlichen Preise
+      core_features:
+      - POS-Modul tief integriert in SIHOT Hotel-PMS-Suite
+      - Zimmerkonto-Buchung direkt aus dem Restaurantsystem (Charge-to-Room)
+      - Tischverwaltung und Bestellmanagement
+      - Reporting integriert in SIHOT BI-Suite
+      - TSE-konform für DE/AT
+      target_segment:
+      - stadthotel
+      - resort
+      - boutique
+      - SIHOT-PMS-Bestandskunden
+      strengths:
+      - Nahtlose native Integration in SIHOT PMS ohne Drittsystem-Middleware
+      - Charge-to-Room und Pauschalen-Management direkt aus POS
+      - Langjährige DACH-Hotelleriekompetenz des Mutterunternehmens
+      watch_outs:
+      - Relevanz nur für SIHOT-PMS-Kunden – kein standalone-Marktprodukt
+      - Funktionsumfang und UX hinter spezialisierten Gastronomie-POS-Systemen zurück
+      - Sehr limitierte öffentliche Dokumentation zu API und Integrationen
+      native_integrations:
+        pms:
+        - SIHOT PMS (nativ)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - unbekannt
+        accounting:
+        - DATEV (via SIHOT)
+      has_api: unbekannt
+      api_docs_url: unbekannt
+      export_formats:
+      - DATEV
+      - unbekannt
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: unbekannt
+        gdpr_status: unbekannt
+        ai_act_classification: n_a
+        audit_trails: unbekannt
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: unbekannt
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: low (Nische SIHOT-Installed-Base)
+      recent_news_2025_2026:
+      - unbekannt – keine separaten Pressemitteilungen zu SIHOT.POS auffindbar
+      typical_replacement_for:
+      - Externe POS-Systeme bei SIHOT-PMS-Migration
+      switching_complexity: medium
+    - name: Sunmi (Handheld-Hardware)
+      website: https://www.sunmi.com
+      country_of_origin: CN
+      founded_year: 2013
+      tier: bootstrap
+      monthly_cost_eur:
+        S: 0
+        M: 0
+        L: 0
+        note: 'Reine Hardware – kein Software-Abo; Gerätepreise: V2 Pro Handheld ca.
+          250–350 €; T2s Desktop-POS ca. 450–600 €; Software des POS-Anbieters separat'
+      core_features:
+      - Android-basierte POS-Handheld-Geräte (V2, V2 Pro, V3-Familie) mit integriertem
+        Thermaldrucker
+      - Stationäre Desktop-POS-Terminals (T2s, T2 Mini, D2s) mit 15,6" Dual-Screen
+      - SoftPOS / NFC-Payment-Integration in neuester V3-Familie
+      - IP-65-zertifizierte Enterprise-Tablets (M2, L2s) für raue Umgebungen
+      - Kompatibel mit allen gängigen Android-POS-Softwarelösungen (orderbird, Lightspeed,
+        gastronovi etc.)
+      - 4G/WiFi-Konnektivität mit eSIM-Option
+      - Präsenz in über 150 Ländern mit globalem Partnernetzwerk
+      target_segment:
+      - restaurant
+      - foodtruck
+      - retail
+      - hotel_f_und_b
+      - alle_segmente_als_hardware_layer
+      strengths:
+      - Bestes Preis-Leistungs-Verhältnis im Android-Handheld-Segment – deutlich günstiger
+        als proprietäre Hardware
+      - Sehr breite Softwarekompatibilität – open-Android ermöglicht beliebige POS-App-Installation
+      - Robuste Hardware-Qualität mit langer MTBF; IP65-Varianten für Outdoor/Terrasse
+      watch_outs:
+      - Chinesischer Hersteller – EU-Datenschutz-Compliance liegt vollständig beim
+        Software-Anbieter, nicht Sunmi
+      - Kein eigenständiges POS-Software-Angebot – immer in Kombination mit Drittanbieter-Software
+      - DSGVO- und TSE-Konformität hängt ausschließlich von der installierten POS-Software
+        ab, nicht von Sunmi selbst
+      native_integrations:
+        pms:
+        - n/a (Hardware-Layer)
+        channel_manager:
+        - n/a
+        booking_engine:
+        - n/a
+        accounting:
+        - n/a
+      has_api: true
+      api_docs_url: https://developer.sunmi.com
+      export_formats:
+      - n/a (Hardware-Layer)
+      compliance:
+        eu_hosting: n/a
+        data_residency_country: CN (Gerätehersteller; Daten beim Software-Anbieter)
+        avv_available: n/a
+        gdpr_status: n/a – Compliance liegt beim Software-Anbieter
+        ai_act_classification: n_a
+        audit_trails: n/a
+        iso_certifications:
+        - unbekannt
+        tse_konform: n/a (Hardware-Layer; TSE durch Software)
+        gobd_konform: n/a (Hardware-Layer; GoBD durch Software)
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium (wachsend als Hardware-Layer unter Cloud-POS)
+      recent_news_2025_2026:
+      - '2025: V3-Familie mit SoftPOS NFC und höherer Rechenleistung released'
+      - '2025: Sunmi Developer Platform erweitert für einfachere App-Integration und
+        MDM'
+      - '2026: Verstärkte Partnerschaft mit europäischen POS-ISVs für zertifizierte
+        Hardware-Bundles'
+      typical_replacement_for:
+      - Star Micronics-Handheld-Terminals
+      - Zebra-Handheld-Scanner in F&B
+      - Proprietäre POS-Hardware (Vectron Mobile, Casio)
+      switching_complexity: low
+    - name: iPad/iOS POS (Apple iPad als POS-Plattform)
+      website: https://www.apple.com/de/ipad
+      country_of_origin: US
+      founded_year: 2010
+      tier: bootstrap
+      monthly_cost_eur:
+        S: 0
+        M: 0
+        L: 0
+        note: 'Hardware-Kaufpreis iPad (ab ca. 400 € für iPad 10th Gen, bis 1.300
+          € iPad Pro); kein Software-Abo (Kosten beim POS-Anbieter: orderbird, Lightspeed
+          etc.)'
+      core_features:
+      - Universelle POS-Hardware-Plattform für orderbird PRO, Lightspeed Restaurant,
+        Tillhub, SumUp u.v.m.
+      - Unterstützung von Bluetooth-Peripherie (Drucker, Kassenschublade, Kartenleser)
+      - Apple Pay / NFC-Tap-to-Pay auf iPhone 15+ ohne externe Hardware
+      - Stage Manager (iPad Pro) für Multitasking-POS + Küchendisplay
+      - Hohe Langlebigkeit und Wiederverkaufswert der Hardware
+      - Offline-Betrieb vieler POS-Apps auch ohne WLAN
+      target_segment:
+      - cafe
+      - restaurant
+      - boutique
+      - foodtruck
+      - bar
+      strengths:
+      - Größtes Software-Ökosystem aller POS-Plattformen – maximale App-Auswahl
+      - Intuitive iOS-Oberfläche reduziert Einarbeitungszeit für Personal erheblich
+      - Premium-Hardware-Qualität mit langen Software-Support-Zyklen (5–6 Jahre)
+      watch_outs:
+      - Apple kontrolliert Ökosystem – Peripherie (Drucker, Kassenschublade) erfordert
+        MFi-zertifizierte Geräte
+      - Kein Android-Support – Betriebe mit Android-Präferenz nicht bedient
+      - Keine eigene TSE oder GoBD-Funktion – vollständig software-seitig sicherzustellen
+      native_integrations:
+        pms:
+        - n/a (Hardware-Layer)
+        channel_manager:
+        - n/a
+        booking_engine:
+        - n/a
+        accounting:
+        - n/a
+      has_api: n/a
+      api_docs_url: n/a
+      export_formats:
+      - n/a
+      compliance:
+        eu_hosting: n/a
+        data_residency_country: US (Apple; Daten beim Software-Anbieter)
+        avv_available: n/a
+        gdpr_status: n/a – Compliance liegt beim POS-Software-Anbieter
+        ai_act_classification: n_a
+        audit_trails: n/a
+        iso_certifications:
+        - ISO 27001 (Apple Inc.)
+        tse_konform: n/a (Hardware-Layer)
+        gobd_konform: n/a (Hardware-Layer)
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: high (als Plattform für Cloud-POS dominant)
+      recent_news_2025_2026:
+      - '2025: Apple Tap to Pay auf iPhone vollständig in DACH verfügbar – ermöglicht
+        iPhone als Kartenlesegerät für Servicepersonal'
+      - '2025: iPadOS 18 mit verbessertem Kiosk-Modus (Guided Access) für Self-Order-Szenarien'
+      - '2026: iPad mini 7 als kompaktes Handheld-POS für Tischservice populär bei
+        kleineren Betrieben'
+      typical_replacement_for:
+      - Windows-Touch-POS-Terminals
+      - Proprietäre POS-Hardware-Terminals
+      switching_complexity: low
+    - name: Vectron Mobile (mPOS Handheld)
+      website: https://www.vectron-systems.com/produkte/pos-m4-pay
+      country_of_origin: DE
+      founded_year: 1990
+      tier: smb
+      monthly_cost_eur:
+        S: 30
+        M: 30
+        L: 30
+        note: POS M4 Pay ab 29,90 €/Monat im Vectron Smart Mietmodell inkl. Versicherung;
+          integriertes Payment ohne Zusatzkosten
+      core_features:
+      - Mobiles Vectron-Kassensystem mit integriertem Zahlungsterminal (POS M4 Pay)
+      - Direktanbindung an stationäres Vectron-Kassennetz (gleiche Daten, keine Synchronisation
+        nötig)
+      - Bestellung und Abrechnung direkt am Tisch
+      - NFC-Zahlung (Kontaktlos, EC, Kredit, Mobile Pay)
+      - 4G/SIM-Karte optional für mobilen Außeneinsatz
+      - Vollständige TSE-Integration gemäß KassenSichV
+      target_segment:
+      - bediengastronomie
+      - biergarten
+      - event_gastronomie
+      - restaurant
+      strengths:
+      - Nahtlose Integration in bestehendes Vectron-Ökosystem – keine Drittsoftware
+        nötig
+      - Integriertes Payment im Mietpreis inklusive – weniger Komponentenkomplexität
+      - Robuste Vectron-Hardwarequalität mit Full-Service-Versicherung
+      watch_outs:
+      - Nur sinnvoll für Vectron-Hauptkassenkunden – kein Standalone-Produkt
+      - Abhängigkeit vom lokalen Vectron-Fachhändler für Service und Konfiguration
+      - Eingeschränkte App-Auswahl verglichen mit Android/iOS-Plattformen
+      native_integrations:
+        pms:
+        - Protel (via Vectron-Hauptsystem)
+        - Opera (via Partner)
+        channel_manager:
+        - unbekannt
+        booking_engine:
+        - resmio
+        - restablo
+        accounting:
+        - DATEV (via Vectron Commander)
+      has_api: true
+      api_docs_url: unbekannt (Vectron BI-Schnittstelle)
+      export_formats:
+      - DATEV
+      - CSV
+      - DSFinV-K
+      compliance:
+        eu_hosting: true
+        data_residency_country: DE
+        avv_available: true
+        gdpr_status: AVV verfügbar (Vectron-Gesamtvertrag)
+        ai_act_classification: n_a
+        audit_trails: true
+        iso_certifications:
+        - unbekannt
+        tse_konform: true
+        gobd_konform: true
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: medium (innerhalb Vectron-Installed-Base)
+      recent_news_2025_2026:
+      - '2025: POS M4 Pay in Vectron Smart Mietportfolio aufgenommen mit All-inclusive-Pricing'
+      - '2025/2026: Integration mit Shift4-Payment-Netzwerk nach Konzernübernahme
+        geplant'
+      typical_replacement_for:
+      - Separate Handheld-Orderpad-Systeme (Sielaff, Orderman)
+      - Analoge Papier-Bestellblöcke
+      switching_complexity: low
+    - name: Resy / Resy Server (Handheld-App)
+      website: https://resy.com
+      country_of_origin: US
+      founded_year: 2014
+      tier: smb
+      monthly_cost_eur:
+        S: 189
+        M: 399
+        L: unbekannt
+        note: Resy ist primär Reservierungsplattform; Server-App für iOS/Android kostenlos
+          für Resy-Abonnenten; Resy-Pläne ab ca. 189 USD/Monat (Schätzung für DACH)
+      core_features:
+      - Reservierungs- und Wartelisten-Management für Servicepersonal (Resy Server
+        App)
+      - Echtzeit-Tischstatus und Sitzplatzzuweisung auf Handheld-Gerät
+      - Gästeprofil-Zugriff (Präferenzen, Allergien, VIP-Status) am Tisch
+      - Integrierte Kommunikation zwischen Floor Manager und Servicepersonal
+      - Anbindung an Resy-Reservierungsplattform (American Express Travel Ecosystem)
+      - KEIN POS/Kassensystem – reine Hospitality-Management-App für Service-Staff
+      target_segment:
+      - fine_dining
+      - boutique
+      - stadthotel_restaurant
+      - trendy_restaurant
+      strengths:
+      - Branchenführende Reservierungsplattform mit starker US-Kundenbasis und wachsender
+        EU-Präsenz
+      - Tiefes Gästeprofil-Management und Loyalty-Integration (AmEx-Ökosystem)
+      - Intuitive Server-App ermöglicht papierlose Floormanagement-Workflows
+      watch_outs:
+      - Kein Kassensystem (POS) – immer in Kombination mit separatem POS nötig (Lightspeed,
+        Toast, etc.)
+      - DACH-Marktpräsenz sehr gering – primär US/UK-Fokus; DSGVO-Konformität prüfenswert
+      - Datenhaltung bei American Express (US) – EU-Datenschutz-Risiko für DACH-Kunden
+      native_integrations:
+        pms:
+        - Mews (Beta)
+        - Opera (eingeschränkt)
+        channel_manager:
+        - unbekannt
+        pos:
+        - Toast
+        - Lightspeed
+        - Square (US)
+        accounting:
+        - unbekannt
+      has_api: true
+      api_docs_url: https://resy.com/business (Partner-API auf Anfrage)
+      export_formats:
+      - CSV
+      - unbekannt
+      compliance:
+        eu_hosting: false
+        data_residency_country: US
+        avv_available: unbekannt
+        gdpr_status: unbekannt – US-Unternehmen unter AmEx; DSGVO-Status für DACH
+          zu prüfen
+        ai_act_classification: limited
+        audit_trails: unbekannt
+        iso_certifications:
+        - unbekannt
+        tse_konform: n/a (kein POS-System)
+        gobd_konform: n/a (kein Kassensystem)
+        pen_test_disclosed: unbekannt
+      market_share_dach_estimate: low
+      recent_news_2025_2026:
+      - '2024: American Express beschleunigt internationale Resy-Expansion inkl. Deutschland'
+      - '2025: Resy-Integration mit Lightspeed Restaurant für nahtlosen POS-Reservierungs-Workflow
+        angekündigt'
+      - '2026: Resy Network Germany Marketplace mit ca. 500 deutschen Restaurants
+        (sehr frühe Phase)'
+      typical_replacement_for:
+      - OpenTable
+      - SevenRooms
+      - Papierbasierte Reservierungsbücher
+      switching_complexity: low
+    category_summary: 'Der DACH-Markt für F&B-Kassensysteme ist 2026 geprägt von drei
+      Parallelbewegungen: (1) Cloud-first-Systeme (Gastronovi, Lightspeed, orderbird)
+      verdrängen sukzessive stationäre Legacy-Kassen, während Vectron als Marktführer
+      (~25 % Marktanteil) mit seinem Smart-Mietmodell und der Shift4-Integration den
+      Übergang zur Payment-integrierten Cloud meistert. (2) Compliance-Druck (KassenSichV,
+      TSE-Pflicht, neue ELSTER-Kassenmeldepflicht seit 2025) erhöht die Anforderungen
+      an alle Anbieter und begünstigt etablierte DE-Player wie Gastronovi, orderbird
+      und Hypersoft, die DSGVO- und GoBD-Konformität out-of-the-box liefern. (3) Im
+      Handheld-Segment setzt sich Android-Hardware (Sunmi V-Serie) als offene, kostengünstige
+      Plattform durch, während Apple iPad der dominante iOS-POS-Unterbau bleibt –
+      echte proprietäre Handheld-Terminals verlieren Marktanteile an diese offenen
+      Plattformen.'
+last_refresh: '2026-05-13T15:04:32.343531'
+category_count: 18
+total_vendor_count: 135

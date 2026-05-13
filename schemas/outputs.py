@@ -12,7 +12,7 @@ class ProcessTouchpoint(BaseModel):
 
 class ProcessStakeholder(BaseModel):
     role: str = Field(description="z.B. 'Reservierungs-Team', 'GF', 'Buchhaltung', 'Hausdame'")
-    fte_share: float = Field(default=0.0, description="Anteil eines Vollzeit-Äquivalents im Prozess (0.0-1.0)")
+    fte_share: float | None = Field(default=None, description="Anteil eines Vollzeit-Äquivalents im Prozess (0.0-1.0)")
     approval_required: bool = Field(default=False)
 
 
@@ -50,7 +50,7 @@ class Process(BaseModel):
     # — Aktuelle Ist-Situation —
     primary_pain: str = Field(description="Konkreter heute spürbarer Schmerz")
     workaround_today: str = Field(default="", description="Wie behilft sich das Haus heute? (Excel, Whiteboard, Anrufe, etc.)")
-    current_time_hours_per_week: float
+    current_time_hours_per_week: float | None = Field(default=None)
     frequency: Literal["daily", "weekly", "monthly", "ad-hoc", "seasonal"] = Field(default="weekly")
     volume_per_period: str = Field(default="", description="z.B. '~200 Mails/Woche', '~120 Rechnungen/Monat', '~30 Reservierungen/Tag'")
 
@@ -67,8 +67,8 @@ class Process(BaseModel):
     # — Hebel und Effekt —
     automation_potential: Literal["high", "medium", "low"]
     quick_win_eligible: bool = Field(default=False, description="Quick Win = unter 4 Wochen umsetzbar mit erkennbarem ROI")
-    estimated_savings_eur_year: int
-    estimated_time_saved_h_week: float = Field(default=0.0)
+    estimated_savings_eur_year: int | None = Field(default=None)
+    estimated_time_saved_h_week: float | None = Field(default=None)
     expected_quality_uplift: str = Field(default="", description="Qualitäts-/Service-Nutzen jenseits von Zeit/Geld")
 
     # — Umsetzung —
