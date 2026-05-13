@@ -59,13 +59,13 @@ OUTPUT — strikt JSON in dieser Struktur (KEINE Felder weglassen):
   "processes": [
     {
       "name": "prägnanter Prozess-Name max 60 Zeichen",
-      "domain": "front-office",
+      "domain": "PFLICHT: EXAKT einer dieser Werte → front-office | housekeeping | fnb-service | fnb-kueche | wellness-spa | mice | marketing | crm-gaeste | beschaffung | buchhaltung | gebaeude | personal | it | compliance | strategie-kpi",
       "sub_domain": "Reservierungs-Inbox",
       "description": "2-3 Sätze WAS der Prozess konkret ist, mit Bezug auf vorliegende Daten",
       "primary_pain": "Konkreter heute spürbarer Schmerz",
       "workaround_today": "Wie behilft sich das Haus heute? (Excel, Whiteboard, Anrufe, Handheld)",
       "current_time_hours_per_week": 12.5,
-      "frequency": "daily",
+      "frequency": "PFLICHT: EXAKT einer dieser Werte → daily | weekly | monthly | ad-hoc | seasonal",
       "volume_per_period": "z.B. '~200 Mails/Woche'",
       "stakeholders": [
         {"role": "Reservierungs-Team", "fte_share": 0.5, "approval_required": false},
