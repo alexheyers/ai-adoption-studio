@@ -1,0 +1,868 @@
+# Master-Fragepool · AI-Adoption-Studio · Hospitality MVP
+# 105 Fragen, 7 Kategorien, dynamische Selektion 12-15 pro Run
+# Skala: priority 1 (immer fragen), 2 (kontext-abhängig), 3 (deep-dive)
+# trigger_on: aktiviert die Frage wenn pain_point/kpi/segment passt
+# follow_up_depth: 1=Single Q, 2=eine Folgefrage erwartet, 3=tiefer Dialog möglich
+
+questions:
+
+  # ──────────────────────────────────────────────
+  # 1. BRANCHE & POSITIONIERUNG (15 Fragen)
+  # ──────────────────────────────────────────────
+  - id: BRA-01
+    category: Branche
+    sub_category: Positionierung
+    question: "Wie würden Sie Ihr Haus in einem Satz positionieren – also was unterscheidet Sie wirklich von der Konkurrenz drei Straßen weiter?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: BRA-02
+    category: Branche
+    sub_category: Zielgruppe
+    question: "Welche zwei Gästegruppen machen den größten Teil Ihres Umsatzes aus, und wie hat sich das in den letzten 24 Monaten verschoben?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: BRA-03
+    category: Branche
+    sub_category: Saisonalität
+    question: "Wie stark ist Ihr Geschäft saisonal getrieben, und wie gehen Sie aktuell mit den Schwachzeiten um?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie", "sub_segment:Boutique-Hotel"]
+
+  - id: BRA-04
+    category: Branche
+    sub_category: Markt-Trends
+    question: "Welche Branchen-Trends machen Ihnen aktuell am meisten Bauchschmerzen – Personalkosten, Bewertungsdruck, Direktbuchungs-Quote, etwas anderes?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: BRA-05
+    category: Branche
+    sub_category: Wettbewerb
+    question: "Welche zwei oder drei Wettbewerber beobachten Sie regelmäßig, und was machen die anders als Sie?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: BRA-06
+    category: Branche
+    sub_category: Online-Reputation
+    question: "Wie wichtig sind Bewertungsplattformen wie Google, Booking, TripAdvisor in Ihrer täglichen Realität – und wer kümmert sich darum?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: BRA-07
+    category: Branche
+    sub_category: Direktbuchung
+    question: "Wie hoch ist Ihr Anteil an Direktbuchungen versus OTA, und ist das aus Ihrer Sicht auf einem guten Niveau?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie", "sub_segment:Ferienhotel", "sub_segment:Stadthotel"]
+
+  - id: BRA-08
+    category: Branche
+    sub_category: Preisgestaltung
+    question: "Wie setzen Sie Ihre Preise aktuell – statisch, manuell saisonal, dynamisch über ein RMS oder per Bauchgefühl?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: BRA-09
+    category: Branche
+    sub_category: Gastronomie-Mix
+    question: "Wenn F&B Teil Ihres Hauses ist – ist das ein Profit-Center oder eher ein notwendiges Übel?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie", "current_tools:contains:Kasse"]
+
+  - id: BRA-10
+    category: Branche
+    sub_category: Eigentümer-Struktur
+    question: "Sind Sie inhabergeführt oder Teil einer Gruppe – und wie viel Entscheidungsfreiheit haben Sie real bei strategischen Investments?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: BRA-11
+    category: Branche
+    sub_category: Förderlandschaft
+    question: "Haben Sie in den letzten zwei Jahren öffentliche Fördermittel oder Digitalisierungs-Zuschüsse genutzt – und falls nein, warum nicht?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["region:DACH", "size_class:S", "size_class:M"]
+
+  - id: BRA-12
+    category: Branche
+    sub_category: Krisenresilienz
+    question: "Was haben Sie aus Corona, der Energiekrise und dem Personalmangel der letzten Jahre als Lehre mitgenommen?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: BRA-13
+    category: Branche
+    sub_category: Wachstum
+    question: "Wo stehen Sie wirtschaftlich – Wachstum, Konsolidierung oder Sanierungsmodus?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: BRA-14
+    category: Branche
+    sub_category: Markenstrategie
+    question: "Haben Sie eine klar formulierte Markenstrategie, oder ist das eher organisch gewachsen?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Boutique-Hotel", "sub_segment:Hotelgruppe"]
+
+  - id: BRA-15
+    category: Branche
+    sub_category: Internationalisierung
+    question: "Welcher Anteil Ihrer Gäste kommt aus dem Ausland, und gibt es Sprach-Barrieren im Service-Erlebnis?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["region:Berlin", "region:München", "region:Hamburg", "region:DACH-international"]
+
+  # ──────────────────────────────────────────────
+  # 2. OPERATIONS (18 Fragen)
+  # ──────────────────────────────────────────────
+  - id: OPS-01
+    category: Operations
+    sub_category: Front-Office
+    question: "Beschreiben Sie mir bitte einen typischen Check-in – vom Moment, in dem der Gast die Tür öffnet, bis er auf seinem Zimmer steht. Wo verlieren Sie Zeit oder Sympathie?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["sub_segment:Hotellerie", "sub_segment:Boutique-Hotel"]
+
+  - id: OPS-02
+    category: Operations
+    sub_category: Front-Office
+    question: "Wie viele Gäste-Anfragen kommen pro Tag rein – per Mail, Telefon, Formular – und wie schnell werden sie im Schnitt beantwortet?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: OPS-03
+    category: Operations
+    sub_category: Reservation
+    question: "Haben Sie ein zentrales Reservierungssystem oder läuft viel noch parallel über E-Mail und Excel?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: OPS-04
+    category: Operations
+    sub_category: Housekeeping
+    question: "Wie wird die Zimmerreinigung aktuell geplant und an die Reinigungskräfte übergeben – Papier, Whiteboard, App?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie", "sub_segment:Boutique-Hotel"]
+
+  - id: OPS-05
+    category: Operations
+    sub_category: Housekeeping
+    question: "Wie kommunizieren Reinigungskräfte Schäden, Auffälligkeiten oder Fundsachen an die Rezeption – und wo geht da regelmäßig Information verloren?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: OPS-06
+    category: Operations
+    sub_category: F&B
+    question: "Wie funktioniert bei Ihnen die Bestellannahme – klassisch am Tisch, über Tablets, QR-Codes auf dem Tisch?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie", "current_tools:contains:Kasse"]
+
+  - id: OPS-07
+    category: Operations
+    sub_category: F&B
+    question: "Wo entstehen die meisten Service-Fehler – falsche Bestellung, lange Wartezeit, Reklamation, Rechnung?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie"]
+
+  - id: OPS-08
+    category: Operations
+    sub_category: Lager-und-Wareneinsatz
+    question: "Wie steuern Sie Wareneinkauf und Lager – Erfahrungswerte, ein Warenwirtschaftssystem, händische Bestellung?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie", "sub_segment:Hotellerie"]
+
+  - id: OPS-09
+    category: Operations
+    sub_category: Wareneinsatz-KPI
+    question: "Kennen Sie aktuell Ihren Wareneinsatz-Anteil ad hoc, oder müssen Sie das aus dem Steuerberater-Bericht ablesen?"
+    priority: 2
+    follow_up_depth: 1
+    trigger_on: ["sub_segment:Gastronomie"]
+
+  - id: OPS-10
+    category: Operations
+    sub_category: Reklamation
+    question: "Wie laufen Beschwerden ab – wer nimmt sie auf, wo wird das dokumentiert, lernt das Team daraus?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: OPS-11
+    category: Operations
+    sub_category: Übergaben
+    question: "Wie funktioniert die Schicht-Übergabe – mündlich, im Übergabebuch, im PMS?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: OPS-12
+    category: Operations
+    sub_category: Energie
+    question: "Haben Sie einen Überblick über Ihren Energieverbrauch pro Zimmer-Nacht oder pro Gedeck – oder ist das eine Black-Box?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: OPS-13
+    category: Operations
+    sub_category: Wartung
+    question: "Wie werden Wartungs- und Reparatur-Tickets aktuell erfasst – Klemmbrett, WhatsApp, Ticketsystem?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: OPS-14
+    category: Operations
+    sub_category: Lieferanten
+    question: "Wie viele Lieferanten arbeiten regelmäßig mit Ihnen, und ist die Bestellabwicklung digital oder per Telefon und Fax?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["sub_segment:Gastronomie", "sub_segment:Hotellerie"]
+
+  - id: OPS-15
+    category: Operations
+    sub_category: Events-und-Veranstaltungen
+    question: "Spielen Tagungen, Hochzeiten oder Events eine Rolle in Ihrem Geschäft – und wie ist die Angebotserstellung dort organisiert?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie", "sub_segment:Tagungshotel"]
+
+  - id: OPS-16
+    category: Operations
+    sub_category: Frühstück
+    question: "Wie planen Sie Frühstücks-Mengen aktuell – nach Belegung, nach Erfahrungswert, Wegwerf-Quote bekannt?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: OPS-17
+    category: Operations
+    sub_category: Sicherheit
+    question: "Welche Prozesse haben Sie für Sicherheit, Datenschutz beim Check-in und Brandschutz – wo greifen Standards, wo improvisiert das Team?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: OPS-18
+    category: Operations
+    sub_category: Kennzahl-Steuerung
+    question: "Welche drei Kennzahlen schauen Sie sich morgens als erstes an, um zu wissen wie das Haus läuft?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  # ──────────────────────────────────────────────
+  # 3. PERSONAL & TEAM (15 Fragen)
+  # ──────────────────────────────────────────────
+  - id: PER-01
+    category: Personal
+    sub_category: Team-Größe
+    question: "Wie viele Mitarbeitende haben Sie aktuell, und wie verteilt sich das auf Festangestellte, Aushilfen und Saisonkräfte?"
+    priority: 1
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: PER-02
+    category: Personal
+    sub_category: Recruiting
+    question: "Wo finden Sie aktuell überhaupt noch Bewerber – Stellenportale, Empfehlungen, eigene Karriereseite, Social Media?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: PER-03
+    category: Personal
+    sub_category: Bewerbungs-Prozess
+    question: "Wie viele Tage vergehen typisch zwischen Bewerbungseingang und Zusage oder Absage – und wer macht das?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-04
+    category: Personal
+    sub_category: Onboarding
+    question: "Wie sieht der erste Arbeitstag bei Ihnen aus – gibt es eine standardisierte Einarbeitung oder lernt jeder durch Mitlaufen?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-05
+    category: Personal
+    sub_category: Dienstplan
+    question: "Wie planen Sie Dienstpläne – Excel, Software, händisch auf Papier?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-06
+    category: Personal
+    sub_category: Dienstplan-Aufwand
+    question: "Wie viele Stunden pro Woche kostet Sie oder Ihre Führungskraft die reine Dienstplan-Erstellung?"
+    priority: 2
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: PER-07
+    category: Personal
+    sub_category: Sprachbarrieren
+    question: "Sprechen alle in Ihrem Team Deutsch auf Service-Niveau, oder gibt es regelmäßig Verständigungs-Lücken?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-08
+    category: Personal
+    sub_category: Schulungen
+    question: "Welche Trainings oder Schulungen bekommen Mitarbeitende bei Ihnen pro Jahr – und gibt es ein Budget dafür?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-09
+    category: Personal
+    sub_category: Fluktuation
+    question: "Wie hoch schätzen Sie Ihre Fluktuation pro Jahr, und welche Rolle ist am schwersten zu halten?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: PER-10
+    category: Personal
+    sub_category: Mitarbeiter-Zufriedenheit
+    question: "Wie messen Sie Mitarbeiter-Zufriedenheit aktuell – gar nicht, Bauchgefühl, Befragung, Plattform?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-11
+    category: Personal
+    sub_category: Schulungs-Inhalte
+    question: "Gibt es bei Ihnen ein Wissens-Repository für Mitarbeitende – Standard-Antworten, Hausregeln, Prozeduren – oder steckt das alles in den Köpfen?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: PER-12
+    category: Personal
+    sub_category: Lohnabrechnung
+    question: "Lohnabrechnung – machen Sie das in-house oder über einen Steuerberater, und wie oft gibt es Korrekturen?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: PER-13
+    category: Personal
+    sub_category: Zeit-Erfassung
+    question: "Wie erfassen Mitarbeitende ihre Arbeitszeit – Stechuhr, Excel, App, gar nicht offiziell?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: PER-14
+    category: Personal
+    sub_category: Trinkgeld
+    question: "Wie wird Trinkgeld bei Ihnen verteilt und versteuert – ist das ein Friedens-Thema oder ein Konflikt-Punkt?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie"]
+
+  - id: PER-15
+    category: Personal
+    sub_category: Personalkosten-Quote
+    question: "Kennen Sie Ihre Personalkostenquote spontan, und wo sehen Sie die in Relation zum Branchen-Schnitt?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  # ──────────────────────────────────────────────
+  # 4. TOOLS & TECHNOLOGIE (15 Fragen)
+  # ──────────────────────────────────────────────
+  - id: TEC-01
+    category: Tools
+    sub_category: PMS
+    question: "Welches Property-Management-System nutzen Sie, und wie zufrieden sind Sie damit auf einer Skala von eins bis zehn?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: TEC-02
+    category: Tools
+    sub_category: Channel-Manager
+    question: "Setzen Sie einen Channel-Manager ein, und wie viele OTA-Plattformen sind da angebunden?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: TEC-03
+    category: Tools
+    sub_category: Booking-Engine
+    question: "Wie sieht Ihre direkte Booking-Engine aus – moderne Conversion-Optimierung oder eine Lösung von 2017?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: TEC-04
+    category: Tools
+    sub_category: Kasse
+    question: "Welches Kassensystem ist im Einsatz, und kann das mit dem PMS oder dem Steuerberater sauber sprechen?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie", "sub_segment:Hotellerie"]
+
+  - id: TEC-05
+    category: Tools
+    sub_category: Kommunikation
+    question: "Womit kommuniziert Ihr Team intern – WhatsApp privat, dienstliche Lösung, Funk, gar nicht digital?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: TEC-06
+    category: Tools
+    sub_category: CRM
+    question: "Haben Sie eine Gäste-Datenbank, die mehr ist als E-Mail-Adressen für Newsletter – also echtes CRM mit Präferenzen und Historie?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: TEC-07
+    category: Tools
+    sub_category: Bewertungs-Management
+    question: "Wie reagieren Sie auf Online-Bewertungen – ein Mensch tippt jede einzeln, Tool wie Customer Alliance, oder gar nicht systematisch?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: TEC-08
+    category: Tools
+    sub_category: Daten-Auswertung
+    question: "Wenn Sie morgens den Vortag analysieren wollen – Belegung, Umsatz, F&B-Spend pro Gast – wie viele Klicks oder Excel-Schritte sind das?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: TEC-09
+    category: Tools
+    sub_category: Schnittstellen
+    question: "Welche zwei Systeme bei Ihnen reden überhaupt nicht miteinander, und Sie wünschen sich, sie würden es?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: TEC-10
+    category: Tools
+    sub_category: Cloud-vs-OnPremise
+    question: "Sind Ihre Hauptsysteme cloud-basiert oder läuft noch Server-Software auf einem Rechner im Büro?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: TEC-11
+    category: Tools
+    sub_category: KI-Vorerfahrung
+    question: "Haben Sie oder Ihr Team schon mit ChatGPT, Copilot oder anderen KI-Tools gearbeitet – wenn ja, wofür?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: TEC-12
+    category: Tools
+    sub_category: Hardware
+    question: "Welche Endgeräte hat das Team im Einsatz – feste Workstations, Tablets, eigene Smartphones, gar nichts?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: TEC-13
+    category: Tools
+    sub_category: WLAN-und-IT
+    question: "WLAN für Gäste – ist das ein Service-Argument oder eher eine ständige Beschwerdequelle?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: TEC-14
+    category: Tools
+    sub_category: Backup-und-Sicherheit
+    question: "Wie regelmäßig werden Ihre Daten gesichert, und wer wäre der Ansprechpartner, wenn morgen alles weg wäre?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: TEC-15
+    category: Tools
+    sub_category: Tool-Budget
+    question: "Was geben Sie ungefähr pro Monat für all Ihre Software-Lizenzen aus, und ist das in Ihren Augen verhältnismäßig?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  # ──────────────────────────────────────────────
+  # 5. MARKETING & GAST-EXPERIENCE (15 Fragen)
+  # ──────────────────────────────────────────────
+  - id: MKT-01
+    category: Marketing
+    sub_category: Kanal-Strategie
+    question: "Welche drei Marketing-Kanäle bringen Ihnen aktuell die meisten Buchungen?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-02
+    category: Marketing
+    sub_category: Website
+    question: "Wann wurde Ihre Website das letzte Mal grundlegend überarbeitet, und ist sie auf dem Smartphone wirklich nutzbar?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-03
+    category: Marketing
+    sub_category: Content
+    question: "Wer schreibt bei Ihnen Texte für Newsletter, Social Media, Speisekarte – Sie selbst, ein Mitarbeiter, eine Agentur?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: MKT-04
+    category: Marketing
+    sub_category: Social-Media
+    question: "Welche Social-Media-Kanäle pflegen Sie aktiv, und wie viel Zeit kostet das pro Woche?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-05
+    category: Marketing
+    sub_category: Bilder-und-Video
+    question: "Wann wurden Ihre offiziellen Foto- und Video-Aufnahmen zuletzt erneuert, und wer aktualisiert kleinere Visuals zwischendurch?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-06
+    category: Marketing
+    sub_category: Newsletter
+    question: "Schicken Sie Newsletter raus, und wie groß ist Ihr Verteiler – und wie aktiv ist er?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-07
+    category: Marketing
+    sub_category: Stamm-Gäste
+    question: "Wie pflegen Sie Beziehungen zu Stamm-Gästen – persönlich, automatisiert, gar nicht systematisch?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: MKT-08
+    category: Marketing
+    sub_category: Pricing-Kommunikation
+    question: "Wie kommunizieren Sie Preisänderungen oder Sonder-Angebote – manuell überall, automatisiert über das System, ad hoc?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-09
+    category: Marketing
+    sub_category: Ad-Spend
+    question: "Investieren Sie aktuell in bezahlte Werbung – Google, Meta, Booking, lokale Medien – und was funktioniert davon wirklich?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-10
+    category: Marketing
+    sub_category: Anfrage-zu-Buchung
+    question: "Was ist Ihre Conversion-Rate von Anfrage zu Buchung, und wo gehen die meisten Interessenten verloren?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: MKT-11
+    category: Marketing
+    sub_category: Personalisierung
+    question: "Bekommt jeder Gast die gleiche Bestätigungs-Mail, oder personalisieren Sie nach Anlass, Sprache, Zielgruppe?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-12
+    category: Marketing
+    sub_category: Übersetzungen
+    question: "Sind Ihre wichtigsten Texte in mehreren Sprachen verfügbar, und wer pflegt diese Versionen?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["region:DACH-international"]
+
+  - id: MKT-13
+    category: Marketing
+    sub_category: Kooperationen
+    question: "Haben Sie strukturierte Kooperationen mit Tourismusverbänden, lokalen Anbietern, Influencern – oder ist das alles eher zufällig?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: MKT-14
+    category: Marketing
+    sub_category: Storytelling
+    question: "Was ist die Geschichte Ihres Hauses, die Sie eigentlich gerne öfter erzählen würden – und schaffen Sie das aktuell?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["sub_segment:Boutique-Hotel", "sub_segment:Familienbetrieb"]
+
+  - id: MKT-15
+    category: Marketing
+    sub_category: Gast-Lifecycle
+    question: "Wenn ein Gast abgereist ist – passiert dann irgendetwas Strukturiertes, um ihn zurückzuholen, oder hoffen Sie auf Empfehlung?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  # ──────────────────────────────────────────────
+  # 6. COMPLIANCE & RISIKEN (12 Fragen)
+  # ──────────────────────────────────────────────
+  - id: COM-01
+    category: Compliance
+    sub_category: DSGVO-Reife
+    question: "Wie ist Ihre DSGVO-Aufstellung – haben Sie einen externen Datenschutzbeauftragten, ein Verzeichnis, oder ist das eher Bauchgefühl?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: COM-02
+    category: Compliance
+    sub_category: Gäste-Daten
+    question: "Wo werden Gäste-Daten heute gespeichert, und gibt es klare Regeln, wer Zugriff hat?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: COM-03
+    category: Compliance
+    sub_category: Meldepflichten
+    question: "Wie laufen Meldescheine bei Ihnen – digital, Papier-Stapel, gar nicht im Griff?"
+    priority: 2
+    follow_up_depth: 1
+    trigger_on: ["sub_segment:Hotellerie"]
+
+  - id: COM-04
+    category: Compliance
+    sub_category: Steuer-Compliance
+    question: "Sind Sie mit der Kassen-Sicherungs-Verordnung, TSE und Co. komplett im grünen Bereich, oder gibt es da Ungewissheit?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie"]
+
+  - id: COM-05
+    category: Compliance
+    sub_category: Bewertungs-Echtheit
+    question: "Schreiben oder veröffentlichen Sie irgendwelche Bewertungen selbst – und wenn ja, wissen Sie, dass das rechtlich heikel ist?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: COM-06
+    category: Compliance
+    sub_category: Hygiene
+    question: "Wie wird HACCP bei Ihnen dokumentiert – Klemmbrett, App, gar nicht?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Gastronomie", "sub_segment:Hotellerie"]
+
+  - id: COM-07
+    category: Compliance
+    sub_category: AI-Act-Bewusstsein
+    question: "Haben Sie sich mit dem EU-AI-Act schon beschäftigt – wissen Sie, welche KI-Anwendungen für Ihre Branche relevant werden?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: COM-08
+    category: Compliance
+    sub_category: Drittanbieter
+    question: "Welche Auftragsverarbeitungs-Verträge haben Sie mit Ihren wichtigsten IT-Dienstleistern, und wann zuletzt überprüft?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: COM-09
+    category: Compliance
+    sub_category: Versicherung
+    question: "Sind Cyber-Risiken in Ihrem Versicherungs-Portfolio abgedeckt, oder noch nie aktiv betrachtet?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: COM-10
+    category: Compliance
+    sub_category: Notfall-Plan
+    question: "Wenn morgen Ihre Buchungs-Software ausfällt – haben Sie einen klaren Plan, oder läuft das Haus aus dem Stehgreif?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: COM-11
+    category: Compliance
+    sub_category: Mitarbeiter-Daten
+    question: "Wie steht es um den Datenschutz bei Mitarbeiter-Daten – Bewerbungen, Lohnzettel, Krankmeldungen?"
+    priority: 3
+    follow_up_depth: 1
+    trigger_on: ["always"]
+
+  - id: COM-12
+    category: Compliance
+    sub_category: Aufzeichnungs-Pflichten
+    question: "Welche gesetzlichen Aufzeichnungs-Pflichten kosten Sie aktuell die meiste Zeit – Arbeitszeit, Hygiene, Steuer, Belegung?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  # ──────────────────────────────────────────────
+  # 7. STRATEGIE & ZUKUNFT (15 Fragen)
+  # ──────────────────────────────────────────────
+  - id: STR-01
+    category: Strategie
+    sub_category: 12-Monats-Ziel
+    question: "Was wäre für Sie ein wirklich gutes Ergebnis im nächsten Geschäftsjahr – woran würden Sie messen, dass es gelaufen ist?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-02
+    category: Strategie
+    sub_category: 3-Jahres-Vision
+    question: "Wo soll Ihr Haus in drei Jahren stehen – und was unterscheidet das von heute am stärksten?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-03
+    category: Strategie
+    sub_category: Investitions-Bereitschaft
+    question: "Wie viel würden Sie in Digitalisierung dieses Jahr investieren, wenn der Mehrwert sauber belegbar wäre?"
+    priority: 1
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: STR-04
+    category: Strategie
+    sub_category: KI-Erwartung
+    question: "Wenn Sie an KI für Ihr Haus denken – was erhoffen Sie sich, und wovor haben Sie am meisten Respekt?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-05
+    category: Strategie
+    sub_category: Zeit-Engpass
+    question: "Wofür hätten Sie persönlich gerne mehr Zeit, die Ihnen aktuell durch Routine-Arbeit fehlt?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-06
+    category: Strategie
+    sub_category: Nachfolge
+    question: "Ist eine Nachfolge oder Übergabe im Haus geplant – und spielt das in Ihre Investitions-Entscheidungen rein?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["sub_segment:Familienbetrieb"]
+
+  - id: STR-07
+    category: Strategie
+    sub_category: Internationalisierung
+    question: "Spielt internationaler Gast-Anteil eine strategische Rolle für Sie – oder sind Sie bewusst lokal aufgestellt?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: STR-08
+    category: Strategie
+    sub_category: Nachhaltigkeit
+    question: "Welche Rolle spielt Nachhaltigkeit in Ihrer Strategie – Marketing-Argument, ehrliche Überzeugung, gesetzliche Anforderung?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-09
+    category: Strategie
+    sub_category: Innovations-Kultur
+    question: "Wer im Team bringt regelmäßig Ideen ein, und werden die wirklich umgesetzt oder versanden sie?"
+    priority: 2
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: STR-10
+    category: Strategie
+    sub_category: Veränderungs-Bereitschaft
+    question: "Wie würde Ihr Team reagieren, wenn ich morgen sage, ein KI-Assistent übernimmt einen Teil ihrer Arbeit – Erleichterung, Skepsis, Widerstand?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-11
+    category: Strategie
+    sub_category: Standort-Entwicklung
+    question: "Steht in den nächsten zwei Jahren ein größerer Umbau, eine Erweiterung oder ein Standort-Wechsel an?"
+    priority: 3
+    follow_up_depth: 2
+    trigger_on: ["always"]
+
+  - id: STR-12
+    category: Strategie
+    sub_category: Markt-Differenzierung
+    question: "Wenn ein Gast Ihnen treu bleibt – was ist nach Ihrer Beobachtung der eigentliche Grund?"
+    priority: 2
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-13
+    category: Strategie
+    sub_category: Risiko-Gewichtung
+    question: "Was wäre für Sie das schlimmere Szenario – nichts in KI investieren und überholt werden, oder zu früh investieren und Geld verbrennen?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-14
+    category: Strategie
+    sub_category: Quick-Win-Sehnsucht
+    question: "Wenn ich Ihnen einen einzigen schnellen Erfolg in den nächsten dreißig Tagen schenken könnte – wo würde der Ihrer Meinung nach am meisten bewirken?"
+    priority: 1
+    follow_up_depth: 3
+    trigger_on: ["always"]
+
+  - id: STR-15
+    category: Strategie
+    sub_category: Entscheidungs-Kontext
+    question: "Wer wird am Ende mit Ihnen die Entscheidung treffen, ob wir hier weitermachen – Sie alleine, eine Gruppe, externe Berater?"
+    priority: 2
+    follow_up_depth: 1
+    trigger_on: ["always"]

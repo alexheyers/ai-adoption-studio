@@ -1,0 +1,516 @@
+# Hypothesen-Bäume für Voice-Interview · Hospitality DACH 2026
+# 25 MECE-Themen — Ada arbeitet sie hypothesen-getrieben ab, statt linear Fragen abzuhaken.
+# Jeder Baum: trigger (wann aktivieren), root_question, follow_ups (max 4),
+# push_back (für Widerspruch), quantification (Rechen-Hint), exit_criteria.
+
+trees:
+
+  # ── 01 · OTA-PROVISIONS-ABHÄNGIGKEIT ─────────────────────────────────
+  - id: TREE-OTA-DEPENDENCY
+    category: Revenue
+    trigger:
+      - ota_provision_quote > 0.08
+      - direktbuchungs_quote < 0.40
+    root_question: "Sie zahlen rund {OTA_EUR} EUR pro Jahr an OTA-Provisionen — das sind {OTA_RATE} Prozent vom Zimmerumsatz. Der Branchen-Median für Boutique-Häuser Ihrer Größe liegt bei 6,5 Prozent. Welche Direktbuchungs-Initiativen haben Sie in den letzten zwei Jahren probiert — und warum sind die nicht skaliert?"
+    follow_ups:
+      - "Wann zuletzt Booking-Engine-Redesign? Conversion-Rate Anfrage-zu-Buchung?"
+      - "Wie kommunizieren Sie den Preis-Vorteil bei Direktbuchung? Best-Rate-Garantie aktiv?"
+      - "Newsletter-Verteiler — wie groß, wie aktiv, wer pflegt ihn?"
+      - "Stammgäste — woher kommen die Direktbuchungen vs Empfehlungen?"
+    push_back: "Drei Boutique-Häuser Ihrer Größenklasse haben über 55 Prozent Direktbuchungen — was unterscheidet die strukturell von Ihnen?"
+    quantification: "Jeder Direktbuchungs-Prozentpunkt = annual_revenue × 0.7 × (current_ota_rate - target_ota_rate). Bei {ANNUAL_REVENUE} EUR Umsatz und Shift auf 6,5 % OTA-Rate: ~{HEBEL} EUR/Jahr Ersparnis."
+    exit_criteria: "Sie verstehen warum Direktbuchung nicht skaliert + bereit für konkrete Maßnahme"
+
+  # ── 02 · ANTWORTZEIT-ENGPASS ─────────────────────────────────
+  - id: TREE-RESPONSE-TIME
+    category: Operations
+    trigger:
+      - email_response_hours > 6
+      - "answer_quote_reviews < 0.7"
+    root_question: "Sie geben an, die Antwortzeit auf Reservierungs-Mails liegt bei {RESPONSE_HOURS} Stunden Schnitt. Branchen-Best-Practice liegt unter 4 Stunden. Wie viele Buchungen geschätzt verlieren Sie pro Monat an Wettbewerber, die schneller sind?"
+    follow_ups:
+      - "Wer bearbeitet aktuell die Reservierungs-Mails? In welchem Tool? Wie viele Std/Tag?"
+      - "Was sind die TOP-3 wiederkehrenden Fragen-Typen in den Mails?"
+      - "Welche Antworten könnten Sie heute schon mit einem Template-System auto-beantworten?"
+    push_back: "Wenn 60-70 Prozent der Mails klassische Wiederkehrer sind — warum brauchen die einen Menschen?"
+    quantification: "Geschätzt 0,15 Buchungen Verlust pro 10 Stunden Verzögerung. Bei {AVG_BOOKING_EUR} EUR Buchungswert × {MAILS_PER_MONTH} Mails: ~{HEBEL} EUR Opportunity-Cost/Jahr."
+    exit_criteria: "Konkrete Quantifizierung des Verlusts + Bereitschaft für Auto-Triage"
+
+  # ── 03 · REVIEW-MANAGEMENT-LÜCKE ─────────────────────────────────
+  - id: TREE-REVIEW-GAP
+    category: Reputation
+    trigger:
+      - review_response_rate < 0.7
+    root_question: "Sie antworten aktuell auf {REVIEW_RATE} Prozent der Bewertungen. Die Branchen-Norm sind über 85 Prozent. Was hält Sie strukturell davon ab?"
+    follow_ups:
+      - "Wer schreibt aktuell die Antworten — Reception, Hausdame, Geschäftsführung selbst?"
+      - "Wie viel Zeit kostet eine durchschnittliche Antwort?"
+      - "Gibt es Tonalitäts-Beispiele oder schreibt jeder anders?"
+    push_back: "Wenn Tonalität das Problem wäre — würde eine KI mit Ihren letzten 20 echten Antworten als Beispiel das nicht 95 Prozent gut hinbekommen, mit 1-Klick-Freigabe?"
+    quantification: "Google-Score-Anstieg um 0,15 Punkte korreliert mit ~3-5 Prozent Buchungs-Conversion-Increase. Bei {ANNUAL_REVENUE} EUR Umsatz: ~{HEBEL} EUR/Jahr."
+    exit_criteria: "GF sieht den Hebel + Tonalität-Frage geklärt"
+
+  # ── 04 · PERSONAL-FLUKTUATION ─────────────────────────────────
+  - id: TREE-FLUCTUATION
+    category: Personal
+    trigger:
+      - fluctuation_rate > 0.30
+    root_question: "Ihre Fluktuation liegt bei {FLUC_RATE} Prozent — in welchem Bereich besonders, und wie hoch schätzen Sie die direkten Kosten pro verlorenem Mitarbeiter (Recruiting + Onboarding + Lernkurve)?"
+    follow_ups:
+      - "Wann gehen Mitarbeiter am häufigsten — nach 3 Monaten, nach Saison, nach 1 Jahr?"
+      - "Gibt es Exit-Interviews oder strukturiertes Feedback?"
+      - "Was unterscheidet die Mitarbeiter die bleiben, von denen die gehen?"
+    push_back: "51 Prozent Fluktuation in F&B ist kein Marktphänomen — das ist hausspezifisch. Was tun die zwei besseren Hotels in Ihrem Ort anders?"
+    quantification: "Recruiting+Onboarding pro Position ~4.200 EUR. Bei {EMPLOYEE_COUNT} MA und Reduktion um 10 Prozentpunkte: ~{HEBEL} EUR Ersparnis."
+    exit_criteria: "Strukturelle Ursachen-Hypothese formuliert"
+
+  # ── 05 · RECRUITING-PROZESS ─────────────────────────────────
+  - id: TREE-RECRUITING
+    category: Personal
+    trigger:
+      - open_positions_exist
+      - time_to_fill_months > 3
+    root_question: "Sie suchen seit {MONTHS} Monaten eine bestimmte Position ohne Erfolg. Wie viele Bewerbungen kommen rein, wie viele werden tatsächlich beantwortet — und wie schnell?"
+    follow_ups:
+      - "Auf welchen Plattformen sind Sie aktiv? Was kosten die im Monat?"
+      - "Wer screent die Bewerbungen — wie lange dauert das pro Stück?"
+      - "Wie viele Bewerber 'ghosten' Sie (keine Reaktion vom Bewerber zurück)?"
+    push_back: "Wenn der Bewerber 6 Tage auf eine Reaktion wartet — verlieren Sie den nicht an den Wettbewerber der nach 4 Stunden antwortet?"
+    quantification: "Eine Sous-Chef-Vakanz kostet bei Resort-M-Setup ~8-12k EUR/Monat Opportunity-Cost (verlorenes F&B-Niveau, mehr Stress aufs Team)."
+    exit_criteria: "Recruiting-Geschwindigkeit als Problem identifiziert (oder eben nicht)"
+
+  # ── 06 · DIENSTPLAN-AUFWAND ─────────────────────────────────
+  - id: TREE-SCHEDULING
+    category: Personal
+    trigger:
+      - scheduling_method == "excel" OR "manual"
+      - employee_count > 20
+    root_question: "Wer erstellt die Dienstpläne und wie lange dauert das pro Woche? Welches Tool wird genutzt?"
+    follow_ups:
+      - "Wie oft kommen kurzfristige Änderungen (Krankheit, Tausch) — und wie werden die kommuniziert?"
+      - "Sprach-Barrieren oder Verfügbarkeits-Konflikte regelmäßig?"
+      - "Wer prüft Arbeitszeit-Gesetz-Konformität (Pausenregeln, Ruhezeiten)?"
+    push_back: "Bei 6 Stunden pro Woche Dienstplan-Aufwand und 50 Wochen — das sind 300 Stunden Führungs-Zeit, die ein Tool für 4 EUR pro MA und Monat lösen würde. Warum nicht?"
+    quantification: "Hausdame Stundenkosten ~45 EUR × eingesparte Stunden × Wochen/Jahr = direkter Hebel."
+    exit_criteria: "Aufwand quantifiziert + Tool-Bereitschaft geklärt"
+
+  # ── 07 · STAMMGÄSTE-PFLEGE ─────────────────────────────────
+  - id: TREE-LOYAL-GUESTS
+    category: Marketing
+    trigger:
+      - stammgaeste_quote > 0.15
+      - crm_in_place == false OR rudimentary
+    root_question: "Ihre Stammgästequote ist {STAMM_RATE} Prozent — das ist deutlich überdurchschnittlich. Wie pflegen Sie diese Beziehungen aktuell — strukturiert, persönlich, ad-hoc?"
+    follow_ups:
+      - "Wissen Sie wer die top 20 Prozent Stammgäste sind, mit welchen Aufenthalts-Mustern?"
+      - "Wie kommunizieren Sie zwischen den Aufenthalten — Newsletter, persönliche Mail, gar nicht?"
+      - "Wann zuletzt eine personalisierte Aktion (Geburtstag, Anniversary, Stamm-Rate)?"
+    push_back: "Eine 35-Prozent-Stammgästequote ist Gold. Aber wenn Sie nicht wissen WER die sind und WAS sie wollen, hängt das nur am persönlichen Eindruck einer Person — was wenn die geht?"
+    quantification: "Stammgäste-Lifetime-Value-Increase 18 Prozent durch CRM = bei {STAMM_REVENUE} EUR Stamm-Umsatz: ~{HEBEL} EUR/Jahr."
+    exit_criteria: "Risiko des nicht-strukturierten Stammgast-Programms erkannt"
+
+  # ── 08 · PMS / SYSTEM-INTEGRATIONEN ─────────────────────────────────
+  - id: TREE-PMS-FRAGMENTATION
+    category: Tools
+    trigger:
+      - tools_integration_count > 3 AND not_well_connected
+    root_question: "Welche zwei Systeme bei Ihnen reden überhaupt nicht miteinander — wo entstehen die meisten manuellen Übertragungs-Aufwände?"
+    follow_ups:
+      - "PMS-Channel-Manager-Booking-Engine — wie sind diese drei verbunden?"
+      - "Wo entstehen Daten-Lücken (Gast bucht via OTA → kommt seine Email in Newsletter-Verteiler)?"
+      - "Wer fängt Inkonsistenzen ab — Reception täglich, oder fällt das niemandem auf?"
+    push_back: "Sie haben Apaleo + Cubilis + HotelNetSolutions + Excel + Outlook + WhatsApp — das sind 6 Touchpoints für Gäste-Kommunikation. Wie soll daraus ein konsistentes Erlebnis entstehen?"
+    quantification: "Geschätzt 30-60 Min/Tag Übertragungs-Arbeit bei Reception = ~150 h/Jahr × 35 EUR Stundenlohn ≈ 5.250 EUR."
+    exit_criteria: "Konkrete Integrations-Lücken benannt"
+
+  # ── 09 · EIGENTÜMER-ZIELE / NACHFOLGE ─────────────────────────────────
+  - id: TREE-OWNER-GOALS
+    category: Strategie
+    trigger:
+      - "always_at_some_point"
+    root_question: "Was ist Ihr 5-Jahres-Ziel für das Haus — Cash-Flow-Optimierung, Wertsteigerung für späteren Verkauf, Übergabe an die nächste Generation, oder Lifestyle-Position halten?"
+    follow_ups:
+      - "Bei Sukzession-Plan: ist die nächste Generation klar identifiziert + bereit?"
+      - "Bei Wertsteigerung: zielen Sie auf einen Multiple auf EBITDA — wie viel mehr soll der wert sein?"
+      - "Welche Investitionen in den letzten 3 Jahren haben Sie zurückgestellt?"
+    push_back: "Wenn Sie nicht klar wissen ob Sie verkaufen oder halten — sind die meisten Investitions-Entscheidungen suboptimal. Was hält Sie davon ab, sich festzulegen?"
+    quantification: "Eigentümer-Ziel definiert die Discount-Rate für jede Use-Case-Bewertung — bei Halten 8%, bei Verkauf 12% (3 J Horizont)."
+    exit_criteria: "Klare Ausrichtung — ohne die ist keine Roadmap-Priorisierung möglich"
+
+  # ── 10 · MICE / VERANSTALTUNGEN ─────────────────────────────────
+  - id: TREE-MICE
+    category: Revenue
+    trigger:
+      - mice_anteil_umsatz > 0.15 OR sub_segment == tagungshotel
+    root_question: "Tagungen und Veranstaltungen machen {MICE_PCT} Prozent Ihres Umsatzes aus. Wie ist die Angebotserstellung für Anfragen organisiert — wie schnell, wie individuell?"
+    follow_ups:
+      - "Wie viele Stunden Aufwand pro Angebot? Wie viele Angebote pro Monat?"
+      - "Conversion-Rate Anfrage → Buchung? Wo gehen Anfragen verloren?"
+      - "Wer übernimmt Follow-Up nach versendeten Angeboten?"
+    push_back: "Wenn ein 5.000-EUR-Angebot zwei Stunden dauert + Follow-Up vergessen wird — was kostet das pro nicht-konvertiertem Lead?"
+    quantification: "MICE-Conversion-Steigerung um 5 Prozentpunkte × Tagungs-Pipeline-Volume = direkter Umsatz-Hebel."
+    exit_criteria: "MICE-Prozess als KI-Use-Case-Kandidat (Angebot-Generator + Follow-Up-Automation) identifiziert"
+
+  # ── 11 · F&B WARENEINSATZ ─────────────────────────────────
+  - id: TREE-FOOD-COST
+    category: Operations
+    trigger:
+      - wareneinsatz_anteil > benchmark_p75
+    root_question: "Ihr Wareneinsatz liegt bei {FOOD_PCT} Prozent — Branchen-p75 sind {BENCH} Prozent. Wo geht die Marge verloren — Einkauf, Portionierung, Wegwerf-Quote, oder Speisekarten-Mix?"
+    follow_ups:
+      - "Wie kommt Wareneinsatz-Auswertung zustande — Steuerberater-Bericht monatlich, oder live im System?"
+      - "Wie viele Lieferanten regelmäßig? Preisvergleiche aktiv?"
+      - "Wegwerf-Quote im Frühstück / Buffet?"
+    push_back: "8 Prozentpunkte über p75 — das sind ~120k EUR/Jahr in einem 4-Mio-Umsatz-Haus. Das ist eine eigene halbe Position."
+    quantification: "(actual_food_cost - target_food_cost) × annual_fnb_revenue = direkter Hebel."
+    exit_criteria: "Wareneinsatz-Hebel quantifiziert + Ursache lokalisiert"
+
+  # ── 12 · ENERGIE-KOSTEN ─────────────────────────────────
+  - id: TREE-ENERGY
+    category: Operations
+    trigger:
+      - energy_cost_pct_revenue > 0.04
+    root_question: "Energie macht {ENERGY_PCT} Prozent Ihrer Umsätze aus — wo entsteht der Hauptverbrauch, und haben Sie pro-Zimmer-Nacht-Kennzahlen?"
+    follow_ups:
+      - "Wann zuletzt energetische Sanierung gemacht?"
+      - "PV-Anlage / Wärmepumpe in Planung oder verworfen?"
+      - "Smart-Heating in den Zimmern (Belegungs-abhängig)?"
+    push_back: "19 Prozent Energie-Kosten-Anstieg in 2025 — wenn das nicht strukturell angegriffen wird, sinkt die GOP-Marge weiter."
+    quantification: "Smart-Heating in Hotelzimmern reduziert Verbrauch typischerweise 15-25 Prozent."
+    exit_criteria: "Energie als strategisches Thema klassifiziert"
+
+  # ── 13 · ENTSCHEIDUNGS-KONTEXT ─────────────────────────────────
+  - id: TREE-DECISION-CONTEXT
+    category: Strategie
+    trigger:
+      - "always_at_end"
+    root_question: "Wer trifft die finale Entscheidung über die Investitions-Vorschläge, die wir gleich gemeinsam entwickeln — Sie allein, Familie, Beirat, externe Berater?"
+    follow_ups:
+      - "Wie lange brauchen Sie typisch zwischen Vorschlag und Freigabe?"
+      - "Wen müssen wir mit einbeziehen, um schnell vom Konzept zur Umsetzung zu kommen?"
+      - "Welche Investitionen wurden in den letzten 2 Jahren NICHT freigegeben — warum?"
+    push_back: "Wenn die Familie entscheidet und unterschiedliche Sichtweisen hat — bringen wir die ans Tisch oder fertigen wir Argumentations-Hilfen?"
+    quantification: "Zeit-vom-Vorschlag-zur-Umsetzung = strategischer Faktor für jede Roadmap-Schätzung."
+    exit_criteria: "Stakeholder-Landschaft klar"
+
+  # ── 14 · VERÄNDERUNGSBEREITSCHAFT TEAM ─────────────────────────────────
+  - id: TREE-CHANGE-READINESS
+    category: Personal
+    trigger:
+      - "always_at_late_stage"
+    root_question: "Wenn ich morgen sage: 'KI übernimmt 60 Prozent der Reservierungs-Mail-Bearbeitung' — wie reagiert die Reception? Skepsis, Erleichterung, Widerstand?"
+    follow_ups:
+      - "Wer aus dem Team bringt regelmäßig Verbesserungs-Ideen ein?"
+      - "Gab es schon Versuche mit Digitalisierung — was hat funktioniert, was ist gescheitert, warum?"
+      - "Gibt es einen Betriebsrat? Frühe Einbindung möglich?"
+    push_back: "Die beste KI-Adoption scheitert an Mitarbeiter-Widerstand. Wer wäre Ihr stärkster Verbündeter im Team — und wer Ihre größte Hürde?"
+    quantification: "Change-Resistance kann Umsetzungs-Zeit verdoppeln. Realistische Pufferzeit einplanen."
+    exit_criteria: "Champion + Bremser identifiziert"
+
+  # ── 15 · DIGITALER REIFEGRAD ─────────────────────────────────
+  - id: TREE-DIGITAL-MATURITY
+    category: Tools
+    trigger:
+      - "always_in_early_phase"
+    root_question: "Wo sehen Sie Ihr Haus auf einer Skala von 1 (alles auf Papier) bis 10 (cloud-nativ, alle Daten verbunden) — und wo der Wettbewerber von gegenüber?"
+    follow_ups:
+      - "Welcher Tool-Wechsel der letzten 3 Jahre war ein Erfolg — welcher ein Reinfall?"
+      - "Wer ist intern Tech-Champion / verantwortlich für IT-Themen?"
+      - "Budget für IT/Software in 2026?"
+    push_back: "Wenn Sie sich bei 5 einschätzen und der Wettbewerber bei 7 — was hat der was Sie nicht haben, und warum?"
+    quantification: "Digitale Reife korreliert mit GOP-Margin: pro Skala-Punkt ~1-2 Prozentpunkte Margin-Vorteil bei vergleichbaren Häusern."
+    exit_criteria: "Selbst-Einschätzung kalibriert + Tech-Champion identifiziert"
+
+  # ── 16 · GÄSTE-FEEDBACK-LOOP ─────────────────────────────────
+  - id: TREE-GUEST-FEEDBACK
+    category: Reputation
+    trigger:
+      - "always"
+    root_question: "Wie kommen die Erkenntnisse aus Bewertungen + Beschwerden tatsächlich ins Haus zurück — wer liest sie, wer reagiert, wo wird gelernt?"
+    follow_ups:
+      - "Gibt es ein wiederkehrendes Beschwerde-Thema in den letzten 6 Monaten?"
+      - "Welche Verbesserung wurde direkt aus Gäste-Feedback umgesetzt?"
+      - "Lesen die Mitarbeiter die Bewertungen über sich selbst?"
+    push_back: "Wenn Bewertungen nur Sofias Kopfsache sind und nicht systematisch zurück ins Team gehen — wo ist der Lernzyklus?"
+    quantification: "Verbesserter Feedback-Loop reduziert wiederkehrende Beschwerden um 30-50 Prozent über 6 Monate."
+    exit_criteria: "Feedback-Loop als Schwachstelle benannt oder als gut verteidigt"
+
+  # ── 17 · MELDESCHEIN / CHECK-IN-PROZESS ─────────────────────────────────
+  - id: TREE-CHECKIN
+    category: Operations
+    trigger:
+      - sub_segment in [boutique, stadthotel, ferienhotel, resort, tagungshotel]
+    root_question: "Wie läuft ein typischer Check-in — vom Moment, in dem der Gast die Tür öffnet, bis er auf seinem Zimmer ist?"
+    follow_ups:
+      - "Meldescheine — Papier oder digital?"
+      - "Durchschnittliche Check-in-Dauer in Stoßzeiten?"
+      - "Pre-Arrival-Kontakt: ja, nein, wann genau?"
+    push_back: "Digitaler Meldeschein vor Anreise reduziert Reception-Last um geschätzt 4-6 Minuten pro Gast — bei 4.000 Gästen sind das 300 Stunden. Warum nicht?"
+    quantification: "Reception-Stunden-Ersparnis × 25 EUR/h + reduzierte Wartezeit-Beschwerden."
+    exit_criteria: "Check-in-Optimierungs-Potenzial identifiziert"
+
+  # ── 18 · UPSELL-POTENTIAL ─────────────────────────────────
+  - id: TREE-UPSELL
+    category: Revenue
+    trigger:
+      - upsell_program_in_place == false
+    root_question: "Bieten Sie aktuell vor Anreise oder bei Anreise gezielte Zusatz-Leistungen an — Suite-Upgrade, Spa, Late-Checkout, F&B-Pakete?"
+    follow_ups:
+      - "Wer entscheidet was angeboten wird?"
+      - "Welche Conversion-Rate haben Sie auf solche Angebote?"
+      - "Was kostet ein Suite-Upgrade-Ja vs No-Show in der Kalkulation?"
+    push_back: "8 Prozent Conversion auf 42-EUR-Upsell × 4.000 Ankünfte = 14k EUR Mehr-Umsatz fast ohne variable Kosten — was hindert Sie?"
+    quantification: "annual_arrivals × 0.08 × avg_upsell_eur = direkter Hebel."
+    exit_criteria: "Upsell als unterausgenutzter Hebel erkannt"
+
+  # ── 19 · VORHERIGE KI-ERFAHRUNG ─────────────────────────────────
+  - id: TREE-PRIOR-AI
+    category: Strategie
+    trigger:
+      - "always_in_early_phase"
+    root_question: "Wo haben Sie oder Ihr Team in den letzten 12 Monaten ChatGPT, Copilot oder andere KI-Tools eingesetzt — privat oder geschäftlich?"
+    follow_ups:
+      - "Was wurde damit gemacht, was hat geklappt, was nicht?"
+      - "Hat sich daraus eine systematische Nutzung entwickelt — oder blieb es Spielerei?"
+      - "Welche Skepsis besteht im Team aktuell konkret?"
+    push_back: "Wenn keine Sau im Team aktiv mit KI arbeitet — wie wollen Sie eine größere KI-Implementierung durchziehen, die auf Mitarbeiter-Akzeptanz angewiesen ist?"
+    quantification: "Vorhandene KI-Affinität reduziert Implementierungs-Zeit um 30-40 Prozent."
+    exit_criteria: "Reifegrad-Realismus etabliert"
+
+  # ── 20 · COMPLIANCE-BEWUSSTSEIN ─────────────────────────────────
+  - id: TREE-COMPLIANCE-AWARENESS
+    category: Compliance
+    trigger:
+      - "always_in_mid_phase"
+    root_question: "Wie ist Ihre DSGVO-Aufstellung — Datenschutzbeauftragten extern, Verzeichnis aktuell, AVVs mit allen Software-Anbietern?"
+    follow_ups:
+      - "Wann zuletzt DSGVO-Audit?"
+      - "Haben Sie sich mit dem EU-AI-Act schon befasst? Wissen Sie was 'limited risk' bedeutet?"
+      - "Wer wäre Ansprechpartner für Compliance-Fragen wenn wir KI implementieren?"
+    push_back: "Wenn Sie KI ohne DSGVO-Hausarbeit einsetzen, bauen Sie Risiken auf. Wer treibt das intern?"
+    quantification: "DSGVO-Strafrahmen 4 Prozent Jahresumsatz = abstrakter aber bei 4-Mio-Haus = 160k EUR Worst-Case."
+    exit_criteria: "Compliance-Bewusstsein eingeordnet (vorhanden / lückenhaft / blind spot)"
+
+  # ── 21 · BUDGET / INVESTITIONS-LOGIK ─────────────────────────────────
+  - id: TREE-BUDGET
+    category: Strategie
+    trigger:
+      - "always_late_phase"
+    root_question: "Welches Budget setzen Sie für Digitalisierung und KI-Adoption im Jahr 2026 an — und welcher Payback-Horizont ist akzeptabel?"
+    follow_ups:
+      - "Bei welchem Payback würden Sie sofort entscheiden — 6 Monate? 12? 18?"
+      - "Eigenkapital-Finanzierung oder Förderung-erschlossen?"
+      - "Welche Investitionen über 10k EUR haben Sie in den letzten 12 Monaten freigegeben?"
+    push_back: "80k EUR Budget bei 4-Mio-Umsatz sind 2 Prozent — Branchen-Durchschnitt für IT-Modernisierung liegt bei 3-4 Prozent. Sind Sie unter-investiert?"
+    quantification: "Investitions-Volumen × erwarteter ROI = Pipeline-Größe der Use-Cases."
+    exit_criteria: "Budget-Rahmen + Payback-Toleranz definiert"
+
+  # ── 22 · DIREKTBUCHUNGS-STRATEGIE ─────────────────────────────────
+  - id: TREE-DIRECT-STRATEGY
+    category: Marketing
+    trigger:
+      - direktbuchungs_quote < 0.40
+    root_question: "Wenn Sie heute eine Best-Rate-Garantie auf der Website hätten + ein Reduce-X-Prozent-bei-Direkt-Anreiz — was hält Sie konkret davon ab, das einzuführen?"
+    follow_ups:
+      - "OTA-Vertrags-Parity-Klauseln — verboten oder erlaubt?"
+      - "Newsletter-Adressen vs OTA-Datenbank: pflegen Sie eigene Liste?"
+      - "Re-Targeting nach Aufenthalt: aktiv oder vergessen?"
+    push_back: "Booking.com selbst gibt zu, dass Hotels mit Best-Rate-Garantie 10-15 Prozent mehr direkt buchen — warum ist das nicht Standard?"
+    quantification: "Direktbuchungs-Plus-5%-Punkte × annual_revenue × commission_diff = Cash."
+    exit_criteria: "Konkrete Direktbuchungs-Aktion identifiziert"
+
+  # ── 23 · KOMMUNIKATIONS-KANÄLE ─────────────────────────────────
+  - id: TREE-COMMUNICATION-CHANNELS
+    category: Operations
+    trigger:
+      - whatsapp_business_account == false
+    root_question: "31 Prozent der Reservierungs-Anfragen kommen 2025 bereits via WhatsApp — bedienen Sie diesen Kanal?"
+    follow_ups:
+      - "Wie viele Anfragen kommen per WhatsApp pro Monat heute?"
+      - "Antwortet die Reception über private WhatsApp-Nummer?"
+      - "Bewusstsein für DSGVO-Implikationen?"
+    push_back: "Private WhatsApp-Nummern mit Gäste-Daten ist ein DSGVO-Verstoß. Wenn das schon läuft, müssen wir es schnell legalisieren."
+    quantification: "WhatsApp-Business + Bot-Integration = +5-10 Prozent Conversion auf Anfragen, gleichzeitig DSGVO-konform."
+    exit_criteria: "WhatsApp-Strategie definiert"
+
+  # ── 24 · TIME-TO-VALUE ERWARTUNG ─────────────────────────────────
+  - id: TREE-TIME-TO-VALUE
+    category: Strategie
+    trigger:
+      - "always_pre_recommendation"
+    root_question: "Wenn wir morgen einen ersten Use-Case live nehmen — wann müssten Sie spürbare Ergebnisse sehen, damit das Investment intern verteidigbar bleibt?"
+    follow_ups:
+      - "Welche Metrik wäre der erste Beweis: Antwortzeit, Buchungsanfragen, Personalkosten, Bewertungs-Score?"
+      - "Wer im Team würde diese Metrik tracken?"
+      - "Was wäre ein Kill-Criterion — ab wann ziehen Sie den Stecker?"
+    push_back: "Wenn die Erwartung 30 Tage zu Wow-Effekt ist und das Use-Case-Setup realistisch 6 Wochen braucht — müssen wir Erwartungs-Management machen, sonst sterben gute Use-Cases unter Druck."
+    quantification: "Time-to-First-Value-Erwartung kalibriert Roadmap-Reihenfolge."
+    exit_criteria: "Realistisches Time-to-Value vereinbart"
+
+  # ── 25 · WAS NICHT FUNKTIONIEREN WÜRDE ─────────────────────────────────
+  - id: TREE-WHAT-WONT-WORK
+    category: Strategie
+    trigger:
+      - "always_at_end"
+    root_question: "Was wäre für Sie der WORST KI-Use-Case — also einer, der zwar überall hochgejubelt wird, aber für Ihr Haus nicht passt?"
+    follow_ups:
+      - "Wo ist die Grenze zwischen sinnvoller Automatisierung und 'Kalt-Werden'?"
+      - "Was muss IMMER ein Mensch machen, egal wie gut die KI wird?"
+      - "Wo haben Sie selbst schon erlebt: KI hat versagt, schlechter Eindruck?"
+    push_back: "Wenn Sie das nicht klar haben, droht ein Use-Case der Marken-Schaden macht."
+    quantification: "Anti-Use-Case-Liste verhindert späteren Reputations-Schaden."
+    exit_criteria: "Klare 'Nein-zu-X'-Liste erarbeitet"
+
+  # ── 26 · BESCHAFFUNG & EINKAUF ─────────────────────────────────
+  - id: TREE-PROCUREMENT
+    category: Beschaffung
+    trigger:
+      - "always"
+    root_question: "Wie ist Ihre Beschaffung organisiert — wie viele Lieferanten regelmäßig, wer bestellt, mit welchem System?"
+    follow_ups:
+      - "Bestellungen — manuell per Mail/Fax/Telefon oder über System? Wie viele pro Woche?"
+      - "Wie oft Preisvergleiche zwischen Lieferanten — systematisch oder nie?"
+      - "Wer prüft Lieferschein gegen Rechnung gegen Bestellung — wie lange dauert das?"
+      - "Lager-Inventur: wie oft, wer, mit welchem Tool?"
+      - "Wareneinsatz-Tracking: live im System oder erst im Steuerberater-Bericht?"
+    push_back: "Bei 30+ Lieferanten pro Woche und manueller Bestellung — wie viel Zeit kostet das? Eine n8n+Claude-Bestellungs-Workflow-Lösung würde 60-70% automatisieren."
+    quantification: "Bestellungs-Aufwand × 30-45 EUR/h × eingesparte Stunden + 1-3% Wareneinsatz-Optimierung durch Preisvergleiche."
+    exit_criteria: "Beschaffungs-Prozess transparent gemacht + Tool-Status klar"
+
+  # ── 27 · BUCHHALTUNG / VERWALTUNG ─────────────────────────────────
+  - id: TREE-ACCOUNTING
+    category: Verwaltung
+    trigger:
+      - "always"
+    root_question: "Wie läuft Ihre Buchhaltung — eigenes Tool, externer Steuerberater, manuell? Wie viele Stunden pro Monat geht in Buchungs-Vorbereitung und Belegerfassung?"
+    follow_ups:
+      - "Rechnungseingang: digital oder Papier? OCR im Einsatz?"
+      - "Wie viele Belege pro Monat? Wer scanned, wer kontiert?"
+      - "Schnittstelle PMS → Buchhaltung: automatisch oder Excel-Brücke?"
+      - "Monatsabschluss: wie lange nach Monatsende fertig?"
+      - "Reporting an Eigentümer / Gesellschafter: in welchem Tool, wie oft?"
+    push_back: "Wenn Belegerfassung 12+ Stunden pro Monat kostet, ist OCR + Auto-Kontierung mit Mistral Document AI in <4 Wochen einsetzbar. Was hindert daran?"
+    quantification: "Buchungszeit-Ersparnis × Stundenkostensatz + Beschleunigung Monatsabschluss = bessere Steuerungsfähigkeit."
+    exit_criteria: "Buchhaltungs-Prozess durchleuchtet"
+
+  # ── 28 · GEBÄUDEMANAGEMENT & WARTUNG ─────────────────────────────────
+  - id: TREE-FACILITY-MGMT
+    category: Gebäude
+    trigger:
+      - "always"
+    root_question: "Wie organisieren Sie Wartung, Reparaturen und Gebäudemanagement — gibt es ein Ticketsystem oder läuft das über Klemmbrett am Schwarzbrett?"
+    follow_ups:
+      - "Wer meldet Defekte — Reinigungskraft, Gast, Reception? Wie?"
+      - "Wartung der Anlagen (Heizung, Aufzug, Lüftung): Wartungsplan dokumentiert?"
+      - "Energie-Monitoring: pro Zimmer-Nacht-Verbrauch bekannt, oder Blackbox?"
+      - "Smart-Heating in Zimmern: belegungs-abhängig oder dauerhaft an?"
+      - "Pre-Crime-Wartung (Sensoren die Defekte vorhersagen): bereits genutzt?"
+    push_back: "Wenn Wartungs-Tickets auf Klemmbrett und Energie pro Zimmer-Nacht unbekannt — wie wollen Sie 20-25% Energie-Einsparpotenzial heben?"
+    quantification: "Energie-Kosten × 15-25% Einsparung durch Smart-Heating + Wartungs-Ticket-Tool reduziert Doppel-Touren + Versäumnisse."
+    exit_criteria: "Gebäudemanagement-Reifegrad eingeordnet"
+
+  # ── 29 · IT-INFRASTRUKTUR & SICHERHEIT ─────────────────────────────────
+  - id: TREE-IT-SECURITY
+    category: IT
+    trigger:
+      - "always"
+    root_question: "Wer ist intern für IT verantwortlich, und wie ist Ihre IT-Sicherheit aufgestellt — Backups, Zugriffs-Management, Cyber-Versicherung?"
+    follow_ups:
+      - "Backup-Strategie: täglich, wöchentlich, wo gelagert, wann zuletzt getestet?"
+      - "Wer hat Admin-Zugriff zu welchen Systemen — dokumentiert?"
+      - "WLAN für Gäste — separates Netz oder im gleichen Netz wie Reception?"
+      - "Cyber-Versicherung: ja/nein, was deckt sie?"
+      - "Letzter erfolgreicher Cyber-Angriff oder Phishing-Versuch in der Region — kennen Sie ähnliche Häuser die betroffen waren?"
+    push_back: "Hotels sind in den letzten 24 Monaten die zweithäufigste Cyber-Attack-Branche in DACH. Ohne aktive Backup-Tests fliegt Ihnen das einmal wirklich um die Ohren."
+    quantification: "Cyber-Ransomware-Schaden Mittelstand-Hotel: 80-250k EUR. Cyber-Versicherung: ~3k EUR/Jahr."
+    exit_criteria: "IT-Sicherheits-Reifegrad benannt"
+
+  # ── 30 · F&B-WARENEINSATZ-OPTIMIERUNG ─────────────────────────────────
+  - id: TREE-FNB-WASTE
+    category: F&B
+    trigger:
+      - sub_segment in [resort, gastronomie_voll, ferienhotel, tagungshotel]
+    root_question: "Wie hoch ist Ihre Wegwerf-Quote im Frühstück / Buffet / Restaurant — geschätzt oder gemessen?"
+    follow_ups:
+      - "Mengen-Planung Frühstück: nach Belegung automatisch oder Köchin-Bauchgefühl?"
+      - "Speisenkarte: wie oft optimiert, welche Gerichte sind Bestseller, welche Ladenhüter?"
+      - "Food-Cost pro Gericht: kalkuliert oder geschätzt?"
+      - "Resteverwertung: systematisch oder ad-hoc?"
+    push_back: "Bei einem 38-Zimmer-Resort verbrennen Sie pro nicht-optimierter Wegwerf-Quote 8-15k EUR/Jahr im Frühstück allein. Das ist ein Solo-Use-Case."
+    quantification: "Wareneinsatz × 8-15% Reduktion durch KI-Mengen-Vorhersage = direkter Margen-Lift."
+    exit_criteria: "F&B-Margen-Hebel klar"
+
+  # ── 31 · HOUSEKEEPING-DIGITALISIERUNG ─────────────────────────────────
+  - id: TREE-HOUSEKEEPING
+    category: Housekeeping
+    trigger:
+      - sub_segment in [boutique, stadthotel, ferienhotel, resort, tagungshotel]
+    root_question: "Wie steuern Sie Housekeeping — Papier-Liste pro Stockwerk, Whiteboard, oder App?"
+    follow_ups:
+      - "Zimmer-Status-Kommunikation: Reinigungskraft → Reception, wie?"
+      - "Schadensmeldungen: wer dokumentiert, wo geht das hin?"
+      - "Wäsche-Logistik: intern oder Dienstleister, wie viel Aufwand?"
+      - "Sprach-Barrieren mit Reinigungskräften — wie überwunden?"
+    push_back: "Papier-Listen sind 2026 nicht mehr Stand. Eine Tool-Investment von 4 EUR/MA/Monat (Hotelkit) löst 80% der Sichtbarkeits-Probleme."
+    quantification: "Doppel-Reinigungen verhindert + 30 Min/Tag Reception-Zeit für 'wo steht welches Zimmer' gespart."
+    exit_criteria: "Housekeeping-Reifegrad eingeordnet"
+
+  # ── 32 · MARKETING & CONTENT-PRODUKTION ─────────────────────────────────
+  - id: TREE-MARKETING-CONTENT
+    category: Marketing
+    trigger:
+      - "always"
+    root_question: "Wer produziert Ihre Inhalte — Website-Texte, Newsletter, Social-Media-Posts, Speisekarte? Wie viel Zeit kostet das pro Woche?"
+    follow_ups:
+      - "Wie oft Newsletter? Was war die letzte Kampagne, was Conversion?"
+      - "Social-Media-Kanäle aktiv: welche, wer postet, was wird gemessen?"
+      - "Bilder + Video: wann zuletzt professionell, wer aktualisiert?"
+      - "Mehrsprachigkeit: wer übersetzt, wie oft Updates?"
+    push_back: "Wenn 4-6 Stunden pro Woche in Content gehen, ist das ein klarer Claude-API-Use-Case. Bei 0,1 EUR pro Inhalt vs 40 EUR/h Personalkosten ist die Rechnung trivial."
+    quantification: "Content-Zeit-Ersparnis × Stundensatz + bessere Newsletter-Conversion durch Personalisierung."
+    exit_criteria: "Content-Produktions-Setup verstanden"
+
+  # ── 33 · MICE / VERANSTALTUNGS-PROZESS ─────────────────────────────────
+  - id: TREE-MICE-PROCESS
+    category: MICE
+    trigger:
+      - mice_anteil_umsatz > 0.1 OR sub_segment == tagungshotel
+    root_question: "Wie läuft ein Tagungs-Angebot ab — von Eingang der Anfrage bis Auftrags-Bestätigung?"
+    follow_ups:
+      - "Wie viele Anfragen pro Monat, wie viele werden konvertiert?"
+      - "Wer erstellt die Angebote, wie individuell, wie viele Stunden pro Stück?"
+      - "Follow-Up nach Angebot — automatisch, manuell, vergessen?"
+      - "MICE-Setup-Checklisten vor der Veranstaltung: digital oder Papier?"
+    push_back: "Eine 5.000-EUR-Tagungs-Anfrage die 2 Stunden Angebots-Erstellung kostet + Follow-Up verschlampt = Pro-Lead-Loss 1.500 EUR. Wie oft passiert das?"
+    quantification: "MICE-Conversion-Plus-5pp × annual_mice_revenue / 0.4 = direkter Hebel."
+    exit_criteria: "MICE-Sales-Funnel transparent"
+
+  # ── 34 · LIEFERANTEN-RECHNUNGS-VERARBEITUNG ─────────────────────────────────
+  - id: TREE-INVOICE-PROCESSING
+    category: Beschaffung
+    trigger:
+      - "always"
+    root_question: "Wie viele Lieferantenrechnungen kommen pro Monat rein, und wie ist der Prozess von Rechnungseingang bis Verbuchung?"
+    follow_ups:
+      - "Papier oder digital eingehend?"
+      - "Wer scannen + kontieren — Manuell, wie lange pro Rechnung?"
+      - "Freigabe-Workflow: wer prüft, wer freigibt?"
+      - "Skonto-Frist-Verluste: wie oft wegen Verzögerung verpasst?"
+    push_back: "GPT-4V/Claude-Vision macht Belegerkennung mit 95%+ Genauigkeit. Bei 200 Rechnungen/Monat × 6 Min manuell vs 1 Min OCR-prüfen = 16h gespart."
+    quantification: "Belegerfassungs-Zeit × Stundenkostensatz + entgangene Skonti."
+    exit_criteria: "Rechnungsverarbeitungs-Prozess geklärt"
+
+  # ── 35 · REPORTING / KPI-DASHBOARD ─────────────────────────────────
+  - id: TREE-REPORTING-KPI
+    category: Reporting
+    trigger:
+      - "always"
+    root_question: "Welche KPIs schauen Sie sich morgens als erstes an, und wie viele Klicks/Excel-Schritte braucht es um sie zu sehen?"
+    follow_ups:
+      - "Tägliches Reporting: gibt's ein Dashboard oder müssen Sie Excel-Reports laden?"
+      - "Monats-Reporting: an wen, mit welchem Aufwand?"
+      - "Yield-Analyse pro Segment / Channel: wie häufig?"
+      - "Wettbewerber-Rate-Shopping (RateGain etc.): aktiv?"
+    push_back: "Wenn der Daten-Aufruf täglich 30 Minuten kostet, ist ein simpler n8n+Looker-Studio-Dashboard 4-PT Aufwand und spart 130 Stunden/Jahr."
+    quantification: "Tägliche Reporting-Zeit × 220 Arbeitstage × Stundensatz."
+    exit_criteria: "Reporting-Effizienz benannt"

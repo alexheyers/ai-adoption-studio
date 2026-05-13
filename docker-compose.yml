@@ -1,0 +1,45 @@
+version: "3.9"
+
+# AI-Adoption-Studio · myflowmotion.cloud
+# - web: Next.js 14 Frontend (Port 3010)
+# - api: FastAPI Backend + Multi-Agent-Pipeline (Port 8010)
+# Nginx auf dem Host (vps) reverse-proxiert myflowmotion.cloud → web:3010, api.myflowmotion.cloud → api:8010.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: studio-api
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8010:8000"
+    volumes:
+      - ./knowledge:/app/knowledge:rw
+      - ./mock_data:/app/mock_data:ro
+    networks:
+      - studio-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: studio-web
+    restart: unless-stopped
+    env_file: .env.web
+    ports:
+      - "127.0.0.1:3010:3000"
+    depends_on:
+      - api
+    networks:
+      - studio-net
+
+networks:
+  studio-net:
+    driver: bridge

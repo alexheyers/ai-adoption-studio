@@ -1,0 +1,277 @@
+# Vendor-Landschaft Hospitality DACH · 2026
+# Strukturierte Tool-Datenbank für Tool-Recommender + Use-Case-Generator
+# Felder pro Vendor: tier (enterprise/smb/bootstrap), eu_hosting, monthly_cost_eur (Schätzung),
+# setup_complexity (low/medium/high), strengths, watch_outs, fit (welche Sub-Segmente)
+
+# ── PROPERTY MANAGEMENT SYSTEMS (PMS) ─────────────────────────────────
+pms:
+  - vendor: "Apaleo"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 180, M: 320, L: 580 }
+    setup_complexity: medium
+    strengths: ["Open-API, schnelle Integrationen", "Cloud-nativ", "App-Marketplace stark"]
+    watch_outs: ["F&B-POS-Integration nicht out-of-box", "Keine eigene Booking-Engine"]
+    fit: [boutique, stadthotel, ferienhotel, tagungshotel]
+    use_when: "Wenn flexibler Stack mit Best-of-Breed-Integrationen gewünscht"
+
+  - vendor: "Mews"
+    tier: smb_to_enterprise
+    eu_hosting: true
+    monthly_cost_eur: { S: 220, M: 480, L: 1100 }
+    setup_complexity: medium
+    strengths: ["Selbst-Check-in stark", "Marketplace 700+ Integrationen", "Internationale Hotel-Gruppen-fähig"]
+    watch_outs: ["Lock-in-Tendenz mit eigener Booking-Engine + Channel-Manager"]
+    fit: [boutique, stadthotel, resort]
+    use_when: "Wenn modernes UI für junges Personal wichtig"
+
+  - vendor: "protel (Planet Software)"
+    tier: enterprise
+    eu_hosting: true
+    monthly_cost_eur: { M: 480, L: 980, XL: 2400 }
+    setup_complexity: high
+    strengths: ["Sehr tief funktional", "MICE-Funktionen stark"]
+    watch_outs: ["UX altbacken, Schulungsaufwand", "Modulpreise summieren sich"]
+    fit: [stadthotel, tagungshotel, resort]
+    use_when: "Wenn komplexe Banketabläufe + Multi-Property-Setup"
+
+  - vendor: "HS/3 Hotelsoftware"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 95, M: 220, L: 480 }
+    setup_complexity: low
+    strengths: ["Deutscher Support", "Günstig, viele lokale Hotels nutzen es"]
+    watch_outs: ["Begrenzte API-Tiefe", "UI nicht ganz state-of-the-art"]
+    fit: [familienbetrieb, boutique]
+    use_when: "Wenn Budget knapp und deutsche Branchen-Vertrautheit wichtig"
+
+# ── CHANNEL MANAGER ─────────────────────────────────
+channel_manager:
+  - vendor: "SiteMinder"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 95, M: 145, L: 280 }
+    setup_complexity: medium
+    strengths: ["450+ Channel-Verbindungen", "Marktführer global"]
+    watch_outs: ["Preisstruktur kompliziert"]
+    fit: [boutique, stadthotel, ferienhotel, resort]
+
+  - vendor: "Cubilis (Stardekk)"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 90, M: 140, L: 220 }
+    setup_complexity: low
+    strengths: ["Belgisch, gut in DACH", "Faires Pricing"]
+    watch_outs: ["Weniger Channel-Tiefe als SiteMinder"]
+    fit: [familienbetrieb, boutique, ferienhotel]
+
+# ── BOOKING ENGINE ─────────────────────────────────
+booking_engine:
+  - vendor: "ibelsa.bookingengine"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 0, M: 0, L: 0, note: "Inkludiert in ibelsa-PMS" }
+    fit: [familienbetrieb, boutique]
+
+  - vendor: "DIRS21"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 110, M: 180, L: 320 }
+    strengths: ["Hospitality-Best-Practice-Conversion-Funnels", "ABL-Anbindung Standard"]
+    fit: [boutique, ferienhotel, familienbetrieb]
+
+  - vendor: "Bookassist"
+    tier: smb_to_enterprise
+    eu_hosting: true
+    monthly_cost_eur: { M: 240, L: 480 }
+    strengths: ["Conversion-getriebene Booking-Engine + Google-Hotel-Ads-Integration"]
+    fit: [boutique, stadthotel, resort]
+
+# ── GUEST-CRM / GUEST-EXPERIENCE ─────────────────────────────────
+crm_guest:
+  - vendor: "Revinate"
+    tier: enterprise
+    eu_hosting: false
+    note: "US-Hosting — AVV-Aufwand höher, Datenmenge muss minimiert sein"
+    monthly_cost_eur: { M: 320, L: 580 }
+    strengths: ["Beste Hospitality-CRM-Suite, KI-Segmentierung integriert"]
+
+  - vendor: "ReGuest / Re:Guest"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 120, M: 220, L: 420 }
+    strengths: ["DACH-fokussiert, sehr Mittelstand-tauglich", "DSGVO-konform"]
+    fit: [boutique, ferienhotel, familienbetrieb, resort]
+
+  - vendor: "Brevo (ehem. Sendinblue)"
+    tier: bootstrap_to_smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 25, M: 65, L: 165 }
+    strengths: ["Sehr günstig, E-Mail + SMS + WhatsApp im Bundle", "EU-Hosting"]
+    watch_outs: ["Kein Hospitality-Spezial-Vertical, generisches Marketing-Tool"]
+    fit: [familienbetrieb, boutique, ferienhotel]
+
+# ── BEWERTUNGS-MANAGEMENT ─────────────────────────────────
+reputation_management:
+  - vendor: "Customer Alliance"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 165, M: 240, L: 380 }
+    strengths: ["DACH-Marktführer Reputation", "Survey-Integration nach Aufenthalt"]
+    fit: [boutique, stadthotel, ferienhotel, resort]
+
+  - vendor: "TrustYou"
+    tier: enterprise
+    eu_hosting: true
+    monthly_cost_eur: { M: 280, L: 520 }
+    strengths: ["Semantic Analysis", "Multi-Source Review-Aggregation"]
+    fit: [stadthotel, resort, tagungshotel]
+
+# ── CONVERSATIONAL AI / CHATBOTS ─────────────────────────────────
+chatbot:
+  - vendor: "Chatlyn"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 195, M: 350, L: 580 }
+    strengths: ["Hospitality-spezialisiert, WhatsApp + Web + Email", "EU-Hosting · DSGVO"]
+    fit: [boutique, stadthotel, ferienhotel, resort]
+
+  - vendor: "Asksuite"
+    tier: smb_to_enterprise
+    eu_hosting: false
+    note: "Brasilianisch, US/EU-Hosting wählbar"
+    monthly_cost_eur: { M: 380, L: 680 }
+    strengths: ["Reservierungs-Bots stark, Direktbuchungs-Booster"]
+
+  - vendor: "Selbstbau · n8n + Claude API + Brevo"
+    tier: bootstrap
+    eu_hosting: true
+    monthly_cost_eur: { S: 120, M: 220, L: 380 }
+    strengths: ["Volle Kontrolle, niedrige Variable-Kosten", "EU-Hosting wenn n8n self-hosted"]
+    watch_outs: ["Eigenes Team muss Setup + Wartung tragen", "BIZ-26-Eigenbau realistisch"]
+    fit: [familienbetrieb, boutique, ferienhotel]
+    use_when: "Wenn Tech-Affinität vorhanden + Standard-SaaS zu starr"
+
+# ── DIENSTPLAN / HR-OPS ─────────────────────────────────
+hr_scheduling:
+  - vendor: "Hotelkit Operations"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 4_eur_per_user, M: 4_eur_per_user, L: 4_eur_per_user, note: "~4 EUR/MA/Monat" }
+    strengths: ["Dienstplan + Übergabe + Wartung + Housekeeping in einem Tool", "Sehr hospitality-fit"]
+    fit: [boutique, stadthotel, ferienhotel, resort]
+
+  - vendor: "Planday"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 2_eur_per_user, M: 2_eur_per_user, L: 2_eur_per_user }
+    strengths: ["Sehr günstig, KI-Vorschläge für Dienstpläne", "EU-Hosting"]
+    fit: [boutique, familienbetrieb, ferienhotel, gastronomie_voll]
+
+  - vendor: "Selbstbau · n8n + Google Sheets + Claude API"
+    tier: bootstrap
+    monthly_cost_eur: { S: 0, M: 60 }
+    strengths: ["Kein Subscription-Lock-in"]
+    watch_outs: ["Wartung Eigenaufwand"]
+
+# ── KASSE / POS · F&B ─────────────────────────────────
+pos_fnb:
+  - vendor: "Vectron"
+    tier: smb_to_enterprise
+    eu_hosting: true
+    monthly_cost_eur: { S: 220, M: 380, L: 680 }
+    strengths: ["DACH-Marktführer Gastro", "TSE-konform Standard"]
+
+  - vendor: "Lightspeed Restaurant"
+    tier: smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 75, M: 145, L: 280 }
+    strengths: ["Cloud-nativ, modernes UI", "PMS-Integration solide"]
+
+# ── E-MAIL-AUTOMATION ─────────────────────────────────
+# Siehe CRM (Brevo) und Marketing-Automation (Reguest)
+
+# ── BUCHHALTUNG / FINANZIELLES ─────────────────────────────────
+accounting:
+  - vendor: "lexoffice"
+    tier: bootstrap_to_smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 17, M: 65 }
+    fit: [familienbetrieb, boutique, gastronomie_voll]
+
+  - vendor: "DATEV Unternehmen Online"
+    tier: smb_to_enterprise
+    eu_hosting: true
+    monthly_cost_eur: { S: 25, M: 95, L: 240 }
+    strengths: ["Stammlösung für deutsche Steuerberater-Anbindung"]
+
+# ── LLM / KI-INFRASTRUKTUR (für Eigenbau-Workflows) ─────────────────────────────────
+llm_infrastructure:
+  - vendor: "Anthropic Claude API (Sonnet 4.6 + Haiku 4.5)"
+    eu_hosting: false
+    note: "US-Hosting · AVV verfügbar · Daten werden nicht für Training genutzt (per Default)"
+    pricing_per_million_tokens_eur:
+      sonnet_input: 2.8
+      sonnet_output: 14.0
+      haiku_input: 0.7
+      haiku_output: 3.5
+
+  - vendor: "Mistral Large 2 (Mistral AI, EU)"
+    eu_hosting: true
+    note: "Französischer Anbieter, EU-Hosting · DSGVO-vorteilhaft"
+    pricing_per_million_tokens_eur:
+      input: 1.8
+      output: 5.4
+    watch_outs: ["Schwächer bei feinem Deutsch + Branchen-Reasoning als Claude"]
+
+  - vendor: "Aleph Alpha Pharia (Deutscher Anbieter)"
+    eu_hosting: true
+    note: "Deutsches Modell, EU-Hosting · Government + Enterprise-Fokus"
+    watch_outs: ["Pricing nur auf Anfrage, weniger reif als Claude/GPT"]
+
+  - vendor: "OpenAI GPT-4o / GPT-4o-mini"
+    eu_hosting: false
+    note: "EU Data Residency seit 2024 verfügbar (kostenpflichtig)"
+
+# ── AUTOMATION / INTEGRATION ─────────────────────────────────
+automation:
+  - vendor: "n8n (self-hosted)"
+    eu_hosting: true
+    note: "VPS-Self-Hosting · DSGVO-konform mit eigenem Hosting"
+    monthly_cost_eur: { S: 25, M: 45, L: 95, note: "Nur VPS-Kosten" }
+    strengths: ["Open-Source, volle Kontrolle, gigantische Integrations-Library"]
+
+  - vendor: "Make (ehem. Integromat)"
+    tier: bootstrap_to_smb
+    eu_hosting: true
+    monthly_cost_eur: { S: 12, M: 35, L: 95 }
+    strengths: ["No-Code, EU-Hosting"]
+
+  - vendor: "Zapier"
+    eu_hosting: false
+    note: "US-Hosting, EU-Hosting limited"
+    monthly_cost_eur: { S: 22, M: 75, L: 195 }
+
+# ── VOICE-AI ─────────────────────────────────
+voice_ai:
+  - vendor: "ElevenLabs Conversational AI"
+    eu_hosting: false
+    note: "US-basiert, AVV vorhanden"
+    monthly_cost_eur: { starter: 5, creator: 22, pro: 110, scale: 330 }
+    use_cases: ["Telefonische Reservierungsannahme", "Voice-First-Concierge", "Senior-Coach-Interviews"]
+
+  - vendor: "Vapi.ai"
+    eu_hosting: false
+    note: "US-basiert, lowest-latency Voice-AI"
+
+# ── DOCUMENT PROCESSING / OCR ─────────────────────────────────
+document_ai:
+  - vendor: "GPT-4V (OpenAI)"
+    use_cases: ["Belegerkennung", "PDF-zu-Strukturiert", "Chart-Extraction"]
+
+  - vendor: "Claude 4.6/4.7 Vision"
+    use_cases: ["Wie GPT-4V + besseres deutsches Verständnis"]
+
+  - vendor: "Mistral Document AI"
+    eu_hosting: true
+    use_cases: ["DSGVO-konforme Belegerkennung"]

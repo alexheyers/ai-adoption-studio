@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+mock_data/demo_hotel_report.json
+{output_folder}/
+node_modules/
+.next/
+*.log
+outputs/
+runs/
+.claude/
+.DS_Store

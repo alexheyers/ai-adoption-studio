@@ -1,0 +1,141 @@
+# Compliance-Pack DACH · Hospitality · 2026
+# Verwendung: Compliance-Checker referenziert diese Regelwerke
+# Stand: Mai 2026 · EU AI-Act vollständig in Kraft seit 02.02.2025, Hochrisiko-Pflichten ab 02.08.2026
+
+dsgvo:
+  general:
+    avv_pflicht: "Mit JEDEM Tool-Anbieter, der personenbezogene Daten verarbeitet, ist ein Auftragsverarbeitungsvertrag (AVV / Art. 28 DSGVO) abzuschließen."
+    typical_avv_partners_hospitality:
+      - "PMS-Anbieter (Apaleo, Mews, protel)"
+      - "Channel-Manager (SiteMinder, Cubilis)"
+      - "Booking-Engine (DIRS21, Bookassist)"
+      - "Marketing-Automation (Brevo, Mailchimp)"
+      - "Bewertungs-Plattform (Customer Alliance)"
+      - "Chatbot (Chatlyn)"
+      - "Cloud-Hosting (AWS, Azure, GCP, Hetzner)"
+      - "LLM-Anbieter (Anthropic, OpenAI, Mistral) — bei jeder API-Nutzung mit personenbezogenen Daten"
+
+    datenschutz_folgenabschaetzung_pflicht_wenn:
+      - "Profiling (z.B. KI-gestützte Gäste-Personalisierung)"
+      - "Verarbeitung sensibler Daten (Gesundheit bei Spa-Buchungen, religiöse Kostform)"
+      - "Großmaßige Verarbeitung personenbezogener Daten"
+
+    typische_rechtsgrundlagen:
+      reservierung_buchung: "Art. 6 Abs. 1 lit. b (Vertragserfüllung)"
+      marketing_an_bestandsgäste: "Art. 6 Abs. 1 lit. f (berechtigtes Interesse) + § 7 UWG Bestandskunden-Privileg"
+      marketing_an_neukunden: "Art. 6 Abs. 1 lit. a (Einwilligung)"
+      ki_personalisierung: "Art. 6 Abs. 1 lit. a (Einwilligung — wegen Profilings)"
+      review_management: "Art. 6 Abs. 1 lit. f (berechtigtes Interesse Reputationsmanagement)"
+
+    typische_aufbewahrungsfristen:
+      buchhalterische_belege: "10 Jahre (§ 147 AO)"
+      meldescheine: "1 Jahr nach Abreise (BMG)"
+      gaeste_kommunikation: "3 Jahre (Verjährungsfrist BGB)"
+      bewerber_unterlagen: "6 Monate nach Absage (AGG)"
+      videoaufnahmen: "max 72h ohne konkretem Anlass"
+
+  hospitality_specific:
+    meldescheinpflicht: "Bundesmeldegesetz (BMG) §§ 29-31: Hoteliers müssen Meldescheine ausfüllen lassen. Aufbewahrung 1 Jahr. KI-gestützte Erfassung möglich, aber Daten dürfen nicht außerhalb EU/EWR verarbeitet werden."
+    online_einchecken_zulässig: "Ja, wenn Identität glaubhaft prüfbar (Foto-Ausweis-Upload). Selfie + Ausweisfoto-Vergleich ist KI-Use-Case, AI-Act-relevant."
+
+ai_act:
+  general:
+    inkraft_seit: "2025-02-02 (allgemeine Bestimmungen)"
+    hochrisiko_pflichten_ab: "2026-08-02 (für bestehende Hochrisiko-Systeme)"
+    gpai_modellanbieter_pflichten: "2025-08-02 (Anthropic, OpenAI etc. müssen Transparenz-Berichte stellen)"
+
+  risikoklassen_hospitality:
+    minimal_risk:
+      definition: "Standard-Chatbots, Reservierungs-Assistenten, Marketing-Automation"
+      typische_pflichten:
+        - "Keine spezifischen AI-Act-Pflichten"
+        - "ABER: DSGVO immer noch greifend"
+      beispiele: ["Reservierungs-Mail-Autoresponder", "Newsletter-Personalisierung", "Review-Antworten"]
+
+    limited_risk:
+      definition: "Generative-AI-Systeme, die mit Menschen interagieren"
+      typische_pflichten:
+        - "Transparenz-Pflicht: Nutzer muss wissen, dass er mit KI spricht (Art. 50)"
+        - "AI-generierte Inhalte müssen markiert sein (Watermarking-Pflicht für deep-fakes — bei Texten oft Hinweistext)"
+      beispiele: ["Concierge-Chatbot", "Voice-Bot-Front-Office", "KI-generierte Bewertungs-Antworten"]
+      pflicht_text_beispiel: '"Diese Antwort wurde mit KI-Unterstützung erstellt." am Ende der Mail/des Posts.'
+
+    high_risk:
+      definition: "KI in sensiblen Bereichen mit erheblichem Einfluss auf Personen"
+      typische_pflichten:
+        - "CE-Konformitäts-Kennzeichen + Konformitätsbewertung"
+        - "Risikomanagement-System (Art. 9)"
+        - "Daten-Governance + Bias-Tests (Art. 10)"
+        - "Technische Dokumentation (Art. 11)"
+        - "Aufzeichnungspflicht (Logging, Art. 12)"
+        - "Menschliche Aufsicht — Auto-Entscheidung verboten (Art. 14)"
+        - "Genauigkeit + Robustheit (Art. 15)"
+        - "Registrierung in der EU-AI-Datenbank"
+      beispiele_hospitality:
+        - "KI-gestütztes Bewerber-Screening mit Auto-Ablehnung"
+        - "KI-Mitarbeiter-Leistungsbewertung / Schichtplan-Beförderung-Entscheidung"
+        - "KI-Kreditwürdigkeits-Bewertung von Gästen (z.B. für Late-Payment-Decisions)"
+        - "Biometrische Identifikation am Check-in (außer reine Verifikation per Selfie+Ausweis = limited risk)"
+
+    prohibited:
+      definition: "Komplett verboten"
+      beispiele_hospitality:
+        - "Social Scoring von Gästen (Bewertung nach Verhalten als Service-Tier-Differenzierung)"
+        - "Emotionserkennung am Arbeitsplatz (z.B. zur Mitarbeiter-Überwachung)"
+        - "Vorhersagende Polizei-Ermittlungen"
+
+  hospitality_specific_anti_patterns:
+    - title: "Auto-Ablehnung Bewerbungen"
+      why_problem: "Hochrisiko nach Anhang III AI-Act"
+      mitigation: "Mensch in der Loop — Auto-Vorsortierung OK, finale Entscheidung Mensch"
+
+    - title: "Gäste-Emotions-Erkennung via Kameras"
+      why_problem: "Streitfall: 'Emotionserkennung am Arbeitsplatz' verboten — Gäste-Bereich Grauzone"
+      mitigation: "Nicht einsetzen ohne Rechts-Klärung"
+
+    - title: "KI-Mitarbeiter-Bewertung"
+      why_problem: "Hochrisiko + Betriebsrats-Konflikt + DSGVO-Folgenabschätzungs-Pflicht"
+      mitigation: "Nicht in MVP-Roadmap aufnehmen ohne explizite Strategie-Entscheidung"
+
+gwg_geldwäsche:
+  pflicht_ab_einzahlung: "10.000 EUR (in bar oder Geldsurrogaten)"
+  hospitality_relevanz:
+    - "Bar-Zahlungen >10k (selten, aber bei Resort-Aufenthalten + Hochzeit-Events vorkommend)"
+    - "Geld-Surrogate (Tankgutscheine, Reisechecks)"
+  pflichten: ["Identifikation des Vertragspartners", "Aufzeichnung", "Verdachtsmeldung bei Auffälligkeiten"]
+
+steuer_compliance:
+  tse_kassen_sicherungs_verordnung:
+    pflicht_seit: "2020-10-01 (mit Karenz)"
+    geltungsbereich: "Alle elektronischen Kassen in F&B (Restaurant, Bar, Hotel-Frühstück bei Kassenabrechnung)"
+    aktuelle_themen_2026: "DSFinV-K Standard 2.4 in Kraft, Cloud-TSE zulässig"
+
+  meldepflicht_bar_einnahmen: "Tageskasse muss am Tagesende abgerechnet werden — Kassen-System-Zwang zur 'einheitlich geführten elektronischen Kasse'"
+
+hygiene:
+  haccp_pflicht: "Jeder Lebensmittelbetrieb"
+  dokumentationspflicht: "Temperatur-Protokolle Wareneingang/Lager/Auslage, Reinigungs-Protokolle, Schulungs-Protokolle Personal"
+  digitalisierung_zulaessig: "Ja — digitale HACCP-Tools (HALAL Operations, Hotelkit) sind zulässig wenn revisionssicher"
+
+# ── COMPLIANCE-DECISION-MATRIX ─────────────────────────────────
+decision_matrix:
+
+  # Eingangsfrage: Verarbeitet der Use-Case personenbezogene Daten?
+  - frage: "Personenbezogene Daten?"
+    wenn_ja: ["AVV mit allen Verarbeitern", "Rechtsgrundlage feststellen", "Bei sensiblen Daten: DSFA"]
+    wenn_nein: ["DSGVO entfällt, AI-Act-Klassifikation prüfen"]
+
+  - frage: "KI-System ist generativ und kommuniziert mit Personen?"
+    wenn_ja: ["AI-Act 'limited risk' → Transparenz-Hinweis Pflicht"]
+
+  - frage: "KI-System trifft Entscheidung über Personen (Recruiting, Kredit, Tier-Einstufung)?"
+    wenn_ja: ["AI-Act 'high risk' → Konformitätsbewertung + alle Art. 9-15-Pflichten"]
+    mitigation: "Mensch-in-der-Loop → Auto-Entscheidung vermeiden → meistens auf 'limited risk' reduzierbar"
+
+  - frage: "Verarbeitung in/außerhalb EU/EWR?"
+    wenn_außerhalb: ["Standardvertragsklauseln (SCC) der EU-Kommission", "Transfer-Impact-Assessment (TIA)", "Adäquanz-Beschluss prüfen (US: Data Privacy Framework gilt seit 2023, fragil)"]
+
+disclaimer: |
+  Dieser Compliance-Pack ist eine strukturierte Hinweise-Sammlung für KI-Adoptions-Beratung,
+  KEINE Rechtsberatung. Vor Implementierung jedes Use-Cases ist die Konsultation mit
+  einem qualifizierten DSGVO-Beauftragten und Fach-Anwalt für IT-Recht zwingend.

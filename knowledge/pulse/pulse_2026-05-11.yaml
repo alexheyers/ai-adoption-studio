@@ -1,0 +1,346 @@
+pulse_date: '2026-05-11'
+calendar_week: 20
+summary: 'Das dominante Ereignis der KW 19-20 ist der Uber × Expedia-Mega-Deal (Hotels
+  direkt im Uber-App buchbar, 700K+ Properties, Uber One -20%-Rabatt), der die OTA-Landschaft
+  fundamental verschiebt und einen neuen Distributionskanal schafft. Parallel eskaliert
+  die regulatorische Dringlichkeit: Das EU Digital-Omnibus-Paket wurde am 07.05.2026
+  beschlossen und entschärft den AI Act für Industrie-KI, lässt aber Hospitality-Pricing-Engines
+  und Guest-Profiling-Systeme voll im Hochrisiko-Scope — der August-Deadline-Druck
+  bleibt. Am Personalmarkt signalisiert DEHOGA Berlin (08.05.2026) eine alarmierende
+  Divergenz: offene Stellen stagnieren bei ~19.000, gleichzeitig steigt Arbeitslosigkeit
+  in der Hotellerie um 3,3% — ein Zeichen struktureller Branchenschwäche, keine Entspannung.'
+ota_updates:
+- finding: 'MEGA-DEAL: Uber × Expedia Group — Hotel-Buchungen live im Uber-App. Uber-Nutzer
+    in den USA haben ab sofort Zugriff auf 700.000+ Hotels via Expedia Rapid API.
+    Uber One Members erhalten mindestens 20% Rabatt auf 10.000 rotierende Hotels +
+    10% Uber-Credits zurück. Vrbo (Ferienwohnungen) wird später 2026 ergänzt. Expedia-Rides-Integration
+    in die Expedia-App startet im Juni 2026. Laut Washington-Post-Test lagen Uber-Hotelpreise
+    unter Hilton.com, Booking.com und Hotels.com für denselben Stay. Expansion außerhalb
+    USA geplant — DACH im Visier.'
+  date: '2026-04-29'
+  source_url: https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Expands-into-Travel-with-Hotel-Bookings-and-New-In-App-Features/default.aspx
+- finding: 'Expedia Q1 2026 Earnings: Umsatzwachstum +8% YoY, getrieben durch Hotelbuchungen.
+    Hotelpreise im Vergleich zu 2025 laut Branchenberichten um bis zu 15% gestiegen
+    — Expedia profitiert überproportional als Preisvergleichs-Plattform. Provisionen
+    liegen stabil bei 15-20% pro Buchung.'
+  date: '2026-05-05'
+  source_url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-aktuelle-tipps-fuer-guenstige-uebernachtungen-2026/69273098
+- finding: 'Beds24 erneut Booking.com Premier Partner (11. Jahr in Folge) + Expedia
+    Group Elite Connectivity Partner 2026 (Top-14 weltweit) + Airbnb Preferred+ Software
+    Partner 2026. Technisches Update: Automatisches Senden von Nachrichten mit Expedia
+    jetzt möglich. Beds24 änderte Verbindungsarchitektur zu Booking.com: Verbindungsanfragen
+    werden nicht mehr automatisch bestätigt — Hotelbetreiber müssen aktiv zustimmen,
+    bevor Preise/Verfügbarkeit vom Channel Manager übernommen werden. Achtung: Breaking
+    Change für bestehende Setups.'
+  date: '2026-05-01'
+  source_url: https://wiki.beds24.com/wikiDE/index.php/New_Features_and_Updates
+- finding: Kein bestätigtes Update zu Provisions-Änderungen bei HRS in KW 19-20. Keine
+    offiziellen Booking.com-Provisions-Änderungen für DACH kommuniziert.
+  date: '2026-05-11'
+  source_url: KEIN FUND — keine Updates KW 19-20
+labor_market_updates:
+- finding: 'DEHOGA Berlin, 08.05.2026 (frischste Zahl): Im April 2026 stagnieren die
+    gemeldeten offenen Stellen im Gastgewerbe bei 19.060 — konstant gegenüber März,
+    aber immer noch über 20.500 unter dem Vorkrisenniveau (April 2019). Gleichzeitig
+    stieg die Arbeitslosigkeit in der Hotellerie um 3,3% YoY, in der Gastronomie +1,3%,
+    Speisenzubereitung +0,1%. Paradox: Stellen offen, aber mehr Arbeitslose — deutet
+    auf strukturellen Mismatch (Qualifikation, Löhne, Arbeitsbedingungen).'
+  date: '2026-05-08'
+  source_url: https://dehoga-berlin.de/2026/05/08/arbeitsmarkt-bleibt-angespannt-gesamtwirtschaftlich-und-im-gastgewerbe/
+- finding: 'Makro-Kontext DACH: Deutschland überschreitet den 4. Monat in Folge 3
+    Millionen Arbeitslose (+2,6% YoY). Der erwartete Frühjahrsaufschwung im Gastgewerbe
+    bleibt laut DEHOGA Berlin aus — als Ursache wird explizit der Iran-Krieg und seine
+    wirtschaftlichen Folgen genannt. Kein Saisoneffekt wie in Vorjahren.'
+  date: '2026-05-08'
+  source_url: https://dehoga-berlin.de/2026/05/08/arbeitsmarkt-bleibt-angespannt-gesamtwirtschaftlich-und-im-gastgewerbe/
+- finding: 'Berlin beschließt Ausbildungsplatzumlage — DEHOGA-Reaktion: ''falsches
+    Signal für den Wirtschaftsstandort''. Die Umlage erhöht den Kostendruck auf Hotellerie-
+    und Gastronomiebetriebe im Berliner Markt zusätzlich. Details zu Beitragshöhe
+    noch nicht final kommuniziert.'
+  date: '2026-04-26'
+  source_url: https://dehoga-berlin.de/2026/05/08/arbeitsmarkt-bleibt-angespannt-gesamtwirtschaftlich-und-im-gastgewerbe/
+- finding: 'Strukturell: DEHOGA-Bundesverband-Konjunkturdaten zeigen, dass 58% der
+    Gastronomen und 57,8% der Hoteliers die Mitarbeitergewinnung als größte Herausforderung
+    sehen. 39,3% der Hotels melden sinkende Erträge trotz steigender Umsätze — Kostendruck
+    durch Personal und Betriebskosten übersteigt Umsatzwachstum.'
+  date: 2026-Q1
+  source_url: https://www.tageskarte.io/politik/detail/dehoga-branchenbericht-gute-geschaefte-im-gastgewerbe-aber-wachsende-belastungen.html
+ai_adoption_updates:
+- finding: 'Mews Hospitality Branchenbericht (aktuell zitiert in KW 19): 2026 gilt
+    als ''entscheidender Zeitraum für automatisierte Zukunft''. 18 Branchenexperten
+    (inkl. Deloitte, Booking.com): bis 2035 soll ein Großteil der Hotelsuche und Buchungen
+    via KI-Dialog erfolgen. Prognose: mindestens 50% der Backoffice-Aufgaben automatisiert,
+    KI-Agenten übernehmen Großteil der Gäste-Routine-Anfragen. Mews hat in DACH eine
+    Marktdurchdringung von 15% erreicht — über 6.000 Hotels, +600% Wachstum in 12
+    Monaten.'
+  date: '2026-05-01'
+  source_url: https://www.tageskarte.io/technologie/detail/transformation-der-hotellerie-2026-als-weichenstellung-fuer-kuenstliche-intelligenz.html
+- finding: 'Dialogshift (DE): KI-Gründerin Olga Heuser beschreibt Shift von ''KI-Experiment''
+    zu ''autonomen Systemen'' in der Hotellerie 2026. KI-Browser füllen Formulare
+    aus, vergleichen Angebote und erledigen Buchungen ohne manuelle Eingaben. Für
+    Hotels: KI-Assistenten verkaufen Zusatzleistungen und bearbeiten Feedback rund
+    um die Uhr. Agentenbasierte KI als nächste Stufe live.'
+  date: '2026-02-02'
+  source_url: https://www.hotelvor9.de/management/welche-ki-trends-2026-die-hotellerie-praegen
+- finding: 'Tourismusnetzwerk Rheinland-Pfalz / IHK Koblenz: Zahlungspflichtiges KI-Webinar-Format
+    (€19,90/Einheit) ''KI im Gastgewerbe 2026'' gestartet — Zeichen für wachsenden
+    institutionellen Weiterbildungsmarkt. Nächster Termin: 17.06.2026. DEHOGA Baden-Württemberg
+    hat eigene KI-Leitfäden und Beratungsangebote für Mitglieder lanciert, inkl. DSGVO-Compliance-Warnung
+    beim KI-Einsatz.'
+  date: '2026-04-20'
+  source_url: https://rlp.tourismusnetzwerk.info/2026/04/20/webinar-ki-im-gastgewerbe-2026-verstehen-nutzen-begeistern-profitieren-in-vier-schritten-zur-ki-roadmap-fuer-hotellerie-gastronomie-und-campingplaetze/
+- finding: 'Hotel Tech Report bestätigt (Feb 2026): ''KI ist in der Hotellerie 2026
+    nicht mehr experimentell — sie ist eingebettet in Revenue- und Margin-Performance-Systeme.''
+    Konkrete Live-Tools in DACH: KI-Chatbots für Gästekommunikation, KI-Dienstplanoptimierung,
+    KI-basierte Speisekarten-Analyse. DEHOGA BW hat Praxisleitfaden veröffentlicht
+    mit explizitem Hinweis: keine personenbezogenen Daten in nicht-EU-KI-Systeme eingeben.'
+  date: '2026-02-20'
+  source_url: https://hoteltechreport.com/news/ai-in-hospitality
+regulatory_updates:
+- finding: 'BREAKING — 07.05.2026: EU-Gesetzgeber und Mitgliedsstaaten einigen sich
+    auf ''Digital Omnibus''-Kompromiss: Mehrere ursprüngliche AI-Act-Beschränkungen
+    zurückgenommen. Industrielle KI-Anwendungen (Maschinenbau, Fertigung) werden von
+    strengsten Auflagen ausgenommen, sofern sektorale Regelungen greifen. Für Hospitality:
+    KEINE Ausnahme — Dynamic Pricing und Guest-Profiling-Engines bleiben im Hochrisiko-Scope.'
+  date: '2026-05-07'
+  source_url: https://www.ad-hoc-news.de/wirtschaft/eu-datenschutz-2026-zwischen-entlastung-und-neuer-belastung-fuer/69294972
+- finding: 'EU AI Act — Hochrisiko-Deadline 02.08.2026 bleibt bestehen (mit Unsicherheit):
+    EU-Parlament (ITRE-Ausschuss) stimmte im April 2026 für Verschiebung auf August
+    2027 für bestimmte Hochrisiko-Systeme. EU-Rat muss noch zustimmen — Entscheidung
+    wird für Q3 2026 erwartet. Verbote (seit Feb 2025) und GPAI-Pflichten (seit Aug
+    2025) bleiben unverändert. Für Hotels mit KI-Pricing: Audit-Trails, Explainability
+    und Human-Override-Controls sind legally required — die meisten Hospitality-Plattformen
+    erfüllen diese Anforderungen laut Experten noch nicht nativ.'
+  date: '2026-05-07'
+  source_url: https://wz-it.com/blog/eu-ai-act-august-2026-hochrisiko-ki-unternehmen/
+- finding: 'Deutsches KI-MIG (KI-Marktüberwachungs- und Innovationsförderungsgesetz):
+    Bundeskabinett hat am 11.02.2026 den deutschen Rechtsrahmen zur Umsetzung des
+    EU AI Acts beschlossen. EU AI Act + DSGVO gelten parallel: überall wo KI personenbezogene
+    Daten verarbeitet (HR-Systeme, Kundenservice, Marketing, Chatbots) greifen beide
+    Regelwerke gleichzeitig. Sophos-Studie Frühjahr 2026: IT-Teams verbringen durchschnittlich
+    39% ihrer Arbeitszeit mit Compliance-Aufgaben; 82% der IT-Führungskräfte befürchten
+    Nicht-Erfüllung aller regulatorischer Anforderungen.'
+  date: '2026-02-11'
+  source_url: https://www.assecor.de/blog/eu-ai-act-2026
+- finding: 'Hotel-spezifisch: Regulatoren richten Fokus auf Hotel-KI-Governance. Laut
+    hotelmanagement-network.com (vor 2 Wochen): AI-gestützte Buchungsassistenten,
+    Dynamic Pricing und Personalisierungstools sind im Visier — Transparenzpflichten
+    für Gäste, wenn automatisierte Entscheidungen sie betreffen. ''Automated decision-making''
+    bei Gäste-Profiling erfordert in vielen Fällen explizite Einwilligung. Google
+    testet KI-Anzeigen in Search — Hotels mit schwacher structured-data-Basis verlieren
+    Sichtbarkeit.'
+  date: '2026-04-28'
+  source_url: https://www.hotelmanagement-network.com/news/regulators-turn-attention-to-hotel-ai-governance/
+- finding: 'NOYB / DSGVO: Am 07.05.2026 reichte NOYB in Österreich Beschwerde gegen
+    LinkedIn ein (Auskunftsrecht hinter Paywall). Kein direkter Hospitality-Bezug,
+    aber Präzedenz für ''Recht auf kostenlose Dateneinsicht'' nach Art. 15 DSGVO —
+    relevant für Hotels, die Gästeprofil-Daten hinter Premium-Loyalty-Programmen verschlüsseln.
+    Keine spezifischen HACCP/TSE-Updates in KW 19-20 gefunden.'
+  date: '2026-05-07'
+  source_url: https://www.ad-hoc-news.de/wirtschaft/eu-datenschutz-2026-zwischen-entlastung-und-neuer-belastung-fuer/69294972
+vendor_pricing_updates:
+- finding: 'PMS-Markt-Preislandschaft 2026 (aktuelle Marktübersicht): Budget-Tier
+    (All-in-One PMS + Channel Manager + Booking Engine): €39–60/Monat (Amenitiz ab
+    €42, eviivo, Smoobu). Mid-Range: €80–150/Monat (Little Hotelier, RMS Cloud). Premium:
+    €150–200+/Monat (Cloudbeds, Mews). Oracle Opera Cloud und Protel/ASA: keine öffentlichen
+    Preise, Individualangebot. Wichtig: Immer auf Hidden Fees achten (Setup, Training,
+    Payment Processing, per-Transaction-Gebühren).'
+  date: '2026-02-12'
+  source_url: https://amenitiz.com/en/blog/best-hotel-property-management-systems-in-2026
+- finding: 'E-Rechnung-Pflicht als PMS-Differenzierungsmerkmal: Ab 2025/2026 wird
+    E-Rechnung in Deutschland stufenweise verpflichtend. PMS ohne integrierte E-Rechnungskomponente
+    werden zum ''deutlichen Wettbewerbsnachteil'' — Beratern wird empfohlen, diesen
+    Punkt in jede PMS-Evaluation aufzunehmen. Cloudbasierte DSGVO-konforme Lösungen
+    mit DATEV-Integration werden von Hotels aktiv nachgefragt.'
+  date: '2026-01-07'
+  source_url: https://changing-hospitality.com/hotelsoftware-vergleich-2026/
+- finding: 'Globaler Hospitality-PMS-Markt überschreitet 2026 USD 1,73 Milliarden.
+    Channel-Manager-Markt: aktuell USD 802 Millionen, Prognose USD 1,708 Milliarden
+    bis 2034. 91% der Hoteliers (2026 Industry Study) sagen, ihr PMS hat direkten
+    Einfluss auf Revenue-Wachstum. Konsolidierungstendenzen: All-in-One-Plattformen
+    (PMS+Channel Manager+Booking Engine) verdrängen Punkt-Lösungen. Mews DACH: 15%
+    Marktdurchdringung, 6.000 Hotels, explosives Wachstum.'
+  date: '2026-02-05'
+  source_url: https://blog.hotelogix.com/hotel-channel-manager-and-pms/
+- finding: Keine konkreten Preiserhöhungen einzelner Vendoren (Apaleo, Cloudbeds,
+    SiteMinder, Duetto, IDeaS) in KW 19-20 öffentlich kommuniziert. Keine offiziellen
+    Chatbot-Vendor-Pricing-Änderungen (Bookboost, Quicktext, Aiosell) gefunden. KEIN
+    UPDATE zu spezifischen Vendoren-Preis-Anpassungen in diesem Zeitraum.
+  date: '2026-05-11'
+  source_url: KEIN FUND — keine Updates KW 19-20
+funding_updates:
+- finding: 'DEHOGA-Bundesförderprogramm (Beratungsförderung) läuft bis 31.12.2026
+    weiter: KMU des Gastgewerbes erhalten bis zu 5 geförderte Beratungen (max. 2/Jahr)
+    via INTERHOGA-Leitstelle. Keine Kriterienänderungen kommuniziert. Programm gilt
+    bundesweit unabhängig von Verbandsmitgliedschaft.'
+  date: '2026-05-11'
+  source_url: https://www.dehoga-bundesverband.de/ueber-uns/foerderprogramm-des-bundes/
+- finding: 'BAFA-Förderung (KMU-Unternehmensberatung): Weiterhin aktiv — fördert Beratungskosten
+    für wirtschaftliche, finanzielle, personelle und organisatorische Fragen, inkl.
+    Digitalisierungsmaßnahmen. Förderzuschuss: 50–80% der förderfähigen Beratungskosten
+    (je nach Bundesland), max. €3.500 (5 Beratungstage). Relevant für KI-Einführungsberatung
+    in Hotellerie/Gastronomie.'
+  date: '2026-05-11'
+  source_url: https://www.unternehmer-manufaktur.com/foerderprogramme-foerderung-beratung-hotellerie-gastronomie
+- finding: 'WKO Niederösterreich (Österreich): Förderaktionen 2026 der Fachgruppen
+    Gastronomie und Hotellerie laufen bis 31.12.2026. Details zu neuen Bewilligungsrunden
+    oder geänderten Kriterien nicht öffentlich kommuniziert.'
+  date: '2026-05-11'
+  source_url: https://www.wko.at/noe/tourismus-freizeitwirtschaft/gastronomie/foerderaktion-tf
+- finding: Keine neuen Bewilligungsrunden oder Kriterienänderungen für Hospitality-spezifische
+    Digital-/KI-Förderungen in DACH in KW 19-20 gefunden. Bayern 'Tourismusland Bayern'
+    Qualitätsprogramm (bis 20% Investitionszuschuss, Mindest-Investment €30.000) bleibt
+    unverändert aktiv. Keine neuen Bundes-Digitalisierungsförderungen für Gastgewerbe
+    in KW 19-20.
+  date: '2026-05-11'
+  source_url: KEIN FUND — keine neuen Updates KW 19-20
+implications_for_advisory: 'Der Uber×Expedia-Deal ist ein unmittelbarer Handlungsimpuls
+  für unsere Beratungskunden: Hotels müssen ihre Expedia-Konnektivität (Rapid API,
+  Channel Manager Elite Status) prüfen und sicherstellen, dass ihr Inventory sauber
+  in die neue Uber-Distribution einspeist — wer nicht sauber mapped ist, verschwindet
+  aus einem potenziell massiven neuen Kanal noch vor DACH-Rollout. Gleichzeitig erhöht
+  der Deal den Provisionsabhängigkeits-Druck: Direktbuchungs-Strategien und Loyalty-Programme
+  gewinnen weiter an Priorität. Die EU AI Act Hochrisiko-Deadline (02.08.2026) ist
+  real und drängend: Unsere Beratungsempfehlung muss jetzt aktiv AI-Compliance-Gap-Assessments
+  für alle Kunden mit Dynamic Pricing, Guest Profiling oder KI-Chatbots umfassen —
+  Audit Trails, Explainability-Layer und Human-Override-Protokolle sind keine Nice-to-haves
+  mehr, sondern Pflicht. Beim Personalmarkt verstärkt der strukturelle Mismatch (Stellen
+  offen, Arbeitslosigkeit steigt) den ROI-Case für KI-Automatisierung in Housekeeping,
+  F&B und Front-Desk weiter — dieser Use-Case hat jetzt Priorität 1, kombiniert mit
+  BAFA-Fördermitteln für die Digitalisierungs-Beratung (bis 80% Zuschuss).'
+_collected_sources:
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-aktuelle-tipps-fuer-guenstige-uebernachtungen-2026/69273098
+  title: 'Expedia Hotelbuchung: Aktuelle Tipps für günstige Übernachtungen 2026'
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-umfassender-guide-zu-funktionen-angeboten-und/68957027
+  title: 'Expedia Hotelbuchung: Umfassender Guide zu Funktionen, Angeboten und Buchungsprozess
+    2026'
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-im-check-so-sparst-du-jetzt-bei-deiner-naechsten/68632127
+  title: 'Expedia Hotelbuchung im Check: So sparst du jetzt bei deiner nächsten Reise'
+- url: https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Expands-into-Travel-with-Hotel-Bookings-and-New-In-App-Features/default.aspx
+  title: Uber Technologies, Inc. - Uber Expands into Travel with Hotel Bookings and
+    New In-App Features
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-das-zentrale-produkt-der-expedia-group-fuer-den/69041065
+  title: 'Expedia Hotelbuchung: Das zentrale Produkt der Expedia Group für den Online-Tourismusboom'
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-umfassender-guide-zu-funktionen-vorteilen-und/68997940
+  title: 'Expedia Hotelbuchung: Umfassender Guide zu Funktionen, Vorteilen und Buchungs-Tipps
+    für DACH-Reisen'
+- url: https://www.ad-hoc-news.de/boerse/news/ueberblick/expedia-hotelbuchung-warum-flexible-angebote-jetzt-fuer-dach-reisende/69132917
+  title: 'Expedia Hotelbuchung: Warum flexible Angebote jetzt für DACH-Reisende entscheidend
+    werden'
+- url: https://ftnnews.com/travel-news/technology/uber-hotel-booking-launches-in-us-but-is-it-really-cheaper/
+  title: Uber Hotel Booking Launches in US With Expedia - Focus on Travel News
+- url: https://sevierready.sevier.org/wp-content/uploads/wpjobboard/resume/tmp_s_1778051446-7004/upload-resume/Expediaeverythinghere26.pdf
+  title: 'Expedia Hotel Booking Guide 2026: Understanding Connected,'
+- url: https://wiki.beds24.com/wikiDE/index.php/New_Features_and_Updates
+  title: New Features and Updates – Beds24 Wiki
+- url: https://dehoga-berlin.de/2026/05/08/arbeitsmarkt-bleibt-angespannt-gesamtwirtschaftlich-und-im-gastgewerbe/
+  title: Arbeitsmarkt bleibt angespannt – gesamtwirtschaftlich und im Gastgewerbe
+    - DEHOGA Berlin • Hotel- und Gastronomieverband Berlin e.V.
+- url: https://www.dehoga-bundesverband.de/zahlen-fakten/
+  title: 'DEHOGA Bundesverband: Zahlen & Fakten'
+- url: https://www.dehoga-bundesverband.de/zahlen-fakten/dehoga-zahlenspiegel/
+  title: 'DEHOGA Bundesverband: DEHOGA-Zahlenspiegel'
+- url: https://www.dehoga-sachsen.de/ueber-uns/zahlen-fakten
+  title: Zahlen & Fakten
+- url: https://www.dehoga-bundesverband.de/branchenthemen/arbeits-und-fachkraeftesicherung/
+  title: 'DEHOGA Bundesverband: Arbeits- und Fachkräftesicherung'
+- url: https://www.ahgz.de/hotellerie/news/fachkraeftemangel-gastgewerbe-sucht-weiter-dringend-personal-307893
+  title: 'Fachkräftemangel: Gastgewerbe sucht weiter dringend Personal'
+- url: https://betterspace360.com/teufelskreis-personalmangel-durchbrechen/
+  title: Personalmangel im Hotel und wie er durchbrochen wird
+- url: https://www.dehogabw.de/informieren/branchendaten-statistiken
+  title: 'DEHOGA: Branchendaten & Statistiken'
+- url: https://www.tageskarte.io/politik/detail/dehoga-branchenbericht-gute-geschaefte-im-gastgewerbe-aber-wachsende-belastungen.html
+  title: 'DEHOGA-Branchenbericht: Gute Geschäfte im Gastgewerbe, aber wachsende Belastungen:
+    Tageskarte'
+- url: https://www.dehoga-bundesverband.de/fileadmin/Startseite/04_Zahlen___Fakten/07_Zahlenspiegel___Branchenberichte/Zahlenspiegel/DEHOGA-Zahlenspiegel_1._Quartal_2022.pdf
+  title: Deutscher Hotel- und Gaststättenverband e.V. (DEHOGA Bundesverband)
+- url: https://www.hotelvor9.de/management/welche-ki-trends-2026-die-hotellerie-praegen
+  title: Welche KI‑Trends 2026 die Hotellerie prägen | Management
+- url: https://www.rollenland.at/blogs/news/ki-im-gastgewerbe-wie-kunstliche-intelligenz-hotels-und-restaurants-verandert
+  title: '🤖 KI im Gastgewerbe: Wie künstliche Intelligenz Hotels und Restaurants'
+- url: https://rlp.tourismusnetzwerk.info/2026/04/20/webinar-ki-im-gastgewerbe-2026-verstehen-nutzen-begeistern-profitieren-in-vier-schritten-zur-ki-roadmap-fuer-hotellerie-gastronomie-und-campingplaetze/
+  title: 'Webinar: KI im Gastgewerbe 2026: Verstehen. Nutzen. Begeistern. Profitieren!
+    In vier Schritten zur KI‑Roadmap für Hotellerie, Gastronomie und Campingplätze
+    | Tourismusnetzwerk Rheinland-Pfalz'
+- url: https://blog.aichef.pro/de/HACCP-Lebensmittelsicherheit-im-Gastgewerbe/
+  title: 'HACCP und Lebensmittelsicherheit mit KI: Ein umfassender Leitfaden für die
+    Gastronomie 2026 – AI Chef Pro Blog'
+- url: https://hoteltechreport.com/news/ai-in-hospitality
+  title: 'KI in der Hotellerie (2026): Beispiele & Anwendungsfälle in ...'
+- url: https://www.tageskarte.io/technologie/detail/transformation-der-hotellerie-2026-als-weichenstellung-fuer-kuenstliche-intelligenz.html
+  title: 'Transformation der Hotellerie: 2026 als Weichenstellung für Künstliche Intelligenz:
+    Tageskarte'
+- url: https://blog.aichef.pro/en/mejores-herramientas-ia-restaurantes-2026-comparativa/
+  title: 'The Best AI Tools for Restaurants in 2026: A Real Comparison - AI Chef Pro
+    Blog'
+- url: https://www.euroshop.de/de/media-news/euroshopmag/food-service-equipment/ki-gestuetzter-kundendienst-und-food%E2%80%91service
+  title: KI Gastronomie & Food Service Trends auf der EuroShop 2026 -- Retail Trade
+    Fair
+- url: https://www.hotelfachzeitung.com/hotelnachrichten/hotellerie/kuenstliche-intelligenz-in-der-hotelindustrie
+  title: Künstliche Intelligenz in der Hotelindustrie
+- url: https://www.dehogabw.de/informieren/dehoga-blog/kuenstliche-intelligenz-im-gastgewerbe-wie-ki-den-alltag-in-gastronomie-und-hotellerie-veraendern-kann
+  title: So nutzen Gastronomen und Hoteliers Künstliche Intelligenz richtig
+- url: https://www.assecor.de/blog/eu-ai-act-2026
+  title: 'EU AI Act 2026: Risikoklassen, Pflichten & Datenschutz'
+- url: https://www.200oksolutions.com/blog/the-eu-ai-acts-impact-on-hospitality-what-dynamic-pricing-and-guest-profiling-systems-must-do-now/
+  title: The EU AI Act's Impact on Hospitality Web Development, Software, and App
+    Blog | 200OK Solutions
+- url: https://www.ad-hoc-news.de/wirtschaft/eu-datenschutz-2026-zwischen-entlastung-und-neuer-belastung-fuer/69294972
+  title: 'EU-Datenschutz 2026: Zwischen Entlastung und neuer Belastung für Unternehmen'
+- url: https://wz-it.com/blog/eu-ai-act-august-2026-hochrisiko-ki-unternehmen/
+  title: 'EU AI Act ab August 2026: Was Unternehmen mit Hochrisiko-KI jetzt tun müssen'
+- url: https://www.hotelnewsresource.com/article141048.html
+  title: EU Moves to Tighten AI Regulation, Adding New Compliance Pressure for Hotels
+- url: https://www.insidehs.com/decoding-the-eu-ai-act/
+  title: Decoding the EU AI Act - Inside Hospitality Solutions
+- url: https://www.tageskarte.io/technologie/detail/eu-ai-act-kuenstliche-intelligenz-im-hotel-welche-regeln-gastgeber-beachten-muessen.html
+  title: 'EU AI Act – Künstliche Intelligenz im Hotel – Welche Regeln Gastgeber beachten
+    müssen: Tageskarte'
+- url: https://www.legalnodes.com/article/eu-ai-act-2026-updates-compliance-requirements-and-business-risks
+  title: 'EU AI Act 2026 Updates: Compliance Requirements and Business Risks'
+- url: https://www.softwareimprovementgroup.com/blog/eu-ai-act-summary/
+  title: A comprehensive EU AI Act Summary [January 2026 update] - SIG
+- url: https://www.hotelmanagement-network.com/news/regulators-turn-attention-to-hotel-ai-governance/
+  title: Regulators turn attention to hotel AI governance
+- url: https://changing-hospitality.com/hotelsoftware-vergleich-2026/
+  title: Hotelsoftware Vergleich 2026 – Welche PMS-Lösung passt zu Ihrem Hotel?
+- url: https://blog.hotelogix.com/hotel-channel-manager-and-pms/
+  title: 'Hotel Channel Manager and PMS: All-in-One for 2026 Hotels'
+- url: https://www.aleno.me/en/blog/hotelsoftware-comparison-2026
+  title: 'Hotel Software Comparison 2026: Best PMS for Hotels with Restaurants'
+- url: https://www.roommaster.com/blog/hotel-pms-systems
+  title: 8 Best Hotel PMS Systems for 2026 - Complete Guide
+- url: https://www.sistemhotelsoftware.com/channel-management
+  title: Channel Manager - Hotel Software,PMS
+- url: https://roomraccoon.de/plattform/pms/
+  title: PMS - Property-Management-System - RoomRaccoon
+- url: https://phptravels.com/blog/hotel-property-management-systems
+  title: Hotel Property Management Systems Guide 2026 | PMS Features & Pricing
+- url: https://hoteltechreport.com/revenue-management/channel-managers
+  title: '7 Best Hotel Channel Management Software 2026: My Honest Review'
+- url: https://amenitiz.com/en/blog/best-hotel-property-management-systems-in-2026
+  title: 10 Best Hotel Property Management Systems (PMS) in 2026 | Expert Comparison
+- url: https://www.cloudbeds.com/property-management-system/
+  title: '#1 Top-Rated Hotel Property Management System 2026'
+- url: https://www.unternehmer-manufaktur.com/foerderprogramme-foerderung-beratung-hotellerie-gastronomie
+  title: Förderungen | Förderprogramme für Hotels / Restaurants
+- url: https://www.dehoga-bundesverband.de/ueber-uns/foerderprogramm-des-bundes/
+  title: 'DEHOGA Bundesverband: Förderprogramm des Bundes'
+- url: https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/neues-foerderprogramm-fuer-gastronomie-und-tourismus
+  title: 'Neues Förderprogramm für Gastronomie und Tourismus: Baden-Württemberg.de'
+- url: https://www.gastro-academy.com/finanzierung/foerdermittel/
+  title: Fördermittel für Gründer in der Gastronomie | Gastro Academy
+- url: https://www.wko.at/noe/tourismus-freizeitwirtschaft/gastronomie/foerderaktion-tf
+  title: Förderaktionen 2026 der Fachgruppen Gastronomie und Hotellerie - WKO
+- url: https://www.foerderdatenbank.de/FDB/Content/DE/Foerderprogramm/Land/Bayern/tourismusland-bayern-qualitaet-gastlichkei.html
+  title: Förderdatenbank - Förderprogramme - Sonderprogramm
+- url: https://www.dehoga-corona.de/ueberbrueckungshilfen-foerderprogramme/
+  title: 'DEHOGA Bundesverband: Überbrückungshilfen & Förderprogramme'
+- url: https://www.get-sides.de/blog/gastronomie-foerderung/
+  title: Gastronomie Förderung & Überbrückungshilfe | 2026 - sides
+- url: https://www.land-oberoesterreich.gv.at/Mediendateien/Formulare/Formulare%20Wirtschaft%20und%20Tourismus/Richtlinie_Gastro-Foerderung_2024_2026.pdf
+  title: Richtlinie Gastro-Förderung
+- url: https://foerderungsportal.de/foerdermittel_gastronomie_hotel_gaststaetten/
+  title: 40 % Förderung für die Gastronomie der Zukunft - foerderungsportal.de
+_refreshed_at: '2026-05-11'

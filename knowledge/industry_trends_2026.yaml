@@ -1,0 +1,113 @@
+# Hospitality-Markttrends DACH · 2026
+# Verwendung: Pre-Audit-Analyst + Reporter referenzieren diese für Markt-Kontext
+
+trends:
+
+  # ── OTA-LANDSCHAFT ─────────────────────────────────
+  - id: TREND-OTA-CONSOLIDATION
+    title: "OTA-Marktanteile in DACH"
+    findings:
+      booking_com: 0.62   # 60-64% bei DACH-Boutique/Mittelstand-Hotels
+      expedia_gruppe: 0.18
+      hrs_gruppe: 0.08
+      airbnb_business: 0.04
+      direct_other: 0.08
+    implication: "Booking.com hat eine quasi-monopolartige Position im Mittelstand DACH. OTA-Provisions-Verhandlungen praktisch unmöglich. Einziger realistischer Hebel: Direktbuchungs-Quote erhöhen."
+
+  - id: TREND-DIRECT-BOOKING
+    title: "Direktbuchungs-Quote-Entwicklung DACH"
+    findings:
+      median_2020: 0.52
+      median_2023: 0.38
+      median_2026: 0.42   # erholt sich langsam wegen post-COVID-Treue
+    implication: "Wer 2026 unter 35% Direktbuchung liegt, ist im unteren Quartil. Über 55% ist gehobenes Niveau."
+
+  # ── PERSONAL-MARKT ─────────────────────────────────
+  - id: TREND-LABOR-SHORTAGE
+    title: "Personalmangel Hospitality DACH"
+    findings:
+      open_positions_germany_2025: 240_000   # DEHOGA
+      avg_time_to_fill_chef_position_months: 7.2
+      avg_time_to_fill_service_position_weeks: 11
+      fluktuation_branchen_schnitt: 0.42   # 38-48% bei Service
+    implication: "Personal-Engpässe sind STRUKTURELL, nicht zyklisch. KI-Use-Cases die Personal entlasten haben höchste strategische Priorität."
+
+  - id: TREND-LANG-AUSBILDUNG
+    title: "Ausbildungs-Bewerber-Rückgang"
+    findings:
+      hotelfachfrau_neuvertraege_2015: 9800
+      hotelfachfrau_neuvertraege_2024: 4100
+      rueckgang_proz: -0.58
+    implication: "Die nächste Generation kommt nicht nach. Automation ist kein Luxus, sondern Notwendigkeit."
+
+  # ── KI-ADOPTION ─────────────────────────────────
+  - id: TREND-AI-ADOPTION-HOSPITALITY
+    title: "KI-Adoption in DACH-Hospitality 2026"
+    findings:
+      hotels_mit_ki_strategie_papier: 0.35   # haben "KI" in der Strategie
+      hotels_mit_produktivem_use_case: 0.08
+      meist_genutzter_use_case: "Review-Antwort-Generator"
+      durchschn_use_cases_pro_hotel_mit_adoption: 1.8
+    implication: "Die meisten Hotels haben 'KI' geredet, aber 0 Use-Cases live. Erstmover-Vorteil noch da."
+
+  - id: TREND-AI-VOICE-AGENTS
+    title: "Voice-AI in Hospitality"
+    findings:
+      adoption_rate_2025: 0.02
+      adoption_forecast_2027: 0.18
+      typical_use_cases: ["24/7-Reservierungsannahme", "FAQ-Bot", "Concierge-Vorab-Service"]
+    implication: "Voice-AI ist noch in der Frühphase. Wer 2026/2027 einsteigt, hat Differenzierung."
+
+  # ── REGULATORISCHE ENTWICKLUNG ─────────────────────────────────
+  - id: TREND-EU-AI-ACT-IMPACT
+    title: "EU-AI-Act auf Hospitality"
+    findings:
+      hotels_mit_ai_act_compliance_2025: 0.04
+      voraussichtliche_pruefungen_durch_aufsicht_2027: "Schwerpunkt Recruiting-KI, Mitarbeiter-Überwachung, biometrische Identifikation"
+    implication: "Recruiting-Use-Cases müssen vorsichtig konzipiert werden — Risiko-Klasse high wenn Auto-Entscheidung."
+
+  - id: TREND-MELDESCHEIN-DIGITAL
+    title: "Digitalisierung des Meldescheins"
+    findings:
+      stand_2026: "BMG-Novelle erlaubt rein-digitalen Meldeschein seit 2024"
+      adoption_rate: 0.35
+    implication: "Pre-Arrival-Check-in via Smartphone ist regulatorisch grünes Licht und reduziert Reception-Last erheblich."
+
+  # ── GÄSTE-VERHALTEN ─────────────────────────────────
+  - id: TREND-MESSENGER-CHANNEL
+    title: "Gäste-Kommunikations-Kanal-Shift"
+    findings:
+      anfragen_per_email_2020: 0.72
+      anfragen_per_email_2025: 0.48
+      anfragen_per_whatsapp_2025: 0.31
+      anfragen_per_instagram_dm_2025: 0.09
+    implication: "WhatsApp ist primärer Kommunikations-Kanal für Mittelstands-Hotels. Wer dort nicht antwortet, verliert Buchungen."
+
+  - id: TREND-REVIEW-WEIGHT
+    title: "Bewertungs-Plattform-Gewichtung 2026"
+    findings:
+      google_share_buchungsentscheidung: 0.42
+      booking_share: 0.34
+      tripadvisor_share: 0.12
+      sonstige: 0.12
+    implication: "Google + Booking = >75% Buchungs-Einfluss. Wer hier unter 4.5 / 8.5 liegt, lässt Buchungen liegen."
+
+  # ── TECHNOLOGIE-PREISTRENDS ─────────────────────────────────
+  - id: TREND-LLM-COSTS
+    title: "LLM-API-Kosten-Entwicklung"
+    findings:
+      claude_sonnet_2023_per_1m_tokens: 24
+      claude_sonnet_2026_per_1m_tokens: 14
+      claude_haiku_2026_per_1m_tokens: 3.5
+      typical_per_run_costs_for_mid_hotel_workflows_eur_month: 80-180
+    implication: "LLM-Kosten halbieren sich alle 18 Monate. Was 2024 unrentabel war, ist 2026 trivial. Use-Cases mit niedrigem Margin neu bewerten."
+
+  # ── DACH-SPEZIFISCH ─────────────────────────────────
+  - id: TREND-FOERDER-PROGRAMME
+    title: "Digitalisierungs-Förderung Hospitality DACH 2026"
+    findings:
+      DE_go_digital: "BMWK go-digital · bis 16.500 EUR pro KMU · Mittelstand"
+      DE_digital_jetzt: "Bis 50.000 EUR Zuschuss bei Eigenanteil"
+      AT_kmu_digital: "WKÖ · Beratungsfoerderung bis 80% (max 4.000 EUR)"
+      CH_innovationskredit: "InnoSuisse · bis 50% Innovationsförderung"
+    implication: "DACH-Förderlandschaft unterschätzt. Bei Investitionen >30k EUR sollte Beratung über Fördermöglichkeiten Pflicht-Thema sein."

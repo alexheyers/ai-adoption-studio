@@ -1,0 +1,221 @@
+# Hospitality-KI-Adoption · Case-Studies / Reference-Outcomes · 2026
+# Zwölf erprobte Use-Cases mit echten oder konservativ kalibrierten Outcome-Daten
+# Verwendung: Use-Case-Generator referenziert diese für realistische Impact-Schätzungen
+#            und Roadmap-Generator für Aufwand/Dauer
+
+case_studies:
+
+  # ── 1. REVIEW-AUTOPILOT ─────────────────────────────────
+  - id: CS-REVIEW-AUTOPILOT
+    use_case: "Review-Antwort-Generator mit Freigabe-Workflow"
+    pattern: generation
+    typical_outcome:
+      response_rate_before: 0.46
+      response_rate_after: 0.94
+      response_time_before_days: 8.0
+      response_time_after_hours: 18
+      time_saved_h_per_week: 3.5
+      google_score_delta: 0.15   # ~0.1-0.2 nach 6-9 Monaten messbar
+      booking_score_delta: 0.20
+    implementation_effort_pt: 4
+    monthly_run_cost_eur: 120
+    fits_size_classes: [S, M, L]
+    fits_segments: [boutique, stadthotel, ferienhotel, resort, familienbetrieb]
+    prerequisites: ["Google My Business + Booking-Account-Inhaber-Login", "Tonalitäts-Beispiele (10-20 frühere Antworten)"]
+    risks: ["Wenn Tonalität nicht trifft → kalt-Effekt", "1-Klick-Freigabe-Prozess ist Pflicht"]
+    typical_tools: ["n8n + Claude API + Customer-Alliance-API ODER direkte Google + Booking APIs"]
+
+  # ── 2. RESERVIERUNGS-MAIL-AUTORESPONDER ─────────────────────────────────
+  - id: CS-MAIL-TRIAGE
+    use_case: "Reservierungs-Mail-Autoresponder mit dynamischem Angebot"
+    pattern: classification_plus_generation
+    typical_outcome:
+      response_time_before_hours: 14
+      response_time_after_minutes: 8
+      auto_handle_rate: 0.65   # 60-70% ohne menschliches Touchpoint
+      time_saved_h_per_week: 12
+      conversion_increase: 0.12   # 8-15% bei Abend/Wochenend-Anfragen
+    implementation_effort_pt: 5
+    monthly_run_cost_eur: 180
+    fits_size_classes: [S, M, L]
+    fits_segments: [boutique, stadthotel, ferienhotel, resort, familienbetrieb, tagungshotel]
+    prerequisites: ["Belegungsdaten-API (PMS-Integration)", "Saisonale Raten-Logik dokumentiert"]
+    risks: ["MICE-Anfragen müssen ans Sales gehen (Misuse-Risk)", "Sprachen-Coverage (DE/EN/IT) verifizieren"]
+    typical_tools: ["n8n + Apaleo/Mews-API + Claude API"]
+
+  # ── 3. SCHICHTPLAN-AUTOMATION ─────────────────────────────────
+  - id: CS-SCHEDULE-AUTOMATION
+    use_case: "Dienstplan-Automatisierung Housekeeping & F&B"
+    pattern: optimization
+    typical_outcome:
+      planning_time_before_h: 9
+      planning_time_after_h: 1.5
+      compliance_violations_before_per_month: 4
+      compliance_violations_after_per_month: 0
+      time_saved_h_per_week: 7.5
+    implementation_effort_pt: 8
+    monthly_run_cost_eur: 280
+    fits_size_classes: [M, L]
+    fits_segments: [boutique, stadthotel, ferienhotel, resort, tagungshotel]
+    prerequisites: ["Belegungs-Prognose-Daten verfügbar", "Mitarbeiter-Stammdaten aktuell"]
+    risks: ["Akzeptanz-Risiko Personal — Schichtplan ist emotional", "DACH-Arbeitszeitgesetz-Regeln müssen 100% korrekt implementiert sein"]
+    typical_tools: ["Hotelkit Operations + n8n-Plausibilitäts-Layer ODER Selbstbau n8n+Claude"]
+    when_not_to_do: "Wenn S-Größenklasse <25 MA — Excel reicht meistens, ROI dünn"
+
+  # ── 4. PRE-ARRIVAL CONCIERGE CHATBOT ─────────────────────────────────
+  - id: CS-PRE-ARRIVAL-CHATBOT
+    use_case: "Pre-Arrival Concierge Chatbot (WhatsApp/Web)"
+    pattern: rag_plus_conversation
+    typical_outcome:
+      front_office_time_saved_h_per_week: 4
+      guest_satisfaction_delta_nps: 8   # bei aktiver Nutzung
+      pre_arrival_upsell_conversion: 0.06
+    implementation_effort_pt: 7
+    monthly_run_cost_eur: 350
+    fits_size_classes: [M, L]
+    fits_segments: [boutique, stadthotel, resort, tagungshotel]
+    prerequisites: ["Strukturierte FAQ + Hausordnung", "WhatsApp Business Account"]
+    risks: ["Stammgäste-Touchpoints können verloren gehen (Persona-Spannung)", "Eskalations-Pfade müssen perfekt sein"]
+    typical_tools: ["Chatlyn ODER Selbstbau n8n+Claude+RAG"]
+    when_not_to_do: "Wenn Stammgäste-Quote >35% und Beziehung explizit kanalisiert ist"
+
+  # ── 5. POST-STAY DIREKTBUCHUNGS-SEQUENZ ─────────────────────────────────
+  - id: CS-POST-STAY-RETARGETING
+    use_case: "Post-Stay Direktbuchungs-Sequenz für OTA-Gäste"
+    pattern: marketing_automation_plus_personalization
+    typical_outcome:
+      direct_booking_share_delta_pp: 4   # 3-6 Prozentpunkte realistisch in 18 Mo
+      eur_saved_per_pp_of_revenue:       # annual_revenue × 0.7 × commission_rate ÷ 100
+      conversion_rate_email_to_booking: 0.022   # 1.5-3% bei guter Liste
+    implementation_effort_pt: 6
+    monthly_run_cost_eur: 220
+    fits_size_classes: [M, L]
+    fits_segments: [boutique, stadthotel, ferienhotel, resort]
+    prerequisites: ["OTA-Gäste-Mailadressen werden gespeichert (DSGVO-Opt-In!)", "Newsletter-Verteiler mit Tracking"]
+    risks: ["OTA-Lock-in-Klauseln verifizieren (Booking erlaubt Direkt-Kommunikation post-stay)"]
+    typical_tools: ["Brevo + n8n + Claude API ODER Revinate ODER Re:Guest"]
+
+  # ── 6. BEWERBUNGS-SCREENING ─────────────────────────────────
+  - id: CS-RECRUITING-SCREENING
+    use_case: "Bewerbungs-Screening + Auto-Follow-up"
+    pattern: classification_plus_dialogue
+    typical_outcome:
+      processing_time_per_application_min_before: 35
+      processing_time_per_application_min_after: 4
+      ghost_rate_before: 0.45
+      ghost_rate_after: 0.12
+      time_to_first_response_days_before: 6
+      time_to_first_response_days_after: 0.04   # ~1h
+    implementation_effort_pt: 5
+    monthly_run_cost_eur: 90
+    fits_size_classes: [M, L]
+    fits_segments: "all"
+    prerequisites: ["Standard-Stellenprofile + Skill-Anforderungen dokumentiert"]
+    risks: ["AI-Act-Compliance: Recruiting-KI ist 'high-risk' wenn Auto-Ablehnung — Mensch muss in der Loop bleiben (Pflicht!)"]
+    typical_tools: ["n8n + Claude API + Hotelcareer/Indeed API"]
+    legal_note: "EU-AI-Act Art. 6: Recruiting-AI ist Hochrisiko. Auto-Ablehnung verboten ohne menschliche Aufsicht."
+
+  # ── 7. DYNAMIC UPSELL ─────────────────────────────────
+  - id: CS-UPSELL-DYNAMIC
+    use_case: "Dynamisches Upsell-Angebot vor Anreise"
+    pattern: personalization
+    typical_outcome:
+      upsell_conversion: 0.085   # 6-12% je nach Personalisierung
+      avg_upsell_eur: 42
+      additional_revenue_per_arrival: 3.6   # 0.085 × 42
+    implementation_effort_pt: 4
+    monthly_run_cost_eur: 150
+    fits_size_classes: [M, L]
+    fits_segments: [resort, ferienhotel, boutique]
+    prerequisites: ["Upsell-Inventar definiert (Suite-Upgrade, Spa, Late-Checkout, F&B-Pakete)"]
+    risks: ["Spam-Empfinden bei Stammgästen vermeiden"]
+    typical_tools: ["Oaky · Revinate · Brevo + n8n"]
+
+  # ── 8. INHALTSGENERIERUNG SOCIAL/NEWSLETTER ─────────────────────────────────
+  - id: CS-CONTENT-GENERATION
+    use_case: "Newsletter + Social-Media-Inhaltsproduktion"
+    pattern: generation_plus_template
+    typical_outcome:
+      content_production_time_h_per_week_before: 4
+      content_production_time_h_per_week_after: 1.2
+      newsletter_open_rate_delta: 0.05   # personalisiertes Targeting hilft
+    implementation_effort_pt: 3
+    monthly_run_cost_eur: 80
+    fits_size_classes: [S, M, L]
+    fits_segments: "all"
+    prerequisites: ["Brand-Voice-Beispiele", "Saison-Themen-Kalender"]
+    typical_tools: ["Claude API direkt + Notion + Brevo"]
+
+  # ── 9. DOKUMENTEN-EXTRAKTION ───────────────────────────────
+  - id: CS-DOCUMENT-EXTRACTION
+    use_case: "Wareneinsatz- + Lieferantenrechnungs-Verarbeitung"
+    pattern: vision_extraction
+    typical_outcome:
+      processing_time_per_invoice_min_before: 6
+      processing_time_per_invoice_min_after: 1.2
+      error_rate_before: 0.04
+      error_rate_after: 0.015
+    implementation_effort_pt: 6
+    monthly_run_cost_eur: 140
+    fits_size_classes: [M, L]
+    fits_segments: [resort, gastronomie_voll, ferienhotel]
+    prerequisites: ["DATEV-Anbindung", "Lieferanten-Stammdaten"]
+    typical_tools: ["GPT-4V ODER Claude Vision + n8n + DATEV"]
+
+  # ── 10. CRM-RE-AKTIVIERUNG ───────────────────────────────
+  - id: CS-CRM-REACTIVATION
+    use_case: "Stammgast-Re-Aktivierung & Lookalike-Segmente"
+    pattern: segmentation_plus_personalization
+    typical_outcome:
+      reactivation_rate_dormant_guests: 0.08   # 6-12% in 6 Monaten
+      lifetime_value_increase: 0.18
+    implementation_effort_pt: 5
+    monthly_run_cost_eur: 165
+    fits_size_classes: [M, L]
+    fits_segments: [boutique, resort, ferienhotel]
+    prerequisites: ["Mind. 1.000 Gästedaten mit Aufenthalts-Historie + DSGVO-konforme Verarbeitungs-Grundlage"]
+
+  # ── 11. PERSONAL-FRÜHWARN-SYSTEM ───────────────────────────────
+  - id: CS-STAFF-EARLY-WARNING
+    use_case: "Personal-Fluktuations-Frühwarn-System"
+    pattern: prediction
+    typical_outcome:
+      fluktuation_reduction_pp: 8   # 5-12 Prozentpunkte realistisch
+      eur_saved_per_avoided_resignation: 4200   # Recruiting + Onboarding-Kosten
+    implementation_effort_pt: 12
+    monthly_run_cost_eur: 0   # Selbstbau, geringe variable Kosten
+    fits_size_classes: [L, XL]
+    fits_segments: [stadthotel, resort, tagungshotel]
+    prerequisites: ["Mind. 100 MA + 3-Jahres-Personal-Historie"]
+    risks: ["Mitarbeiter-Daten = High-Risk DSGVO + AI-Act", "Datenschutz-Folgenabschätzung Pflicht"]
+    when_not_to_do: "Wenn <80 MA — Stichprobe zu klein, ROI dünn"
+
+  # ── 12. KI-GESTÜTZTER REVENUE-MANAGEMENT-VORSCHLAG ───────────────────────────────
+  - id: CS-REVENUE-MGMT-AI
+    use_case: "KI-gestützte Preis-Empfehlungen (RMS-Light)"
+    pattern: prediction_plus_optimization
+    typical_outcome:
+      revpar_increase_pp: 0.05   # 3-8% bei sauberer Datenbasis
+      yield_management_time_h_per_week_before: 6
+      yield_management_time_h_per_week_after: 1.5
+    implementation_effort_pt: 10
+    monthly_run_cost_eur: 380
+    fits_size_classes: [M, L]
+    fits_segments: [stadthotel, resort, tagungshotel]
+    prerequisites: ["Mind. 18 Mo historische Buchungsdaten + Wettbewerber-Rate-Shopping"]
+    typical_tools: ["IdeaS RMS · Atomize · Selbstbau n8n+Claude für Mittelstand"]
+
+# ── ANTI-PATTERNS / WAS NICHT ZU TUN ─────────────────────────────────
+anti_patterns:
+  - title: "Voice-Bot-Front-Office-Ersatz"
+    why_no: "Customer-Touchpoint zu intim für ungeprüfte LLM-Antworten — Marken-Risiko zu hoch im Boutique-Segment"
+    instead: "Voice-Bot nur für klare Verifikations-/Wegfertigungs-Aufgaben (Reservierungs-Bestätigung, Standard-FAQs)"
+
+  - title: "Vollautomatische Gäste-Beschwerde-Bearbeitung"
+    why_no: "Beschwerden sind High-Stakes-Touchpoints — Mensch + KI-Co-Pilot, nicht KI allein"
+
+  - title: "OpenAI als alleinige LLM-Strategie"
+    why_no: "US-Hosting + nicht-EU-Cloud erhöht DSGVO-Aufwand. EU-Alternativen (Mistral, Aleph Alpha) sollten geprüft sein."
+
+  - title: "KI für Mitarbeiter-Bewertung / Leistungs-Vergleich"
+    why_no: "EU-AI-Act Hochrisiko + Betriebsrats-Konflikt + DSGVO-Folgenabschätzungs-Pflicht"

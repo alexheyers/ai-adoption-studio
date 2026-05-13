@@ -1,0 +1,58 @@
+{
+  "company": {
+    "name": "Hotel Alpenblick Garmisch GmbH",
+    "industry": "Hospitality",
+    "sub_segment": "Boutique-Hotel-Gruppe (3 Häuser, 4-Sterne)",
+    "size_class": "M",
+    "employees": 78,
+    "locations": 3,
+    "annual_revenue_eur": 9800000,
+    "region": "Bayern (Garmisch-Partenkirchen, München, Salzburg)"
+  },
+  "kpis": {
+    "adr_eur": 168.0,
+    "revpar_eur": 124.0,
+    "occupancy_rate": 73.8,
+    "personal_quote": 38.5,
+    "gop_margin": 24.2
+  },
+  "pain_points": [
+    {
+      "description": "Reservierungs-Bearbeitung über Email + Telefon frisst extrem viel Zeit, besonders zur Hauptsaison",
+      "severity": "high",
+      "affected_processes": ["Reservierung", "Front-Office"]
+    },
+    {
+      "description": "Reviews auf Booking, TripAdvisor, Google werden nicht systematisch beantwortet — Reputation leidet",
+      "severity": "high",
+      "affected_processes": ["Marketing", "Reputation Management"]
+    },
+    {
+      "description": "Personalplanung über Excel — bei Krankheitswelle bricht das System zusammen",
+      "severity": "medium",
+      "affected_processes": ["Personal", "Operations"]
+    },
+    {
+      "description": "Hohe Fluktuation im Front-Office, Onboarding neuer MA dauert 4-6 Wochen",
+      "severity": "high",
+      "affected_processes": ["Personal", "Training"]
+    },
+    {
+      "description": "Newsletter wird seit 8 Monaten nicht mehr verschickt — Re-Booking-Quote sinkt",
+      "severity": "medium",
+      "affected_processes": ["Marketing", "CRM"]
+    }
+  ],
+  "current_tools": [
+    "Mews PMS",
+    "SiteMinder Channel-Manager",
+    "Outlook für Email",
+    "Excel für Personalplanung",
+    "WhatsApp Business für Gast-Kommunikation",
+    "Booking.com / Expedia / HRS als OTAs",
+    "Quentic Compliance"
+  ],
+  "documents_summary": "G&V 2024 zeigt: 38.5% Personalquote, 24.2% GOP-Marge — beides am unteren Rand des Branchen-Standards. Geschäftsführer-Brief erwähnt 'Fachkräftemangel' 7-mal und 'Digitalisierung' 4-mal. Mitarbeiter-Survey: 62% empfinden manuelle Reservierungs-Bearbeitung als größten Frust-Punkt. Reviews-Audit (3 Monate): 234 Reviews, davon 41% nicht beantwortet, durchschnittliche Antwort-Zeit 8 Tage.",
+  "voice_interview_transcript": null,
+  "notes": "Geschäftsführer offen für AI, hat aber Skepsis gegen 'Sprach-Bots am Telefon'. Wichtig: jede Empfehlung muss DSGVO-konform sein und idealerweise EU-gehostet. Bestehende Mews-Investition soll geschützt werden — keine Replatformings."
+}
