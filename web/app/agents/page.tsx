@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AgentPipelineDiagram } from "@/components/AgentPipelineDiagram";
+import { EditorialHeader } from "@/components/Layout";
 
 const AGENTS = [
   {
@@ -141,18 +142,8 @@ const POST_AGENTS = [
 
 export default function AgentsPage() {
   return (
-    <div className="min-h-screen bg-cream">
-      <header className="border-b border-ink/10 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-semibold tracking-tight">AI-Adoption-Studio</Link>
-          <nav className="text-sm flex items-center gap-5">
-            <Link href="/" className="text-ink/70 hover:text-ink">Landing</Link>
-            <Link href="/customer-journey" className="text-ink/70 hover:text-ink">Customer Journey</Link>
-            <Link href="/pitch" className="text-ink/70 hover:text-ink">Pitch-Deck</Link>
-            <Link href="/onboarding" className="btn-primary">Analyse starten</Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-paper">
+      <EditorialHeader />
 
       <section className="mx-auto max-w-7xl px-6 pt-16 pb-10">
         <p className="text-sm uppercase tracking-widest text-teal mb-3">Agents</p>

@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI-Adoption-Studio · Hospitality-Strategie für die KI-Dekade",
+  title: "AI-Adoption-Studio · live im Bau · Alex Heyers",
   description:
-    "Senior-Beratung im 30-Minuten-Format. Voice-Interview mit Ada, acht spezialisierte Agents, ein Pitch-Deck, ein ROI-Modell, eine Roadmap. Für Hotellerie und Gastronomie im DACH-Raum.",
+    "Alex Heyers baut eine Hospitality-App im Vibe Coding Bootcamp 2026. Multi-Agent-System mit Voice-Interview, Senior-Consultant-Methode in Code. Live, dokumentiert, Tag für Tag.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

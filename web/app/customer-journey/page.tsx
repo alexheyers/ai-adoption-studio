@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EditorialHeader } from "@/components/Layout";
 
 const PHASES = [
   {
@@ -159,17 +160,8 @@ const PHASES = [
 
 export default function CustomerJourneyPage() {
   return (
-    <div className="min-h-screen bg-cream">
-      <header className="border-b border-ink/10 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-semibold tracking-tight">AI-Adoption-Studio</Link>
-          <nav className="text-sm flex items-center gap-5">
-            <Link href="/" className="text-ink/70 hover:text-ink">Landing</Link>
-            <Link href="/dashboard" className="text-ink/70 hover:text-ink">Dashboard</Link>
-            <Link href="/onboarding" className="btn-primary">Analyse starten</Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-paper">
+      <EditorialHeader />
 
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 pt-20 pb-12">

@@ -1,6 +1,33 @@
 "use client";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { ReactNode, useState } from "react";
+
+const NAV_ITEMS: Array<{ href: string; label: string }> = [
+  { href: "/#build-log",      label: "Build-Log" },
+  { href: "/pitch",           label: "Pitch" },
+  { href: "/agents",          label: "Agents" },
+  { href: "/customer-journey", label: "Journey" },
+  { href: "/dashboard",       label: "Dashboard" },
+];
+
+const PAGE_CONTEXTS: Record<string, string> = {
+  "/pitch":            "Pitch",
+  "/agents":           "Die 10 Agents",
+  "/customer-journey": "Customer Journey · 5 Phasen",
+  "/dashboard":        "Live Dashboard",
+  "/voice":            "Voice-Interview mit Ada",
+  "/voice-test":       "Voice-Test",
+  "/onboarding":       "Onboarding",
+  "/login":            "Login",
+  "/picker":           "Hotel-Picker",
+};
+
+function pageContext(pathname: string): string | null {
+  if (pathname === "/") return null;
+  if (pathname.startsWith("/report/")) return "Executive Report";
+  return PAGE_CONTEXTS[pathname] || null;
+}
 
 /**
  * Editorial-Layout — Magazin-Style mit fixierter Top-Bar, schmaler Sidebar-Nav optional.
@@ -40,74 +67,130 @@ export function ShellLayout({
  * sobald gescrollt → cream backdrop-blur Bar mit dunklem Text.
  */
 export function EditorialHeader() {
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname() || "/";
+  const isHome = pathname === "/";
+  const ctx = pageContext(pathname);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const dark = !scrolled;
+  const isActive = (href: string) => {
+    if (href === "/#build-log") return false;
+    if (href === "/") return isHome;
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
-    <header
-      className={`sticky top-0 z-40 transition-colors duration-500 ${
-        dark
-          ? "bg-transparent border-b border-transparent"
-          : "bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/70 border-b border-ink/15"
-      }`}
-    >
-      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between gap-3">
-        <Link href="/" className="group flex items-center gap-2 sm:gap-3 shrink-0">
-          <span
-            className={`font-display text-base sm:text-xl font-medium leading-none transition-colors duration-500 ${
-              dark ? "text-paper" : "text-ink"
-            }`}
-          >
-            AI-Adoption
-          </span>
-          <span
-            className={`hidden sm:inline font-mono text-[10px] tracking-eyebrow mt-0.5 transition-colors duration-500 ${
-              dark ? "text-gold" : "text-burgundy"
-            }`}
-          >
-            STUDIO
-          </span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] tracking-eyebrow uppercase">
-          {[
-            ["customer-journey", "Journey"],
-            ["agents", "Agents"],
-            ["pitch", "Pitch"],
-            ["dashboard", "Dashboard"],
-          ].map(([href, label]) => (
+    <>
+      <header className="sticky top-0 z-40 bg-paper border-b border-ink/15">
+        <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 h-16 lg:h-20 flex items-center gap-3">
+          {/* Back-Pfeil · NUR auf Sub-Pages */}
+          {!isHome && (
             <Link
-              key={href}
-              href={`/${href}`}
-              className={`transition-colors duration-300 hover-slide ${
-                dark ? "text-paper/80 hover:text-gold" : "text-ink/70 hover:text-burgundy"
-              }`}
+              href="/"
+              aria-label="Zurück zur Startseite"
+              className="group inline-flex items-center gap-2 pr-3 sm:pr-4 mr-2 sm:mr-3 border-r border-ink/15 text-ink/60 hover:text-burgundy transition-colors duration-300"
             >
-              {label}
+              <span className="font-mono text-base leading-none transition-transform group-hover:-translate-x-1">←</span>
+              <span className="hidden sm:inline font-mono text-[10px] tracking-eyebrow uppercase">Home</span>
             </Link>
-          ))}
-        </nav>
-        <Link
-          href="/login"
-          className={`inline-flex items-center gap-2 px-3 sm:px-5 py-2.5 text-[11px] sm:text-xs font-medium tracking-wide transition-all duration-300 shrink-0 ${
-            dark
-              ? "bg-paper text-ink hover:bg-gold"
-              : "bg-ink text-paper hover:bg-burgundy"
-          }`}
-        >
-          <span className="hidden sm:inline">Analyse starten</span>
-          <span className="sm:hidden">Analyse</span>
-          <span className="font-mono">→</span>
-        </Link>
-      </div>
-    </header>
+          )}
+
+          {/* Logo */}
+          <Link href="/" className="group flex items-center gap-2 sm:gap-3 shrink-0">
+            <span className="font-display text-base sm:text-xl font-medium leading-none text-ink">
+              AI-Adoption
+            </span>
+            <span className="hidden sm:inline font-mono text-[10px] tracking-eyebrow mt-0.5 text-burgundy">
+              STUDIO
+            </span>
+          </Link>
+
+          {/* Page-Kontext zwischen Logo und Nav */}
+          {ctx && (
+            <>
+              <span className="hidden lg:inline font-mono text-[10px] ml-3 text-ink/25">·</span>
+              <span className="hidden lg:inline font-mono text-[10px] tracking-eyebrow uppercase text-ink/55">
+                {ctx}
+              </span>
+            </>
+          )}
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Primary Nav · Desktop */}
+          <nav className="hidden md:flex items-center gap-7 font-mono text-[11px] tracking-eyebrow uppercase">
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative transition-colors duration-300 ${
+                    active ? "text-burgundy" : "text-ink/70 hover:text-burgundy"
+                  }`}
+                >
+                  {item.label}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute -bottom-2 left-0 right-0 h-px bg-burgundy"
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Contact als rechter Anker · ersetzt Generic-CTA */}
+          <a
+            href="mailto:a.heyers@gmail.com"
+            className="hidden md:inline-flex items-center gap-2 ml-7 pl-7 border-l border-ink/15 font-mono text-[11px] tracking-eyebrow uppercase text-ink hover:text-burgundy transition-colors duration-300"
+          >
+            <span>Kontakt</span>
+            <span className="font-mono">→</span>
+          </a>
+
+          {/* Mobile Menü-Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menü öffnen"
+            aria-expanded={mobileOpen}
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 text-ink hover:text-burgundy transition-colors duration-300"
+          >
+            <span className="font-mono text-sm">{mobileOpen ? "✕" : "☰"}</span>
+          </button>
+        </div>
+
+        {/* Mobile-Menü */}
+        {mobileOpen && (
+          <div className="md:hidden bg-paper border-t border-ink/15">
+            <nav className="mx-auto max-w-[1600px] px-4 sm:px-6 py-5 flex flex-col gap-4 font-mono text-xs tracking-eyebrow uppercase">
+              {NAV_ITEMS.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={active ? "text-burgundy" : "text-ink/80 hover:text-burgundy"}
+                  >
+                    {item.label}
+                    {active && <span className="ml-2 text-burgundy">·</span>}
+                  </Link>
+                );
+              })}
+              <a
+                href="mailto:a.heyers@gmail.com"
+                className="text-ink/60 pt-4 mt-1 border-t border-ink/15"
+              >
+                Kontakt · a.heyers@gmail.com
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
 
@@ -135,7 +218,7 @@ export function EditorialFooter() {
               · Studio
             </p>
             <p className="text-paper/80 max-w-md leading-relaxed">
-              Multi-Agent-System für KI-Adoption im Hospitality-Mittelstand. Senior-Consultant-Methode in Code übersetzt — gebaut für den DACH-Raum.
+              Alex Heyers baut. Vibe Coding Bootcamp 2026. Multi-Agent-System für Hospitality, dokumentiert in 26 LinkedIn-Posts und einem täglichen Build-Log. Hier siehst du jeden Schritt.
             </p>
           </div>
 
@@ -144,9 +227,10 @@ export function EditorialFooter() {
               · Inhalt
             </p>
             <ul className="space-y-3 font-mono text-[11px] tracking-eyebrow uppercase">
-              <li><Link href="/customer-journey" className="text-paper hover-slide">Customer Journey</Link></li>
+              <li><Link href="/#build-log"       className="text-paper hover-slide">Build-Log</Link></li>
               <li><Link href="/agents"           className="text-paper hover-slide">Die 10 Agents</Link></li>
               <li><Link href="/pitch"            className="text-paper hover-slide">Pitch · 19.05.</Link></li>
+              <li><Link href="/customer-journey" className="text-paper hover-slide">Customer Journey</Link></li>
               <li><Link href="/dashboard"        className="text-paper hover-slide">Dashboard</Link></li>
             </ul>
           </div>

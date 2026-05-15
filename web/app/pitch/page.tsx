@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { EditorialHeader } from "@/components/Layout";
 
 /**
  * Pitch-Deck · 19. Mai 2026 · Editorial × Quiet Luxury.
@@ -8,14 +10,16 @@ import Link from "next/link";
  * Druckbar via Cmd+P → Querformat → Hintergrundgrafiken AN.
  */
 
-const TODAY = "11. Mai 2026";
+const TODAY = "15. Mai 2026";
 const PITCH_DATE = "19. Mai 2026";
 const FINAL_PITCH = "21. Juli 2026";
+const PITCH_LABEL = "Konzept-Pitch";
 
 export default function PitchPage() {
   return (
     <div className="bg-paper">
       <PrintCSS />
+      <EditorialHeader />
 
       {/* ── 01 · COVER ─────────────────────────────────────── */}
       <Slide bg="bg-ink" className="text-paper">
@@ -24,7 +28,7 @@ export default function PitchPage() {
           <div className="col-span-12 lg:col-span-7 flex flex-col justify-between">
             <div className="flex items-baseline justify-between font-mono text-[10px] tracking-eyebrow uppercase text-paper/60">
               <span>Vol. I · No. 01</span>
-              <span className="hidden md:inline">Konzept-Pitch · B05-05</span>
+              <span className="hidden md:inline">{PITCH_LABEL} · B05-05</span>
               <span>{PITCH_DATE}</span>
             </div>
             <div>
@@ -146,34 +150,113 @@ export default function PitchPage() {
         </div>
       </Slide>
 
-      {/* ── 06 · LIVE-BEWEIS ─────────────────────────────────────── */}
+      {/* ── 06 · WORKFLOWS · INTRO ─────────────────────────────────────── */}
       <Slide>
-        <Eyebrow num="05" label="Beweis · Live-Run" />
-        <H>"Hotel Alpenblick Garmisch" — <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>gestern Abend</em>.</H>
-        <p className="mt-6 text-lg text-ink2 max-w-2xl leading-relaxed">
-          Pipeline läuft End-to-End gegen die echte Claude-Sonnet-4-6-API. Die Zahlen unten sind kein Mockup — sie kamen vor wenigen Stunden aus dem System.
+        <Eyebrow num="05" label="Live · auf dem VPS deployed" />
+        <H>Vier Prozesse. Vier <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>Workflows</em>.<br />Live im n8n.</H>
+        <p className="mt-6 text-lg text-ink2 max-w-3xl leading-relaxed">
+          Keine Mockups, keine Folien-Demos. Die folgenden vier n8n-Workflows laufen heute auf dem VPS — gegen Claude-Sonnet-4.5, mit Slack-Touchpoint, Audit-Trail, Confidence-Thresholds. Jeder Workflow adressiert einen konkreten Hospitality-Prozess. Public Source-Anker neben jeder Behauptung. Keine erfundenen Zahlen.
         </p>
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 border-y border-ink/15">
-          <KPICell label="Investment Y1" value="71.960" unit="€" />
-          <KPICell label="Savings Y1"    value="70.900" unit="€" accent />
-          <KPICell label="Savings 3J"    value="248.100" unit="€" accent />
-          <KPICell label="Payback"       value="12,2"   unit="Monate" />
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/15 border-y border-ink/15">
+          <WorkflowOverviewCell num="01" name="Reservation-Triage" nodes="18" status="live" desc="Mail-Klassifikation + Slack-Fanout" />
+          <WorkflowOverviewCell num="02" name="Document-Analyst" nodes="15" status="live" desc="PDF/CSV/XLSX → strukturierte KPIs" />
+          <WorkflowOverviewCell num="03" name="Voice-Discovery" nodes="12" status="building" desc="30-Min-Interview → Notion + Slack" />
+          <WorkflowOverviewCell num="04" name="Multi-Agent-Report" nodes="13 + 5 Subs" status="building" desc="Master orchestriert 5 Sub-Agents" />
         </div>
+      </Slide>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-12">
-          <div>
-            <p className="eyebrow-ink">Executive Summary · Live-LLM</p>
-            <blockquote className="pull-quote mt-4">
-              Ja, investieren — aber mit klarer Priorität. CRM-Re-Booking und Email-Triage zuerst, weil beide unter sechs Monaten amortisiert sind. Einen Use-Case sollten Sie zurückstellen: Schichtplan-Automation hat einen Payback von 28 Monaten.
-            </blockquote>
+      {/* ── 07 · WORKFLOW 1 · RESERVATION-TRIAGE ───────────────────── */}
+      <Slide>
+        <Eyebrow num="06" label="Workflow · 01 · Reservation-Triage" />
+        <H>Samstag, 09:00 Uhr. Die <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>Inbox</em> sortiert sich selbst.</H>
+
+        <div className="mt-12 grid lg:grid-cols-12 gap-x-10 gap-y-8">
+          <div className="lg:col-span-5 space-y-8">
+            <BeforeAfter
+              before="Mensch im Front-Office liest jede Mail, sortiert mental, antwortet einzeln. Antwortzeit Gruppen-Anfragen: 6–14 Stunden, je nach Wochenende."
+              after="Triage-Agent klassifiziert in drei Buckets (Buchung · Beschwerde · Info) mit Confidence-Score. Mensch sichtet vor-erstellte Antwort + sendet."
+              human="Final-Sichtung jeder Antwort · Beziehungs-Touchpoints · Beschwerde-Eskalationen"
+            />
+            <SourceAnchor
+              claim="Studien aus vergleichbaren Service-Workflows zeigen 50–70 % Volumen-Reduktion in der menschlichen Bearbeitungszeit."
+              source="Klarna AI Assistant · Feb 2024 (öffentliche Pressemitteilung) · 2,3 Mio Customer-Service-Conversations im ersten Monat = Volumen von 700 Full-Time-Agents"
+            />
+            <WorkflowBadge id="CU6Icsv7F5bYLNyY" status="live" lastDeploy="15.05.2026" />
           </div>
-          <div>
-            <p className="eyebrow-ink">Top-3 Quick Wins</p>
-            <ol className="mt-6 space-y-6">
-              <QuickWin num="01" name="Review-Autopilot" detail="Antwortzeit 8 Tage → <24 h. Antwortquote 59 % → 95 %." />
-              <QuickWin num="02" name="Email-Triage" detail="60-70 % der Mails ohne manuellen Touch. ~15 h/Woche frei." />
-              <QuickWin num="03" name="Mews ↔ OTA-Sync-Alarm" detail="Overbooking-Risiko eliminiert. Manuelle Kontrolle weg." />
-            </ol>
+          <div className="lg:col-span-7">
+            <WorkflowDiagram src="/wf1-reservation-triage.png" alt="n8n Workflow: Reservation-Triage" caption="n8n-Workflow · 18 Nodes · Webhook → Triage-Agent (Claude + Memory + 3 Tools) → Confidence-Branch → Switch (3 Buckets) → 4 Slack-Channels + Audit" />
+          </div>
+        </div>
+      </Slide>
+
+      {/* ── 08 · WORKFLOW 2 · DOCUMENT-ANALYST ─────────────────────── */}
+      <Slide bg="bg-paper2">
+        <Eyebrow num="07" label="Workflow · 02 · Document-Analyst" />
+        <H>Lieferanten-Belege. <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>Selbst gelesen.</em></H>
+
+        <div className="mt-12 grid lg:grid-cols-12 gap-x-10 gap-y-8">
+          <div className="lg:col-span-5 space-y-8">
+            <BeforeAfter
+              before="Manuelle Eingabe pro Beleg. DATEV-Studien zeigen 8–12 Minuten je Beleg im Mittel. Freitags fest blockiert in der Buchhaltung."
+              after="Upload (PDF/CSV/XLSX) → Switch nach Dateityp → OCR/Parser → Document-Analyst extrahiert KPIs (Belegung · ADR · RevPAR · OTA-Anteil) → Supabase mit Confidence-Score."
+              human="Sichtung Confidence < 0,9 · Anomalien · neue Lieferanten-Formate · Verhandlungs-Themen"
+            />
+            <SourceAnchor
+              claim="OCR-Industrie-Benchmarks öffentlich dokumentiert mit 90–95 % Genauigkeit auf strukturierten Belegen."
+              source="Rossum, Klippa, Veryfi · Produkt-Whitepaper + Gartner Magic Quadrant for Document AI · Industrie-Konsens"
+            />
+            <WorkflowBadge id="i3y8xEJoCh8qdiTD" status="live" lastDeploy="15.05.2026" />
+          </div>
+          <div className="lg:col-span-7">
+            <WorkflowDiagram src="/wf2-document-analyst.png" alt="n8n Workflow: Document-Analyst" caption="n8n-Workflow · 15 Nodes · Webhook → Switch (Dateityp) → 3 Parser-Pfade → Merge → Document-Analyst (Claude + 2 Tools) → Confidence-Branch → Supabase + Slack-Pipeline" />
+          </div>
+        </div>
+      </Slide>
+
+      {/* ── 09 · WORKFLOW 3 · VOICE-DISCOVERY ──────────────────────── */}
+      <Slide>
+        <Eyebrow num="08" label="Workflow · 03 · Voice-Discovery" />
+        <H>Dreißig Minuten <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>Gespräch</em>. Asynchron.</H>
+
+        <div className="mt-12 grid lg:grid-cols-12 gap-x-10 gap-y-8">
+          <div className="lg:col-span-5 space-y-8">
+            <BeforeAfter
+              before="1–3 Berater-Workshops à 2–4 Stunden. Reise-Zeit, Folien-Vorbereitung, mehrere Termine zur Daten-Gewinnung. Branchen-Standard: 15–80 T€ Audit-Honorar."
+              after="Voice-Upload (DE) → ElevenLabs Transcription → Interview-Analyst prüft Pre-Audit-Hypothesen + extrahiert Pain-Signals → Notion-Eintrag + Slack-Summary."
+              human="Direktor bleibt 30 Min im Gespräch · Tool führt strukturiert"
+            />
+            <SourceAnchor
+              claim="Sprechen liefert ~3,5× höhere Informationsdichte pro Zeit als Tippen. Strukturierte Voice-Interviews zeigen höhere Datentiefe und weniger Drop-outs."
+              source="NASA HCI Literature (150 WPM gesprochen vs. ~40 WPM getippt) · Stanford CHI 2021 zu Voice-vs-Text-Interviews · BDU Branchen-Reports zu Senior-Audit-Honoraren"
+            />
+            <WorkflowBadge id="N9PTvl7OqKuJIrBe" status="building" lastDeploy="15.05.2026" />
+          </div>
+          <div className="lg:col-span-7">
+            <WorkflowDiagram src="/wf3-voice-discovery.png" alt="n8n Workflow: Voice-Discovery" caption="n8n-Workflow · 12 Nodes · Voice-Upload → ElevenLabs (DE-Transcription) → Interview-Analyst (Claude + Memory + 2 Hypothesen-Tools) → Notion + Slack parallel → Merge" />
+          </div>
+        </div>
+      </Slide>
+
+      {/* ── 10 · WORKFLOW 4 · MULTI-AGENT-REPORT ───────────────────── */}
+      <Slide bg="bg-paper2">
+        <Eyebrow num="09" label="Workflow · 04 · Multi-Agent-Report" />
+        <H>Fünf <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>Spezialisten</em>. Parallel. Ein Bericht.</H>
+
+        <div className="mt-12 grid lg:grid-cols-12 gap-x-10 gap-y-8">
+          <div className="lg:col-span-5 space-y-8">
+            <BeforeAfter
+              before="Beratungs-Empfehlungen brauchen 4–8 Wochen Schreib-Zeit. Workshops, interne Drafts, Stakeholder-Loops. Übergabe nach 6–12 Wochen."
+              after="Master orchestriert fünf Sub-Workflows parallel: Process-Auditor · Use-Case-Generator (VUFVE) · Tool-Recommender (TSE/DSGVO) · ROI-Calculator · Compliance-Checker. Aggregation → Reporter-Agent verdichtet zu Executive Summary."
+              human="Ich schärfe vor Auslieferung · Direktor entscheidet vor Umsetzung"
+            />
+            <SourceAnchor
+              claim="Generative-AI-Assistenz in dokumentenbasierten Wissens-Workflows zeigt 25–50 % Produktivitätssteigerung — bei strukturierten Schreib-Aufgaben 30–55 % schnellere Fertigstellung."
+              source="Goldman Sachs Report März 2023 · GitHub Copilot Productivity Study (Microsoft Research 2022) · McKinsey 'Economic Potential of Generative AI' Juni 2023"
+            />
+            <WorkflowBadge id="b6nqaVQU4ka0JPr8" status="building" lastDeploy="15.05.2026" />
+          </div>
+          <div className="lg:col-span-7">
+            <WorkflowDiagram src="/wf4-multi-agent-report.png" alt="n8n Workflow: Multi-Agent-Report Master" caption="n8n-Master-Workflow · 13 Nodes + 5 deployed Sub-Workflows · Webhook fanout → 5× ExecuteWorkflow parallel → Merge → Reporter-Agent (Claude) → PDF → Postgres + Slack" />
           </div>
         </div>
       </Slide>
@@ -408,28 +491,138 @@ function StatCell({ value, unit, label, accent = false }: { value: string; unit:
   );
 }
 
-function KPICell({ label, value, unit, accent = false }: { label: string; value: string; unit: string; accent?: boolean }) {
+function WorkflowOverviewCell({
+  num,
+  name,
+  nodes,
+  status,
+  desc,
+}: {
+  num: string;
+  name: string;
+  nodes: string;
+  status: "live" | "building" | "planned";
+  desc: string;
+}) {
+  const statusColor = status === "live" ? "text-sage" : status === "building" ? "text-gold" : "text-ink3";
+  const statusLabel = status === "live" ? "Live" : status === "building" ? "In Bau" : "Geplant";
+  const statusGlyph = status === "live" ? "✓" : status === "building" ? "◐" : "○";
   return (
-    <div className="bg-paper p-8 flex flex-col">
-      <p className="font-mono text-[10px] tracking-eyebrow uppercase text-ink3">{label}</p>
-      <p className={`mt-3 font-display text-4xl md:text-5xl leading-none ${accent ? "text-burgundy" : "text-ink"}`}
-         style={{ fontVariationSettings: '"opsz" 144' }}>
-        {value}
+    <article className="bg-paper p-8 flex flex-col">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">· {num}</p>
+        <span className={`inline-flex items-center gap-1 font-mono text-[9px] tracking-eyebrow uppercase ${statusColor}`}>
+          <span aria-hidden>{statusGlyph}</span>
+          {statusLabel}
+        </span>
+      </div>
+      <p className="mt-6 font-display text-2xl text-ink leading-tight"
+         style={{ fontVariationSettings: '"WONK" 1, "opsz" 144' }}>
+        <em>{name}</em>
       </p>
-      <p className="mt-2 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">{unit}</p>
+      <p className="mt-2 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">{nodes} Nodes</p>
+      <p className="mt-6 text-sm text-ink2 leading-relaxed flex-1">{desc}</p>
+    </article>
+  );
+}
+
+function BeforeAfter({
+  before,
+  after,
+  human,
+}: {
+  before: string;
+  after: string;
+  human: string;
+}) {
+  return (
+    <div className="border-y border-ink/15">
+      <div className="grid grid-cols-12 gap-x-4 py-5 border-b border-ink/10">
+        <p className="col-span-3 font-mono text-[10px] tracking-eyebrow uppercase text-ink3 pt-1">
+          Vorher
+        </p>
+        <p className="col-span-9 text-sm text-ink2 leading-relaxed">{before}</p>
+      </div>
+      <div className="grid grid-cols-12 gap-x-4 py-5 border-b border-ink/10">
+        <p className="col-span-3 font-mono text-[10px] tracking-eyebrow uppercase text-burgundy pt-1">
+          Nachher
+        </p>
+        <p className="col-span-9 text-sm text-ink leading-relaxed">{after}</p>
+      </div>
+      <div className="grid grid-cols-12 gap-x-4 py-5">
+        <p className="col-span-3 font-mono text-[10px] tracking-eyebrow uppercase text-gold pt-1">
+          Mensch
+        </p>
+        <p className="col-span-9 text-sm text-ink2 leading-relaxed italic">{human}</p>
+      </div>
     </div>
   );
 }
 
-function QuickWin({ num, name, detail }: { num: string; name: string; detail: string }) {
+function SourceAnchor({ claim, source }: { claim: string; source: string }) {
   return (
-    <li className="flex gap-4">
-      <span className="font-mono text-[10px] tracking-eyebrow text-burgundy pt-1.5">{num}</span>
-      <div>
-        <p className="font-display text-xl text-ink leading-tight">{name}</p>
-        <p className="text-sm text-ink2 mt-1.5 leading-relaxed">{detail}</p>
+    <div className="border-l-2 border-burgundy pl-5 py-1">
+      <p className="font-display italic text-base text-ink leading-snug"
+         style={{ fontVariationSettings: '"WONK" 1' }}>
+        {claim}
+      </p>
+      <p className="mt-3 font-mono text-[10px] tracking-eyebrow uppercase text-ink3 leading-relaxed">
+        Quelle · {source}
+      </p>
+    </div>
+  );
+}
+
+function WorkflowBadge({
+  id,
+  status,
+  lastDeploy,
+}: {
+  id: string;
+  status: "live" | "building";
+  lastDeploy: string;
+}) {
+  const statusColor = status === "live" ? "text-sage" : "text-gold";
+  const statusLabel = status === "live" ? "deployed · aktiv-schaltbereit" : "deployed · im Bau";
+  return (
+    <div className="flex items-center gap-4 flex-wrap text-[10px] font-mono uppercase tracking-eyebrow">
+      <span className={`flex items-center gap-1.5 ${statusColor}`}>
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-current" aria-hidden />
+        {statusLabel}
+      </span>
+      <span className="text-ink3">·</span>
+      <span className="text-ink3">n8n-ID: <span className="text-ink">{id}</span></span>
+      <span className="text-ink3">·</span>
+      <span className="text-ink3">Stand {lastDeploy}</span>
+    </div>
+  );
+}
+
+function WorkflowDiagram({
+  src,
+  alt,
+  caption,
+}: {
+  src: string;
+  alt: string;
+  caption: string;
+}) {
+  return (
+    <figure className="bg-paper border border-ink/15 p-4 lg:p-6">
+      <div className="relative w-full aspect-[16/10] bg-paper2">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-contain"
+          unoptimized
+        />
       </div>
-    </li>
+      <figcaption className="mt-4 text-xs text-ink3 leading-relaxed font-mono">
+        {caption}
+      </figcaption>
+    </figure>
   );
 }
 
