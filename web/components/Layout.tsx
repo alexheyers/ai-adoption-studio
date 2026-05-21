@@ -245,8 +245,8 @@ export function EditorialFooter() {
               a.heyers@gmail.com
             </a>
             <p className="mt-4 text-paper/60 font-mono text-[10px] tracking-eyebrow uppercase">
-              BIZ 26 · KI-Boutique DACH<br />
-              Made for Vibe Coding Bootcamp 2026
+              Alex Heyers · Mosbach<br />
+              Vibe Coding Bootcamp · 06.05.–30.07.2026
             </p>
           </div>
         </div>

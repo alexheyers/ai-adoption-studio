@@ -248,8 +248,8 @@ export default function OnboardingPage() {
                 disabled
               />
               <div>
-                <span className="font-medium">Berater-begleitet (bald verfügbar)</span>
-                <p className="text-sm text-ink/70">Ein BIZ 26 Berater begleitet das Interview live.</p>
+                <span className="font-medium">Begleitet (bald verfügbar)</span>
+                <p className="text-sm text-ink/70">Ein Mensch sitzt live im Call dabei — für Pilot-Häuser nach Abstimmung.</p>
               </div>
             </label>
           </div>

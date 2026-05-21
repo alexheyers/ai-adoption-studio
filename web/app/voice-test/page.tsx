@@ -44,7 +44,7 @@ export default function VoiceTestPage() {
               <ol className="mt-4 space-y-3 text-ink2 leading-relaxed list-decimal pl-5">
                 <li>Klick unten rechts auf das schwebende <strong>&quot;Call Ada&quot;</strong>-Widget</li>
                 <li>Browser fragt nach Mikrofon → erlauben</li>
-                <li>Ada begrüßt mit:<br /><em className="text-burgundy text-sm">&quot;Hallo, ich bin Ada — schön, dass Sie sich Zeit nehmen…&quot;</em></li>
+                <li>Ada begrüßt mit:<br /><em className="text-burgundy text-sm">&quot;Hallo, ich bin Ada — die Stimme im Studio von Alex…&quot;</em></li>
                 <li>Sprich normal weiter</li>
                 <li>Klick zum Beenden auf das Hangup-Symbol im Widget</li>
               </ol>
@@ -60,7 +60,7 @@ export default function VoiceTestPage() {
             <div className="bg-paper border border-ink/15 p-8">
               <p className="eyebrow-ink">Was Ada gerade kann</p>
               <p className="mt-4 text-sm text-ink2 leading-relaxed">
-                Im Voice-Sandbox spricht Ada ohne Pre-Brief — sie kennt nur ihre Senior-Coach-Persona aus dem System-Prompt. Du kannst sie zu allem fragen, sie wird das Gespräch in Beratungs-Tonalität führen.
+                Im Voice-Sandbox spricht Ada ohne Pre-Brief — sie kennt nur ihre Voice-Coach-Persona aus dem System-Prompt. Du kannst sie zu allem fragen, sie führt das Gespräch im interviewenden Stil — direkt, kein Sales-Talk.
               </p>
               <p className="mt-4 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
                 Voll-Flow mit Pre-Brief: <Link href="/login" className="link-editorial">Login → Onboarding → /voice</Link>

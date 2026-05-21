@@ -50,7 +50,7 @@ export default function PitchPage() {
             <div className="flex flex-wrap items-end justify-between gap-6 pt-10 border-t border-paper/20 font-mono text-[10px] tracking-eyebrow uppercase text-paper/60">
               <div>
                 <p className="text-paper">Alex Heyers</p>
-                <p>BIZ 26 · KI-Boutique DACH</p>
+                <p>Mosbach · DACH</p>
               </div>
               <div className="text-right">
                 <p>20 Jahre · Gastronomie → Digital → KI</p>
@@ -87,7 +87,7 @@ export default function PitchPage() {
         <Eyebrow num="02" label="Vorschlag" />
         <H>30 Minuten Voice. <em className="text-burgundy" style={{ fontVariationSettings: '"WONK" 1' }}>8</em> Agents. 24 Stunden bis zum Pitch-Deck.</H>
         <div className="mt-16 grid md:grid-cols-3 gap-px bg-ink/15">
-          <StatCell value="30" unit="Minuten" label="Voice-Interview mit Ada · deutscher Senior-Coach" />
+          <StatCell value="30" unit="Minuten" label="Voice-Interview mit Ada · deutsch-sprachiger Voice-Coach" />
           <StatCell value="8" unit="Agents" label="Spezialisten · seriell + parallel orchestriert" accent />
           <StatCell value="24" unit="Stunden" label="bis Pitch-Deck · ROI-Excel · PDF im Postfach" />
         </div>
@@ -296,7 +296,7 @@ export default function PitchPage() {
           <div>
             <p className="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-4">Zwanzig Jahre Branchen-DNA</p>
             <p className="text-lg text-paper/85 leading-relaxed">
-              Vom Service-Beruf an der Bar über Standort-Leitung bis zur eigenen Digital-Strategie-Boutique BIZ 26. Ich kenne die Realität in Hotels — Personalmangel, OTA-Druck, schlechte Antwortzeiten, Reservierungs-Mail-Berg. Aus dieser Position heraus baue ich Tools, die genau diese Schmerzpunkte adressieren.
+              Vom Service-Beruf an der Bar über Standort-Leitung bis in die Direktion. Ich kenne die Realität in Hotels — Personalmangel, OTA-Druck, schlechte Antwortzeiten, Reservierungs-Mail-Berg. Aus dieser Position heraus baue ich, was ich selber lange gebraucht hätte.
             </p>
           </div>
           <div>
@@ -379,8 +379,8 @@ export default function PitchPage() {
             detail="Nicht ein Mega-Prompt — eine Pipeline mit klaren Outputs, Compliance-Sicherheitsnetzen, überprüfbaren Datenpunkten."
           />
           <Moat
-            title="BIZ-26-Distribution"
-            detail="Bestehender Kanal-Mix: deinebusinesspage.de, meinvoiceagent.de, myflowmotion.cloud. DACH-Branchen-Netzwerk aus 20 Jahren."
+            title="Eigener Kanal"
+            detail="Domain-Mix in Eigenregie: deinebusinesspage.de, meinvoiceagent.de, myflowmotion.cloud. Plus DACH-Branchen-Netzwerk aus 20 Jahren Hospitality."
           />
         </div>
       </Slide>
@@ -415,7 +415,7 @@ export default function PitchPage() {
           Danke. <em className="text-gold" style={{ fontVariationSettings: '"WONK" 1' }}>Fragen?</em>
         </p>
         <p className="mt-6 font-mono text-[11px] tracking-eyebrow uppercase text-paper/50">
-          a.heyers@gmail.com · BIZ 26 · Vibe Coding Bootcamp · {TODAY}
+          a.heyers@gmail.com · Mosbach · Vibe Coding Bootcamp · {TODAY}
         </p>
       </Slide>
 

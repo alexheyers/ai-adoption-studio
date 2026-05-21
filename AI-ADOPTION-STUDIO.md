@@ -27,9 +27,9 @@
 
 ### Dreifach-Funktion (Architektur 2.0/2.1)
 
-1. **Beratungs-Werkzeug für Alex / BIZ 26** ← Hauptpfad
+1. **Bewerbungs-Demo & Senior-Skill-Beweis** für Karriere nach Bootcamp ← Hauptpfad (seit 11.05.)
 2. **Self-Service-App für Direkt-Kunden** ← Sekundärpfad
-3. **Bewerbungs-Demo & Senior-Skill-Beweis** für Karriere nach Bootcamp
+3. **Beratungs-Werkzeug für Alex selbst** ← Eigennutzung im Branchen-Netzwerk
 
 ### Kern-USP
 
@@ -331,7 +331,7 @@ Anthropic Tier 1: ~30k Tokens/Min. ~25k pro Call → Pause + Verarbeitungszeit r
 7. Roadmap — 3 Phasen visuell
 8. Compliance-Hinweise — DSGVO + AI-Act (Stub)
 9. Nächste Schritte — Konkrete To-Dos
-10. Über Alex / BIZ 26 — Kontakt
+10. Über Alex Heyers — Kontakt
 
 ---
 

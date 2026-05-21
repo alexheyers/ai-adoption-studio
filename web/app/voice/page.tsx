@@ -141,14 +141,14 @@ function VoicePageInner() {
           <div>
             <p className="eyebrow-ink">Bereit?</p>
             <p className="mt-4 text-lg text-ink2 leading-relaxed">
-              Du sprichst jetzt 30 Minuten mit Ada — Senior-Coach für KI-Adoption.
-              Sie kennt deinen Namen, deine Firma, deine Pain Points aus dem Onboarding.
-              Sie führt strukturiert durch 13 ausgewählte Fragen.
+              Du sprichst jetzt rund 30 Minuten mit Ada — der Voice-Interview-Coach im Studio.
+              Sie kennt deinen Namen, deine Firma, deine Pain Points aus dem Onboarding und arbeitet
+              hypothesen-getrieben durch deine Hotel-Realität.
             </p>
             <ul className="mt-8 space-y-2 text-sm text-ink2">
               <li className="flex gap-3"><span className="text-burgundy mt-1">·</span>Ruhige Umgebung, gutes Mikrofon</li>
-              <li className="flex gap-3"><span className="text-burgundy mt-1">·</span>Ehrlich antworten — Ada ist Coach, kein Vertrieb</li>
-              <li className="flex gap-3"><span className="text-burgundy mt-1">·</span>Du kannst jederzeit beenden, Verlauf bleibt</li>
+              <li className="flex gap-3"><span className="text-burgundy mt-1">·</span>Ehrlich antworten — Ada sammelt, sie verkauft nichts</li>
+              <li className="flex gap-3"><span className="text-burgundy mt-1">·</span>Du kannst jederzeit beenden, der Verlauf bleibt</li>
             </ul>
             <button onClick={prepare} className="btn-primary mt-10">
               Vorbereitung starten <span className="font-mono">→</span>

@@ -148,7 +148,7 @@ chatbot:
     eu_hosting: true
     monthly_cost_eur: { S: 120, M: 220, L: 380 }
     strengths: ["Volle Kontrolle, niedrige Variable-Kosten", "EU-Hosting wenn n8n self-hosted"]
-    watch_outs: ["Eigenes Team muss Setup + Wartung tragen", "BIZ-26-Eigenbau realistisch"]
+    watch_outs: ["Eigenes Team muss Setup + Wartung tragen", "Eigenbau nur mit verfügbarer Tech-Kompetenz realistisch"]
     fit: [familienbetrieb, boutique, ferienhotel]
     use_when: "Wenn Tech-Affinität vorhanden + Standard-SaaS zu starr"
 
