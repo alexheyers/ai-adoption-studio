@@ -30,6 +30,13 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      # NEXT_PUBLIC_* müssen zur Build-Zeit gesetzt sein (Next.js backt sie in den
+      # Browser-Bundle). Werte aus .env (Interpolation) — sonst undefined → "Failed to fetch".
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_ELEVENLABS_AGENT_ID: ${NEXT_PUBLIC_ELEVENLABS_AGENT_ID}
     container_name: studio-web
     restart: unless-stopped
     env_file: .env.web
