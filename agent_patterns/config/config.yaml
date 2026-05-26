@@ -1,0 +1,97 @@
+# config.yaml — config-getriebene Steuerung des ai_adoption-Patterns.
+#
+# Der Orchestrator liest NUR diese Datei + die REGISTRY des Patterns.
+# Reihenfolge, Aktivierung und Pause werden hier gesteuert — nicht im Code.
+#
+# Einen Agenten (de)aktivieren  -> enabled: true|false
+# Reihenfolge ändern            -> sequence-Einträge umsortieren
+# Neuen Agenten verdrahten      -> agent: <name> ergänzen (muss in REGISTRY sein)
+
+name: ai_adoption
+description: >
+  Hospitality-KI-Adoptions-Beratung. Serielle Multi-Agent-Pipeline auf dem
+  Claude Agent SDK. Migrations-Stand: ALLE Analyse-Agenten migriert
+  (Web-Research, Pre-Audit-Analyst, Document-Analyst, Process-Auditor,
+  Use-Case-Generator, Tool-Recommender, ROI-Calculator, Compliance-Checker,
+  Roadmap-Generator, Reporter). Der Voice-/Interview-Agent (ElevenLabs) ist
+  KEIN SDK-Agent und daher nicht Teil dieses Patterns.
+
+# Rate-Limit-Pause zwischen Agent-Calls in Sekunden (Anthropic Tier 1).
+# Entspricht AGENT_PAUSE_SECONDS im bestehenden agents/orchestrator.py.
+pause_seconds: 8
+
+# Modell-Defaults (pro AgentSpec im Code überschreibbar).
+defaults:
+  model: claude-sonnet-4-6
+  max_tokens: 20000
+
+# Ausführungs-Reihenfolge. Jeder agent-Name muss in der Pattern-REGISTRY stehen.
+# Reihenfolge = Daten-Abhängigkeit. Jeder Output landet im Kontext unter seinem
+# Namen und ist für Folge-Agenten verfügbar.
+#
+# Hinweis zu den Pre-Audit-Agenten (web_research, pre_audit_analyst): sie laufen
+# in der Live-Pipeline VOR dem Voice-Interview und brauchen context["company"]
+# (dict) sowie optional documents_summary / web_research. Sie sind hier per
+# default DEAKTIVIERT, weil ihr Input (rohes company-dict, Voice-Transcript)
+# nicht aus dem briefing-Kontext der Haupt-Pipeline kommt. Bei Bedarf
+# enabled: true setzen und den passenden initial_context mitliefern.
+sequence:
+  - agent: web_research
+    enabled: false
+    note: >
+      Pre-Audit: recherchiert Firma + Region online (SDK-WebSearch-Tool).
+      Braucht context["company"] (dict). Output unter context["web_research"].
+
+  - agent: pre_audit_analyst
+    enabled: false
+    note: >
+      Pre-Audit: 5-7 datengetriebene Hypothesen vor dem Voice-Interview.
+      Braucht context["company"] (dict), optional documents_summary +
+      context["web_research"] + voice_transcript.
+
+  - agent: document_analyst
+    enabled: true
+    note: >
+      Analysiert hochgeladene Dokumente vor der Prozess-Auditierung.
+      Braucht context["company"] + context["documents"] (+ optional voice_transcript).
+
+  - agent: process_auditor
+    enabled: true
+    note: >
+      Identifiziert die 8-12 stärksten Prozess-Hebel. Braucht context["briefing"].
+
+  - agent: use_case_generator
+    enabled: true
+    note: >
+      Leitet 5-8 KI-Use-Cases ab (VUFVE-Check). Braucht context["briefing"]
+      + context["process_auditor"].
+
+  - agent: tool_recommender
+    enabled: true
+    note: >
+      Empfiehlt Tools pro Use-Case. Braucht context["briefing"]
+      + context["use_case_generator"].
+
+  - agent: roi_calculator
+    enabled: true
+    note: >
+      Business-Case pro Use-Case. Braucht context["briefing"]
+      + process_auditor + use_case_generator + tool_recommender.
+
+  - agent: compliance_checker
+    enabled: true
+    note: >
+      DSGVO/AI-Act-Flags pro Use-Case. Braucht context["briefing"]
+      + use_case_generator + tool_recommender.
+
+  - agent: roadmap_generator
+    enabled: true
+    note: >
+      3-Phasen-Roadmap. Braucht context["briefing"]
+      + use_case_generator + tool_recommender + roi_calculator.
+
+  - agent: reporter
+    enabled: true
+    note: >
+      Executive Summary + aggregiert alle Sub-Reports zum FullReport.
+      MUSS letzter Schritt sein — liest alle vorigen Outputs aus dem Kontext.

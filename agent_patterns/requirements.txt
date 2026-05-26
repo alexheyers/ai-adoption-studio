@@ -1,0 +1,18 @@
+# agent_patterns — zusätzliche Abhängigkeit gegenüber dem Repo-requirements.txt.
+#
+# Das Haupt-requirements.txt im Repo-Root bleibt UNVERÄNDERT. Diese Datei
+# ergänzt nur das, was die SDK-basierte Library zusätzlich braucht.
+#
+# Installation NUR ins lokale venv:
+#   .venv/bin/pip install -r agent_patterns/requirements.txt
+#
+# claude-agent-sdk benötigt zur Laufzeit die Claude Code CLI auf dem System
+# (npm i -g @anthropic-ai/claude-code) ODER einen API-Key (ANTHROPIC_API_KEY).
+# Siehe docs/sdk-architecture.md, Abschnitt "Voraussetzungen".
+
+claude-agent-sdk>=0.1.0
+
+# Bereits im Repo-requirements.txt vorhanden, hier nur dokumentiert:
+# pydantic>=2.0.0
+# pyyaml>=6.0.0
+# python-dotenv>=1.0.0
