@@ -1,0 +1,179 @@
+/* ════════════════════════════════════════════════════════════
+   myflowmotion.cloud — Lokales Preview (Director's Cut)
+   Portierte Stile aus web/app/globals.css — damit das Preview
+   genauso aussieht wie das Original (Editorial × Quiet Luxury).
+   ════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html, body {
+  background: #FAF6EE;
+  color: #161616;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans);
+}
+::selection { background: #6B2737; color: #FAF6EE; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); }
+
+/* Eyebrows */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.22em; color: #6B2737;
+}
+.tracking-eyebrow { letter-spacing: 0.22em; }
+
+/* Massive Sans Display (Bricolage) */
+.h-brutal {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(2.5rem, 11vw, 13rem); line-height: 0.9;
+  letter-spacing: -0.055em; word-break: keep-all; hyphens: none;
+}
+.h-brutal-md {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(2rem, 6vw, 6rem); line-height: 0.95;
+  letter-spacing: -0.04em; word-break: keep-all; hyphens: none;
+}
+.h-brutal-sm {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1; letter-spacing: -0.03em;
+}
+@media (max-width: 640px) {
+  .h-brutal { font-size: clamp(2.2rem, 10vw, 4rem); line-height: 1; letter-spacing: -0.04em; }
+  .h-brutal-md { font-size: clamp(1.5rem, 6vw, 2.4rem); line-height: 1.05; }
+}
+
+/* Italic-Accent-Word (das Signature _wort_) */
+.italic-accent {
+  font-family: var(--font-display); font-style: italic; font-weight: 500;
+  position: relative; white-space: nowrap; padding: 0 0.05em;
+}
+.italic-accent::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0.04em;
+  height: 0.08em; background: currentColor;
+}
+
+/* Brutal-Backgrounds */
+.brutal-bg-dark { background: #0A0A0A; color: #FAF6EE; position: relative; z-index: 1; isolation: isolate; }
+.brutal-bg-light { background: #FAF6EE; color: #0A0A0A; }
+
+.brutal-rank {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(3rem, 7vw, 6rem); line-height: 0.9; letter-spacing: -0.05em;
+}
+
+/* Pull-Quote */
+.pull-quote {
+  font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.1; color: #161616;
+  position: relative; padding: 1rem 0 1rem 4.5rem;
+}
+.pull-quote::before {
+  content: "\201C"; position: absolute; left: 0; top: -0.15em; color: #6B2737;
+  font-family: var(--font-display); font-size: 2.5em; line-height: 1; font-weight: 500;
+}
+
+/* Drop-Cap groß */
+.drop-cap-grand::first-letter {
+  font-family: var(--font-display); color: #6B2737; font-size: 7em; font-weight: 500;
+  line-height: 0.78; float: left; margin: 0.05em 0.08em 0 -0.05em; font-style: italic;
+}
+@media (max-width: 768px) { .drop-cap-grand::first-letter { font-size: 4em; margin: 0.05em 0.1em 0 0; } }
+
+/* Section-Number */
+.section-num {
+  font-family: var(--font-display); font-size: clamp(6rem, 14vw, 13rem); line-height: 0.78;
+  color: #6B2737; font-style: italic; letter-spacing: -0.04em;
+}
+
+/* Mega-Marquee */
+.marquee-mega {
+  display: flex; overflow: hidden; user-select: none; background: #0A0A0A; color: #FAF6EE;
+  padding: 2.5rem 0; border-top: 2px solid #0A0A0A; border-bottom: 2px solid #0A0A0A;
+}
+.marquee-mega-track { display: flex; flex-shrink: 0; animation: marquee 50s linear infinite; gap: 4rem; }
+.marquee-mega:hover .marquee-mega-track { animation-play-state: paused; }
+.marquee-mega-item {
+  font-family: var(--font-sans); font-weight: 700; font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9; letter-spacing: -0.045em; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 2.5rem;
+}
+.marquee-mega-item em {
+  font-family: var(--font-display); font-style: italic; font-weight: 500; color: #B8945F;
+}
+.marquee-mega-dot { color: #6B2737; font-size: 0.7em; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Skew-Marquee */
+.marquee-skew {
+  background: #6B2737; color: #FAF6EE; padding: 1.3rem 0; overflow: hidden;
+  transform: rotate(-2.5deg) scale(1.05); margin: -1.5rem 0; position: relative; z-index: 5;
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.4);
+}
+.marquee-skew-track { display: flex; gap: 3rem; animation: marquee 30s linear infinite; }
+.marquee-skew-item {
+  font-family: var(--font-sans); font-weight: 700; font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+  letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 1.5rem;
+}
+.marquee-skew-item em {
+  color: #B8945F; font-family: var(--font-display); font-weight: 500;
+  text-transform: none; letter-spacing: 0; font-style: italic;
+}
+
+/* Hover-Slide Underline */
+.hover-slide { position: relative; display: inline-block; }
+.hover-slide::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.7,0,0.3,1);
+}
+.hover-slide:hover::after { transform: scaleX(1); }
+
+/* Spotlight */
+.spotlight { position: relative; overflow: hidden; }
+
+/* Hero-Entrance */
+@keyframes hero-fade-in { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+.hero-fade-in { animation: hero-fade-in 1s cubic-bezier(0.16,1,0.3,1) both; opacity: 1; }
+
+/* Scroll-Reveal (einfache Fade-Variante fürs Preview) */
+.scroll-reveal { animation: simple-fade-rise 1s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes simple-fade-rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Status-Pill */
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono);
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor; border-radius: 999px;
+}
+.pill-live { color: #7A8471; }
+.pill-building { color: #B8945F; }
+.pill-planned { color: #7D7872; }
+
+/* Preview-Banner */
+.preview-flag {
+  position: fixed; bottom: 14px; right: 14px; z-index: 9999;
+  background: #6B2737; color: #FAF6EE; font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 8px 14px; border-radius: 4px; box-shadow: 0 8px 24px -8px rgba(0,0,0,.4);
+}
+.preview-nav {
+  position: fixed; bottom: 14px; left: 14px; z-index: 9999; display: flex; gap: 8px;
+  background: rgba(10,10,10,.9); padding: 8px 12px; border-radius: 4px;
+}
+.preview-nav a {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #FAF6EE; text-decoration: none; opacity: .65;
+}
+.preview-nav a:hover, .preview-nav a.active { opacity: 1; color: #B8945F; }
+
+html { scroll-behavior: smooth; }

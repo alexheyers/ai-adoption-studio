@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>myflowmotion.cloud · Preview · Agents</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { paper:'#FAF6EE', paper2:'#F2EBDD', ink:'#161616', ink2:'#3A3735', ink3:'#7D7872', rule:'#C9C1B0', burgundy:'#6B2737', burgundy2:'#8B3A4A', gold:'#B8945F', gold2:'#D4B27C', sage:'#7A8471', bottle:'#1B3A2F' },
+    fontFamily: { display:['var(--font-display)','Georgia','serif'], sans:['var(--font-sans)','system-ui','sans-serif'], mono:['var(--font-mono)','monospace'] },
+    fontSize: { 'display-md':['clamp(2.2rem,4.5vw,3.5rem)',{lineHeight:'1.05',letterSpacing:'-0.02em'}] },
+    letterSpacing: { eyebrow:'0.22em' },
+  } }
+}
+</script>
+<link rel="stylesheet" href="studio.css" />
+</head>
+<body class="font-sans bg-paper">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-paper border-b border-ink/15">
+  <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 h-16 lg:h-20 flex items-center gap-3">
+    <a href="index.html" class="group inline-flex items-center gap-2 pr-3 mr-2 border-r border-ink/15 text-ink/60 hover:text-burgundy">
+      <span class="font-mono text-base">←</span><span class="hidden sm:inline font-mono text-[10px] tracking-eyebrow uppercase">Home</span>
+    </a>
+    <a href="index.html" class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <span class="font-display text-base sm:text-xl font-medium text-ink">AI-Adoption</span>
+      <span class="hidden sm:inline font-mono text-[10px] tracking-eyebrow mt-0.5 text-burgundy">STUDIO</span>
+    </a>
+    <span class="hidden lg:inline font-mono text-[10px] ml-3 text-ink/25">·</span>
+    <span class="hidden lg:inline font-mono text-[10px] tracking-eyebrow uppercase text-ink/55">Die Agenten</span>
+    <div class="flex-1"></div>
+    <nav class="hidden md:flex items-center gap-7 font-mono text-[11px] tracking-eyebrow uppercase">
+      <a href="index.html#build-log" class="text-ink/70 hover:text-burgundy">Build-Log</a>
+      <a href="pitch.html" class="text-ink/70 hover:text-burgundy">Pitch</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="brutal-bg-light border-b-2 border-ink">
+  <div class="mx-auto max-w-[1400px] px-6 lg:px-10 pt-20 pb-12">
+    <p class="eyebrow mb-4">· Die Agenten</p>
+    <h1 class="h-brutal-md text-ink max-w-4xl">Mehrere Spezialisten. <em class="italic-accent text-burgundy">Ein</em> Ablauf.</h1>
+    <p class="mt-8 text-lg text-ink/70 max-w-3xl leading-relaxed">
+      Jeder Agent ist ein kleiner Spezialist mit klarem Job — nacheinander und parallel orchestriert.
+      Kein Mega-Prompt, sondern eine Pipeline mit prüfbaren Zwischen-Ergebnissen. Sie laufen als
+      <em class="italic-accent text-burgundy">Python-Code im FastAPI-Backend</em>, nicht als zusammengeklickter Workflow.
+    </p>
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 border border-ink/15">
+      <div class="bg-paper p-5 text-center"><p class="brutal-rank text-ink" style="font-size:clamp(2rem,4vw,3rem)">8</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-1">Fach-Agenten</p></div>
+      <div class="bg-paper p-5 text-center"><p class="brutal-rank text-ink" style="font-size:clamp(2rem,4vw,3rem)">3</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-1">Output-Generatoren</p></div>
+      <div class="bg-paper p-5 text-center"><p class="brutal-rank text-sage" style="font-size:clamp(2rem,4vw,3rem)">live</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-1">Engine = FastAPI</p></div>
+      <div class="bg-paper p-5 text-center"><p class="brutal-rank text-burgundy" style="font-size:clamp(2rem,4vw,3rem)">Claude</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-1">je Agent ein Modell-Call</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENT-LISTE -->
+<div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-16 space-y-px bg-ink/10">
+
+  <!-- 00 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">00</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Web-Research</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Vorab-Recherche</span><span class="pill pill-live">✓ läuft</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Sucht öffentliche Infos zum Haus und Region-Benchmarks, damit das Gespräch mit Kontext startet — der Agent weiß schon ein bisschen was, bevor das erste Wort fällt.</p>
+      <div class="mt-5 grid md:grid-cols-2 gap-6 text-sm">
+        <div><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-1">Input</p><p class="text-ink/80">Firmenname, Segment, Region (aus dem Onboarding)</p></div>
+        <div><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-1">Output</p><p class="text-ink/80">Firmen-Funde, Region-Benchmarks, Quellenliste</p></div>
+      </div>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/web_research.py</p>
+    </div>
+  </article>
+
+  <!-- 01 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">01</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Dokumenten-Analyst</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Daten einlesen</span><span class="pill pill-live">✓ läuft</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Liest hochgeladene Dateien — PDF, Excel, CSV — und macht daraus eine strukturierte Kennzahlen-Übersicht: Belegung, Durchschnittspreis, OTA-Anteil, Wareneinsatz. Persönliches wird vorher anonymisiert.</p>
+      <div class="mt-5 grid md:grid-cols-2 gap-6 text-sm">
+        <div><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-1">Input</p><p class="text-ink/80">Hochgeladene Dokumente (GuV, Reports, Listen)</p></div>
+        <div><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-1">Output</p><p class="text-ink/80">Strukturierte KPIs + Zusammenfassung</p></div>
+      </div>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/document_analyst.py</p>
+    </div>
+  </article>
+
+  <!-- 02 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">02</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Prozess-Auditor</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Prozesse finden</span><span class="pill pill-live">✓ läuft</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Findet aus Daten + Gespräch die zeitfressenden Abläufe, bewertet ihr Automatisierungs-Potenzial und benennt, wo am meisten Zeit verloren geht.</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/process_auditor.py</p>
+    </div>
+  </article>
+
+  <!-- 03 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">03</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Use-Case-Generator</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Ansatzpunkte</span><span class="pill pill-building">◐ im Bau</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Übersetzt die Engpässe in konkrete Anwendungsfälle und markiert die schnellen Erfolge — das, was in wenigen Wochen umsetzbar ist.</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/use_case_generator.py</p>
+    </div>
+  </article>
+
+  <!-- 04 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">04</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Tool-Empfehlung</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Werkzeuge</span><span class="pill pill-building">◐ im Bau</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Empfiehlt pro Ansatzpunkt ein konkretes Tool plus Alternativen, schätzt Kosten und Aufwand und beschreibt, wie es in den bestehenden Stack passt.</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/tool_recommender.py</p>
+    </div>
+  </article>
+
+  <!-- 05 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">05</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Wirtschaftlichkeit</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Geld-Rechnung</span><span class="pill pill-planned">○ geplant</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Rechnet pro Ansatzpunkt Aufwand, Einsparung und Amortisation — nachvollziehbar und ehrlich, nicht schöngerechnet.</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/roi_calculator.py</p>
+    </div>
+  </article>
+
+  <!-- 06 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">06</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Compliance-Check</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">DSGVO · AI-Act</span><span class="pill pill-planned">○ geplant</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Prüft jeden Vorschlag auf DSGVO-Relevanz, EU-AI-Act-Risikoklasse und Branchen-Recht. Strukturierte Hinweise mit klarem Disclaimer — ausdrücklich keine Rechtsberatung.</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/compliance_checker.py</p>
+    </div>
+  </article>
+
+  <!-- 07 -->
+  <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-[90px_1fr] gap-6">
+    <div class="brutal-rank text-burgundy">07</div>
+    <div>
+      <div class="flex items-baseline gap-3 flex-wrap"><h2 class="font-display text-2xl lg:text-3xl text-ink"><em>Reporter</em></h2><span class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Zusammenfassung</span><span class="pill pill-building">◐ im Bau</span></div>
+      <p class="mt-3 text-ink/75 leading-relaxed max-w-3xl">Bündelt alle Ergebnisse zu einer kurzen, lesbaren Zusammenfassung — konkret, ohne Buzzwords, mit klarer Empfehlung. Auch mal mit einem ehrlichen "Nein, das lohnt sich nicht".</p>
+      <p class="mt-4 font-mono text-[10px] text-ink3">agents/reporter.py</p>
+    </div>
+  </article>
+</div>
+
+<!-- OUTPUT-GENERATOREN -->
+<section class="brutal-bg-light border-t-2 border-ink">
+  <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-16">
+    <h2 class="h-brutal-sm text-ink">Nach der Pipeline: die <em class="italic-accent text-burgundy">Deliverables</em>.</h2>
+    <p class="mt-4 text-ink/65 max-w-3xl">Sobald der Reporter gebündelt hat, machen drei Module daraus, was am Ende herauskommt.</p>
+    <div class="mt-8 grid md:grid-cols-3 gap-px bg-ink/15 border border-ink/15">
+      <div class="bg-paper p-7"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Output</p><h3 class="font-display text-xl text-ink mt-2">Excel</h3><p class="text-sm text-ink/70 mt-2">Mehrere Tabellenblätter: Zusammenfassung, Wirtschaftlichkeit, Use-Cases, Tools, Roadmap.</p></div>
+      <div class="bg-paper p-7"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Output</p><h3 class="font-display text-xl text-ink mt-2">Präsentation</h3><p class="text-sm text-ink/70 mt-2">Ein Foliensatz mit den Kernpunkten — für die Runde, die entscheidet.</p></div>
+      <div class="bg-paper p-7"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Output</p><h3 class="font-display text-xl text-ink mt-2">PDF-Report</h3><p class="text-sm text-ink/70 mt-2">Der Voll-Bericht — Cover plus alle Abschnitte, sauber zum Mitnehmen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="brutal-bg-dark">
+  <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-10 flex flex-wrap justify-between gap-4 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
+    <span>AI-Adoption-Studio · Die Agenten</span>
+    <a href="index.html" class="text-paper hover-slide">← zurück zur Startseite</a>
+  </div>
+</footer>
+
+<div class="preview-nav">
+  <a href="index.html">Homepage</a>
+  <a href="pitch.html">Pitch</a>
+  <a href="agents.html" class="active">Agents</a>
+</div>
+<div class="preview-flag">Preview · Director's Cut · nicht live</div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>myflowmotion.cloud · Entwurf v2 · Homepage</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { paper:'#FAF6EE', paper2:'#F2EBDD', ink:'#161616', ink2:'#3A3735', ink3:'#7D7872', rule:'#C9C1B0', burgundy:'#6B2737', burgundy2:'#8B3A4A', gold:'#B8945F', gold2:'#D4B27C', sage:'#7A8471', bottle:'#1B3A2F' },
+    fontFamily: { display:['var(--font-display)','Georgia','serif'], sans:['var(--font-sans)','system-ui','sans-serif'], mono:['var(--font-mono)','monospace'] },
+    fontSize: {
+      'display-xl':['clamp(3.5rem,8vw,7rem)',{lineHeight:'0.95',letterSpacing:'-0.03em'}],
+      'display-lg':['clamp(2.8rem,6vw,5rem)',{lineHeight:'1.0',letterSpacing:'-0.025em'}],
+      'display-md':['clamp(2.2rem,4.5vw,3.5rem)',{lineHeight:'1.05',letterSpacing:'-0.02em'}],
+      'display-sm':['clamp(1.6rem,3vw,2.4rem)',{lineHeight:'1.1',letterSpacing:'-0.015em'}]
+    },
+    letterSpacing: { eyebrow:'0.22em' },
+  } }
+}
+</script>
+<link rel="stylesheet" href="studio.css" />
+</head>
+<body class="font-sans">
+
+<!-- ░░ HEADER ░░ -->
+<header class="sticky top-0 z-40 bg-paper border-b border-ink/15">
+  <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 h-16 lg:h-20 flex items-center gap-3">
+    <a href="index.html" class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <span class="font-display text-base sm:text-xl font-medium text-ink">AI-Adoption</span>
+      <span class="hidden sm:inline font-mono text-[10px] tracking-eyebrow mt-0.5 text-burgundy">STUDIO</span>
+    </a>
+    <div class="flex-1"></div>
+    <nav class="hidden md:flex items-center gap-7 font-mono text-[11px] tracking-eyebrow uppercase">
+      <a href="#build-log" class="text-ink/70 hover:text-burgundy">Build-Log</a>
+      <a href="pitch.html" class="text-ink/70 hover:text-burgundy">Pitch</a>
+      <a href="agents.html" class="text-ink/70 hover:text-burgundy">Agents</a>
+      <a href="#ablauf" class="text-ink/70 hover:text-burgundy">So läuft's</a>
+    </nav>
+    <a href="mailto:a.heyers@gmail.com" class="hidden md:inline-flex items-center gap-2 ml-7 pl-7 border-l border-ink/15 font-mono text-[11px] tracking-eyebrow uppercase text-ink hover:text-burgundy">
+      <span>Kontakt</span><span>→</span>
+    </a>
+  </div>
+</header>
+
+<main>
+<!-- ░░ 01 · HERO ░░ -->
+<section class="brutal-bg-dark relative overflow-hidden min-h-[820px] lg:min-h-[900px] flex flex-col">
+  <div class="absolute inset-0 -z-10" style="background: radial-gradient(ellipse at 78% 28%, rgba(122,132,113,0.12), transparent 60%), radial-gradient(ellipse at 18% 82%, rgba(107,39,55,0.10), transparent 55%);"></div>
+  <div class="flex-1 mx-auto max-w-[1600px] w-full px-6 lg:px-10 pt-28 lg:pt-32 pb-20 flex flex-col">
+    <div class="flex items-center gap-3 mb-10 hero-fade-in flex-wrap">
+      <span class="inline-flex h-2 w-2 rounded-full bg-sage"></span>
+      <span class="font-mono text-[11px] tracking-eyebrow uppercase text-paper/80">Live im Bau · Tag 21 von 86 · Vibe Coding Bootcamp 2026</span>
+    </div>
+
+    <h1 style="color:#FAF6EE">
+      <span class="block font-sans font-medium mb-6 text-paper/70 hero-fade-in" style="font-size:clamp(1.1rem,1.9vw,1.7rem); letter-spacing:-0.005em;">
+        Zwanzig Jahre Hotel und Gastro. Jetzt baue ich das Werkzeug selbst.
+      </span>
+      <span class="block hero-fade-in" style="font-family:var(--font-sans); font-weight:700; font-size:clamp(3.4rem,12vw,13rem); line-height:0.84; letter-spacing:-0.055em; color:#FAF6EE;">
+        Schau mir beim
+      </span>
+      <span class="block hero-fade-in mt-2 lg:mt-3" style="font-family:var(--font-display); font-weight:500; font-style:italic; font-size:clamp(3.4rem,12vw,13rem); line-height:0.84; letter-spacing:-0.045em; color:#B8945F;">
+        Bauen zu.
+      </span>
+
+      <span class="mt-12 lg:mt-16 block max-w-3xl text-paper/85 hero-fade-in" style="font-size:clamp(1.1rem,1.6vw,1.45rem); line-height:1.55;">
+        Das hier ist mein Projekt-Studio — offen dokumentiert, Tag für Tag. Ich baue ein Werkzeug für
+        die Häuser, in denen ich selbst gestanden habe. Es ersetzt niemanden. Es hört zu — und macht
+        aus einem Gespräch nebenbei eine <em class="italic-accent text-paper">saubere Datenbasis</em>,
+        mit der man am Montagmorgen sofort arbeiten kann. Kein Hochglanz, keine KI-Show. Während du das
+        liest, baue ich. Du siehst jeden Schritt — auch die, die schiefgehen.
+      </span>
+    </h1>
+
+    <div class="mt-auto pt-16 grid grid-cols-12 gap-x-8 gap-y-6 border-t border-paper/15 hero-fade-in">
+      <div class="col-span-12 md:col-span-4">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Engine</p>
+        <p class="font-display text-2xl lg:text-3xl text-paper leading-tight">
+          <em>Echte Agenten im Code</em><br>
+          <span class="text-paper/60 text-base lg:text-lg">live auf dem Server — kein Mockup</span>
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Worum es geht</p>
+        <p class="font-display text-2xl lg:text-3xl text-paper leading-tight">
+          <em>Reden → Struktur</em><br>
+          <span class="text-paper/60 text-base lg:text-lg">aus Gespräch wird verwertbare Datenbasis</span>
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 flex flex-col md:items-end md:text-right">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Wer baut</p>
+        <p class="font-display text-2xl lg:text-3xl text-paper leading-tight">
+          <em>Alex Heyers</em><br>
+          <span class="text-paper/60 text-base lg:text-lg">20 Jahre Hospitality · Mosbach</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-paper/15">
+    <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-5 flex items-center justify-between font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
+      <span>Vibe Coding Bootcamp · 06.05.–30.07.2026</span>
+      <span class="hidden md:inline">Tag 21 von 86</span>
+      <span>↓ Build-Log</span>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 02 · BUILD-LOG ░░ -->
+<section id="build-log" class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-12 gap-x-8 mb-16">
+      <div class="col-span-12 lg:col-span-2"><p class="eyebrow">· 01 · Build-Log</p></div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="h-brutal-md text-ink">Was diese Woche <em class="italic-accent text-burgundy">entstanden</em> ist.</h2>
+        <p class="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
+          Kein Marketing, kein Roadmap-Theater. Was ich an einem Tag gebaut habe, steht hier am
+          nächsten Morgen — mit Datum und einem ehrlichen „das hat länger gedauert als gedacht", wenn's
+          so war. Läuft etwas, steht's da. Häng ich fest, auch.
+        </p>
+      </div>
+    </div>
+
+    <div class="space-y-px bg-ink/15 border-y border-ink/15">
+      <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-3">
+          <p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Tag 19 · 24.05.</p>
+          <span class="pill pill-building mt-3">◐ im Bau</span>
+        </div>
+        <div class="md:col-span-9">
+          <h3 class="font-display text-2xl lg:text-3xl text-ink"><em>Der Voice-Agent bekommt Gedächtnis.</em></h3>
+          <p class="mt-3 text-ink/70 leading-relaxed max-w-2xl">
+            Den Voice-Teil so verdrahtet, dass das Gespräch nicht bei null anfängt: Der Agent soll erst
+            die hochgeladenen Dokumente kennen, bevor er das erste Wort sagt. Klingt simpel, war's nicht
+            — die Übergabe der Analyse ins Gespräch hat mich zwei Anläufe gekostet. Grundgerüst steht.
+            Der freundliche Ton fehlt noch, das ist morgen dran.
+          </p>
+        </div>
+      </article>
+      <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-3">
+          <p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Tag 13 · 18.05.</p>
+          <span class="pill pill-live mt-3">✓ läuft</span>
+        </div>
+        <div class="md:col-span-9">
+          <h3 class="font-display text-2xl lg:text-3xl text-ink"><em>Dokumente werden gelesen.</em></h3>
+          <p class="mt-3 text-ink/70 leading-relaxed max-w-2xl">
+            Der erste Agent liest jetzt hochgeladene Dateien — PDF, Excel, CSV — und macht aus dem Wust
+            eine strukturierte Übersicht: Belegung, Durchschnittspreis, OTA-Anteil, wo das Geld herkommt
+            und wohin es geht. Genau der Schritt, den ich früher mit Taschengefühl gemacht habe.
+            Persönliches wird vorher anonymisiert.
+          </p>
+        </div>
+      </article>
+      <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-3">
+          <p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Tag 3 · 08.05.</p>
+          <span class="pill pill-live mt-3">✓ läuft</span>
+        </div>
+        <div class="md:col-span-9">
+          <h3 class="font-display text-2xl lg:text-3xl text-ink"><em>Architektur entschieden.</em></h3>
+          <p class="mt-3 text-ink/70 leading-relaxed max-w-2xl">
+            Fundament gelegt: Next.js für das, was du siehst, ein Python-Backend für die Agenten
+            dahinter, eine Datenbank für alles, was bleiben soll. Bewusst nah am echten Produkt — nicht
+            zusammengeklickt, sondern so, dass es wirklich deployt und läuft.
+          </p>
+        </div>
+      </article>
+      <article class="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-3">
+          <p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Tag 1 · 06.05.</p>
+          <span class="pill pill-live mt-3">✓ los ging's</span>
+        </div>
+        <div class="md:col-span-9">
+          <h3 class="font-display text-2xl lg:text-3xl text-ink"><em>Tag eins.</em></h3>
+          <p class="mt-3 text-ink/70 leading-relaxed max-w-2xl">
+            Kurz nach 18 Uhr, 23 Leute auf dem Bildschirm. Erste Vorstellungsrunde — und sofort ein
+            richtig gutes Gefühl: neugierige Menschen, ganz unterschiedliche Wege hierher, Trainer von
+            Zalando, XING, SumUp, OTTO. Klar, manche konnten schon coden und ich kaum — aber damit war
+            ich nicht allein, und es fühlte sich von der ersten Minute mehr nach Aufbruch an als nach
+            Prüfung. Ich wusste sofort: Hier will ich was bauen. Frag mich auf der Hälfte, wie weit ich
+            gekommen bin.
+          </p>
+        </div>
+      </article>
+    </div>
+    <p class="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">Stand 24.05.2026 · letzte Einträge sichtbar</p>
+  </div>
+</section>
+
+<!-- ░░ 03 · MEGA-MARQUEE ░░ -->
+<div class="marquee-mega">
+  <div class="marquee-mega-track">
+    <span class="marquee-mega-item">Tag 21 von 86 <em>· live im Bau ·</em><span class="marquee-mega-dot">●</span></span>
+    <span class="marquee-mega-item">Reden <em>· wird Struktur ·</em><span class="marquee-mega-dot">●</span></span>
+    <span class="marquee-mega-item">Mosbach <em>· DACH · Hospitality ·</em><span class="marquee-mega-dot">●</span></span>
+    <span class="marquee-mega-item">Tag 21 von 86 <em>· live im Bau ·</em><span class="marquee-mega-dot">●</span></span>
+    <span class="marquee-mega-item">Reden <em>· wird Struktur ·</em><span class="marquee-mega-dot">●</span></span>
+    <span class="marquee-mega-item">Mosbach <em>· DACH · Hospitality ·</em><span class="marquee-mega-dot">●</span></span>
+  </div>
+</div>
+
+<!-- ░░ 04 · WARUM ░░ -->
+<section class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36 grid grid-cols-12 gap-x-8">
+    <div class="col-span-12 lg:col-span-2">
+      <p class="eyebrow">· 02 · Warum ich das mache</p>
+      <p class="mt-3 font-mono text-[10px] tracking-eyebrow uppercase text-ink/60">Alex Heyers · Mosbach</p>
+    </div>
+    <div class="col-span-12 lg:col-span-10">
+      <h2 class="h-brutal-md text-ink">Ich <em class="italic-accent text-burgundy">liebe</em> diese Branche.<br>Und ich kenne ihren Papierkram.</h2>
+      <div class="mt-16 grid md:grid-cols-2 gap-12 lg:gap-20 text-lg lg:text-xl text-ink/80 leading-relaxed">
+        <p class="drop-cap-grand">
+          Service, Bar, Standort, Direktion — zwanzig Jahre dieselbe Welt. In der Zeit kam ein Berater
+          nach dem anderen ins Haus, mit dicken Foliensätzen und großen Worten. Was am Samstag um neun
+          wirklich passiert, stand nie drin. Diese Lücke hat mich jahrelang gewurmt — nicht aus Wut auf
+          die Berater, sondern weil ich wusste: Das müsste auch anders gehen.
+        </p>
+        <p>
+          Also lerne ich, es selbst zu bauen. Ein Werkzeug, das zuhört und mitschreibt, statt zu
+          versprechen. Ich glaube nicht an „die KI macht euren Job" — ich glaube, dass die richtigen
+          Fragen, sauber erfasst, eine Menge Routine abnehmen. Damit wieder Zeit für das bleibt,
+          weswegen man in diese Branche geht: Gäste, Menschen. Heute ist Tag 21 von 86. Ob ich's
+          hinbekomme, siehst du hier mit.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 05 · WIE ICH ARBEITE ░░ -->
+<section class="brutal-bg-dark border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
+    <p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-12">· 03 · Wie ich arbeite</p>
+    <h2 class="h-brutal text-paper" style="font-size:clamp(2.6rem,8vw,7rem)">Klein anfangen.<br><em class="italic-accent text-gold">Ehrlich</em> bleiben.</h2>
+    <div class="mt-16 grid md:grid-cols-3 gap-12 lg:gap-16 text-paper/80 text-lg leading-relaxed">
+      <div>
+        <p class="font-display text-burgundy text-3xl italic">i.</p>
+        <p class="mt-4 h-brutal-sm text-paper">In Bausteinen denken</p>
+        <p class="mt-4 text-paper/70">Kein Mega-Ding, das alles auf einmal soll. Ich zerlege jedes Problem in
+        kleine Teile, die ich einzeln prüfen kann. Wie eine gute Brigade in der Küche — jeder Posten ein klarer Job.</p>
+      </div>
+      <div>
+        <p class="font-display text-burgundy text-3xl italic">ii.</p>
+        <p class="mt-4 h-brutal-sm text-paper">Die KI baut, ich entscheide</p>
+        <p class="mt-4 text-paper/70">Den Code schreibe ich mit KI. Aber was richtig und was Quatsch ist,
+        entscheide ich — mit zwanzig Jahren Wissen, wie ein Haus wirklich tickt. Das ist der Teil, den keine KI hat.</p>
+      </div>
+      <div>
+        <p class="font-display text-burgundy text-3xl italic">iii.</p>
+        <p class="mt-4 h-brutal-sm text-paper">Sagen, was (noch) nicht geht</p>
+        <p class="mt-4 text-paper/70">Ich schreibe nicht „fertig", wenn's halb steht. Was läuft, läuft. Was im
+        Bau ist, heißt „im Bau". Das ist kein Makel — das ist der ganze Punkt von „live dokumentiert".</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 06 · SO LÄUFT'S ░░ -->
+<section id="ablauf" class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
+    <div class="grid grid-cols-12 gap-x-8 mb-16">
+      <div class="col-span-12 lg:col-span-2"><p class="eyebrow">· 04 · So läuft's</p></div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="h-brutal-md text-ink">Aus einem Gespräch wird eine <em class="italic-accent text-burgundy">Datenbasis</em>.</h2>
+        <p class="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
+          Der eigentliche Trick: Während man einfach über sein Haus redet, entsteht im Hintergrund eine
+          strukturierte Erfassung. Kein Formular-Ausfüllen, kein Workshop-Marathon. Reden — und am Ende
+          liegt etwas vor, mit dem man arbeiten kann.
+        </p>
+      </div>
+    </div>
+
+    <ol class="grid md:grid-cols-5 gap-px bg-ink/15 border-y border-ink/15">
+      <li class="bg-paper p-7">
+        <p class="brutal-rank text-burgundy">01</p>
+        <p class="mt-3 font-display text-xl text-ink"><em>Daten hochladen</em></p>
+        <p class="mt-3 text-sm text-ink/70 leading-relaxed">Bei der Anmeldung: Eckdaten des Hauses (Größe, Name, Region) und vorhandene Dokumente — GuV, Geschäftsberichte, Prozess-Beschreibungen.</p>
+        <span class="pill pill-live mt-4">✓ läuft</span>
+      </li>
+      <li class="bg-paper p-7">
+        <p class="brutal-rank text-burgundy">02</p>
+        <p class="mt-3 font-display text-xl text-ink"><em>Erster Agent liest</em></p>
+        <p class="mt-3 text-sm text-ink/70 leading-relaxed">Der Analyse-Agent macht aus den Dokumenten eine strukturierte Übersicht — die Grundlage fürs Gespräch.</p>
+        <span class="pill pill-live mt-4">✓ läuft</span>
+      </li>
+      <li class="bg-paper p-7">
+        <p class="brutal-rank text-burgundy">03</p>
+        <p class="mt-3 font-display text-xl text-ink"><em>Freundliches Gespräch</em></p>
+        <p class="mt-3 text-sm text-ink/70 leading-relaxed">Der Voice-Agent kennt die Analyse schon — und fragt freundlich nach: erst zu den vorhandenen Zahlen, dann konkret zu Infrastruktur, Tools und wo's wirklich drückt.</p>
+        <span class="pill pill-building mt-4">◐ im Bau</span>
+      </li>
+      <li class="bg-paper p-7">
+        <p class="brutal-rank text-burgundy">04</p>
+        <p class="mt-3 font-display text-xl text-ink"><em>Struktur entsteht</em></p>
+        <p class="mt-3 text-sm text-ink/70 leading-relaxed">Aus dem Gespräch wird automatisch eine saubere, weiterverwendbare Datenbasis — Prozesse, Engpässe, Tool-Landschaft.</p>
+        <span class="pill pill-building mt-4">◐ im Bau</span>
+      </li>
+      <li class="bg-paper p-7">
+        <p class="brutal-rank text-burgundy">05</p>
+        <p class="mt-3 font-display text-xl text-ink"><em>Realistische Empfehlungen</em></p>
+        <p class="mt-3 text-sm text-ink/70 leading-relaxed">Vorschläge, die ein normales Haus auch umsetzen kann. Kein Hollywood — Dinge, die funktionieren, mit ehrlichem Aufwand und Nutzen.</p>
+        <span class="pill pill-planned mt-4">○ geplant</span>
+      </li>
+    </ol>
+    <p class="mt-8 text-ink/60 text-base max-w-3xl leading-relaxed">
+      Und ja — die KI wird hier nicht zum Helden hochstilisiert. Der Wert liegt nicht im „wow, eine KI",
+      sondern darin, dass am Ende verwertbare Struktur dasteht statt eines Bauchgefühls. Genau das macht
+      diese Prozesse sinnvoll.
+    </p>
+  </div>
+</section>
+
+<!-- ░░ 07 · VOICE-AGENT ░░ -->
+<section class="brutal-bg-dark border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
+    <p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-12">· 05 · Der Voice-Agent</p>
+    <h2 class="h-brutal text-paper" style="font-size:clamp(2.6rem,8vw,7rem)">Er hört zu —<br>und <em class="italic-accent text-gold">gibt weiter</em>.</h2>
+    <p class="mt-10 max-w-2xl text-paper/75 text-lg leading-relaxed">
+      So arbeitet der Voice-Agent: Er sammelt nicht stur ab, sondern führt ein Gespräch — und reicht das
+      Verstandene strukturiert an die nächsten Schritte weiter. Hier siehst du, wie die Information fließt.
+    </p>
+    <div class="mt-14 grid md:grid-cols-4 gap-px bg-paper/15 border-y border-paper/15">
+      <div class="bg-[#0A0A0A] p-7">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold">Input</p>
+        <p class="mt-4 font-display text-2xl text-paper"><em>Analyse-Ergebnis</em></p>
+        <p class="mt-3 text-sm text-paper/65 leading-relaxed">Der Agent ist vorab mit der Dokumenten-Analyse versorgt — er weiß schon, worüber er redet.</p>
+      </div>
+      <div class="bg-[#0A0A0A] p-7">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold">Gespräch</p>
+        <p class="mt-4 font-display text-2xl text-paper"><em>Freundlich nachfragen</em></p>
+        <p class="mt-3 text-sm text-paper/65 leading-relaxed">Erst über die vorhandenen Daten reden, dann tiefer: Infrastruktur, Tools, akuter Handlungsbedarf — warmer, nachfragender Ton.</p>
+      </div>
+      <div class="bg-[#0A0A0A] p-7">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold">Erfassen</p>
+        <p class="mt-4 font-display text-2xl text-paper"><em>Struktur bilden</em></p>
+        <p class="mt-3 text-sm text-paper/65 leading-relaxed">Was im Gespräch gesagt wird, wird strukturiert festgehalten — Prozesse, Engpässe, Automatisierbares.</p>
+      </div>
+      <div class="bg-[#0A0A0A] p-7">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold">Weitergeben</p>
+        <p class="mt-4 font-display text-2xl text-paper"><em>An die Pipeline</em></p>
+        <p class="mt-3 text-sm text-paper/65 leading-relaxed">Die strukturierten Daten gehen an die nächsten Agenten — und werden zu konkreten, umsetzbaren Empfehlungen.</p>
+      </div>
+    </div>
+    <p class="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
+      Hinweis · den Live-Voice-Agent zum Selbst-Ausprobieren schalte ich frei, sobald er rund läuft
+    </p>
+  </div>
+</section>
+
+<!-- ░░ 08 · PIPELINE ░░ -->
+<section id="pipeline" class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
+    <div class="grid grid-cols-12 gap-x-8 mb-12">
+      <div class="col-span-12 lg:col-span-2"><p class="eyebrow">· 06 · Die Pipeline</p></div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="h-brutal text-ink" style="font-size:clamp(2.6rem,8vw,7rem)">Viele <em class="italic-accent text-burgundy">Spezialisten</em>.<br>Ein Ablauf.</h2>
+        <p class="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
+          Statt einem Alleskönner: mehrere spezialisierte Agenten, jeder mit klarem Job und prüfbarem
+          Ergebnis. Das Studio ist als <em class="italic-accent text-burgundy">Agenten-Library auf dem
+          Claude Agent SDK</em> aufgebaut <span class="text-ink/50">(im Aufbau)</span> — jeder Agent ein
+          eigenständiger Baustein mit eigenen Tools, kein Klick-Workflow. Dasselbe Muster lässt sich auf
+          andere Branchen übertragen. Wie eine Brigade: keiner macht alles, aber alle wissen, was als
+          Nächstes auf den Pass kommt. <a href="agents.html" class="text-burgundy hover-slide">Wie die Agenten zusammenspielen →</a>
+        </p>
+        <p class="mt-4 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">Detail aller Agenten → <a href="agents.html" class="text-burgundy hover-slide">Agents-Seite</a></p>
+      </div>
+    </div>
+
+    <ul class="grid md:grid-cols-2 gap-x-12 gap-y-3 border-t border-ink/15 pt-10">
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">01</span><span class="font-display text-lg text-ink flex-1"><em>Web-Research</em> <span class="text-ink/50 text-sm">— Vorab-Recherche zum Haus</span></span><span class="pill pill-live">✓</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">02</span><span class="font-display text-lg text-ink flex-1"><em>Dokumenten-Analyst</em> <span class="text-ink/50 text-sm">— liest GuV / Reports / Listen</span></span><span class="pill pill-live">✓</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">03</span><span class="font-display text-lg text-ink flex-1"><em>Prozess-Auditor</em> <span class="text-ink/50 text-sm">— wo Zeit verloren geht</span></span><span class="pill pill-live">✓</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">04</span><span class="font-display text-lg text-ink flex-1"><em>Use-Case-Generator</em> <span class="text-ink/50 text-sm">— konkrete Ansatzpunkte</span></span><span class="pill pill-building">◐</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">05</span><span class="font-display text-lg text-ink flex-1"><em>Tool-Empfehlung</em> <span class="text-ink/50 text-sm">— passende Werkzeuge + DSGVO</span></span><span class="pill pill-building">◐</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">06</span><span class="font-display text-lg text-ink flex-1"><em>Wirtschaftlichkeit</em> <span class="text-ink/50 text-sm">— Aufwand, Nutzen, Amortisation</span></span><span class="pill pill-planned">○</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">07</span><span class="font-display text-lg text-ink flex-1"><em>Compliance-Check</em> <span class="text-ink/50 text-sm">— DSGVO · AI-Act · Branche</span></span><span class="pill pill-planned">○</span></li>
+      <li class="flex items-center gap-4 py-2 border-b border-ink/10"><span class="font-mono text-[10px] text-burgundy w-8">08</span><span class="font-display text-lg text-ink flex-1"><em>Reporter</em> <span class="text-ink/50 text-sm">— bündelt alles lesbar</span></span><span class="pill pill-building">◐</span></li>
+    </ul>
+
+    <div class="mt-12 p-8 bg-paper2 border-l-2 border-burgundy max-w-3xl">
+      <p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-3">Übertragbar</p>
+      <p class="text-lg text-ink/80 leading-relaxed">
+        Ich baue das für Hotels, weil ich diese Welt zwanzig Jahre gelebt habe — da bin ich glaubwürdig.
+        Aber die Mechanik dahinter ist <em class="italic-accent text-burgundy">branchen-blind</em>: andere
+        Daten rein, anderes Wissen eingepflegt — und dieselbe Pipeline arbeitet für eine ganz andere
+        Branche. Hospitality ist mein Beispiel, nicht meine Grenze.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 09 · KONTEXT ░░ -->
+<section class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
+    <div class="grid grid-cols-12 gap-x-8 mb-16">
+      <div class="col-span-12 lg:col-span-2"><p class="eyebrow">· 07 · Kontext</p></div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="h-brutal text-ink" style="font-size:clamp(2.6rem,8vw,7rem)">Für wen ich das <em class="italic-accent text-burgundy">baue</em>.</h2>
+        <p class="mt-8 text-lg text-ink/70 max-w-2xl leading-relaxed">
+          Ehrlich gesagt ist diese Seite auch eine Bewerbung. Ab August 2026 — DACH, remote, Vollzeit
+          oder Senior-Freelance. Wenn dir gefällt, wie ich hier arbeite, dann sollten wir reden.
+        </p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-px bg-ink">
+      <div class="bg-paper p-10 lg:p-14">
+        <p class="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy mb-6">Wen ich suche</p>
+        <ul class="space-y-5 text-xl lg:text-2xl text-ink leading-snug">
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Hospitality-Tech-Anbieter</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Digital-Agenturen mit Hospitality-Fokus</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Hotel-Gruppen mit Digital-Bedarf</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Beratungen für Digitalisierung im Gastgewerbe</li>
+        </ul>
+      </div>
+      <div class="bg-paper p-10 lg:p-14">
+        <p class="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy mb-6">Was diese Seite belegt</p>
+        <ul class="space-y-5 text-xl lg:text-2xl text-ink leading-snug">
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Beratungs-Methode in Code übersetzt</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Full-Stack: Next.js · Python · Multi-Agent</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> 20 Jahre echte Branchen-Erfahrung</li>
+          <li class="flex gap-4"><span class="text-burgundy">→</span> Dranbleiben: live dokumentiert, Tag für Tag</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 10 · AUTOR ░░ -->
+<section class="brutal-bg-light border-b-2 border-ink scroll-reveal">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36 grid grid-cols-12 gap-x-8 gap-y-12">
+    <div class="col-span-12 lg:col-span-2"><p class="eyebrow">· 08 · Autor</p></div>
+    <div class="col-span-12 lg:col-span-5">
+      <div class="relative aspect-square overflow-hidden bg-ink">
+        <img src="../../web/public/alex-heyers-portrait.jpg" alt="Alex Heyers" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+      </div>
+      <p class="mt-4 font-mono text-[10px] tracking-eyebrow uppercase text-ink/50">Fig. 1 · Mosbach · MMXXVI</p>
+    </div>
+    <div class="col-span-12 lg:col-span-5">
+      <h2 class="h-brutal text-ink" style="font-size:clamp(3rem,8vw,7rem)">Alex<br><em class="italic-accent text-burgundy">Heyers</em>.</h2>
+      <p class="mt-6 font-mono text-[11px] tracking-eyebrow uppercase text-ink/60">Mosbach · 20 Jahre Hospitality · Vibe Coder im Bootcamp 2026</p>
+      <div class="mt-10 space-y-6 text-lg text-ink/80 leading-[1.7]">
+        <p>Zwanzig Jahre Branchenweg: Service, Bar, Standort, Direktion — mit allen Schrammen, die
+        dazugehören. 2025 Vater geworden, und damit ein neuer Maßstab dafür, was Zeit wert ist. 2026 zurück
+        auf die Schulbank: drei Monate Vibe Coding Bootcamp, weil ich wissen wollte, ob ich das, was Berater
+        immer nur versprechen, selbst bauen kann.</p>
+        <p>Spoiler: Ich kann's. Noch nicht perfekt, aber jeden Tag mehr. Diese App ist meine Antwort auf
+        zwanzig Jahre Frust mit Foliensätzen — für die Häuser, in denen ich gearbeitet habe, und für die
+        Tech-Anbieter, die genau diese Häuser verstehen wollen.</p>
+        <p>Der Wechsel von der Hospitality-Praxis zur Hospitality-Technik war keine Kehrtwende. Eher eine
+        Übersetzung. Diese Seite ist die laufende Beweisaufnahme.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ 11 · CTA ░░ -->
+<section class="brutal-bg-dark relative overflow-hidden spotlight">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 py-36 lg:py-48 grid grid-cols-12 gap-x-8">
+    <div class="col-span-12 lg:col-span-2"><p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold">· 09 · Reden wir</p></div>
+    <div class="col-span-12 lg:col-span-10">
+      <h2 class="h-brutal text-paper"><em class="italic-accent text-gold">Bis hierher gescrollt?</em></h2>
+      <p class="mt-10 text-lg lg:text-xl text-paper/80 leading-relaxed max-w-2xl">
+        Dann zieht dich am Projekt etwas an. Vielleicht die Branche, vielleicht der Ansatz, vielleicht
+        die Vorstellung, dass jemand zwanzig Jahre gewartet hat, um endlich selbst zu bauen, was er sich
+        immer gewünscht hätte. Egal ob du Recruiter bist, Hotelier oder Kollege auf dem Weg — schreib mir.
+      </p>
+      <div class="mt-16 flex flex-col gap-6">
+        <a href="mailto:a.heyers@gmail.com" class="hover-slide font-display italic text-paper hover:text-gold" style="font-size:clamp(2.4rem,5vw,4.5rem); line-height:1;">a.heyers@gmail.com</a>
+        <p class="font-mono text-[11px] tracking-eyebrow uppercase text-paper/60">LinkedIn · /in/alex-heyers · Antwort meist unter 24 Stunden</p>
+      </div>
+      <p class="mt-24 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50 max-w-2xl leading-relaxed">
+        Im Gespräch für · Solutions Engineer · Implementation Consultant · Customer Success bei
+        Hospitality-Tech · DACH-Remote · ab 01.08.2026
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ░░ FOOTER ░░ -->
+<footer class="brutal-bg-dark">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-10 pt-24 pb-12">
+    <p class="hero-fade-in" style="font-family:var(--font-sans); font-weight:700; font-size:clamp(4rem,13vw,13rem); line-height:0.85; letter-spacing:-0.06em; color:#FAF6EE;">AI-Adoption<span style="color:#B8945F">.</span></p>
+    <div class="mt-16 grid md:grid-cols-12 gap-x-8 gap-y-12 pt-12 border-t border-paper/15">
+      <div class="md:col-span-5">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-4">· Studio</p>
+        <p class="text-paper/80 max-w-md leading-relaxed">Alex Heyers baut. Vibe Coding Bootcamp 2026. Ein Werkzeug für Hospitality, offen dokumentiert — hier siehst du jeden Schritt.</p>
+      </div>
+      <div class="md:col-span-3">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-4">· Inhalt</p>
+        <ul class="space-y-3 font-mono text-[11px] tracking-eyebrow uppercase">
+          <li><a href="#build-log" class="text-paper hover-slide">Build-Log</a></li>
+          <li><a href="agents.html" class="text-paper hover-slide">Die Agenten</a></li>
+          <li><a href="pitch.html" class="text-paper hover-slide">Pitch</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-4">
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-4">· Kontakt</p>
+        <a href="mailto:a.heyers@gmail.com" class="block font-display italic text-paper text-3xl hover-slide leading-none">a.heyers@gmail.com</a>
+        <p class="mt-4 text-paper/60 font-mono text-[10px] tracking-eyebrow uppercase">Alex Heyers · Mosbach<br>Vibe Coding Bootcamp · 06.05.–30.07.2026</p>
+      </div>
+    </div>
+    <div class="mt-16 pt-6 border-t border-paper/15 flex flex-wrap justify-between gap-4 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
+      <span>· MMXXVI · Vol. I · No. 01</span>
+      <span class="italic-accent text-gold">20 Jahre Hospitality → KI</span>
+      <span>· Made by Alex Heyers</span>
+    </div>
+  </div>
+</footer>
+
+<div class="preview-nav">
+  <a href="index.html" class="active">Homepage</a>
+  <a href="pitch.html">Pitch</a>
+  <a href="agents.html">Agents</a>
+</div>
+<div class="preview-flag">Entwurf v2 · Director's Cut · nicht live</div>
+</body>
+</html>

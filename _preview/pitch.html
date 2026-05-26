@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>myflowmotion.cloud · Preview · Pitch / Konzept-Doku</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { paper:'#FAF6EE', paper2:'#F2EBDD', ink:'#161616', ink2:'#3A3735', ink3:'#7D7872', rule:'#C9C1B0', burgundy:'#6B2737', burgundy2:'#8B3A4A', gold:'#B8945F', gold2:'#D4B27C', sage:'#7A8471', bottle:'#1B3A2F' },
+    fontFamily: { display:['var(--font-display)','Georgia','serif'], sans:['var(--font-sans)','system-ui','sans-serif'], mono:['var(--font-mono)','monospace'] },
+    fontSize: {
+      'display-xl':['clamp(3.5rem,8vw,7rem)',{lineHeight:'0.95',letterSpacing:'-0.03em'}],
+      'display-lg':['clamp(2.8rem,6vw,5rem)',{lineHeight:'1.0',letterSpacing:'-0.025em'}],
+      'display-md':['clamp(2.2rem,4.5vw,3.5rem)',{lineHeight:'1.05',letterSpacing:'-0.02em'}]
+    },
+    letterSpacing: { eyebrow:'0.22em' },
+  } }
+}
+</script>
+<link rel="stylesheet" href="studio.css" />
+<style>
+  .slide { min-height: 100vh; display:flex; align-items:center; }
+  .slide-inner { margin:0 auto; max-width:1280px; width:100%; padding:5rem 2rem; }
+  @media (min-width:1024px){ .slide-inner { padding:6rem 2rem; } }
+  .pitch-h { font-family:var(--font-display); font-weight:500; font-size:clamp(2.2rem,5vw,4.5rem); line-height:1.0; letter-spacing:-0.025em; }
+</style>
+</head>
+<body class="font-sans bg-paper">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-paper border-b border-ink/15">
+  <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 h-16 lg:h-20 flex items-center gap-3">
+    <a href="index.html" class="group inline-flex items-center gap-2 pr-3 mr-2 border-r border-ink/15 text-ink/60 hover:text-burgundy">
+      <span class="font-mono text-base">←</span><span class="hidden sm:inline font-mono text-[10px] tracking-eyebrow uppercase">Home</span>
+    </a>
+    <a href="index.html" class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <span class="font-display text-base sm:text-xl font-medium text-ink">AI-Adoption</span>
+      <span class="hidden sm:inline font-mono text-[10px] tracking-eyebrow mt-0.5 text-burgundy">STUDIO</span>
+    </a>
+    <span class="hidden lg:inline font-mono text-[10px] ml-3 text-ink/25">·</span>
+    <span class="hidden lg:inline font-mono text-[10px] tracking-eyebrow uppercase text-ink/55">Pitch</span>
+    <div class="flex-1"></div>
+    <a href="mailto:a.heyers@gmail.com" class="hidden md:inline-flex items-center gap-2 font-mono text-[11px] tracking-eyebrow uppercase text-ink hover:text-burgundy"><span>Kontakt</span><span>→</span></a>
+  </div>
+</header>
+
+<!-- 01 · COVER -->
+<section class="slide brutal-bg-dark text-paper">
+  <div class="slide-inner">
+    <div class="grid grid-cols-12 gap-x-6">
+      <div class="col-span-12 lg:col-span-9 flex flex-col gap-10">
+        <div class="flex items-baseline justify-between font-mono text-[10px] tracking-eyebrow uppercase text-paper/60">
+          <span>Vol. I · No. 01</span><span class="hidden md:inline">Konzept-Doku</span><span>Vibe Coding Bootcamp 2026</span>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-6">Mein Projekt, in einem Dokument</p>
+          <h1 class="font-display" style="font-size:clamp(3rem,8vw,7rem); line-height:0.92;">
+            AI-Adoption<br><span class="italic text-gold">Studio.</span>
+          </h1>
+          <p class="mt-10 text-2xl text-paper/80 max-w-2xl leading-snug">
+            Ein Werkzeug, das einem Haus zuhört — und aus dem Gespräch eine strukturierte Datenbasis macht,
+            mit der man sofort weiterarbeiten kann. Gebaut, nicht versprochen.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-end justify-between gap-6 pt-10 border-t border-paper/20 font-mono text-[10px] tracking-eyebrow uppercase text-paper/60">
+          <div><p class="text-paper">Alex Heyers</p><p>Mosbach · DACH</p></div>
+          <div class="text-right"><p>20 Jahre · Gastronomie → Digital → KI</p><p>live dokumentiert</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · WARUM -->
+<section class="slide bg-paper">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">01 · Warum</p>
+    <h2 class="pitch-h text-ink">Zwanzig Jahre habe ich auf dieses Werkzeug <em class="italic-accent text-burgundy">gewartet</em>.</h2>
+    <div class="mt-12 grid md:grid-cols-2 gap-12 text-lg text-ink2 leading-relaxed max-w-4xl">
+      <p>Service, Bar, Standort, Direktion. In all den Jahren kam ein Berater nach dem anderen — dicke
+      Foliensätze, große Worte, und am Ende blieb das Wesentliche unberührt: das, was am Samstag um neun
+      wirklich passiert.</p>
+      <p>Also baue ich es selbst. Kein Werkzeug, das jemanden ersetzt — eines, das zuhört, mitschreibt und
+      Routine abnimmt. Damit wieder Zeit für das bleibt, weswegen man in diese Branche geht: Gäste, Menschen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · DIE IDEE -->
+<section class="slide bg-paper2">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">02 · Die Idee</p>
+    <h2 class="pitch-h text-ink">Reden — und nebenbei entsteht <em class="italic-accent text-burgundy">Struktur</em>.</h2>
+    <p class="mt-10 max-w-3xl text-xl text-ink2 leading-snug">
+      Kein Formular-Marathon, kein Workshop über Wochen. Man lädt seine Daten hoch, redet ein Mal in Ruhe
+      über sein Haus — und am Ende liegt eine saubere, strukturierte Erfassung vor, mit der man wirklich
+      arbeiten kann. KI ist hier kein Selbstzweck. Sie macht den Prozess nur sinnvoll: aus Bauchgefühl wird Datenbasis.
+    </p>
+    <div class="mt-14 grid md:grid-cols-3 gap-px bg-ink/15 border-y border-ink/15">
+      <div class="bg-paper2 p-10"><p class="font-display text-5xl text-ink"><em>1×</em></p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">Gespräch</p><p class="mt-4 text-ink2 text-sm">statt mehreren Berater-Workshops</p></div>
+      <div class="bg-paper2 p-10"><p class="font-display text-5xl text-burgundy"><em>0</em></p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">Formulare</p><p class="mt-4 text-ink2 text-sm">die Daten entstehen im Reden</p></div>
+      <div class="bg-paper2 p-10"><p class="font-display text-5xl text-ink"><em>→</em></p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">Sofort verwertbar</p><p class="mt-4 text-ink2 text-sm">strukturiert, weiterverarbeitbar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · SO LÄUFT'S -->
+<section class="slide bg-paper">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">03 · So läuft's</p>
+    <h2 class="pitch-h text-ink">Fünf Schritte vom Upload zur Empfehlung.</h2>
+    <ol class="mt-12 grid grid-cols-1 md:grid-cols-5 gap-px bg-ink/15 border-y border-ink/15">
+      <li class="bg-paper p-6"><p class="font-mono text-burgundy text-[10px] tracking-eyebrow">01</p><p class="font-display text-xl text-ink mt-2">Daten hochladen</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">GuV · Reports · Prozesse</p></li>
+      <li class="bg-paper p-6"><p class="font-mono text-burgundy text-[10px] tracking-eyebrow">02</p><p class="font-display text-xl text-ink mt-2">Agent liest</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">strukturierte Übersicht</p></li>
+      <li class="bg-paper p-6"><p class="font-mono text-burgundy text-[10px] tracking-eyebrow">03</p><p class="font-display text-xl text-ink mt-2">Gespräch</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">freundlich, nachfragend</p></li>
+      <li class="bg-paper p-6"><p class="font-mono text-burgundy text-[10px] tracking-eyebrow">04</p><p class="font-display text-xl text-ink mt-2">Struktur</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">verwertbare Datenbasis</p></li>
+      <li class="bg-paper p-6"><p class="font-mono text-burgundy text-[10px] tracking-eyebrow">05</p><p class="font-display text-xl text-ink mt-2">Empfehlung</p><p class="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-3">realistisch, umsetzbar</p></li>
+    </ol>
+    <p class="mt-10 text-lg text-ink2 max-w-3xl leading-relaxed">
+      Das Gespräch führt ein Voice-Agent — freundlich, in Ruhe, mit echten Rückfragen. Er kennt die
+      hochgeladene Analyse schon und geht dann konkret rein: Wie groß ist die Infrastruktur? Welche Tools
+      laufen? Wo drückt's gerade? Daraus werden Vorschläge, die ein normales Haus auch wirklich stemmen kann.
+    </p>
+  </div>
+</section>
+
+<!-- 05 · DIE AGENTEN (FastAPI honest) -->
+<section class="slide bg-paper2">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">04 · Die Agenten</p>
+    <h2 class="pitch-h text-ink">Spezialisten im Mini-Format — als <em class="italic-accent text-burgundy">echter Code</em>.</h2>
+    <p class="mt-8 max-w-3xl text-lg text-ink2 leading-relaxed">
+      Kein Alleskönner-Prompt, sondern mehrere Agenten mit je klarem Job. Sie laufen als Python-Code im
+      FastAPI-Backend — ein deploybares Programm, kein zusammengeklickter Ablauf. Jeder Schritt liefert ein
+      prüfbares Zwischenergebnis.
+    </p>
+    <div class="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-5">
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Web-Research</p><p class="text-sm text-ink2 mt-1">Recherchiert das Haus + Region vorab, damit das Gespräch mit Kontext startet.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Dokumenten-Analyst</p><p class="text-sm text-ink2 mt-1">Liest PDF/Excel/CSV und macht daraus eine strukturierte Kennzahlen-Übersicht.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Prozess-Auditor</p><p class="text-sm text-ink2 mt-1">Findet die zeitfressenden Abläufe und schätzt das Automatisierungs-Potenzial.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Use-Case-Generator</p><p class="text-sm text-ink2 mt-1">Übersetzt Engpässe in konkrete Anwendungsfälle, markiert schnelle Erfolge.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Tool-Empfehlung</p><p class="text-sm text-ink2 mt-1">Schlägt passende Werkzeuge vor — mit Alternativen, Kosten, DSGVO-Blick.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Wirtschaftlichkeit</p><p class="text-sm text-ink2 mt-1">Rechnet Aufwand, Nutzen und Amortisation — nachvollziehbar, nicht geschönt.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Compliance-Check</p><p class="text-sm text-ink2 mt-1">DSGVO, EU-AI-Act, Branchen-Recht — strukturierte Hinweise, keine Rechtsberatung.</p></div>
+      <div class="border-l-2 border-burgundy pl-5 py-2"><p class="font-display text-xl text-ink">Reporter</p><p class="text-sm text-ink2 mt-1">Bündelt alles zu einer lesbaren Zusammenfassung — konkret, ohne Buzzwords.</p></div>
+    </div>
+    <p class="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">Detail je Agent → <a href="agents.html" class="text-burgundy hover-slide">Agents-Seite</a></p>
+  </div>
+</section>
+
+<!-- 06 · STAND -->
+<section class="slide bg-paper">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">05 · Wo ich heute stehe</p>
+    <h2 class="pitch-h text-ink">Ehrlich, was läuft — und was noch nicht.</h2>
+    <div class="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-12">
+      <div>
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-sage mb-4">✓ läuft (auf dem Server)</p>
+        <ul class="space-y-3 text-ink2">
+          <li class="flex gap-3"><span class="text-burgundy">✓</span> Frontend + FastAPI-Backend sind live deployed</li>
+          <li class="flex gap-3"><span class="text-burgundy">✓</span> Dokumenten-Analyse (PDF/Excel/CSV → Struktur)</li>
+          <li class="flex gap-3"><span class="text-burgundy">✓</span> Web-Research, Prozess-Auditor im Betrieb</li>
+          <li class="flex gap-3"><span class="text-burgundy">✓</span> Datenbank + Upload-Pipeline stehen</li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-4">◐ im Bau / geplant</p>
+        <ul class="space-y-3 text-ink2">
+          <li class="flex gap-3"><span class="text-gold">◐</span> Voice-Agent: Gespräch geprimt mit Analyse, freundlicher Ton</li>
+          <li class="flex gap-3"><span class="text-gold">◐</span> Fragenkatalog wird überarbeitet</li>
+          <li class="flex gap-3"><span class="text-gold">○</span> Empfehlungs- und Roadmap-Teil</li>
+          <li class="flex gap-3"><span class="text-gold">○</span> Projekt-Implementierung als nächste Phase</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-10 font-mono text-[11px] tracking-eyebrow uppercase text-ink3 max-w-3xl">
+      Kein Hochglanz-Status. Was deployed ist, ist deployed; was im Bau ist, heißt im Bau.
+    </p>
+  </div>
+</section>
+
+<!-- 07 · ÜBERTRAGBAR -->
+<section class="slide brutal-bg-dark text-paper">
+  <div class="slide-inner">
+    <p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-6">06 · Übertragbar</p>
+    <h2 class="pitch-h text-paper">Hospitality ist mein Beispiel — <em class="italic-accent text-gold">nicht</em> meine Grenze.</h2>
+    <p class="mt-10 max-w-3xl text-xl text-paper/80 leading-snug">
+      Ich baue für Hotels, weil ich diese Welt zwanzig Jahre gelebt habe — da bin ich glaubwürdig. Aber die
+      Mechanik dahinter ist branchen-blind: anderes Wissen eingepflegt, andere Daten rein — und dieselbe
+      Pipeline arbeitet für eine andere Branche. Das ist der eigentliche Wert dessen, was ich hier zeige.
+    </p>
+  </div>
+</section>
+
+<!-- 08 · STACK -->
+<section class="slide bg-paper">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">07 · Stack</p>
+    <h2 class="pitch-h text-ink">Womit's gebaut ist.</h2>
+    <div class="mt-12 grid md:grid-cols-3 gap-px bg-ink/15 border-y border-ink/15">
+      <div class="bg-paper p-10"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Frontend</p><ul class="mt-6 space-y-3 text-ink2"><li>· Next.js</li><li>· Editorial-Design-System</li><li>· Voice-Anbindung</li></ul></div>
+      <div class="bg-paper p-10"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Backend</p><ul class="mt-6 space-y-3 text-ink2"><li>· Python · FastAPI</li><li>· Multi-Agent-Pipeline</li><li>· Anthropic + ElevenLabs</li></ul></div>
+      <div class="bg-paper p-10"><p class="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">Daten</p><ul class="mt-6 space-y-3 text-ink2"><li>· Datenbank + Storage</li><li>· Dokumenten-Parser</li><li>· Deliverables (PDF/Excel)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · WO ICH HINWILL -->
+<section class="slide bg-paper2">
+  <div class="slide-inner">
+    <p class="eyebrow mb-6">08 · Wo ich hinwill</p>
+    <h2 class="pitch-h text-ink">Von der Empfehlung zur <em class="italic-accent text-burgundy">Umsetzung</em>.</h2>
+    <p class="mt-10 max-w-3xl text-xl text-ink2 leading-snug">
+      Wenn Voice-Agent und Analyse rund laufen, ist der nächste Schritt klar: nicht bei der Empfehlung
+      stehenbleiben, sondern die Umsetzung mit begleiten. Aus "das solltet ihr tun" wird "so setzen wir's
+      Schritt für Schritt um". Das ist die Richtung, in die ich in den nächsten Wochen weiterbaue.
+    </p>
+  </div>
+</section>
+
+<!-- 10 · REDEN WIR -->
+<section class="slide brutal-bg-dark text-paper">
+  <div class="slide-inner">
+    <p class="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-6">09 · Reden wir</p>
+    <h2 class="font-display" style="font-size:clamp(2.5rem,7vw,5.5rem); line-height:0.95;">Fragen? <em class="text-gold italic">Schreib mir.</em></h2>
+    <a href="mailto:a.heyers@gmail.com" class="mt-12 inline-block font-display italic text-paper hover-slide" style="font-size:clamp(2rem,5vw,4rem);">a.heyers@gmail.com</a>
+    <p class="mt-6 font-mono text-[11px] tracking-eyebrow uppercase text-paper/50">Alex Heyers · Mosbach · Vibe Coding Bootcamp 2026</p>
+  </div>
+</section>
+
+<div class="bg-paper2 border-t border-ink/15">
+  <div class="mx-auto max-w-[1280px] px-8 py-6 flex items-center justify-between font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+    <span>AI-Adoption-Studio · Konzept-Doku</span>
+    <a href="index.html" class="hover:text-burgundy">← zurück zur Startseite</a>
+  </div>
+</div>
+
+<div class="preview-nav">
+  <a href="index.html">Homepage</a>
+  <a href="pitch.html" class="active">Pitch</a>
+  <a href="agents.html">Agents</a>
+</div>
+<div class="preview-flag">Preview · Director's Cut · nicht live</div>
+</body>
+</html>
