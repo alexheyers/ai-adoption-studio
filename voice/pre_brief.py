@@ -325,6 +325,12 @@ WICHTIG: Du redest nicht über Deine eigenen Hypothesen explizit. Du nutzt sie a
         "hypotheses_count": len((pre_audit or {}).get("hypotheses", [])),
         "first_message": first_message,
         "has_data_recap": bool(data_recap and len(data_recap) > 50),
+        # Für das ElevenLabs-Widget: füllt die {{...}}-Platzhalter im Agent-Prompt.
+        "dynamic_variables": {
+            "first_name": (first_name or company_name or ""),
+            "data_recap": (data_recap if (data_recap and len(data_recap) > 50) else ""),
+            "company_name": (company_name or ""),
+        },
     }
     # selected_questions als kompakter Subset für UI-Anzeige (legacy)
     selected_questions = [

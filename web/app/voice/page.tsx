@@ -269,9 +269,7 @@ function VoicePageInner() {
         <elevenlabs-convai
           ref={widgetRef as any}
           agent-id={AGENT_ID}
-          override-prompt={preBrief.system_prompt}
-          override-first-message={preBrief.first_message || ""}
-          override-language="de"
+          dynamic-variables={JSON.stringify(preBrief.dynamic_variables || {})}
         ></elevenlabs-convai>
       )}
     </ShellLayout>
@@ -284,9 +282,7 @@ declare global {
       "elevenlabs-convai": React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement> & {
           "agent-id"?: string;
-          "override-prompt"?: string;
-          "override-first-message"?: string;
-          "override-language"?: string;
+          "dynamic-variables"?: string;
         },
         HTMLElement
       >;
