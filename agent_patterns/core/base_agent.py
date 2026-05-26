@@ -137,14 +137,30 @@ class SdkAgent:
             permission_mode="default",
         )
 
-        chunks: list[str] = []
-        async for message in query(prompt=user_message, options=options):
-            chunks.append(_text_of(message))
-
-        raw_text = "".join(c for c in chunks if c)
-        raw_json = extract_json(raw_text)
-        output = self.spec.parse_result(raw_json, context)
+        raw_text = await self._query_text(query, user_message, options)
+        try:
+            output = self.spec.parse_result(extract_json(raw_text), context)
+        except Exception as exc:
+            # Repair-Versuch: dem Modell den Validierungs-/Parse-Fehler zeigen und
+            # korrigiertes, vollständiges JSON anfordern. Macht die strikte
+            # Pydantic-Validierung robust gegen vereinzelt fehlende Pflichtfelder.
+            repair_prompt = (
+                "Deine vorige JSON-Antwort war unvollständig oder ungültig.\n"
+                f"Fehler: {exc}\n\n"
+                "Vorige Antwort:\n" + raw_text[:6000] + "\n\n"
+                "Gib AUSSCHLIESSLICH korrigiertes, vollständiges JSON zurück — alle "
+                "Pflichtfelder ausgefüllt, keine Erklärung, kein Markdown-Fence."
+            )
+            raw_text = await self._query_text(query, repair_prompt, options)
+            output = self.spec.parse_result(extract_json(raw_text), context)
         return AgentResult(agent_name=self.spec.name, output=output, raw_text=raw_text)
+
+    async def _query_text(self, query, prompt: str, options) -> str:
+        """Ein SDK-Query → zusammengesetzter Text aller Assistant-Blocks."""
+        chunks: list[str] = []
+        async for message in query(prompt=prompt, options=options):
+            chunks.append(_text_of(message))
+        return "".join(c for c in chunks if c)
 
     def run_sync(self, context: dict[str, Any]) -> AgentResult:
         """Synchroner Wrapper für CLI-/Test-Nutzung."""

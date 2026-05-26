@@ -70,6 +70,7 @@ class Orchestrator:
         self,
         initial_context: dict[str, Any],
         verbose: bool = True,
+        on_step: Callable[[str, str, int, int, "AgentResult | None"], None] | None = None,
     ) -> dict[str, AgentResult]:
         """Führt alle aktivierten Agenten seriell aus.
 
@@ -96,11 +97,15 @@ class Orchestrator:
 
             if verbose:
                 print(f"[{idx}/{len(steps)}] {name} …")
+            if on_step:
+                on_step("start", name, idx, len(steps), None)
 
             result = await agent.run(context)
             results[name] = result
             # Output für Folge-Agenten verfügbar machen.
             context[name] = result.output
+            if on_step:
+                on_step("done", name, idx, len(steps), result)
 
             if verbose:
                 print(f"      → {name} fertig ({type(result.output).__name__})")
@@ -114,6 +119,9 @@ class Orchestrator:
         return results
 
     def run_sync(
-        self, initial_context: dict[str, Any], verbose: bool = True
+        self,
+        initial_context: dict[str, Any],
+        verbose: bool = True,
+        on_step: Callable[[str, str, int, int, "AgentResult | None"], None] | None = None,
     ) -> dict[str, AgentResult]:
-        return asyncio.run(self.run(initial_context, verbose=verbose))
+        return asyncio.run(self.run(initial_context, verbose=verbose, on_step=on_step))

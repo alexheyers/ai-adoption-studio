@@ -52,7 +52,13 @@ def start_run(
     run_id = res.data[0]["id"]
 
     # Pipeline im Hintergrund starten (für MVP reicht BackgroundTasks; Production: Celery/RQ)
-    from runs.pipeline_runner import run_pipeline_async
+    # Engine-Wahl per Feature-Flag: USE_SDK_PIPELINE=true → Claude-Agent-SDK-Pipeline,
+    # sonst der bestehende Runner. So bleibt der Live-Pfad ohne Flag unverändert.
+    import os
+    if os.getenv("USE_SDK_PIPELINE", "").strip().lower() in ("1", "true", "yes"):
+        from runs.pipeline_runner_sdk import run_pipeline_async
+    else:
+        from runs.pipeline_runner import run_pipeline_async
     background.add_task(run_pipeline_async, run_id, briefing.model_dump(mode="json"), user.jwt)
 
     return RunStartResponse(run_id=run_id, status="pending")

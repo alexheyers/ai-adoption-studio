@@ -440,6 +440,18 @@ export default function HomePage() {
               </p>
             </div>
 
+            <figure className="mb-14">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/agentic-structure.svg"
+                alt="Agentische Struktur: Upload und Voice-Interview fließen in ein Kontext-Objekt; der Orchestrator auf dem Claude Agent SDK steuert acht Agenten; der Reporter verdichtet alles zu Report, Excel und PDF."
+                className="w-full max-w-[1100px] mx-auto"
+              />
+              <figcaption className="mt-4 text-center font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+                Vom Upload bis zur Empfehlung — orchestrierte SDK-Agenten, ein Ablauf
+              </figcaption>
+            </figure>
+
             <ul className="grid md:grid-cols-2 gap-x-12 gap-y-3 border-t border-ink/15 pt-10">
               {AGENTS.map((a) => (
                 <li key={a.n} className="flex items-center gap-4 py-2 border-b border-ink/10">

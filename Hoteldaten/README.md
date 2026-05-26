@@ -27,6 +27,11 @@
 | `Prozessdokumentation.md` | Kernprozesse (Reservierung, Check-in, Wareneingang, Wäscherei, Monatsabschluss) | Prozesse |
 | `Pain-Points_und_Ziele.md` | Schmerzpunkte je Bereich + Top-3-Prioritäten + Zielbild | Bericht |
 
+## Hochladbare Dateien (für die App)
+Im Unterordner **`upload/`** liegen alle Dokumente in Formaten, die der Dokumenten-Analyst
+der App liest: **5 PDF** (Berichte) + **2 XLSX** und **2 CSV** (GuV, Monats-KPIs). Die `.md`-Dateien
+hier im Hauptordner sind die Quellen/Lesefassung.
+
 ## Kern-Kennzahlen 2024 (Überblick)
 - Gesamtumsatz: **5,95 Mio. €**
 - Jahres-Auslastung: **72 %** · ADR: **142 €** · RevPAR: **102 €**

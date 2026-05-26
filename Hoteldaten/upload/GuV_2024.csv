@@ -1,0 +1,21 @@
+Position;Kategorie;Betrag_EUR;Anteil_vom_Umsatz_%
+Logis / Zimmerumsatz;Umsatz;3731760;62.7
+Speisen (Restaurant + HP);Umsatz;1180000;19.8
+Getränke (Restaurant + Bar);Umsatz;520000;8.7
+Bankett / Tagung;Umsatz;240000;4.0
+Wellness / Sonstiges;Umsatz;180000;3.0
+Parken / Nebenerlöse;Umsatz;98000;1.6
+Gesamtumsatz (netto);Umsatz;5949760;100.0
+Wareneinsatz Speisen;Wareneinsatz;330400;5.6
+Wareneinsatz Getraenke;Wareneinsatz;145600;2.4
+Personalkosten gesamt;Personal;2261000;38.0
+Energie (Strom/Gas/Wasser);Betriebskosten;312000;5.2
+OTA-Kommissionen;Vertrieb;212700;3.6
+Reinigung / Wäscherei (Betrieb);Betriebskosten;118000;2.0
+Instandhaltung / Reparatur;Betriebskosten;186000;3.1
+Marketing / Vertrieb (sonstig);Vertrieb;142000;2.4
+Verwaltung / IT / Versicherung;Betriebskosten;205000;3.4
+GOP (Bruttobetriebsergebnis);Ergebnis;1488000;25.0
+Pacht / Miete;Fixkosten;360000;6.1
+Abschreibungen;Fixkosten;420000;7.1
+EBITDA;Ergebnis;1128000;19.0

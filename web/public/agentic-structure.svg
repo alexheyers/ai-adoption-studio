@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 720" font-family="ui-sans-serif, system-ui, sans-serif">
+  <style>
+    .box{rx:10;ry:10;stroke:#161616;stroke-width:2}
+    .lbl{fill:#161616;font-weight:700;font-size:17px}
+    .lblw{fill:#FAF6EE;font-weight:700;font-size:18px}
+    .sub{fill:#3A3735;font-size:13px}
+    .mut{fill:#7D7872;font-size:14px}
+    .ar{stroke:#161616;stroke-width:2;fill:none;marker-end:url(#h)}
+    .arp{stroke:#6B2737;stroke-width:2;fill:none;marker-end:url(#hp)}
+    .ard{stroke:#B45309;stroke-width:2;fill:none;stroke-dasharray:6 5;marker-end:url(#ho)}
+    text{text-anchor:middle}
+  </style>
+  <defs>
+    <marker id="h" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#161616"/></marker>
+    <marker id="hp" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#6B2737"/></marker>
+    <marker id="ho" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#B45309"/></marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="590" y="40" style="fill:#161616;font-weight:700;font-size:26px">Agentische Struktur</text>
+  <text x="590" y="66" class="mut">AI-Adoption-Studio · auf dem Claude Agent SDK (im Aufbau)</text>
+
+  <!-- Inputs -->
+  <rect class="box" x="40" y="150" width="210" height="64" fill="#C3E8D5"/>
+  <text x="145" y="188" class="lbl">Upload (Hoteldaten)</text>
+  <rect class="box" x="40" y="262" width="210" height="64" fill="#F0DBBF" stroke-dasharray="6 5"/>
+  <text x="145" y="293" class="lbl">Voice-Interview</text>
+  <text x="145" y="313" class="sub">ElevenLabs — kein SDK-Agent</text>
+
+  <!-- Kontext -->
+  <rect class="box" x="320" y="200" width="170" height="64" fill="#C3FAE8"/>
+  <text x="405" y="238" class="lbl">Kontext-Objekt</text>
+  <path class="ar" d="M250,182 L318,222"/>
+  <path class="ard" d="M250,294 L318,244"/>
+
+  <!-- Orchestrator -->
+  <rect class="box" x="560" y="186" width="250" height="92" fill="#6B2737"/>
+  <text x="685" y="226" class="lblw">Orchestrator</text>
+  <text x="685" y="250" style="fill:#FAF6EE;font-size:14px">Claude Agent SDK</text>
+  <path class="ar" d="M490,232 L558,232"/>
+
+  <!-- Deliverables (top right) -->
+  <rect class="box" x="930" y="196" width="210" height="64" fill="#B2F2BB"/>
+  <text x="1035" y="234" class="lbl">Report / Excel / PDF</text>
+
+  <!-- Cluster heading -->
+  <text x="660" y="356" style="fill:#6B2737;font-weight:700;font-size:15px">8 SDK-Agenten · Reihenfolge = Daten-Abhängigkeit</text>
+  <path class="arp" d="M685,278 L685,374"/>
+  <text x="715" y="330" class="mut">steuert</text>
+
+  <!-- Agent cluster: col1 -->
+  <rect class="box" x="430" y="380" width="210" height="50" fill="#C3E8D5"/><text x="535" y="411" class="lbl">Dokumenten-Analyst</text>
+  <rect class="box" x="430" y="442" width="210" height="50" fill="#C3E8D5"/><text x="535" y="473" class="lbl">Prozess-Auditor</text>
+  <rect class="box" x="430" y="504" width="210" height="50" fill="#F0DBBF"/><text x="535" y="535" class="lbl">Use-Case-Generator</text>
+  <rect class="box" x="430" y="566" width="210" height="50" fill="#F0DBBF"/><text x="535" y="597" class="lbl">Tool-Empfehlung</text>
+  <!-- col2 -->
+  <rect class="box" x="665" y="380" width="210" height="50" fill="#EFE7CC"/><text x="770" y="411" class="lbl">Wirtschaftlichkeit</text>
+  <rect class="box" x="665" y="442" width="210" height="50" fill="#EFE7CC"/><text x="770" y="473" class="lbl">Compliance-Check</text>
+  <rect class="box" x="665" y="504" width="210" height="50" fill="#EFE7CC"/><text x="770" y="535" class="lbl">Roadmap-Generator</text>
+
+  <!-- Reporter -->
+  <rect class="box" x="930" y="470" width="210" height="64" fill="#6B2737"/>
+  <text x="1035" y="500" class="lblw">Reporter</text>
+  <text x="1035" y="520" style="fill:#FAF6EE;font-size:13px">verdichtet zum FullReport</text>
+  <path class="arp" d="M878,500 L928,500"/>
+  <text x="903" y="490" class="mut">Outputs</text>
+  <path class="ar" d="M1035,470 L1035,262"/>
+
+  <!-- Legend -->
+  <rect x="430" y="648" width="16" height="16" rx="3" fill="#C3E8D5" stroke="#161616"/><text x="492" y="661" class="mut" style="text-anchor:start">läuft</text>
+  <rect x="560" y="648" width="16" height="16" rx="3" fill="#F0DBBF" stroke="#161616"/><text x="622" y="661" class="mut" style="text-anchor:start">im Bau</text>
+  <rect x="700" y="648" width="16" height="16" rx="3" fill="#EFE7CC" stroke="#161616"/><text x="762" y="661" class="mut" style="text-anchor:start">geplant</text>
+  <text x="900" y="661" class="mut" style="text-anchor:start">Voice-Agent = separat (ElevenLabs)</text>
+</svg>
