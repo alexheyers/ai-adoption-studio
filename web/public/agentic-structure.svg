@@ -20,18 +20,29 @@
   <text x="590" y="40" style="fill:#161616;font-weight:700;font-size:26px">Agentische Struktur</text>
   <text x="590" y="66" class="mut">AI-Adoption-Studio · auf dem Claude Agent SDK (im Aufbau)</text>
 
-  <!-- Inputs -->
-  <rect class="box" x="40" y="150" width="210" height="64" fill="#C3E8D5"/>
-  <text x="145" y="188" class="lbl">Upload (Hoteldaten)</text>
-  <rect class="box" x="40" y="262" width="210" height="64" fill="#F0DBBF" stroke-dasharray="6 5"/>
-  <text x="145" y="293" class="lbl">Voice-Interview</text>
-  <text x="145" y="313" class="sub">ElevenLabs — kein SDK-Agent</text>
+  <!-- Inputs + Pre-Voice-Analyse -->
+  <rect class="box" x="40" y="118" width="210" height="56" fill="#C3E8D5"/>
+  <text x="145" y="152" class="lbl">Upload (Hoteldaten)</text>
+
+  <rect class="box" x="40" y="206" width="210" height="78" fill="#C3E8D5"/>
+  <text x="145" y="236" class="lbl">Analyse-Agent</text>
+  <text x="145" y="257" class="sub">Pre-Audit · analysiert Daten</text>
+  <text x="145" y="274" class="sub">→ Hypothesen für Ada</text>
+
+  <rect class="box" x="40" y="318" width="210" height="66" fill="#F0DBBF" stroke-dasharray="6 5"/>
+  <text x="145" y="349" class="lbl">Voice-Interview</text>
+  <text x="145" y="369" class="sub">Ada · ElevenLabs</text>
+
+  <!-- Pre-Voice-Fluss: Upload → Analyse-Agent → Voice -->
+  <path class="ar" d="M145,174 L145,204"/>
+  <path class="arp" d="M145,284 L145,316"/>
+  <text x="158" y="305" style="fill:#6B2737;font-size:13px;font-weight:700;text-anchor:start">Hypothesen</text>
 
   <!-- Kontext -->
   <rect class="box" x="320" y="200" width="170" height="64" fill="#C3FAE8"/>
   <text x="405" y="238" class="lbl">Kontext-Objekt</text>
-  <path class="ar" d="M250,182 L318,222"/>
-  <path class="ard" d="M250,294 L318,244"/>
+  <path class="ar" d="M250,240 L318,228"/>
+  <path class="ard" d="M250,348 L318,248"/>
 
   <!-- Orchestrator -->
   <rect class="box" x="560" y="186" width="250" height="92" fill="#6B2737"/>

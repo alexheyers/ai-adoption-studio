@@ -3,69 +3,16 @@ import Image from "next/image";
 import { EditorialHeader, EditorialFooter } from "@/components/Layout";
 import { StatusPill } from "@/components/StatusPill";
 import { getCurrentDay, BOOTCAMP_DAYS } from "@/lib/bootcamp";
+import { BUILD_LOG } from "@/lib/build-log";
 
 /**
  * Landing-Page · Build-Log-Reset (27.05.2026).
- * Herzstück = ein detailliertes, ehrliches Build-Log mit den echten täglichen Schritten
- * (Quelle: Git-Historie des Repos + Notion-Kanban, code-/commit-verifiziert).
- * Weniger Pathos, keine Effekthascherei, keine Produkt-/Akquise-Sprache — das hier ist
- * eine persönliche Projekt-Doku und zugleich Bewerbung. Keine erfundenen Zahlen.
+ * Herzstück = ein detailliertes, ehrliches Build-Log mit den echten täglichen Schritten.
+ * Das Log wird automatisch generiert (scripts/gen-build-log.mjs) aus Git-Historie +
+ * Kuratier-Schicht (content/build-log.curated.json) + optional freigegebenen Notion-Zeilen.
+ * Weniger Pathos, keine Effekthascherei, keine Produkt-/Akquise-Sprache — persönliche
+ * Projekt-Doku und zugleich Bewerbung. Keine erfundenen Zahlen.
  */
-
-type BuildEntry = {
-  day: string;
-  date: string;
-  title: string;
-  body: string;
-  status: "live" | "building" | "planned";
-};
-
-/**
- * Echte, datierte Schritte — jeder Eintrag ist durch einen Commit + Notion-Task belegt.
- * Bootcamp-Start 06.05.2026 = Tag 1. Newest first.
- */
-const BUILD_LOG: BuildEntry[] = [
-  {
-    day: "Tag 21",
-    date: "26.05.2026",
-    title: "Großer Umbau-Tag — und zweimal beim Deploy auf die Nase gefallen.",
-    body:
-      "Die Agenten auf das Claude Agent SDK umgestellt, damit jeder ein sauberer, wiederverwendbarer Baustein ist statt handverdrahtet. Drei Seiten neu aufgesetzt (Start, Pitch, Agents) plus ein Diagramm, das die Struktur zeigt. Echte Hoteldaten als Test-Datensatz eingespielt. Beim Live-Stellen dann zweimal „Failed to fetch“ — die Browser-Variablen lagen nicht im Build-Bundle; erst als ich sie korrekt als Build-Args durchgereicht hatte, lief es. Abends noch den Voice-Teil vertieft: das Interview deckt jetzt zwölf Themenfelder ab, und der Agent bekommt vorab die Daten-Zusammenfassung mit, statt blind zu starten.",
-    status: "live",
-  },
-  {
-    day: "Tag 16",
-    date: "21.05.2026",
-    title: "Die Seite soll klingen wie ich — nicht wie ein Prospekt.",
-    body:
-      "Kein neues Feature, aber wichtig: die ganze Sprache überarbeitet. Weg vom Berater-Sprech, hin zu meiner eigenen Stimme. Dabei auch die letzten Reste eines alten Firmennamens aus dem Projekt geräumt, die da nichts zu suchen hatten. Manchmal ist Aufräumen der eigentliche Fortschritt.",
-    status: "live",
-  },
-  {
-    day: "Tag 10",
-    date: "15.05.2026",
-    title: "Das Backend bekommt ein Gesicht.",
-    body:
-      "Erster richtiger Frontend-Durchgang: aus dem unsichtbaren Backend wird etwas, das man anschauen kann — ein Bereich, der das Bauen offen zeigt, und eine erste Pitch-Seite. Noch roh, aber zum ersten Mal greifbar.",
-    status: "live",
-  },
-  {
-    day: "Tag 8",
-    date: "13.05.2026",
-    title: "Fundament gegossen.",
-    body:
-      "Das technische Grundgerüst steht: ein Python-Backend (FastAPI), eine Datenbank (Supabase) mit korrekt gesetzten Zugriffsrechten, und die komplette Spezifikation — alle zehn Themenblöcke einmal sauber durchdacht und festgehalten. Die ersten Agenten lesen schon Dokumente und machen Struktur daraus. Bewusst nah am echten Produkt gebaut, nicht zusammengeklickt.",
-    status: "live",
-  },
-  {
-    day: "Tag 1",
-    date: "06.05.2026",
-    title: "Tag eins.",
-    body:
-      "Kurz nach 18 Uhr, 23 Leute auf dem Bildschirm. Erste Vorstellungsrunde — und sofort ein gutes Gefühl: neugierige Menschen, ganz unterschiedliche Wege hierher, Trainer von Zalando, XING, SumUp, OTTO. Klar, manche konnten schon coden und ich kaum — aber damit war ich nicht allein, und es fühlte sich von der ersten Minute mehr nach Aufbruch an als nach Prüfung.",
-    status: "live",
-  },
-];
 
 const AGENTS: { n: string; name: string; role: string; status: "live" | "building" | "planned" }[] = [
   { n: "01", name: "Web-Research", role: "Vorab-Recherche zum Haus", status: "live" },
@@ -172,8 +119,8 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-px bg-ink/15 border-y border-ink/15">
-              {BUILD_LOG.map((b) => (
-                <article key={b.date} className="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+              {BUILD_LOG.map((b, i) => (
+                <article key={`${b.iso}-${i}`} className="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
                   <div className="md:col-span-3">
                     <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy">
                       {b.day} · {b.date.slice(0, 5)}
@@ -192,7 +139,7 @@ export default function HomePage() {
               ))}
             </div>
             <p className="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
-              Stand 26.05.2026 · belegt durch Commit-Historie + Projekt-Kanban
+              Automatisch aus Commit-Historie + Projekt-Kanban · letzter Eintrag {BUILD_LOG[0]?.date}
             </p>
           </div>
         </section>
@@ -390,7 +337,7 @@ export default function HomePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/agentic-structure.svg"
-                alt="Agentische Struktur: Upload und Voice-Interview fließen in ein Kontext-Objekt; der Orchestrator auf dem Claude Agent SDK steuert acht Agenten; der Reporter verdichtet alles zu Report, Excel und PDF."
+                alt="Agentische Struktur: Der Analyse-Agent wertet die hochgeladenen Hoteldaten aus und übergibt seine Hypothesen an das Voice-Interview mit Ada; Analyse-Ergebnis und Gespräch fließen in ein Kontext-Objekt; der Orchestrator auf dem Claude Agent SDK steuert acht Agenten; der Reporter verdichtet alles zu Report, Excel und PDF."
                 className="w-full max-w-[1100px] mx-auto"
               />
               <figcaption className="mt-4 text-center font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
