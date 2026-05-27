@@ -5,11 +5,11 @@ import { StatusPill } from "@/components/StatusPill";
 import { getCurrentDay, BOOTCAMP_DAYS } from "@/lib/bootcamp";
 
 /**
- * Landing-Page · Director's Cut (Voice-Reset 26.05.2026).
- * Persönliche Projekt-Doku: zeigt WIE Alex arbeitet, nicht das Tool.
- * Kernbotschaft: aus Gespräch wird strukturierte Datenbasis — kein Mitarbeiter-Ersatz,
- * keine KI-Verherrlichung. Agenten als Library auf dem Claude Agent SDK (im Aufbau).
- * Engine ehrlich: echter Code im Backend, live. Keine erfundenen Zahlen.
+ * Landing-Page · Build-Log-Reset (27.05.2026).
+ * Herzstück = ein detailliertes, ehrliches Build-Log mit den echten täglichen Schritten
+ * (Quelle: Git-Historie des Repos + Notion-Kanban, code-/commit-verifiziert).
+ * Weniger Pathos, keine Effekthascherei, keine Produkt-/Akquise-Sprache — das hier ist
+ * eine persönliche Projekt-Doku und zugleich Bewerbung. Keine erfundenen Zahlen.
  */
 
 type BuildEntry = {
@@ -20,29 +20,41 @@ type BuildEntry = {
   status: "live" | "building" | "planned";
 };
 
-const RECENT_BUILDS: BuildEntry[] = [
+/**
+ * Echte, datierte Schritte — jeder Eintrag ist durch einen Commit + Notion-Task belegt.
+ * Bootcamp-Start 06.05.2026 = Tag 1. Newest first.
+ */
+const BUILD_LOG: BuildEntry[] = [
   {
-    day: "Tag 19",
-    date: "24.05.2026",
-    title: "Der Voice-Agent bekommt Gedächtnis.",
+    day: "Tag 21",
+    date: "26.05.2026",
+    title: "Großer Umbau-Tag — und zweimal beim Deploy auf die Nase gefallen.",
     body:
-      "Den Voice-Teil so verdrahtet, dass das Gespräch nicht bei null anfängt: Der Agent soll erst die hochgeladenen Dokumente kennen, bevor er das erste Wort sagt. Klingt simpel, war's nicht — die Übergabe der Analyse ins Gespräch hat mich zwei Anläufe gekostet. Grundgerüst steht. Der freundliche Ton fehlt noch, das ist morgen dran.",
-    status: "building",
-  },
-  {
-    day: "Tag 13",
-    date: "18.05.2026",
-    title: "Dokumente werden gelesen.",
-    body:
-      "Der erste Agent liest jetzt hochgeladene Dateien — PDF, Excel, CSV — und macht aus dem Wust eine strukturierte Übersicht: Belegung, Durchschnittspreis, OTA-Anteil, wo das Geld herkommt und wohin es geht. Genau der Schritt, den ich früher mit Bauchgefühl gemacht habe. Persönliches wird vorher anonymisiert.",
+      "Die Agenten auf das Claude Agent SDK umgestellt, damit jeder ein sauberer, wiederverwendbarer Baustein ist statt handverdrahtet. Drei Seiten neu aufgesetzt (Start, Pitch, Agents) plus ein Diagramm, das die Struktur zeigt. Echte Hoteldaten als Test-Datensatz eingespielt. Beim Live-Stellen dann zweimal „Failed to fetch“ — die Browser-Variablen lagen nicht im Build-Bundle; erst als ich sie korrekt als Build-Args durchgereicht hatte, lief es. Abends noch den Voice-Teil vertieft: das Interview deckt jetzt zwölf Themenfelder ab, und der Agent bekommt vorab die Daten-Zusammenfassung mit, statt blind zu starten.",
     status: "live",
   },
   {
-    day: "Tag 3",
-    date: "08.05.2026",
-    title: "Architektur entschieden.",
+    day: "Tag 16",
+    date: "21.05.2026",
+    title: "Die Seite soll klingen wie ich — nicht wie ein Prospekt.",
     body:
-      "Fundament gelegt: Next.js für das, was du siehst, ein Python-Backend für die Agenten dahinter, eine Datenbank für alles, was bleiben soll. Bewusst nah am echten Produkt — nicht zusammengeklickt, sondern so, dass es wirklich deployt und läuft.",
+      "Kein neues Feature, aber wichtig: die ganze Sprache überarbeitet. Weg vom Berater-Sprech, hin zu meiner eigenen Stimme. Dabei auch die letzten Reste eines alten Firmennamens aus dem Projekt geräumt, die da nichts zu suchen hatten. Manchmal ist Aufräumen der eigentliche Fortschritt.",
+    status: "live",
+  },
+  {
+    day: "Tag 10",
+    date: "15.05.2026",
+    title: "Das Backend bekommt ein Gesicht.",
+    body:
+      "Erster richtiger Frontend-Durchgang: aus dem unsichtbaren Backend wird etwas, das man anschauen kann — ein Bereich, der das Bauen offen zeigt, und eine erste Pitch-Seite. Noch roh, aber zum ersten Mal greifbar.",
+    status: "live",
+  },
+  {
+    day: "Tag 8",
+    date: "13.05.2026",
+    title: "Fundament gegossen.",
+    body:
+      "Das technische Grundgerüst steht: ein Python-Backend (FastAPI), eine Datenbank (Supabase) mit korrekt gesetzten Zugriffsrechten, und die komplette Spezifikation — alle zehn Themenblöcke einmal sauber durchdacht und festgehalten. Die ersten Agenten lesen schon Dokumente und machen Struktur daraus. Bewusst nah am echten Produkt gebaut, nicht zusammengeklickt.",
     status: "live",
   },
   {
@@ -50,7 +62,7 @@ const RECENT_BUILDS: BuildEntry[] = [
     date: "06.05.2026",
     title: "Tag eins.",
     body:
-      "Kurz nach 18 Uhr, 23 Leute auf dem Bildschirm. Erste Vorstellungsrunde — und sofort ein richtig gutes Gefühl: neugierige Menschen, ganz unterschiedliche Wege hierher, Trainer von Zalando, XING, SumUp, OTTO. Klar, manche konnten schon coden und ich kaum — aber damit war ich nicht allein, und es fühlte sich von der ersten Minute mehr nach Aufbruch an als nach Prüfung. Ich wusste sofort: Hier will ich was bauen.",
+      "Kurz nach 18 Uhr, 23 Leute auf dem Bildschirm. Erste Vorstellungsrunde — und sofort ein gutes Gefühl: neugierige Menschen, ganz unterschiedliche Wege hierher, Trainer von Zalando, XING, SumUp, OTTO. Klar, manche konnten schon coden und ich kaum — aber damit war ich nicht allein, und es fühlte sich von der ersten Minute mehr nach Aufbruch an als nach Prüfung.",
     status: "live",
   },
 ];
@@ -73,16 +85,9 @@ export default function HomePage() {
     <>
       <EditorialHeader />
       <main>
-        {/* ═══ 01 · HERO ═══ */}
-        <section className="brutal-bg-dark relative overflow-hidden min-h-[820px] lg:min-h-[900px] flex flex-col">
-          <div
-            className="absolute inset-0 -z-10"
-            style={{
-              background:
-                "radial-gradient(ellipse at 78% 28%, rgba(122,132,113,0.12), transparent 60%), radial-gradient(ellipse at 18% 82%, rgba(107,39,55,0.10), transparent 55%)",
-            }}
-          />
-          <div className="flex-1 mx-auto max-w-[1600px] w-full px-6 lg:px-10 pt-28 lg:pt-32 pb-20 flex flex-col">
+        {/* ═══ 01 · HERO · ruhig, knapp ═══ */}
+        <section className="brutal-bg-dark relative overflow-hidden">
+          <div className="mx-auto max-w-[1600px] w-full px-6 lg:px-10 pt-24 lg:pt-28 pb-16 lg:pb-20">
             <div className="flex items-center gap-3 mb-10 hero-fade-in flex-wrap">
               <span className="relative inline-flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-sage opacity-60 animate-ping" />
@@ -93,61 +98,31 @@ export default function HomePage() {
               </span>
             </div>
 
-            <h1 style={{ color: "#FAF6EE" }}>
-              <span
-                className="block font-sans font-medium mb-6 hero-fade-in text-paper/70"
-                style={{ fontSize: "clamp(1.1rem, 1.9vw, 1.7rem)", letterSpacing: "-0.005em" }}
-              >
-                Zwanzig Jahre Hotel und Gastro. Jetzt baue ich das Werkzeug selbst.
-              </span>
-              <span
-                className="block hero-fade-in"
-                style={{
-                  fontFamily: "var(--font-sans), sans-serif",
-                  fontWeight: 700,
-                  fontSize: "clamp(3.4rem, 12vw, 13rem)",
-                  lineHeight: 0.84,
-                  letterSpacing: "-0.055em",
-                  color: "#FAF6EE",
-                }}
-              >
-                Schau mir beim
-              </span>
-              <span
-                className="block hero-fade-in mt-2 lg:mt-3"
-                style={{
-                  fontFamily: "var(--font-display), Georgia, serif",
-                  fontWeight: 500,
-                  fontStyle: "italic",
-                  fontSize: "clamp(3.4rem, 12vw, 13rem)",
-                  lineHeight: 0.84,
-                  letterSpacing: "-0.045em",
-                  color: "#B8945F",
-                }}
-              >
-                Bauen zu.
-              </span>
-
-              <span
-                className="mt-12 lg:mt-16 block max-w-3xl text-paper/85 hero-fade-in"
-                style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.45rem)", lineHeight: 1.55 }}
-              >
-                Das hier ist mein Projekt-Studio — offen dokumentiert, Tag für Tag. Ich baue ein Werkzeug
-                für die Häuser, in denen ich selbst gestanden habe. Es ersetzt niemanden. Es hört zu — und
-                macht aus einem Gespräch nebenbei eine{" "}
-                <em className="italic-accent text-paper">saubere Datenbasis</em>, mit der man am
-                Montagmorgen sofort arbeiten kann. Kein Hochglanz, keine KI-Show. Während du das liest,
-                baue ich. Du siehst jeden Schritt — auch die, die schiefgehen.
-              </span>
+            <h1 className="h-brutal-md text-paper max-w-4xl hero-fade-in">
+              Ich baue ein Werkzeug für die Häuser, in denen ich selbst{" "}
+              <em className="italic-accent text-gold">gestanden</em> habe.
+              <br />
+              Und schreibe jeden Schritt mit.
             </h1>
 
-            <div className="mt-auto pt-16 grid grid-cols-12 gap-x-8 gap-y-6 border-t border-paper/15 hero-fade-in">
+            <p
+              className="mt-10 block max-w-2xl text-paper/85 hero-fade-in"
+              style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.35rem)", lineHeight: 1.6 }}
+            >
+              Das hier ist mein offenes Projekt-Tagebuch — Tag für Tag, mit Datum. Das Werkzeug
+              ersetzt niemanden; es hört zu und macht aus einem Gespräch nebenbei eine{" "}
+              <em className="italic-accent text-paper">saubere Datenbasis</em>, mit der man am
+              Montagmorgen sofort arbeiten kann. Kein Hochglanz, keine KI-Show. Du siehst hier jeden
+              Schritt — auch die, die schiefgehen.
+            </p>
+
+            <div className="mt-14 pt-10 grid grid-cols-12 gap-x-8 gap-y-6 border-t border-paper/15 hero-fade-in">
               <div className="col-span-12 md:col-span-4">
                 <p className="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Engine</p>
                 <p className="font-display text-2xl lg:text-3xl text-paper leading-tight">
-                  <em>Echte Agenten im Code</em>
+                  <em>Echter Code, live</em>
                   <br />
-                  <span className="text-paper/60 text-base lg:text-lg">live auf dem Server — kein Mockup</span>
+                  <span className="text-paper/60 text-base lg:text-lg">FastAPI-Backend + 10 Agenten auf dem Server — kein Mockup</span>
                 </p>
               </div>
               <div className="col-span-12 md:col-span-4">
@@ -155,7 +130,7 @@ export default function HomePage() {
                 <p className="font-display text-2xl lg:text-3xl text-paper leading-tight">
                   <em>Reden → Struktur</em>
                   <br />
-                  <span className="text-paper/60 text-base lg:text-lg">aus Gespräch wird verwertbare Datenbasis</span>
+                  <span className="text-paper/60 text-base lg:text-lg">aus dem Gespräch wird verwertbare Datenbasis</span>
                 </p>
               </div>
               <div className="col-span-12 md:col-span-4 flex flex-col md:items-end md:text-right">
@@ -172,12 +147,12 @@ export default function HomePage() {
             <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-5 flex items-center justify-between font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
               <span>Vibe Coding Bootcamp · 06.05.–30.07.2026</span>
               <span className="hidden md:inline">Tag {day} von {BOOTCAMP_DAYS}</span>
-              <span>↓ Build-Log</span>
+              <a href="#build-log" className="hover-slide text-gold">↓ Zum Build-Log</a>
             </div>
           </div>
         </section>
 
-        {/* ═══ 02 · BUILD-LOG ═══ */}
+        {/* ═══ 02 · BUILD-LOG · das Herzstück ═══ */}
         <section id="build-log" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-24 lg:py-32">
             <div className="grid grid-cols-12 gap-x-8 mb-16">
@@ -186,21 +161,21 @@ export default function HomePage() {
               </div>
               <div className="col-span-12 lg:col-span-10">
                 <h2 className="h-brutal-md text-ink">
-                  Was diese Woche <em className="italic-accent text-burgundy">entstanden</em> ist.
+                  Was hier wirklich <em className="italic-accent text-burgundy">entstanden</em> ist.
                 </h2>
                 <p className="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
-                  Kein Marketing, kein Roadmap-Theater. Was ich an einem Tag gebaut habe, steht hier am
-                  nächsten Morgen — mit Datum und einem ehrlichen &bdquo;das hat länger gedauert als
-                  gedacht&ldquo;, wenn&apos;s so war. Läuft etwas, steht&apos;s da. Häng ich fest, auch.
+                  Kein Marketing, kein Roadmap-Theater. Jeder Eintrag hier steht auf einem echten
+                  Arbeitstag — mit Datum, mit dem, was lief, und ehrlich auch mit dem, was länger
+                  gedauert hat als gedacht. Läuft etwas, steht es da. Häng ich fest, auch.
                 </p>
               </div>
             </div>
 
             <div className="space-y-px bg-ink/15 border-y border-ink/15">
-              {RECENT_BUILDS.map((b) => (
-                <article key={b.day} className="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
+              {BUILD_LOG.map((b) => (
+                <article key={b.date} className="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
                   <div className="md:col-span-3">
-                    <p className="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy">
+                    <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy">
                       {b.day} · {b.date.slice(0, 5)}
                     </p>
                     <div className="mt-3">
@@ -208,43 +183,21 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="md:col-span-9">
-                    <h3 className="font-display text-2xl lg:text-3xl text-ink">
+                    <h3 className="font-display text-2xl lg:text-3xl text-ink leading-snug">
                       <em>{b.title}</em>
                     </h3>
-                    <p className="mt-3 text-ink/70 leading-relaxed max-w-2xl">{b.body}</p>
+                    <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{b.body}</p>
                   </div>
                 </article>
               ))}
             </div>
             <p className="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
-              Stand 24.05.2026 · letzte Einträge sichtbar
+              Stand 26.05.2026 · belegt durch Commit-Historie + Projekt-Kanban
             </p>
           </div>
         </section>
 
-        {/* ═══ 03 · MEGA-MARQUEE ═══ */}
-        <div className="marquee-mega">
-          <div className="marquee-mega-track">
-            {[...Array(2)].map((_, dup) => (
-              <div key={dup} className="flex items-center gap-16 shrink-0 pl-16">
-                <span className="marquee-mega-item">
-                  Tag {day} von {BOOTCAMP_DAYS} <em>· live im Bau ·</em>
-                  <span className="marquee-mega-dot">●</span>
-                </span>
-                <span className="marquee-mega-item">
-                  Reden <em>· wird Struktur ·</em>
-                  <span className="marquee-mega-dot">●</span>
-                </span>
-                <span className="marquee-mega-item">
-                  Mosbach <em>· DACH · Hospitality ·</em>
-                  <span className="marquee-mega-dot">●</span>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ═══ 04 · WARUM ═══ */}
+        {/* ═══ 03 · WARUM ═══ */}
         <section className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36 grid grid-cols-12 gap-x-8">
             <div className="col-span-12 lg:col-span-2">
@@ -262,28 +215,26 @@ export default function HomePage() {
                   Service, Bar, Standort, Direktion — zwanzig Jahre dieselbe Welt. In der Zeit kam ein
                   Berater nach dem anderen ins Haus, mit dicken Foliensätzen und großen Worten. Was am
                   Samstag um neun wirklich passiert, stand nie drin. Diese Lücke hat mich jahrelang
-                  gewurmt — nicht aus Wut auf die Berater, sondern weil ich wusste: Das müsste auch anders gehen.
+                  gewurmt — nicht aus Wut auf die Berater, sondern weil ich wusste: das müsste auch anders gehen.
                 </p>
                 <p>
                   Also lerne ich, es selbst zu bauen. Ein Werkzeug, das zuhört und mitschreibt, statt zu
                   versprechen. Ich glaube nicht an &bdquo;die KI macht euren Job&ldquo; — ich glaube, dass
                   die richtigen Fragen, sauber erfasst, eine Menge Routine abnehmen. Damit wieder Zeit für
                   das bleibt, weswegen man in diese Branche geht: Gäste, Menschen. Heute ist Tag {day} von{" "}
-                  {BOOTCAMP_DAYS}. Ob ich&apos;s hinbekomme, siehst du hier mit.
+                  {BOOTCAMP_DAYS}. Ob ich das hinbekomme, siehst du hier mit.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ═══ 05 · WIE ICH ARBEITE ═══ */}
+        {/* ═══ 04 · WIE ICH ARBEITE ═══ */}
         <section className="brutal-bg-dark border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
             <p className="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-12">· 03 · Wie ich arbeite</p>
-            <h2 className="h-brutal text-paper" style={{ fontSize: "clamp(2.6rem, 8vw, 7rem)" }}>
-              Klein anfangen.
-              <br />
-              <em className="italic-accent text-gold">Ehrlich</em> bleiben.
+            <h2 className="h-brutal-md text-paper">
+              Klein anfangen. <em className="italic-accent text-gold">Ehrlich</em> bleiben.
             </h2>
             <div className="mt-16 grid md:grid-cols-3 gap-12 lg:gap-16 text-paper/80 text-lg leading-relaxed">
               <div>
@@ -306,8 +257,8 @@ export default function HomePage() {
                 <p className="font-display text-burgundy text-3xl italic">iii.</p>
                 <p className="mt-4 h-brutal-sm text-paper">Sagen, was (noch) nicht geht</p>
                 <p className="mt-4 text-paper/70">
-                  Ich schreibe nicht &bdquo;fertig&ldquo;, wenn&apos;s halb steht. Was läuft, läuft. Was im
-                  Bau ist, heißt &bdquo;im Bau&ldquo;. Das ist kein Makel — das ist der ganze Punkt von
+                  Ich schreibe nicht &bdquo;fertig&ldquo;, wenn es halb steht. Was läuft, läuft. Was im
+                  Bau ist, heißt &bdquo;im Bau&ldquo;. Das ist kein Makel — das ist der ganze Punkt an
                   &bdquo;live dokumentiert&ldquo;.
                 </p>
               </div>
@@ -315,21 +266,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 06 · SO LÄUFT'S ═══ */}
+        {/* ═══ 05 · SO LÄUFT'S ═══ */}
         <section id="ablauf" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
             <div className="grid grid-cols-12 gap-x-8 mb-16">
               <div className="col-span-12 lg:col-span-2">
-                <p className="eyebrow">· 04 · So läuft&apos;s</p>
+                <p className="eyebrow">· 04 · So läuft es</p>
               </div>
               <div className="col-span-12 lg:col-span-10">
                 <h2 className="h-brutal-md text-ink">
                   Aus einem Gespräch wird eine <em className="italic-accent text-burgundy">Datenbasis</em>.
                 </h2>
                 <p className="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
-                  Der eigentliche Trick: Während man einfach über sein Haus redet, entsteht im Hintergrund
-                  eine strukturierte Erfassung. Kein Formular-Ausfüllen, kein Workshop-Marathon. Reden — und
-                  am Ende liegt etwas vor, mit dem man arbeiten kann.
+                  Während man einfach über sein Haus redet, entsteht im Hintergrund eine strukturierte
+                  Erfassung. Kein Formular-Ausfüllen, kein Workshop-Marathon. Reden — und am Ende liegt
+                  etwas vor, mit dem man arbeiten kann.
                 </p>
               </div>
             </div>
@@ -338,7 +289,7 @@ export default function HomePage() {
               {[
                 { n: "01", t: "Daten hochladen", b: "Bei der Anmeldung: Eckdaten des Hauses (Größe, Name, Region) und vorhandene Dokumente — GuV, Geschäftsberichte, Prozess-Beschreibungen.", s: "live" as const },
                 { n: "02", t: "Erster Agent liest", b: "Der Analyse-Agent macht aus den Dokumenten eine strukturierte Übersicht — die Grundlage fürs Gespräch.", s: "live" as const },
-                { n: "03", t: "Freundliches Gespräch", b: "Der Voice-Agent kennt die Analyse schon — und fragt freundlich nach: erst zu den Zahlen, dann konkret zu Infrastruktur, Tools und wo's wirklich drückt.", s: "building" as const },
+                { n: "03", t: "Freundliches Gespräch", b: "Der Voice-Agent kennt die Analyse schon — und fragt freundlich nach: erst zu den Zahlen, dann konkret zu Infrastruktur, Tools und wo es wirklich drückt.", s: "building" as const },
                 { n: "04", t: "Struktur entsteht", b: "Aus dem Gespräch wird automatisch eine saubere, weiterverwendbare Datenbasis — Prozesse, Engpässe, Tool-Landschaft.", s: "building" as const },
                 { n: "05", t: "Realistische Empfehlungen", b: "Vorschläge, die ein normales Haus auch umsetzen kann. Kein Hollywood — Dinge, die funktionieren, mit ehrlichem Aufwand und Nutzen.", s: "planned" as const },
               ].map((step) => (
@@ -355,26 +306,23 @@ export default function HomePage() {
               ))}
             </ol>
             <p className="mt-8 text-ink/60 text-base max-w-3xl leading-relaxed">
-              Und ja — die KI wird hier nicht zum Helden hochstilisiert. Der Wert liegt nicht im
+              Die KI wird hier nicht zum Helden hochstilisiert. Der Wert liegt nicht im
               &bdquo;wow, eine KI&ldquo;, sondern darin, dass am Ende verwertbare Struktur dasteht statt
-              eines Bauchgefühls. Genau das macht diese Prozesse sinnvoll.
+              eines Bauchgefühls.
             </p>
           </div>
         </section>
 
-        {/* ═══ 07 · VOICE-AGENT ═══ */}
+        {/* ═══ 06 · VOICE-AGENT ═══ */}
         <section className="brutal-bg-dark border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
             <p className="font-mono text-[11px] tracking-eyebrow uppercase text-gold mb-12">· 05 · Der Voice-Agent</p>
-            <h2 className="h-brutal text-paper" style={{ fontSize: "clamp(2.6rem, 8vw, 7rem)" }}>
-              Er hört zu —
-              <br />
-              und <em className="italic-accent text-gold">gibt weiter</em>.
+            <h2 className="h-brutal-md text-paper">
+              Er hört zu — und <em className="italic-accent text-gold">gibt weiter</em>.
             </h2>
             <p className="mt-10 max-w-2xl text-paper/75 text-lg leading-relaxed">
-              So arbeitet der Voice-Agent: Er sammelt nicht stur ab, sondern führt ein Gespräch — und reicht
-              das Verstandene strukturiert an die nächsten Schritte weiter. Hier siehst du, wie die
-              Information fließt.
+              Der Voice-Agent sammelt nicht stur ab, sondern führt ein Gespräch — und reicht das
+              Verstandene strukturiert an die nächsten Schritte weiter. So fließt die Information:
             </p>
             <div className="mt-14 grid md:grid-cols-4 gap-px bg-paper/15 border-y border-paper/15">
               {[
@@ -398,7 +346,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 08 · PIPELINE ═══ */}
+        {/* ═══ 07 · PIPELINE ═══ */}
         <section id="pipeline" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
             <div className="grid grid-cols-12 gap-x-8 mb-12">
@@ -406,10 +354,8 @@ export default function HomePage() {
                 <p className="eyebrow">· 06 · Die Pipeline</p>
               </div>
               <div className="col-span-12 lg:col-span-10">
-                <h2 className="h-brutal text-ink" style={{ fontSize: "clamp(2.6rem, 8vw, 7rem)" }}>
-                  Viele <em className="italic-accent text-burgundy">Spezialisten</em>.
-                  <br />
-                  Ein Ablauf.
+                <h2 className="h-brutal-md text-ink">
+                  Viele <em className="italic-accent text-burgundy">Spezialisten</em>. Ein Ablauf.
                 </h2>
                 <p className="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
                   Statt einem Alleskönner: mehrere spezialisierte Agenten, jeder mit klarem Job und
@@ -478,28 +424,29 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 09 · KONTEXT ═══ */}
+        {/* ═══ 08 · KONTEXT · Bewerbung (keine Akquise) ═══ */}
         <section className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
             <div className="grid grid-cols-12 gap-x-8 mb-16">
               <div className="col-span-12 lg:col-span-2">
-                <p className="eyebrow">· 07 · Kontext</p>
+                <p className="eyebrow">· 07 · Warum ich das zeige</p>
               </div>
               <div className="col-span-12 lg:col-span-10">
-                <h2 className="h-brutal text-ink" style={{ fontSize: "clamp(2.6rem, 8vw, 7rem)" }}>
-                  Für wen ich das <em className="italic-accent text-burgundy">baue</em>.
+                <h2 className="h-brutal-md text-ink">
+                  Diese Seite ist auch eine <em className="italic-accent text-burgundy">Bewerbung</em>.
                 </h2>
                 <p className="mt-8 text-lg text-ink/70 max-w-2xl leading-relaxed">
-                  Ehrlich gesagt ist diese Seite auch eine Bewerbung. Ab August 2026 — DACH, remote,
-                  Vollzeit oder Senior-Freelance. Wenn dir gefällt, wie ich hier arbeite, dann sollten wir reden.
+                  Ab August 2026 suche ich eine neue Aufgabe — DACH, remote, Vollzeit oder Senior-Freelance.
+                  Statt einer Mappe mit Behauptungen zeige ich lieber, wie ich tatsächlich arbeite. Wenn dir
+                  das gefällt, sollten wir reden.
                 </p>
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-px bg-ink">
               <div className="bg-paper p-10 lg:p-14">
-                <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy mb-6">Wen ich suche</p>
+                <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy mb-6">Die Rolle, die passt</p>
                 <ul className="space-y-5 text-xl lg:text-2xl text-ink leading-snug">
-                  {["Hospitality-Tech-Anbieter", "Digital-Agenturen mit Hospitality-Fokus", "Hotel-Gruppen mit Digital-Bedarf", "Beratungen für Digitalisierung im Gastgewerbe"].map((t) => (
+                  {["Solutions Engineer", "Implementation Consultant", "Customer Success Manager", "bei Hospitality-Tech-SaaS · DACH"].map((t) => (
                     <li key={t} className="flex gap-4">
                       <span className="text-burgundy">→</span> {t}
                     </li>
@@ -509,7 +456,7 @@ export default function HomePage() {
               <div className="bg-paper p-10 lg:p-14">
                 <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy mb-6">Was diese Seite belegt</p>
                 <ul className="space-y-5 text-xl lg:text-2xl text-ink leading-snug">
-                  {["Beratungs-Methode in Code übersetzt", "Full-Stack: Next.js · Python · Multi-Agent", "20 Jahre echte Branchen-Erfahrung", "Dranbleiben: live dokumentiert, Tag für Tag"].map((t) => (
+                  {["Branchen-Methode in echten Code übersetzt", "Full-Stack: Next.js · Python · Multi-Agent", "20 Jahre echte Hospitality-Erfahrung", "Dranbleiben: live dokumentiert, Tag für Tag"].map((t) => (
                     <li key={t} className="flex gap-4">
                       <span className="text-burgundy">→</span> {t}
                     </li>
@@ -520,7 +467,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 10 · AUTOR ═══ */}
+        {/* ═══ 09 · AUTOR ═══ */}
         <section id="author" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
           <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36 grid grid-cols-12 gap-x-8 gap-y-12">
             <div className="col-span-12 lg:col-span-2">
@@ -549,9 +496,9 @@ export default function HomePage() {
                   ob ich das, was Berater immer nur versprechen, selbst bauen kann.
                 </p>
                 <p>
-                  Spoiler: Ich kann&apos;s. Noch nicht perfekt, aber jeden Tag mehr. Diese App ist meine
+                  Spoiler: ich kann es. Noch nicht perfekt, aber jeden Tag mehr. Diese App ist meine
                   Antwort auf zwanzig Jahre Frust mit Foliensätzen — für die Häuser, in denen ich
-                  gearbeitet habe, und für die Tech-Anbieter, die genau diese Häuser verstehen wollen.
+                  gearbeitet habe, und für die Tech-Teams, die genau diese Häuser verstehen wollen.
                 </p>
                 <p>
                   Der Wechsel von der Hospitality-Praxis zur Hospitality-Technik war keine Kehrtwende. Eher
@@ -562,35 +509,33 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 11 · CTA ═══ */}
-        <section className="brutal-bg-dark relative overflow-hidden spotlight">
-          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-36 lg:py-48 grid grid-cols-12 gap-x-8">
+        {/* ═══ 10 · CTA · ruhig ═══ */}
+        <section className="brutal-bg-dark relative overflow-hidden">
+          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-32 lg:py-40 grid grid-cols-12 gap-x-8">
             <div className="col-span-12 lg:col-span-2">
               <p className="font-mono text-[11px] tracking-eyebrow uppercase text-gold">· 09 · Reden wir</p>
             </div>
             <div className="col-span-12 lg:col-span-10">
-              <h2 className="h-brutal text-paper">
-                <em className="italic-accent text-gold">Bis hierher gescrollt?</em>
+              <h2 className="h-brutal-md text-paper">
+                <em className="italic-accent text-gold">Schreib mir.</em>
               </h2>
               <p className="mt-10 text-lg lg:text-xl text-paper/80 leading-relaxed max-w-2xl">
-                Dann zieht dich am Projekt etwas an. Vielleicht die Branche, vielleicht der Ansatz,
-                vielleicht die Vorstellung, dass jemand zwanzig Jahre gewartet hat, um endlich selbst zu
-                bauen, was er sich immer gewünscht hätte. Egal ob du Recruiter bist, Hotelier oder Kollege
-                auf dem Weg — schreib mir.
+                Egal ob du Recruiter bist, Hotelier oder Kollege auf demselben Weg — wenn dich am Projekt
+                etwas anzieht, meld dich. Ich antworte meist innerhalb eines Tages.
               </p>
-              <div className="mt-16 flex flex-col gap-6">
+              <div className="mt-14 flex flex-col gap-6">
                 <a
                   href="mailto:a.heyers@gmail.com"
                   className="hover-slide font-display italic text-paper hover:text-gold transition-colors"
-                  style={{ fontSize: "clamp(2.4rem, 5vw, 4.5rem)", lineHeight: 1 }}
+                  style={{ fontSize: "clamp(2rem, 4.5vw, 3.6rem)", lineHeight: 1 }}
                 >
                   a.heyers@gmail.com
                 </a>
                 <p className="font-mono text-[11px] tracking-eyebrow uppercase text-paper/60">
-                  LinkedIn · /in/alex-heyers · Antwort meist unter 24 Stunden
+                  LinkedIn · /in/alex-heyers
                 </p>
               </div>
-              <p className="mt-24 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50 max-w-2xl leading-relaxed">
+              <p className="mt-20 font-mono text-[10px] tracking-eyebrow uppercase text-paper/50 max-w-2xl leading-relaxed">
                 Im Gespräch für · Solutions Engineer · Implementation Consultant · Customer Success bei
                 Hospitality-Tech · DACH-Remote · ab 01.08.2026
               </p>
