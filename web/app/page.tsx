@@ -3,7 +3,13 @@ import Image from "next/image";
 import { EditorialHeader, EditorialFooter } from "@/components/Layout";
 import { StatusPill } from "@/components/StatusPill";
 import { getCurrentDay, BOOTCAMP_DAYS } from "@/lib/bootcamp";
-import { BUILD_LOG } from "@/lib/build-log";
+import { BUILD_LOG, BUILD_LOG_UPDATED } from "@/lib/build-log";
+import { LiveStamp } from "@/components/LiveStamp";
+import { WhatIsIt } from "@/components/WhatIsIt";
+import AgentsStage from "@/components/AgentsStage";
+import { SystemArchitecture } from "@/components/SystemArchitecture";
+import { HeroLanding } from "@/components/HeroLanding";
+import { BuildLogTimeline } from "@/components/BuildLogTimeline";
 
 /**
  * Landing-Page · Build-Log-Reset (27.05.2026).
@@ -14,17 +20,6 @@ import { BUILD_LOG } from "@/lib/build-log";
  * Projekt-Doku und zugleich Bewerbung. Keine erfundenen Zahlen.
  */
 
-const AGENTS: { n: string; name: string; role: string; status: "live" | "building" | "planned" }[] = [
-  { n: "01", name: "Web-Research", role: "Vorab-Recherche zum Haus", status: "live" },
-  { n: "02", name: "Dokumenten-Analyst", role: "liest GuV / Reports / Listen", status: "live" },
-  { n: "03", name: "Prozess-Auditor", role: "wo Zeit verloren geht", status: "live" },
-  { n: "04", name: "Use-Case-Generator", role: "konkrete Ansatzpunkte", status: "building" },
-  { n: "05", name: "Tool-Empfehlung", role: "passende Werkzeuge + DSGVO", status: "building" },
-  { n: "06", name: "Wirtschaftlichkeit", role: "Aufwand, Nutzen, Amortisation", status: "planned" },
-  { n: "07", name: "Compliance-Check", role: "DSGVO · AI-Act · Branche", status: "planned" },
-  { n: "08", name: "Reporter", role: "bündelt alles lesbar", status: "building" },
-];
-
 export default function HomePage() {
   const day = getCurrentDay();
 
@@ -32,117 +27,46 @@ export default function HomePage() {
     <>
       <EditorialHeader />
       <main>
-        {/* ═══ 01 · HERO · ruhig, knapp ═══ */}
-        <section className="brutal-bg-dark relative overflow-hidden">
-          <div className="mx-auto max-w-[1600px] w-full px-6 lg:px-10 pt-24 lg:pt-28 pb-16 lg:pb-20">
-            <div className="flex items-center gap-3 mb-10 hero-fade-in flex-wrap">
-              <span className="relative inline-flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-sage opacity-60 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
-              </span>
-              <span className="font-mono text-[11px] tracking-eyebrow uppercase text-paper/80">
-                Live im Bau · Tag {day} von {BOOTCAMP_DAYS} · Vibe Coding Bootcamp 2026
-              </span>
-            </div>
+        {/* ═══ 01 · HERO · Editorial-Newsstand (neu 28.05.2026) ═══ */}
+        <HeroLanding day={day} total={BOOTCAMP_DAYS} />
 
-            <h1 className="h-brutal-md text-paper max-w-4xl hero-fade-in">
-              Ich baue ein Werkzeug für die Häuser, in denen ich selbst{" "}
-              <em className="italic-accent text-gold">gestanden</em> habe.
-              <br />
-              Und schreibe jeden Schritt mit.
-            </h1>
+        {/* ═══ 00 · WAS IST DAS? · neu 28.05.2026 ═══ */}
+        <WhatIsIt />
 
-            <p
-              className="mt-10 block max-w-2xl text-paper/85 hero-fade-in"
-              style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.35rem)", lineHeight: 1.6 }}
-            >
-              Das hier ist mein offenes Projekt-Tagebuch — Tag für Tag, mit Datum. Das Werkzeug
-              ersetzt niemanden; es hört zu und macht aus einem Gespräch nebenbei eine{" "}
-              <em className="italic-accent text-paper">saubere Datenbasis</em>, mit der man am
-              Montagmorgen sofort arbeiten kann. Kein Hochglanz, keine KI-Show. Du siehst hier jeden
-              Schritt — auch die, die schiefgehen.
-            </p>
+        {/* ═══ 02 · BUILD-LOG · Timeline + Magazine-Cascade (neu 28.05.2026) ═══ */}
+        <BuildLogTimeline />
 
-            <div className="mt-14 pt-10 grid grid-cols-12 gap-x-8 gap-y-6 border-t border-paper/15 hero-fade-in">
-              <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Engine</p>
-                <p className="font-display text-2xl lg:text-3xl text-paper leading-tight">
-                  <em>Echter Code, live</em>
-                  <br />
-                  <span className="text-paper/60 text-base lg:text-lg">FastAPI-Backend + 10 Agenten auf dem Server — kein Mockup</span>
-                </p>
+        {/* ═══ 02b · MARQUEE · Branchen-Vokabular zwischen Log und Warum ═══ */}
+        <div className="marquee-mega border-y-0">
+          <div className="marquee-mega-track">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="marquee-mega-item">
+                <span>FastAPI</span>
+                <span className="marquee-mega-dot">·</span>
+                <em>Voice-Agent</em>
+                <span className="marquee-mega-dot">·</span>
+                <span>Claude Agent SDK</span>
+                <span className="marquee-mega-dot">·</span>
+                <em>Hospitality</em>
+                <span className="marquee-mega-dot">·</span>
+                <span>GuV</span>
+                <span className="marquee-mega-dot">·</span>
+                <em>PMS</em>
+                <span className="marquee-mega-dot">·</span>
+                <span>F&amp;B</span>
+                <span className="marquee-mega-dot">·</span>
+                <em>RevPAR</em>
+                <span className="marquee-mega-dot">·</span>
+                <span>DSGVO</span>
+                <span className="marquee-mega-dot">·</span>
+                <em>Multi-Agent</em>
+                <span className="marquee-mega-dot">·</span>
+                <span>Mosbach</span>
+                <span className="marquee-mega-dot">·</span>
               </div>
-              <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Worum es geht</p>
-                <p className="font-display text-2xl lg:text-3xl text-paper leading-tight">
-                  <em>Reden → Struktur</em>
-                  <br />
-                  <span className="text-paper/60 text-base lg:text-lg">aus dem Gespräch wird verwertbare Datenbasis</span>
-                </p>
-              </div>
-              <div className="col-span-12 md:col-span-4 flex flex-col md:items-end md:text-right">
-                <p className="font-mono text-[10px] tracking-eyebrow uppercase text-gold mb-3">Wer baut</p>
-                <p className="font-display text-2xl lg:text-3xl text-paper leading-tight">
-                  <em>Alex Heyers</em>
-                  <br />
-                  <span className="text-paper/60 text-base lg:text-lg">20 Jahre Hospitality · Mosbach</span>
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="border-t border-paper/15">
-            <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-5 flex items-center justify-between font-mono text-[10px] tracking-eyebrow uppercase text-paper/50">
-              <span>Vibe Coding Bootcamp · 06.05.–30.07.2026</span>
-              <span className="hidden md:inline">Tag {day} von {BOOTCAMP_DAYS}</span>
-              <a href="#build-log" className="hover-slide text-gold">↓ Zum Build-Log</a>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ 02 · BUILD-LOG · das Herzstück ═══ */}
-        <section id="build-log" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
-          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-24 lg:py-32">
-            <div className="grid grid-cols-12 gap-x-8 mb-16">
-              <div className="col-span-12 lg:col-span-2">
-                <p className="eyebrow">· 01 · Build-Log</p>
-              </div>
-              <div className="col-span-12 lg:col-span-10">
-                <h2 className="h-brutal-md text-ink">
-                  Was hier wirklich <em className="italic-accent text-burgundy">entstanden</em> ist.
-                </h2>
-                <p className="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
-                  Kein Marketing, kein Roadmap-Theater. Jeder Eintrag hier steht auf einem echten
-                  Arbeitstag — mit Datum, mit dem, was lief, und ehrlich auch mit dem, was länger
-                  gedauert hat als gedacht. Läuft etwas, steht es da. Häng ich fest, auch.
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-px bg-ink/15 border-y border-ink/15">
-              {BUILD_LOG.map((b, i) => (
-                <article key={`${b.iso}-${i}`} className="bg-paper p-8 lg:p-10 grid md:grid-cols-12 gap-6">
-                  <div className="md:col-span-3">
-                    <p className="font-mono text-[11px] tracking-eyebrow uppercase text-burgundy">
-                      {b.day} · {b.date.slice(0, 5)}
-                    </p>
-                    <div className="mt-3">
-                      <StatusPill status={b.status} />
-                    </div>
-                  </div>
-                  <div className="md:col-span-9">
-                    <h3 className="font-display text-2xl lg:text-3xl text-ink leading-snug">
-                      <em>{b.title}</em>
-                    </h3>
-                    <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{b.body}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <p className="mt-8 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
-              Automatisch aus Commit-Historie + Projekt-Kanban · letzter Eintrag {BUILD_LOG[0]?.date}
-            </p>
-          </div>
-        </section>
+        </div>
 
         {/* ═══ 03 · WARUM ═══ */}
         <section className="brutal-bg-light border-b-2 border-ink scroll-reveal">
@@ -293,80 +217,40 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 07 · PIPELINE ═══ */}
+        {/* ═══ 07 · PIPELINE · neu als 3D-Sticky-Stack (28.05.2026) ═══ */}
+        <AgentsStage />
+
+        {/* ═══ 07d · ANIMIERTE SYSTEM-ARCHITEKTUR · echter Pfad ═══ */}
+        <SystemArchitecture />
+
+        {/* ═══ 07b · ÜBERTRAGBAR · kompakter Nachsatz nach der Buehne ═══ */}
         <section id="pipeline" className="brutal-bg-light border-b-2 border-ink scroll-reveal">
-          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-28 lg:py-36">
-            <div className="grid grid-cols-12 gap-x-8 mb-12">
-              <div className="col-span-12 lg:col-span-2">
-                <p className="eyebrow">· 06 · Die Pipeline</p>
-              </div>
-              <div className="col-span-12 lg:col-span-10">
-                <h2 className="h-brutal-md text-ink">
-                  Viele <em className="italic-accent text-burgundy">Spezialisten</em>. Ein Ablauf.
-                </h2>
-                <p className="mt-8 text-lg text-ink/70 leading-relaxed max-w-2xl">
-                  Statt einem Alleskönner: mehrere spezialisierte Agenten, jeder mit klarem Job und
-                  prüfbarem Ergebnis. Das Studio ist als{" "}
-                  <em className="italic-accent text-burgundy">Agenten-Library auf dem Claude Agent SDK</em>{" "}
-                  aufgebaut <span className="text-ink/50">(im Aufbau)</span> — jeder Agent ein eigenständiger
-                  Baustein mit eigenen Tools, kein Klick-Workflow. Dasselbe Muster lässt sich auf andere
-                  Branchen übertragen.
+          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-20 lg:py-24">
+            <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+              <div className="col-span-12 lg:col-span-3">
+                <p className="eyebrow">· 06.b · Übertragbar</p>
+                <p className="mt-3 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+                  Hospitality ist das Beispiel, nicht die Grenze
                 </p>
-                <p className="mt-4 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
-                  Wie die Agenten zusammenspielen →{" "}
+                <p className="mt-6 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+                  SVG-Schema im Detail →{" "}
                   <Link href="/agents" className="text-burgundy hover-slide">
                     Agents-Seite
                   </Link>
                 </p>
               </div>
-            </div>
-
-            <div className="mb-12 p-7 lg:p-8 bg-paper2 border border-ink/15">
-              <p className="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-3">Kurz erklärt · Was ist ein Agent-SDK?</p>
-              <p className="text-base lg:text-lg text-ink/80 leading-relaxed max-w-3xl">
-                Ein <em className="italic-accent text-burgundy">SDK</em> ist ein fertiger Werkzeugkasten für
-                Entwickler. Das <em className="italic-accent text-burgundy">Claude Agent SDK</em> ist der Bausatz
-                von Anthropic, um KI-Agenten zu bauen — kleine Programme, die eine klar umrissene Aufgabe
-                selbstständig erledigen, dabei Werkzeuge nutzen und ein geprüftes Ergebnis liefern. Statt alles
-                von Hand zu verdrahten, setze ich jeden meiner Agenten auf diesen Standard-Bausatz. Vorteil:
-                sauberer, wiederverwendbar — und dieselbe Technik, auf der Claude Code selbst läuft.
-              </p>
-            </div>
-
-            <figure className="mb-14">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/agentic-structure.svg"
-                alt="Agentische Struktur: Der Analyse-Agent wertet die hochgeladenen Hoteldaten aus und übergibt seine Hypothesen an das Voice-Interview mit Ada; Analyse-Ergebnis und Gespräch fließen in ein Kontext-Objekt; der Orchestrator auf dem Claude Agent SDK steuert acht Agenten; der Reporter verdichtet alles zu Report, Excel und PDF."
-                className="w-full max-w-[1100px] mx-auto"
-              />
-              <figcaption className="mt-4 text-center font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
-                Vom Upload bis zur Empfehlung — orchestrierte SDK-Agenten, ein Ablauf
-              </figcaption>
-            </figure>
-
-            <ul className="grid md:grid-cols-2 gap-x-12 gap-y-3 border-t border-ink/15 pt-10">
-              {AGENTS.map((a) => (
-                <li key={a.n} className="flex items-center gap-4 py-2 border-b border-ink/10">
-                  <span className="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy w-8 shrink-0">{a.n}</span>
-                  <span className="font-display text-lg text-ink flex-1">
-                    <em>{a.name}</em>
-                    <span className="text-ink/50 font-sans text-sm not-italic ml-3">— {a.role}</span>
-                  </span>
-                  <StatusPill status={a.status} />
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-12 p-8 bg-paper2 border-l-2 border-burgundy max-w-3xl">
-              <p className="font-mono text-[10px] tracking-eyebrow uppercase text-burgundy mb-3">Übertragbar</p>
-              <p className="text-lg text-ink/80 leading-relaxed">
-                Ich baue das für Hotels, weil ich diese Welt zwanzig Jahre gelebt habe — da bin ich
-                glaubwürdig. Aber die Mechanik dahinter ist{" "}
-                <em className="italic-accent text-burgundy">branchen-blind</em>: andere Daten rein, anderes
-                Wissen eingepflegt — und dieselbe Pipeline arbeitet für eine ganz andere Branche.
-                Hospitality ist mein Beispiel, nicht meine Grenze.
-              </p>
+              <div className="col-span-12 lg:col-span-9">
+                <p className="text-lg lg:text-xl text-ink/80 leading-relaxed max-w-3xl">
+                  Ich baue das für Hotels, weil ich diese Welt zwanzig Jahre gelebt habe — da bin ich
+                  glaubwürdig. Aber die Mechanik dahinter ist{" "}
+                  <em className="italic-accent text-burgundy">branchen-blind</em>: andere Daten rein,
+                  anderes Wissen eingepflegt — und dieselbe Pipeline arbeitet für eine ganz andere
+                  Branche. Das{" "}
+                  <em className="italic-accent text-burgundy">Claude Agent SDK</em> als Bausatz darunter
+                  bleibt; Agenten sind eigenständige Bausteine mit eigenen Tools — kein Klick-Workflow,
+                  sondern echte, prüfbare Software.
+                </p>
+              </div>
             </div>
           </div>
         </section>

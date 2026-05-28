@@ -1,0 +1,73 @@
+{
+  "updatedAt": "2026-05-28T16:52:02.627Z",
+  "generatedFrom": {
+    "git": true,
+    "curated": true,
+    "notion": false
+  },
+  "entries": [
+    {
+      "iso": "2026-05-28",
+      "day": "Tag 23",
+      "date": "28.05.2026",
+      "title": "Landing-Page-Umbau · drei neue Components, ein animiertes SVG-Diagramm.",
+      "body": "Frontend-Tag. Drei neue Components: WhatIsIt.tsx erklärt oben „was hier eigentlich liegt“, AgentsStage.tsx zeigt die 8 Agenten als sticky-gepinnten 3D-Stack (CSS-Var --p, rAF-Listener, kein React-State), SystemArchitecture.tsx ist ein 1280×820-SVG mit sechs Stages, Knowledge-Tool als Side-Feeder und einem gold-glowing Daten-Token, der via CSS offset-path durch die Pipeline läuft — 12-Sekunden-Loop. Hero hat jetzt die agentic-structure.svg als low-opacity Ghost-Background mit scroll-driven Scale-Up. Zwei Bild-Experimente wieder rausgeworfen — die Seite trägt mit Worten und Bewegung, nicht mit Stockfotos.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-27",
+      "day": "Tag 22",
+      "date": "27.05.2026",
+      "title": "Das Build-Log schreibt sich ab heute selbst.",
+      "body": "Die Startseite entdramatisiert — weniger Pathos, das Build-Log wird zum Herzstück. Und genau dieses Log zieht sich jetzt automatisch aus zwei Quellen: der Commit-Historie (was an welchem Tag wirklich passiert ist) und — gefiltert — dem Projekt-Kanban. Heißt: was ich baue, steht hier am nächsten Tag, ohne dass ich die Seite von Hand anfasse.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-26",
+      "day": "Tag 21",
+      "date": "26.05.2026",
+      "title": "Großer Umbau-Tag — und zweimal beim Deploy auf die Nase gefallen.",
+      "body": "Die Agenten auf das Claude Agent SDK umgestellt, damit jeder ein sauberer, wiederverwendbarer Baustein ist statt handverdrahtet. Drei Seiten neu aufgesetzt (Start, Pitch, Agents) plus ein Diagramm, das die Struktur zeigt. Echte Hoteldaten als Test-Datensatz eingespielt. Beim Live-Stellen dann zweimal „Failed to fetch“ — die Browser-Variablen lagen nicht im Build-Bundle; erst als ich sie korrekt als Build-Args durchgereicht hatte, lief es. Abends noch den Voice-Teil vertieft: das Interview deckt jetzt zwölf Themenfelder ab, und der Agent bekommt vorab die Daten-Zusammenfassung mit, statt blind zu starten.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-21",
+      "day": "Tag 16",
+      "date": "21.05.2026",
+      "title": "Die Seite soll klingen wie ich — nicht wie ein Prospekt.",
+      "body": "Kein neues Feature, aber wichtig: die ganze Sprache überarbeitet. Weg vom Berater-Sprech, hin zu meiner eigenen Stimme. Dabei auch die letzten Reste eines alten Firmennamens aus dem Projekt geräumt, die da nichts zu suchen hatten. Manchmal ist Aufräumen der eigentliche Fortschritt.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-15",
+      "day": "Tag 10",
+      "date": "15.05.2026",
+      "title": "Das Backend bekommt ein Gesicht.",
+      "body": "Erster richtiger Frontend-Durchgang: aus dem unsichtbaren Backend wird etwas, das man anschauen kann — ein Bereich, der das Bauen offen zeigt, und eine erste Pitch-Seite. Noch roh, aber zum ersten Mal greifbar.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-13",
+      "day": "Tag 8",
+      "date": "13.05.2026",
+      "title": "Fundament gegossen.",
+      "body": "Das technische Grundgerüst steht: ein Python-Backend (FastAPI), eine Datenbank (Supabase) mit korrekt gesetzten Zugriffsrechten, und die komplette Spezifikation — alle zehn Themenblöcke einmal sauber durchdacht und festgehalten. Die ersten Agenten lesen schon Dokumente und machen Struktur daraus. Bewusst nah am echten Produkt gebaut, nicht zusammengeklickt.",
+      "status": "live",
+      "source": "curated"
+    },
+    {
+      "iso": "2026-05-06",
+      "day": "Tag 1",
+      "date": "06.05.2026",
+      "title": "Tag eins.",
+      "body": "Kurz nach 18 Uhr, 23 Leute auf dem Bildschirm. Erste Vorstellungsrunde — und sofort ein gutes Gefühl: neugierige Menschen, ganz unterschiedliche Wege hierher, Trainer von Zalando, XING, SumUp, OTTO. Klar, manche konnten schon coden und ich kaum — aber damit war ich nicht allein, und es fühlte sich von der ersten Minute mehr nach Aufbruch an als nach Prüfung.",
+      "status": "live",
+      "source": "curated"
+    }
+  ]
+}
