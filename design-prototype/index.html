@@ -20,17 +20,66 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 @media(pointer:coarse){body{cursor:auto}}
 ::selection{background:var(--magenta);color:#fff}
 #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+/* ===== Cinematic Backdrops — HINTER dem Canvas (z-index:-1) ===== */
+#scene-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:radial-gradient(ellipse 120% 90% at 50% 45%,#0E2244 0%,#091a33 55%,#06101f 100%)}
+#scene-bg .layer{position:absolute;inset:-6%;background-size:cover;background-position:center;opacity:0;filter:brightness(.34) saturate(.8);will-change:transform,opacity;transition:opacity .4s linear}
+#scene-bg .layer::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 0%,rgba(6,16,31,.3) 70%,rgba(6,16,31,.55) 100%);mix-blend-mode:multiply}
+#bg-hero{background-image:url('studio-assets/studio-bg-hero.jpg');animation:kb1 52s var(--ease) infinite alternate}
+#bg-data{background-image:url('studio-assets/studio-bg-data.jpg');animation:kb2 58s var(--ease) infinite alternate}
+#bg-craft{background-image:url('studio-assets/studio-bg-craft.jpg');animation:kb3 46s var(--ease) infinite alternate}
+@keyframes kb1{0%{transform:scale(1.04) translate(0,0)}100%{transform:scale(1.14) translate(-2%,-2%)}}
+@keyframes kb2{0%{transform:scale(1.12) translate(1%,-1%)}100%{transform:scale(1.02) translate(-1%,2%)}}
+@keyframes kb3{0%{transform:scale(1.02) translate(-1%,1%)}100%{transform:scale(1.13) translate(2%,-2%)}}
+@media(prefers-reduced-motion:reduce){#scene-bg .layer{animation:none!important}}
+/* ===== Vignette — ueber Canvas, unter Overlays ===== */
+.vignette{position:fixed;inset:0;z-index:20;pointer-events:none;mix-blend-mode:multiply;background:radial-gradient(ellipse 78% 78% at 50% 50%,transparent 0%,transparent 42%,rgba(6,16,31,.55) 88%,rgba(6,16,31,.85) 100%)}
+/* ===== FOTO-STORY-MOMENTE — cinematische Panels HINTER Overlays, UEBER Canvas.
+   Dunkler Verlauf + Grain, damit Partikel lesbar bleiben. z-index:2. ===== */
+.story{position:absolute;left:0;right:0;height:118vh;height:118svh;height:118dvh;z-index:-1;pointer-events:none;overflow:hidden;opacity:0;will-change:opacity}
+.story .ph{position:absolute;inset:-9% -4%;background-size:cover;background-position:center;filter:brightness(.32) saturate(.8) contrast(1.04);will-change:transform;transform:scale(1.08)}
+.story .scap{display:none!important}
+#st-clarity{display:none!important}
+.story .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,16,31,.92) 0%,rgba(6,16,31,.34) 26%,rgba(6,16,31,.30) 62%,rgba(6,16,31,.95) 100%),radial-gradient(ellipse 90% 70% at 50% 48%,transparent 0%,rgba(6,16,31,.5) 100%)}
+.story .grain{position:absolute;inset:0;opacity:.10;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");background-size:200px 200px}
+.story .scap{position:absolute;left:6vw;bottom:16vh;bottom:16svh;bottom:16dvh;max-width:560px}
+.story .scap .k{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem;display:block}
+.story .scap .h{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.55rem,7.2vw,2.4rem);line-height:1.04;letter-spacing:-.01em;overflow-wrap:anywhere;text-shadow:0 6px 34px rgba(6,16,31,.95)}
+@media(min-width:1024px){.story .scap .h{font-size:clamp(2.4rem,4.4vw,3rem)}}
+.story .scap .h em{font-style:italic;color:var(--magenta)}
+.story .scap .d{margin-top:.7rem;font-weight:300;color:#dfe4ee;font-size:clamp(.92rem,1.5vw,1.06rem);line-height:1.55;max-width:480px;text-shadow:0 2px 22px rgba(6,16,31,.95)}
+.story.right .scap{left:auto;right:6vw;text-align:right}
+.story.right .scap .d{margin-left:auto}
+@media(max-width:900px){.story .scap{left:6vw;right:6vw;bottom:14vh;max-width:none}.story.right .scap{right:6vw;text-align:left}}
+@media(prefers-reduced-motion:reduce){.story .ph{transform:scale(1.05)!important}}
 .spacer-a{height:440vh;position:relative;z-index:1;pointer-events:none}
 .spacer-b{height:440vh;position:relative;z-index:1;pointer-events:none}
+.spacer-mid{height:150vh;position:relative;z-index:1;pointer-events:none}
+
+/* ===== ERGEBNIS-SZENE #result — Scrollytelling, erbt Idee vom #agents-Layout ===== */
+.result{position:relative;z-index:2;padding:30vh 6vw 16vh;padding:30svh 6vw 16svh;padding:30dvh 6vw 16dvh}
+.result-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;max-width:1280px;margin:0 auto;align-items:start}
+.result-left{display:flex;flex-direction:column;gap:14vh;padding:4vh 0 28vh}
+.result-right{position:sticky;top:30vh;top:30svh;top:30dvh;align-self:start}
+.result-right .rlabel{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--magenta);margin-bottom:1.3rem}
+.result-right h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.03;margin:.2rem 0 .9rem;overflow-wrap:anywhere;text-shadow:0 4px 30px rgba(6,16,31,.85)}
+.result-right h3 em{font-style:italic;color:var(--magenta)}
+.result-right p{font-size:1.1rem;font-weight:300;color:#e9edf3;line-height:1.6;max-width:430px;text-shadow:0 2px 22px rgba(6,16,31,.95)}
+.rcard{position:relative;background:var(--cream);color:var(--navy);border-radius:14px;padding:1.5rem 1.7rem;box-shadow:0 18px 46px rgba(0,0,0,.45);max-width:380px;opacity:.4;transform:scale(.9) translateY(14px);transition:transform .55s var(--ease),opacity .55s var(--ease),box-shadow .55s}
+.rcard.on{opacity:1;transform:scale(1.02) translateY(0);box-shadow:0 34px 80px rgba(0,0,0,.55)}
+.rcard:nth-child(even){margin-left:auto}
+.rcard .rk{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.rcard h4{font-family:'Playfair Display',serif;font-weight:800;font-size:1.35rem;line-height:1.06;margin-bottom:.5rem}
+.rcard p{font-size:.96rem;line-height:1.55;color:#33405a}
+.rcard .fmt{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;margin-top:.8rem;display:inline-block;padding:.28rem .65rem;border-radius:20px;background:rgba(26,165,145,.16);color:#0E7A6A}
 
 /* ===== 8-AGENTEN Scrollytelling (Banner oben hält, links Beschreibung, rechts Sticky-Notes) ===== */
-.agents{position:relative;z-index:2;padding:38vh 6vw 14vh}
+.agents{position:relative;z-index:2;padding:38vh 6vw 14vh;padding:38svh 6vw 14svh;padding:38dvh 6vw 14dvh}
 .agents-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:5vw;max-width:1280px;margin:0 auto;align-items:start}
 @media(max-width:900px){.agents-inner{grid-template-columns:1fr;gap:2vh}}
-.agents-left{position:sticky;top:32vh;align-self:start}
+.agents-left{position:sticky;top:32vh;top:32svh;top:32dvh;align-self:start}
 .agents-left .alabel{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem}
 .aActive .anum{font-family:'Playfair Display',serif;font-style:italic;font-size:3.2rem;color:var(--magenta);line-height:1}
-.aActive h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;margin:.3rem 0 .9rem;letter-spacing:-.01em;text-shadow:0 4px 30px rgba(6,16,31,.85)}
+.aActive h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;margin:.3rem 0 .9rem;letter-spacing:-.01em;overflow-wrap:anywhere;text-shadow:0 4px 30px rgba(6,16,31,.85)}
 .aActive .st{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .7rem;border-radius:30px;display:inline-block;margin-bottom:1.1rem}
 .st.live{color:var(--teal);background:rgba(26,165,145,.16);border:1px solid var(--teal)}
 .st.build{color:var(--magenta);background:rgba(233,75,93,.14);border:1px solid var(--magenta)}
@@ -63,21 +112,22 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 /* HERO overlay (fades on scroll) */
 .hero{position:fixed;left:6vw;top:50%;transform:translateY(-50%);z-index:30;max-width:820px;transition:opacity .5s var(--ease)}
 .hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:1.3rem}
-.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(3rem,11vw,9.5rem);line-height:.86;letter-spacing:-.03em;text-shadow:0 10px 60px rgba(6,16,31,.7)}
+.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.05rem,12.5vw,4.6rem);line-height:.94;letter-spacing:-.03em;overflow-wrap:anywhere;hyphens:auto;text-shadow:0 10px 60px rgba(6,16,31,.7)}
+@media(min-width:1024px){.hero h1{font-size:clamp(4.6rem,8.5vw,9.5rem)}}
 .hero h1 em{font-style:italic;color:var(--magenta)}
 .hero .sub{margin-top:1.4rem;font-size:clamp(1rem,1.7vw,1.35rem);font-weight:300;color:#e6eaf1;max-width:560px;line-height:1.5;text-shadow:0 2px 24px rgba(6,16,31,.8)}
 .hero .sub b{font-family:'JetBrains Mono',monospace;color:var(--teal);font-size:.9em;font-weight:500}
 
 /* scene caption (bottom center) */
-.cap{position:fixed;left:0;right:0;bottom:7vh;z-index:30;text-align:center;pointer-events:none;transition:opacity .5s var(--ease);padding:0 6vw}
+.cap{position:fixed;left:0;right:0;bottom:7vh;bottom:7svh;bottom:7dvh;z-index:30;text-align:center;pointer-events:none;transition:opacity .5s var(--ease);padding:0 6vw;padding-bottom:env(safe-area-inset-bottom,0)}
 .cap .idx{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem}
-.cap .t{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4vw,2.8rem);letter-spacing:-.01em;line-height:1.05;text-shadow:0 4px 30px rgba(6,16,31,.85)}
+.cap .t{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4vw,2.8rem);letter-spacing:-.01em;line-height:1.05;overflow-wrap:anywhere;text-shadow:0 4px 30px rgba(6,16,31,.85)}
 .cap .t em{font-style:italic;color:var(--magenta)}
 .cap .s{font-weight:300;color:#dfe4ee;margin-top:.5rem;font-size:clamp(.9rem,1.5vw,1.05rem);max-width:680px;margin-left:auto;margin-right:auto;line-height:1.5;text-shadow:0 2px 20px rgba(6,16,31,.9)}
 .cap .s code{font-family:'JetBrains Mono',monospace;font-size:.86em;color:var(--teal)}
 
 /* CTA overlay (final) */
-.cta{position:fixed;left:0;right:0;bottom:7vh;z-index:30;text-align:center;opacity:0;transition:opacity .6s var(--ease);pointer-events:none;padding:0 6vw}
+.cta{position:fixed;left:0;right:0;bottom:7vh;bottom:7svh;bottom:7dvh;z-index:30;text-align:center;opacity:0;transition:opacity .6s var(--ease);pointer-events:none;padding:0 6vw;padding-bottom:env(safe-area-inset-bottom,0)}
 .cta.show{opacity:1;pointer-events:auto}
 .cta .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem}
 .cta .sub{color:#dfe4ee;font-weight:300;max-width:560px;margin:0 auto;line-height:1.55;font-size:1rem;text-shadow:0 2px 20px rgba(6,16,31,.9)}
@@ -89,35 +139,149 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 .scroll-cue .ln{width:1px;height:40px;background:var(--slate);position:relative;overflow:hidden}
 .scroll-cue .ln::after{content:"";position:absolute;top:-40px;left:0;width:100%;height:40px;background:var(--teal);animation:drop 1.9s var(--ease) infinite}
 @keyframes drop{0%{top:-40px}60%,100%{top:40px}}
+
+/* ===== PRELOADER (kein FOUC) ===== */
+.preloader{position:fixed;inset:0;z-index:200;background:var(--navy-deep);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;transition:opacity .9s var(--ease),visibility .9s var(--ease)}
+.preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+.preloader .ring{width:54px;height:54px;border-radius:50%;border:3px solid rgba(142,152,173,.18);border-top-color:var(--teal);border-right-color:var(--magenta);animation:plspin .9s linear infinite}
+@keyframes plspin{to{transform:rotate(360deg)}}
+.preloader .plbarw{width:160px;height:3px;border-radius:3px;background:rgba(142,152,173,.18);overflow:hidden}
+.preloader #plBar{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--magenta));transition:width .35s var(--ease)}
+.preloader .pllbl{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--slate)}
+
+/* ===== SOUND-TOGGLE ===== */
+.snd{position:fixed;bottom:2.2rem;left:6vw;z-index:40;display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:40px;border:1px solid rgba(142,152,173,.35);background:rgba(14,34,68,.55);backdrop-filter:blur(8px);color:var(--slate);font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .3s,border-color .3s,background .3s}
+.snd:hover{color:var(--teal);border-color:var(--teal)}
+.snd .ico{width:8px;height:8px;border-radius:50%;background:var(--slate);transition:background .3s}
+.snd.on{color:var(--teal);border-color:var(--teal)}
+.snd.on .ico{background:var(--teal);animation:pulse 2s infinite}
+@media(pointer:coarse){.snd{bottom:calc(1.4rem + env(safe-area-inset-bottom,0));left:1.4rem}}
+
+/* ============================================================
+   RESPONSIVE-LAYER — Mobile UND Desktop sauber. svh/dvh, clamp,
+   einspaltige Scrollytelling-Stacks, Touch. Bestehendes bleibt.
+   ============================================================ */
+#bg,#scene-bg,.vignette{height:100svh;height:100dvh}
+.spacer-a,.spacer-b{height:440svh;height:440dvh}
+.spacer-mid{height:150svh;height:150dvh}
+
+@media(max-width:900px){
+  .hero{left:0;right:0;padding:0 7vw;max-width:none}
+  .hero h1{font-size:clamp(2.05rem,12.5vw,4.6rem);line-height:.94}
+  .hero .sub{font-size:clamp(.95rem,3.6vw,1.15rem);max-width:none}
+  .cap{bottom:9svh;bottom:9dvh;padding:0 7vw}
+  .cap .t{font-size:clamp(1.4rem,6.4vw,2.2rem)}
+  .cap .s{font-size:clamp(.85rem,3.4vw,1rem);max-width:none}
+  .topbar{padding:1rem 6vw;font-size:.6rem;gap:.6rem}
+  .topbar .live{font-size:.58rem}
+  .cta{bottom:9svh;bottom:9dvh;padding:0 7vw}
+  .cta .mag{padding:1rem 1.8rem;font-size:.78rem}
+  .scroll-cue{right:6vw;bottom:1.6rem}
+}
+@media(max-width:480px){
+  .hero h1{font-size:clamp(2.05rem,12.5vw,3.6rem)}
+  .cap .t{font-size:clamp(1.25rem,6.8vw,1.8rem)}
+  .cta .roles span{font-size:.62rem;padding:.35rem .7rem}
+  .topbar span:last-child{display:none}
+}
+@media(max-width:360px){
+  .hero h1{font-size:clamp(1.9rem,12vw,3rem)}
+}
+@media(max-width:900px){
+  .agents{padding:30svh 7vw 12svh;padding:30dvh 7vw 12dvh}
+  .agents-left{position:static;top:auto;margin-bottom:8vh}
+  .agents-left .aActive h3{font-size:clamp(1.8rem,8vw,2.6rem)}
+  .agents-left .aActive p{font-size:1rem;max-width:none}
+  .agents-right{gap:11svh;gap:11dvh;padding:2vh 0 24svh;padding:2vh 0 24dvh}
+  .note{max-width:none;width:100%;padding:1.3rem 1.4rem}
+  .note,.note:nth-child(even){margin-left:0;--rot:0deg}
+  .note h4{font-size:clamp(1.15rem,5.2vw,1.5rem)}
+}
+@media(max-width:900px){
+  .result{padding:18svh 7vw 12svh;padding:18dvh 7vw 12dvh}
+  .result-inner{grid-template-columns:1fr;gap:2vh}
+  .result-right{position:static;top:auto;order:-1;margin-bottom:8vh}
+  .result-right h3{font-size:clamp(1.8rem,8vw,2.6rem)}
+  .result-right p{font-size:1rem;max-width:none}
+  .result-left{gap:11svh;gap:11dvh;padding:2vh 0 24svh;padding:2vh 0 24dvh}
+  .rcard,.rcard:nth-child(even){max-width:none;width:100%;margin-left:0}
+  .rcard h4{font-size:clamp(1.1rem,5vw,1.4rem)}
+}
+@media(pointer:coarse){
+  .snd{padding:.8rem 1.1rem;font-size:.62rem;min-height:44px;-webkit-tap-highlight-color:transparent}
+  .scroll-cue{display:none}
+  a,button{-webkit-tap-highlight-color:transparent}
+  .cta .mag{transition:transform .2s var(--ease)}
+}
+@media(hover:hover){
+  .snd:hover{color:var(--teal);border-color:var(--teal)}
+}
+@media(max-height:480px) and (pointer:coarse){
+  .cap{bottom:5svh;bottom:5dvh}
+  .cap .t{font-size:clamp(1.1rem,5vw,1.6rem)}
+  .hero h1{font-size:clamp(2rem,9vh,3.2rem)}
+  .snd{bottom:1rem}
+}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
 </head>
 <body>
+<div class="preloader" id="preloader">
+  <div class="ring"></div>
+  <div class="plbarw"><div id="plBar"></div></div>
+  <div class="pllbl">Studio wird geladen</div>
+</div>
+<div id="scene-bg" aria-hidden="true">
+  <div class="layer" id="bg-hero"></div>
+  <div class="layer" id="bg-data"></div>
+  <div class="layer" id="bg-craft"></div>
+</div>
 <canvas id="bg"></canvas>
+<div class="vignette" aria-hidden="true"></div>
 <div class="scroll-bar"></div>
 <div class="cur-dot"></div><div class="cur-ring"></div>
 <div class="topbar"><span><b>AI-Adoption Studio</b> · Alex Heyers</span><span class="live">Live-Build · Vibe Coding 2026</span></div>
 
 <div class="hero" id="hero">
-  <div class="eyebrow">Multi-Agent-System · Hospitality · Mosbach</div>
+  <div class="eyebrow">Multi-Agent-System · Hospitality</div>
   <h1>AI-Adoption<br><em>Studio.</em></h1>
-  <div class="sub">Aus einem Gespräch wird eine Datenbasis — und daraus echte KI-Empfehlungen für Hotels. <b>Scroll los.</b></div>
+  <div class="sub">Du redest über deinen Betrieb. Acht Agenten machen daraus einen Fahrplan — Gewerk für Gewerk. <b>Scroll los.</b></div>
 </div>
 
 <div class="cap" id="cap"><div class="idx"></div><div class="t"></div><div class="s"></div></div>
 
 <div class="cta" id="cta">
   <div class="eyebrow">Diese Seite ist auch eine Bewerbung</div>
-  <div class="sub">Recruiter, Hoteliers, Kolleginnen und Kollegen — wenn dich das anzieht, melde dich. Antwort meist in 24 Stunden.</div>
+  <div class="sub">Recruiter und Hoteliers gleichermaßen: Wenn dich das anzieht, schreib mir. Antwort meist in 24 Stunden.</div>
   <a href="mailto:a.heyers@gmail.com" class="mag" data-mag data-hover>a.heyers@gmail.com →</a>
-  <div class="roles"><span>Solutions Engineer</span><span>Implementation Consultant</span><span>Customer Success · DACH</span></div>
+  <div class="roles"><span>Solutions Engineer</span><span>Implementation Consultant</span><span>Customer Success</span><span>DACH</span></div>
 </div>
 
 <div class="scroll-cue" id="cue"><span class="ln"></span> Scroll</div>
+<button class="snd" id="snd" type="button" aria-label="Ton an/aus"><span class="ico"></span><span id="sndLbl">Ton an</span></button>
 
-<div class="spacer-a"></div>
+<div class="spacer-a">
+  <!-- MOMENT 1 — der Schmerz / das Chaos (frueh, vor "REDEN STATT AUSFUELLEN") -->
+  <div class="story" id="st-paperwork" style="top:130vh" data-img="studio-assets/story-paperwork.jpg" data-par="0.16">
+    <div class="ph"></div><div class="grad"></div><div class="grain"></div>
+    <div class="scap">
+      <span class="k">00 · Die Ausgangslage</span>
+      <div class="h">Das Wissen ist da. <em>Nur nicht nutzbar.</em></div>
+      <div class="d">Schichtübergaben, Tabellen, Bauchgefühl. Jede Abteilung weiß viel — und keiner kommt drumherum, es jemandem zu erzählen.</div>
+    </div>
+  </div>
+  <!-- MOMENT 2 — der Mechanismus / Reden mit dem Tool -->
+  <div class="story right" id="st-voice" style="top:236vh" data-img="studio-assets/story-voice.jpg" data-par="0.20">
+    <div class="ph"></div><div class="grad"></div><div class="grain"></div>
+    <div class="scap">
+      <span class="k">Der Mechanismus</span>
+      <div class="h">Einfach <em>reden.</em></div>
+      <div class="d">Statt Felder auszufüllen, erzählst du. Ein Voice-Agent hört zu — und macht aus dem Gespräch Struktur.</div>
+    </div>
+  </div>
+</div>
 
 <section class="agents" id="agents">
   <div class="agents-inner">
@@ -127,26 +291,115 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
         <div class="anum" id="aNum">01</div>
         <h3 id="aName">Web-Research</h3>
         <span class="st live" id="aStat">live</span>
-        <p id="aDesc">Markt- und Regionskontext zum Haus, bevor das Gespräch überhaupt beginnt.</p>
+        <p id="aDesc">Markt und Region zum Haus — bevor das Gespräch überhaupt beginnt.</p>
       </div>
     </div>
     <div class="agents-right" id="aRight">
-      <div class="note on" data-i="1" data-name="Web-Research" data-stat="live" data-desc="Markt- und Regionskontext zum Haus, bevor das Gespräch überhaupt beginnt."><div class="nn">01</div><h4>Web-Research</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="2" data-name="Dokumenten-Analyst" data-stat="live" data-desc="Liest GuV, Reports und Prozess-Notizen — und macht aus PDF strukturiertes JSON."><div class="nn">02</div><h4>Dokumenten-Analyst</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="3" data-name="Prozess-Auditor" data-stat="live" data-desc="Findet, wo am Pass Zeit verloren geht — entlang eines 12-Domänen-Schemas."><div class="nn">03</div><h4>Prozess-Auditor</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="4" data-name="Use-Case-Generator" data-stat="build" data-desc="Drei konkrete, umsetzbare Use-Cases. Nicht zwanzig — drei, die wirklich passen."><div class="nn">04</div><h4>Use-Case-Generator</h4><span class="tag build">im Bau</span></div>
-      <div class="note" data-i="5" data-name="Tool-Empfehlung" data-stat="build" data-desc="Welches Tool für welche Stelle — inklusive DSGVO- und DPA-Check."><div class="nn">05</div><h4>Tool-Empfehlung</h4><span class="tag build">im Bau</span></div>
-      <div class="note" data-i="6" data-name="Wirtschaftlichkeit" data-stat="plan" data-desc="Wann amortisiert sich die Lösung? Aufwand gegen Nutzen, pro Use-Case gerechnet."><div class="nn">06</div><h4>Wirtschaftlichkeit</h4><span class="tag plan">geplant</span></div>
-      <div class="note" data-i="7" data-name="Compliance-Check" data-stat="plan" data-desc="DSGVO, AI-Act und Branchenvorgaben — sauber dokumentiert statt überflogen."><div class="nn">07</div><h4>Compliance-Check</h4><span class="tag plan">geplant</span></div>
-      <div class="note" data-i="8" data-name="Reporter" data-stat="build" data-desc="Bündelt die Erkenntnisse aller Agenten zu einem ausführbaren Report: PDF, Excel, Markdown."><div class="nn">08</div><h4>Reporter</h4><span class="tag build">im Bau</span></div>
+      <div class="note on" data-i="1" data-name="Web-Research" data-stat="live" data-desc="Markt und Region zum Haus — bevor das Gespräch überhaupt beginnt."><div class="nn">01</div><h4>Web-Research</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="2" data-name="Dokumenten-Analyst" data-stat="live" data-desc="Liest GuV, Reports, Prozess-Notizen. Aus PDF wird strukturiertes JSON."><div class="nn">02</div><h4>Dokumenten-Analyst</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="3" data-name="Prozess-Auditor" data-stat="live" data-desc="Findet, wo am Pass Zeit verloren geht. Entlang eines 12-Domänen-Schemas."><div class="nn">03</div><h4>Prozess-Auditor</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="4" data-name="Use-Case-Generator" data-stat="build" data-desc="Drei umsetzbare Use-Cases. Nicht zwanzig — drei, die wirklich passen."><div class="nn">04</div><h4>Use-Case-Generator</h4><span class="tag build">im Bau</span></div>
+      <div class="note" data-i="5" data-name="Tool-Empfehlung" data-stat="build" data-desc="Welches Tool für welche Stelle. Inklusive DSGVO- und DPA-Check."><div class="nn">05</div><h4>Tool-Empfehlung</h4><span class="tag build">im Bau</span></div>
+      <div class="note" data-i="6" data-name="Wirtschaftlichkeit" data-stat="plan" data-desc="Lohnt es sich? Aufwand gegen Nutzen, pro Use-Case durchgerechnet."><div class="nn">06</div><h4>Wirtschaftlichkeit</h4><span class="tag plan">geplant</span></div>
+      <div class="note" data-i="7" data-name="Compliance-Check" data-stat="plan" data-desc="DSGVO und AI-Act — sauber dokumentiert statt überflogen."><div class="nn">07</div><h4>Compliance-Check</h4><span class="tag plan">geplant</span></div>
+      <div class="note" data-i="8" data-name="Reporter" data-stat="build" data-desc="Bündelt alles zu einem ausführbaren Report: PDF, Excel, Markdown."><div class="nn">08</div><h4>Reporter</h4><span class="tag build">im Bau</span></div>
     </div>
   </div>
 </section>
 
-<div class="spacer-b"></div>
+<div class="spacer-mid"></div>
+
+<section class="result" id="result">
+  <div class="result-inner">
+    <div class="result-left" id="rLeft">
+      <div class="rcard on" data-name="Anfragen vorsortieren, nicht ersetzen"
+        data-desc="Standard-Mails und -Anfragen landen vorstrukturiert beim Team. Der Mensch entscheidet, die Maschine räumt vor.">
+        <div class="rk">Empfang &amp; Reservierung · 01</div>
+        <h4>Anfragen vorsortieren, nicht ersetzen</h4>
+        <p>Standard-Mails und -Anfragen landen vorstrukturiert beim Team. Der Mensch entscheidet, die Maschine räumt vor.</p>
+        <span class="fmt">hoher Hebel</span>
+      </div>
+      <div class="rcard" data-name="Erst messen, dann automatisieren"
+        data-desc="Wareneinsatz und Bestellungen sind selten so sauber, wie man denkt. Hier zuerst Klarheit, dann Tools.">
+        <div class="rk">F&amp;B &amp; Küche · 02</div>
+        <h4>Erst messen, dann automatisieren</h4>
+        <p>Wareneinsatz und Bestellungen sind selten so sauber, wie man denkt. Hier zuerst Klarheit, dann Tools.</p>
+        <span class="fmt">Daten zuerst</span>
+      </div>
+      <div class="rcard" data-name="Kleiner Anfang, schneller Effekt"
+        data-desc="Schichtplanung und Statusmeldungen lassen sich ohne großes Projekt entlasten — der ehrlichste Quick Win.">
+        <div class="rk">Housekeeping · 03</div>
+        <h4>Kleiner Anfang, schneller Effekt</h4>
+        <p>Schichtplanung und Statusmeldungen lassen sich ohne großes Projekt entlasten — der ehrlichste Quick Win.</p>
+        <span class="fmt">Quick Win</span>
+      </div>
+      <div class="rcard" data-name="Spannend — aber mit Vorsicht"
+        data-desc="Hier locken die größten Versprechen und die größten Fehlkäufe. Empfehlung: testen im Kleinen, nicht kaufen im Großen.">
+        <div class="rk">Revenue &amp; Pricing · 04</div>
+        <h4>Spannend — aber mit Vorsicht</h4>
+        <p>Hier locken die größten Versprechen und die größten Fehlkäufe. Empfehlung: testen im Kleinen, nicht kaufen im Großen.</p>
+        <span class="fmt">mit Vorsicht</span>
+      </div>
+      <div class="rcard" data-name="Wo KI heute schon trägt"
+        data-desc="Content, Antworten, Wiederkehr-Ansprache — der Bereich, in dem der Einstieg am leichtesten gelingt.">
+        <div class="rk">Marketing &amp; Gäste-Kommunikation · 05</div>
+        <h4>Wo KI heute schon trägt</h4>
+        <p>Content, Antworten, Wiederkehr-Ansprache — der Bereich, in dem der Einstieg am leichtesten gelingt.</p>
+        <span class="fmt">reif</span>
+      </div>
+    </div>
+    <div class="result-right">
+      <div class="rlabel">04 · Das Ergebnis</div>
+      <h3 id="rName">Ein Fahrplan <em>pro Gewerk.</em></h3>
+      <p id="rDesc">Kein Foliensatz für die Schublade. Pro Bereich eine ehrliche Empfehlung — was sich lohnt, was wartet, was du sein lassen kannst.</p>
+    </div>
+  </div>
+</section>
+
+<div class="spacer-b">
+  <!-- MOMENT 3 — das Ergebnis / Klarheit -->
+  <div class="story" id="st-clarity" style="top:52vh" data-img="studio-assets/story-clarity.jpg" data-par="0.16">
+    <div class="ph"></div><div class="grad"></div><div class="grain"></div>
+    <div class="scap">
+      <span class="k">Das Ergebnis</span>
+      <div class="h">Aus Rauschen wird <em>Reihenfolge.</em></div>
+      <div class="d">Drei Use-Cases, ein Report, ein klarer nächster Schritt. Kein Foliensatz — etwas, mit dem das Haus arbeiten kann.</div>
+    </div>
+  </div>
+  <!-- MOMENT 4 — der Mensch / Hospitality (nahe Portrait) -->
+  <div class="story right" id="st-hospitality" style="top:300vh" data-img="studio-assets/story-hospitality.jpg" data-par="0.20">
+    <div class="ph"></div><div class="grad"></div><div class="grain"></div>
+    <div class="scap">
+      <span class="k">Der Mensch dahinter</span>
+      <div class="h">20 Jahre <em>Gastgeber.</em></div>
+      <div class="d">Bar, Service, Operations — bevor Code dazukam. Diese Nähe zum Betrieb steckt in jedem Agenten.</div>
+    </div>
+  </div>
+</div>
 
 <script>
 window.__prog=0;window.__nmx=.5;window.__nmy=.5;
+/* ===== PRELOADER-CONTROLLER (kein FOUC, triggert 'studio-ready' fuer das Intro) ===== */
+(function(){
+  const pl=document.getElementById('preloader'),bar=document.getElementById('plBar');
+  if(!pl){window.__studioMark=function(){};return;}
+  const gates={fonts:false,three:false,portrait:false};let fired=false;
+  function pct(){let n=0;for(const k in gates)if(gates[k])n++;return Math.round(n/3*100);}
+  function update(){if(bar)bar.style.width=pct()+'%';}
+  function done(){
+    if(fired)return;fired=true;
+    if(bar)bar.style.width='100%';
+    setTimeout(()=>{
+      pl.classList.add('done');
+      window.dispatchEvent(new Event('studio-ready'));
+      setTimeout(()=>{if(pl&&pl.parentNode)pl.parentNode.removeChild(pl);},950);
+    },220);
+  }
+  window.__studioMark=function(k){if(k in gates&&!gates[k]){gates[k]=true;update();if(gates.fonts&&gates.three&&gates.portrait)done();}};
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>window.__studioMark('fonts'));}else{window.__studioMark('fonts');}
+  /* Safety-Net: spaetestens nach 8s zwangs-fertig (z.B. Portrait nicht erreichbar) */
+  setTimeout(()=>{gates.fonts=gates.three=gates.portrait=true;update();done();},8000);
+})();
 const dot=document.querySelector('.cur-dot'),ring=document.querySelector('.cur-ring');
 let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
 addEventListener('mousemove',e=>{document.body.classList.add('on');mx=e.clientX;my=e.clientY;window.__nmx=e.clientX/innerWidth;window.__nmy=1-e.clientY/innerHeight;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
@@ -156,6 +409,11 @@ const sbar=document.querySelector('.scroll-bar'),rootEl=document.documentElement
 function onScroll(){const max=rootEl.scrollHeight-rootEl.clientHeight;window.__prog=max>0?rootEl.scrollTop/max:0;sbar.style.width=(window.__prog*100)+'%';}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 document.querySelectorAll('[data-mag]').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`});b.addEventListener('mouseleave',()=>b.style.transform='')});
+/* Scrollytelling-Sync: auf Touch (coarse) weiteres Band + flacherer Threshold,
+   sonst hängt die Beschreibung dem Scroll hinterher. Beide Observer nutzen dieselbe Config. */
+const __coarseObs=matchMedia('(pointer:coarse)').matches;
+const OBS=__coarseObs?{threshold:.18,rootMargin:'-22% 0px -42% 0px'}
+                     :{threshold:.55,rootMargin:'-30% 0px -30% 0px'};
 /* 8-Agenten: mittige Note → linkes Beschreibungsfeld */
 (function(){
   const notes=[...document.querySelectorAll('#aRight .note')];if(!notes.length)return;
@@ -166,8 +424,149 @@ document.querySelectorAll('[data-mag]').forEach(b=>{b.addEventListener('mousemov
     const d=en.target.dataset;const n=('0'+d.i).slice(-2);
     aIdx.textContent=n;aNum.textContent=n;aName.textContent=d.name;aDesc.textContent=d.desc;
     aStat.textContent=label[d.stat];aStat.className='st '+d.stat;
-  }),{threshold:.55,rootMargin:'-30% 0px -30% 0px'});
+  }),OBS);
   notes.forEach(n=>o.observe(n));
+})();
+
+/* ===== #result: aktive Karte -> rechte Headline/Beschreibung ===== */
+(function(){
+  const cards=[...document.querySelectorAll('#rLeft .rcard')];if(!cards.length)return;
+  const rName=document.getElementById('rName'),rDesc=document.getElementById('rDesc');
+  const o=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;
+    cards.forEach(c=>c.classList.remove('on'));en.target.classList.add('on');
+    const d=en.target.dataset;
+    if(d.name&&rName)rName.textContent=d.name;
+    if(d.desc&&rDesc)rDesc.textContent=d.desc;
+  }),OBS);
+  cards.forEach(c=>o.observe(c));
+})();
+
+/* ===== SOUND-ENGINE (Web Audio, additive Atmosphaere) ===== */
+(function(){
+  const btn=document.getElementById('snd'),lbl=document.getElementById('sndLbl');
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){if(btn)btn.style.display='none';window.__audio={scene:function(){},portrait:function(){},whoosh:function(){}};return;}
+  let ctx=null,master=null,enabled=false,started=false,lastScene=-1;
+  const PORTRAIT_INDEX=5;
+  function ensure(){
+    if(ctx)return;
+    try{
+      ctx=new AC();
+      master=ctx.createGain();master.gain.value=0.0001;master.connect(ctx.destination);
+    }catch(e){ctx=null;}
+  }
+  let droneBuilt=false;
+  let droneGain=null;
+  function buildDrone(){
+    if(droneBuilt)return;droneBuilt=true;
+    try{
+      droneGain=ctx.createGain();droneGain.gain.value=1.0;droneGain.connect(master);
+      /* zwei verstimmte Sinus-Stimmen */
+      [[55,-6],[82.5,5]].forEach(([f,det])=>{
+        const o=ctx.createOscillator();o.type='sine';o.frequency.value=f;o.detune.value=det;
+        const g=ctx.createGain();g.gain.value=0.16;
+        const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=f<70?420:240;
+        o.connect(lp);lp.connect(g);g.connect(droneGain);o.start();
+        const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=f<70?0.05:0.08;
+        const lg=ctx.createGain();lg.gain.value=0.06;lfo.connect(lg);lg.connect(g.gain);lfo.start();
+      });
+      /* gefiltertes Loop-Noise */
+      const nb=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);const nd=nb.getChannelData(0);
+      for(let i=0;i<nd.length;i++)nd[i]=(Math.random()*2-1)*0.5;
+      const ns=ctx.createBufferSource();ns.buffer=nb;ns.loop=true;
+      const nf=ctx.createBiquadFilter();nf.type='lowpass';nf.frequency.value=320;
+      const ng=ctx.createGain();ng.gain.value=0.04;
+      ns.connect(nf);nf.connect(ng);ng.connect(droneGain);ns.start();
+    }catch(e){}
+  }
+  function whoosh(){
+    if(!ctx||!enabled)return;
+    try{
+      const t=ctx.currentTime,dur=0.9;
+      const nb=ctx.createBuffer(1,ctx.sampleRate*dur,ctx.sampleRate);const nd=nb.getChannelData(0);
+      for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;
+      const ns=ctx.createBufferSource();ns.buffer=nb;
+      const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.4;
+      bp.frequency.setValueAtTime(280,t);bp.frequency.exponentialRampToValueAtTime(2600,t+0.32);bp.frequency.exponentialRampToValueAtTime(420,t+dur);
+      const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12,t+0.12);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      ns.connect(bp);bp.connect(g);g.connect(master);ns.start(t);ns.stop(t+dur);
+      ns.onended=()=>{try{ns.disconnect();bp.disconnect();g.disconnect();}catch(e){}};
+    }catch(e){}
+  }
+  function portrait(){
+    if(!ctx||!enabled)return;
+    try{
+      const t0=ctx.currentTime+0.2,freqs=[523.25,659.25,783.99,1046.5];
+      freqs.forEach((f,i)=>{
+        const t=t0+i*0.09;const o=ctx.createOscillator();o.type='sine';o.frequency.value=f;
+        const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.09,t+0.04);g.gain.exponentialRampToValueAtTime(0.0001,t+1.6);
+        o.connect(g);g.connect(master);o.start(t);o.stop(t+1.7);
+        o.onended=()=>{try{o.disconnect();g.disconnect();}catch(e){}};
+      });
+    }catch(e){}
+  }
+  function scene(i){
+    if(i===lastScene)return;
+    const prev=lastScene;lastScene=i;
+    if(prev<0)return; /* kein Whoosh beim allerersten Set/Load */
+    whoosh();
+    if(i===PORTRAIT_INDEX)portrait();
+  }
+  function setEnabled(on){
+    enabled=on;if(!ctx)return;
+    try{master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(on?0.16:0.0001,ctx.currentTime,0.25);}catch(e){}
+    if(btn)btn.classList.toggle('on',on);if(lbl)lbl.textContent=on?'Ton aus':'Ton an';
+  }
+  function go(){buildDrone();setEnabled(true);}
+  function firstGesture(){
+    if(started)return;started=true;
+    ensure();
+    if(!ctx){return;}
+    try{
+      const r=ctx.resume?ctx.resume():null;
+      if(r&&typeof r.then==='function'){r.then(go).catch(go);}else{go();}
+    }catch(e){go();}
+    ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(ev=>removeEventListener(ev,firstGesture));
+  }
+  ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(ev=>addEventListener(ev,firstGesture,{passive:true}));
+  if(btn)btn.addEventListener('click',e=>{e.stopPropagation();if(!started){firstGesture();return;}const next=!enabled;if(next&&ctx&&ctx.state==='suspended'){try{ctx.resume();}catch(_){}}if(next)buildDrone();setEnabled(next);});
+  addEventListener('visibilitychange',()=>{if(!ctx)return;try{master.gain.setTargetAtTime(document.hidden?0.0001:(enabled?0.16:0.0001),ctx.currentTime,0.2);}catch(e){}});
+  window.__audio={scene:scene,portrait:portrait,whoosh:whoosh};
+})();
+
+/* ===== FOTO-STORY-MOMENTE: Scroll-Opacity (Crossfade) + Parallax/Ken-Burns =====
+   Reines DOM ueber dem Canvas — beruehrt weder Partikel-Phase, Bloom noch uGlow. */
+(function(){
+  const panels=[...document.querySelectorAll('.story')];
+  if(!panels.length)return;
+  panels.forEach(p=>{const ph=p.querySelector('.ph');if(ph&&p.dataset.img)ph.style.backgroundImage=`url('${p.dataset.img}')`;});
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let ticking=false;
+  function update(){
+    ticking=false;
+    const vh=innerHeight;
+    for(const p of panels){
+      const r=p.getBoundingClientRect();
+      const center=r.top+r.height/2;
+      const dist=Math.abs(center-vh/2)/(vh*0.85);
+      const op=Math.max(0,1-dist*dist)*0.28;          /* weicher Bell-Crossfade */
+      p.style.opacity=op.toFixed(3);
+      if(op>0.001){
+        const ph=p.querySelector('.ph');
+        if(ph&&!reduce){
+          const par=parseFloat(p.dataset.par||'0.16');
+          const drift=(center-vh/2)*par;
+          const zoom=1.08+(op*0.06);
+          ph.style.transform=`translate3d(0,${(-drift).toFixed(1)}px,0) scale(${zoom.toFixed(3)})`;
+        }
+      }
+    }
+  }
+  function onStoryScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  addEventListener('scroll',onStoryScroll,{passive:true});
+  addEventListener('resize',onStoryScroll,{passive:true});
+  addEventListener('studio-ready',()=>requestAnimationFrame(update),{once:true});
+  update();
 })();
 </script>
 
@@ -176,15 +575,41 @@ import * as THREE from 'three';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
+import {RGBShiftShader} from 'three/addons/shaders/RGBShiftShader.js';
 
-const N=120000;
+/* ===== GERAETE-TIER: Partikelzahl + Effekte an Mobile/Low-Power koppeln (60fps-Ziel) ===== */
+const __dm = navigator.deviceMemory || 4;            /* GB, fehlt auf iOS -> 4 */
+const __cores = navigator.hardwareConcurrency || 4;
+const __w = Math.min(innerWidth, innerHeight);       /* kuerzeste Kante: Hochformat-fair */
+const __coarse = matchMedia('(pointer:coarse)').matches;
+const __reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* Tier 0 = Phone/Low-Power, 1 = Tablet/Mid, 2 = Desktop/High */
+const TIER = (__w<=480 || __dm<=2 || (__coarse && __cores<=4)) ? 0
+           : (__w<=1024 || __dm<=4 || __coarse)               ? 1
+           : 2;
+const N      = TIER===0 ? 34000 : TIER===1 ? 70000 : 120000;
+const PR_CAP = TIER===0 ? 1.5   : TIER===1 ? 1.6   : 1.6;   /* pixelRatio-Cap */
+const BLOOM_HI = TIER===0 ? 0.42 : 0.6;                     /* abstrakte Szenen (chaos) */
+const BLOOM_LO = 0.12;                                      /* Text/Portrait: NIE anfassen */
+const RGB_BASE = TIER===0 ? 0.0006 : 0.0011;               /* Aberration leichter auf Mobile */
+const RGB_SWING= TIER===0 ? 0.0008 : 0.0016;
 const cv=document.getElementById('bg');
-const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
-renderer.setClearColor(0x06101f,1);
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,premultipliedAlpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,PR_CAP));
+renderer.setClearColor(0x06101f,0);
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,200);
-const C={mag:new THREE.Color(0xE94B5D),teal:new THREE.Color(0x1AA591),amber:new THREE.Color(0xF2A645),cream:new THREE.Color(0xFBF6EA),blue:new THREE.Color(0x4f7bd6)};
+const C={
+  mag:  new THREE.Color(0xE94B5D), teal: new THREE.Color(0x1AA591),
+  amber:new THREE.Color(0xF2A645), cream:new THREE.Color(0xFBF6EA),
+  blue: new THREE.Color(0x4f7bd6),
+  indigo: new THREE.Color(0x6C4BE9), storm:  new THREE.Color(0xC23AD6),
+  coral:  new THREE.Color(0xFF7A59), peach:  new THREE.Color(0xFFC27A),
+  cyan:   new THREE.Color(0x2DE2E6), electric:new THREE.Color(0x4D8DFF),
+  gold:   new THREE.Color(0xFFC24B), goldhot:new THREE.Color(0xFFE08A),
+  skin:   new THREE.Color(0xE7B695)
+};
 
 function blank(){return {pos:new Float32Array(N*3),col:new Float32Array(N*3)};}
 function mixC(a,b,t){return a.clone().lerp(b,t);}
@@ -233,8 +658,8 @@ function chaos(){const o=blank();
     for(let s=0;s<steps;s++){const c=_curl(x*0.18,y*0.18,z*0.18);x+=c[0]*1.6;y+=c[1]*1.6;z+=c[2]*1.6;}
     o.pos[i*3]=x;o.pos[i*3+1]=y;o.pos[i*3+2]=z;
     const depth=Math.min(1,Math.max(0,(z+8)/16));
-    let c=mixC(C.teal,C.mag,Math.random());
-    c=c.lerp(C.blue,depth*0.35);
+    let c=mixC(C.indigo,C.storm,Math.random());
+    c=c.lerp(C.blue,depth*0.30);
     o.col[i*3]=c.r;o.col[i*3+1]=c.g;o.col[i*3+2]=c.b;
   }return o;}
 
@@ -306,14 +731,34 @@ function textShape(txt,maxSize,ca,cb){
 function portraitShape(img){const W=210,H=Math.round(W*img.height/img.width);
   return sampleCanvas((ctx)=>ctx.drawImage(img,0,0,W,H),{w:W,h:H,step:1,lum:28,sc:22,jit:.01,zjit:.05,expose:.82});}
 
-/* SCENES: 0 chaos · 1 "REDEN…" · 2 "AUS GESPRÄCH…" · 3 "8 AGENTEN" · 4 galaxy · 5 PORTRÄT · 6 "SCHREIB MIR" */
+/* constellation (KEY 4): leuchtendes Gold-Netz — 8 Knoten (= 8 Gewerk-Empfehlungen),
+   Partikel sammeln sich in Knoten + entlang der Speichen zum Zentrum. Gold->Goldhot, Kern cream. */
+function constellation(){
+  const o=blank(); const NODES=8, R=5.2; const nodes=[];
+  for(let n=0;n<NODES;n++){ const a=(n/NODES)*6.283-Math.PI/2;
+    const rr=R*(0.62+0.38*((n*97)%NODES)/NODES);
+    nodes.push([Math.cos(a)*rr, Math.sin(a)*rr*0.74, (Math.random()-.5)*0.5]); }
+  for(let i=0;i<N;i++){ let x,y,z,t;
+    if(Math.random()<0.60){ const nd=nodes[i%NODES];
+      const rr=Math.pow(Math.random(),0.7)*0.85, aa=Math.random()*6.283, bb=Math.acos(2*Math.random()-1);
+      x=nd[0]+Math.sin(bb)*Math.cos(aa)*rr; y=nd[1]+Math.sin(bb)*Math.sin(aa)*rr; z=nd[2]+Math.cos(bb)*rr*0.5; t=0.15;
+    }else{ const nd=nodes[i%NODES], f=Math.random();
+      x=(nd[0])*f+(Math.random()-.5)*0.18; y=(nd[1])*f+(Math.random()-.5)*0.18; z=(nd[2])*f+(Math.random()-.5)*0.18; t=0.65; }
+    o.pos[i*3]=x;o.pos[i*3+1]=y;o.pos[i*3+2]=z;
+    let c=mixC(C.gold,C.goldhot,t+Math.random()*0.2);
+    const dHub=Math.hypot(x,y)/R; c=c.lerp(C.cream,Math.max(0,1-dHub)*0.4);
+    o.col[i*3]=c.r;o.col[i*3+1]=c.g;o.col[i*3+2]=c.b; }
+  return o;
+}
+
+/* SCENES: 0 chaos · 1 "REDEN…" · 2 "DU REDEST · ES VERSTEHT" · 3 "8 AGENTEN" · 4 "DEIN FAHRPLAN" · 5 PORTRÄT · 6 "SCHREIB MIR" */
 const KEYS=[chaos(),
-  textShape('REDEN STATT AUSFÜLLEN',150,C.cream,C.teal),
-  textShape('AUS GESPRÄCH WIRD DATENBASIS',128,C.teal,C.cream),
-  textShape('8 AGENTEN',300,C.amber,C.cream),
-  galaxy(),
+  textShape('REDEN STATT AUSFÜLLEN',150,C.coral,C.peach),
+  textShape('DU REDEST · ES VERSTEHT',128,C.coral,C.cream),
+  textShape('8 AGENTEN',300,C.cyan,C.electric),
+  constellation(),
   null,
-  textShape('SCHREIB MIR',300,C.cream,C.mag)];
+  textShape('SCHREIB MIR',300,C.mag,C.peach)];
 const K=KEYS.length;
 const camZ=[15,13,14,13,15,9.5,13];
 const PI=5;
@@ -321,20 +766,28 @@ const PI=5;
 /* ============================================================
    FARBE: per-Szene Akzent + Mood-Knoebe, indiziert wie KEYS.
    ============================================================ */
-const ACCENT=[C.mag, C.teal, C.blue, C.amber, C.mag, C.cream, C.mag];
-const TWK   =[1.0,   0.35,  0.45,   0.6,    0.9,   0.12,   0.45]; /* Twinkle-Amplitude — Text/Portrait ruhiger */
-const HUEJ  =[0.10,  0.05,  0.06,   0.05,   0.09,  0.012,  0.05]; /* Hue-Jitter — Portrait nahe True-Color */
-const BRIJ  =[0.34,  0.26,  0.26,   0.30,   0.32,  0.16,   0.26]; /* Brightness-Jitter */
-const ACCA  =[0.45,  0.30,  0.34,   0.55,   0.42,  0.10,   0.40]; /* wie stark Akzent in heisse Partikel blutet */
+/*               0chaos 1reden 2dured 3agent 4fahrp 5portr 6cta */
+const ACCENT=[C.mag, C.amber, C.coral, C.cyan, C.gold, C.skin, C.mag];
+const TWK   =[1.0,   0.35,  0.45,   0.6,    0.42,  0.12,   0.45]; /* Twinkle-Amplitude — Text/Portrait ruhiger */
+const HUEJ  =[0.10,  0.05,  0.06,   0.05,   0.05,  0.012,  0.05]; /* Hue-Jitter — Portrait nahe True-Color */
+const BRIJ  =[0.34,  0.26,  0.26,   0.30,   0.26,  0.16,   0.26]; /* Brightness-Jitter */
+const ACCA  =[0.45,  0.30,  0.34,   0.55,   0.34,  0.10,   0.40]; /* wie stark Akzent in heisse Partikel blutet */
+/* Pro-Szene Groesse/Glow/Bloom + Morph-Drama (Turbulenz/Stagger). Text/Portrait niedriger Bloom -> lesbar. */
+const SIZ =[1.35, 1.05, 1.05, 1.20, 1.25, 0.92, 1.10]; /* Groessen-Mult */
+const GLOW=[1.55, 1.05, 1.05, 1.20, 1.30, 0.95, 1.10]; /* uGlow-Ziel */
+const BLM =[BLOOM_HI, 0.14, 0.14, 0.18, 0.20, 0.12, 0.16]; /* Bloom: Text/Porträt niedrig */
+const TURB=[1.8, 1.1, 1.6, 1.7, 0.9, 1.3];   /* Morph-Drama pro Übergang (Start-seg) */
+const STAG=[0.62, 0.42, 0.58, 0.55, 0.40, 0.50];
+if(TIER===0){ for(let i=0;i<SIZ.length;i++) SIZ[i]*=0.88; }  /* dünne Phones schonen */
 const _accA=new THREE.Color(), _accB=new THREE.Color();
 
 const CAPS=[
-  {i:'00 · Die Ausgangslage',t:'Hotellerie ertrinkt in <em>Daten.</em>',s:'GuV, Reports, Prozesse — verstreut, ungenutzt, im Ordner verstaubt.'},
-  {i:'Die Idee',t:'Reden statt ausfüllen.',s:'Kein Formular-Marathon, kein Berater-Foliensatz.'},
-  {i:'Der Mechanismus',t:'Aus Gespräch wird <em>Datenbasis.</em>',s:'Ein Voice-Agent hört zu, ein Analyse-Agent liest — daraus entsteht ein sauberes Bild des Hauses.'},
-  {i:'Die Pipeline',t:'8 Agenten. Ein <em>Report.</em>',s:'Research · Dokumente · Prozesse · Use-Cases · Tools · Wirtschaftlichkeit · Compliance · Reporter → <code>PDF · Excel · MD</code>'},
-  {i:'Im Hintergrund',t:'Einer nach dem anderen.',s:'Jeder Agent macht eine Sache gut und reicht weiter. Was läuft, läuft. Was im Bau ist, heißt im Bau.'},
-  {i:'Der Mensch dahinter',t:'Alex Heyers.',s:'20 Jahre Hospitality — Bar, Service, Operations. Mosbach, Vater seit 2025. Diese Seite ist auch eine Bewerbung.'}
+  {i:'00 · Die Ausgangslage',t:'Das Wissen ist <em>da.</em>',s:'Schichtübergaben, Tabellen, Bauchgefühl — jede Abteilung weiß viel, nur nutzbar ist es nicht.'},
+  {i:'Die Idee',t:'Reden statt ausfüllen.',s:'Die einzige Schnittstelle, die jede Abteilung schon kann — vom Empfang bis zur Küche.'},
+  {i:'Der Mechanismus',t:'Du redest. Es <em>versteht.</em>',s:'Ein Agent hört zu, einer liest deine Unterlagen mit. Den Rest macht die Pipeline.'},
+  {i:'03 · Die Pipeline',t:'8 Agenten. Ein <em>Report.</em>',s:'Research · Dokumente · Prozesse · Use-Cases · Tools · Wirtschaftlichkeit · Compliance · Reporter → <code>PDF · Excel · MD</code>'},
+  {i:'04 · Das Ergebnis',t:'Ein <em>Fahrplan</em> pro Gewerk.',s:'Kein Foliensatz für die Schublade. Pro Bereich eine ehrliche Empfehlung — was sich lohnt, was wartet, was du sein lassen kannst.'},
+  {i:'Der Mensch dahinter',t:'Alex Heyers.',s:'20 Jahre Hospitality, jetzt Vibe Coder. Vater seit 2025. Diese Seite ist gebaut — und sie ist eine Bewerbung.'}
 ];
 
 const geo=new THREE.BufferGeometry();
@@ -351,6 +804,16 @@ for(let i=0;i<N;i++){
 const aSeed=new THREE.BufferAttribute(seedArr,1);
 const aRand=new THREE.BufferAttribute(randArr,3);
 geo.setAttribute('aSeed',aSeed);geo.setAttribute('aRand',aRand);
+/* INTRO: per-Partikel Big-Bang-Richtung — leichte Kugel-Streuung um den Kern,
+   damit der Lichtpunkt Volumen hat und nicht zur exakten Singularitaet kollabiert. */
+const bangArr=new Float32Array(N*3);
+for(let i=0;i<N;i++){
+  const u=Math.random()*6.283, v=Math.acos(2*Math.random()-1), r=0.4+Math.random()*0.9;
+  bangArr[i*3]  =Math.sin(v)*Math.cos(u)*r;
+  bangArr[i*3+1]=Math.sin(v)*Math.sin(u)*r;
+  bangArr[i*3+2]=Math.cos(v)*r;
+}
+geo.setAttribute('aBang',new THREE.BufferAttribute(bangArr,3));
 /* aSeed pro Segment aus der Ziel-Geometrie neu ableiten (raeumliche Welle entlang X+Y der Zielform) */
 function reseed(b){const p=b.pos;let mn=1e9,mx=-1e9;
   for(let i=0;i<N;i++){const k=p[i*3]*0.6+p[i*3+1]*0.4;if(k<mn)mn=k;if(k>mx)mx=k;}
@@ -372,12 +835,14 @@ const mat=new THREE.ShaderMaterial({
     uAccAmt:{value:0.5},    /* wie stark der Akzent in heisse Partikel blutet */
     uTwinkle:{value:1.0},   /* Twinkle-Amplitude (->0 am Text/Portrait-Dwell) */
     uHueJit:{value:0.06},   /* per-Partikel Hue-Spreizung (->~0 am Portrait) */
-    uBriJit:{value:0.30}    /* per-Partikel Helligkeits-Spreizung */
+    uBriJit:{value:0.30},   /* per-Partikel Helligkeits-Spreizung */
+    uBang:{value:1.0}       /* INTRO: 1 = alles im Lichtkern, 0 = nahtlos auf aA (Scroll-0-Zustand) */
   },
   vertexShader:`
    attribute vec3 aA;attribute vec3 aB;attribute vec3 cA;attribute vec3 cB;
-   attribute float aSeed;attribute vec3 aRand;
+   attribute float aSeed;attribute vec3 aRand;attribute vec3 aBang;
    uniform float uMix;uniform float uSize;uniform float uStagger;uniform float uTurb;uniform float uTime;uniform float uBriJit;
+   uniform float uBang;
    varying vec3 vCol;varying float vSpd;varying float vSeed;varying float vHot;
 
    /* --- billiger 3D-Curl-Noise (analytisches Gradient eines glatten Potentials) --- */
@@ -414,6 +879,17 @@ const mat=new THREE.ShaderMaterial({
 
      vec3 p=mix(aA,aB,t);
      vec3 col=mix(cA,cB,t);
+
+     /* INTRO BIG-BANG: ueberlagert den normalen Morph. uBang 1->0.
+        core = enger Lichtpunkt nahe Origin; jedes Partikel staggert ueber aSeed
+        und reist entlang aBang nach aussen auf seine aA-Position. */
+     if(uBang>0.0001){
+       float bs=clamp((uBang-aSeed*0.35)/0.65,0.0,1.0);   /* per-Partikel Stagger */
+       float be=bs*bs*(3.0-2.0*bs);                        /* smoothstep */
+       vec3 core=aBang*0.35;                               /* winziger glühender Kern */
+       p=mix(p,core,be);
+       vSeed=aSeed;                                        /* fuer Twinkle weiter gueltig */
+     }
 
      /* FARBE: per-Partikel Helligkeits-Variation -> nie flach */
      float bri=1.0+(aSeed-0.5)*2.0*uBriJit;
@@ -475,7 +951,7 @@ const mat=new THREE.ShaderMaterial({
      col=mix(col,uAccent,hot*uAccAmt*0.6);
      col+=uAccent*core*hot*0.9;                       /* knackiger additiver Funke im Zentrum heisser Punkte */
      /* fliegende Partikel etwas heisser/heller -> sichtbare Energie im Uebergang, neutral am Dwell */
-     col*=(uGlow+vSpd*0.6);
+     col*=(uGlow+vSpd*0.35);
      gl_FragColor=vec4(col,a*(1.0-vSpd*0.15));
    }`,
   transparent:true,blending:THREE.NormalBlending,depthWrite:false,depthTest:false
@@ -489,15 +965,21 @@ function setSeg(k,force){if(k===curSeg&&!force)return;curSeg=k;const a=KEYS[k]||
 setSeg(0,true);
 
 const img=new Image();
-img.onload=()=>{try{KEYS[PI]=portraitShape(img);if(curSeg>=PI-1)setSeg(curSeg,true);}catch(e){KEYS[PI]=galaxy();}};
-img.onerror=()=>{KEYS[PI]=galaxy();};
+img.onload=()=>{try{KEYS[PI]=portraitShape(img);if(curSeg>=PI-1)setSeg(curSeg,true);}catch(e){KEYS[PI]=galaxy();}if(window.__studioMark)window.__studioMark('portrait');};
+img.onerror=()=>{KEYS[PI]=galaxy();if(window.__studioMark)window.__studioMark('portrait');};
 img.src='alex-heyers-portrait.jpg';
 
 const composer=new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene,cam));
+/* Composer-RenderTarget transparent halten -> #scene-bg scheint hinter den Partikeln durch */
+composer.renderTarget1.texture.format=THREE.RGBAFormat;
+composer.renderTarget2.texture.format=THREE.RGBAFormat;
+const renderPass=new RenderPass(scene,cam);renderPass.clearAlpha=0;composer.addPass(renderPass);
 const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.75,.55,.2);composer.addPass(bloom);
+/* Chromatic Aberration als FINALER Pass — blendet das Composer-Ergebnis transparent auf den Canvas */
+const rgb=new ShaderPass(RGBShiftShader);rgb.uniforms.amount.value=RGB_BASE;rgb.uniforms.angle.value=0;rgb.renderToScreen=true;composer.addPass(rgb);
 function size(){renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
-size();addEventListener('resize',size);
+size();let __rz;addEventListener('resize',()=>{clearTimeout(__rz);__rz=setTimeout(size,120);},{passive:true});
+addEventListener('orientationchange',()=>setTimeout(size,250));
 
 function smoothstep(a,b,t){t=Math.max(0,Math.min(1,(t-a)/(b-a)));return t*t*(3-2*t);}
 function lerp(a,b,t){return a+(b-a)*t;}
@@ -505,19 +987,81 @@ const heroEl=document.getElementById('hero'),capEl=document.getElementById('cap'
 const capIdx=capEl.querySelector('.idx'),capT=capEl.querySelector('.t'),capS=capEl.querySelector('.s');
 let shownCap=-1,camX=0,camY=0,banner=0;
 const agentsSec=document.getElementById('agents');
+const resultSec=document.getElementById('result');
 const rootEl=document.documentElement;
+/* Backdrop-Layer (cinematic Hintergruende hinter den Partikeln) */
+const bgHero=document.getElementById('bg-hero'),bgData=document.getElementById('bg-data'),bgCraft=document.getElementById('bg-craft');
+let bgwHero=0,bgwData=0,bgwCraft=0;
+function bgWeight(phase,center){return Math.max(0,1-Math.abs(phase-center)/1.4);}
+
+/* ===== INTRO BIG-BANG STATE ===== */
+let introDone=false, introStart=0, introArmed=false, firstFrameMarked=false;
+const INTRO_MS=3000;
+/* Hero-Overlay erst NACH dem Intro einblenden: bis dahin hart auf 0 halten */
+heroEl.style.opacity='0'; cue.style.opacity='0';
+heroEl.style.transition='opacity .9s ease'; cue.style.transition='opacity .9s ease';
+/* Intro startet erst wenn der Preloader fertig ist (three + Portrait bereit) */
+addEventListener('studio-ready',()=>{introArmed=true;},{once:true});
 
 function loop(){
   const prog=window.__prog||0;
+
+  /* ===== INTRO: ueberschreibt setSeg/uMix fuer ~3s, danach nahtloser Handoff ===== */
+  if(!introDone){
+    /* warten bis der Preloader 'studio-ready' feuert; bis dahin Feld kollabiert (uBang=1) halten */
+    if(!introArmed){
+      setSeg(0,true);
+      mat.uniforms.uMix.value=0; mat.uniforms.uBang.value=1.0;
+      mat.uniforms.uStagger.value=0; mat.uniforms.uTurb.value=0;
+      composer.render();
+      if(!firstFrameMarked){firstFrameMarked=true;if(window.__studioMark)window.__studioMark('three');}
+      requestAnimationFrame(loop);return;
+    }
+    if(!introStart)introStart=performance.now();
+    const raw=Math.min(1,(performance.now()-introStart)/INTRO_MS);
+    const introT=raw*raw*(3.0-2.0*raw);            /* smoothstep ease 0->1 */
+    setSeg(0,true);                                 /* chaos-Keyframe = Scroll-0-Zustand */
+    mat.uniforms.uMix.value=0;
+    mat.uniforms.uBang.value=1-introT;              /* 1 -> 0: Partikel sammeln sich nach aussen */
+    mat.uniforms.uTime.value+=0.016;
+    /* Mood auf Szene-0 fixieren */
+    mat.uniforms.uStagger.value=0; mat.uniforms.uTurb.value=0;
+    mat.uniforms.uAccent.value.copy(ACCENT[0]);
+    mat.uniforms.uAccAmt.value=ACCA[0]; mat.uniforms.uTwinkle.value=TWK[0];
+    mat.uniforms.uHueJit.value=HUEJ[0]; mat.uniforms.uBriJit.value=BRIJ[0];
+    /* Glow/Bloom als Lichtblitz am Anfang, klingt zum Hero-Wert ab */
+    mat.uniforms.uGlow.value=lerp(2.4,1.5,introT);
+    bloom.strength=lerp(1.6,BLOOM_HI+0.12,introT);
+    /* sanfter Kamera-Dolly: aus der Tiefe auf den Hero-Abstand (camZ[0]=15) */
+    const dollyZ=lerp(camZ[0]+9,camZ[0],introT);
+    const px=(window.__nmx-.5),py=(window.__nmy-.5);
+    cam.position.set(px*1.1*introT,py*0.9*introT,dollyZ);
+    cam.lookAt(0,0,0);
+    pts.position.y=0; pts.scale.setScalar(1);
+    pts.rotation.set(0,0,0);
+    if(raw>=1){
+      introDone=true;
+      mat.uniforms.uBang.value=0;                   /* hart auf 0: ab jetzt exakt aA */
+      heroEl.style.opacity='1'; cue.style.opacity='1';  /* Hero fadet NACH Intro ein */
+    }
+    composer.render();requestAnimationFrame(loop);
+    return;
+  }
   const st=rootEl.scrollTop, vh=innerHeight, docEnd=Math.max(1,rootEl.scrollHeight-vh);
-  /* Phase aus Scroll-Offsets: 0→3 vor der Sektion, HALT bei 3 ("8 AGENTEN") während der Sektion, 3→6 danach */
-  const rect=agentsSec.getBoundingClientRect();
-  const aTop=rect.top+st, aBot=rect.bottom+st;
-  const holdStart=Math.max(1,aTop-vh*0.85), holdEnd=Math.max(holdStart+1,aBot-vh*0.55);
+  /* Phase aus Scroll-Offsets — ZWEI Banner-Holds:
+     0→3 vor #agents · HALT@3 in #agents · 3→4 dazwischen · HALT@4 in #result · 4→6 danach. */
+  const ar=agentsSec.getBoundingClientRect();
+  const aTop=ar.top+st, aBot=ar.bottom+st;
+  const aHoldStart=Math.max(1,aTop-vh*0.85), aHoldEnd=Math.max(aHoldStart+1,aBot-vh*0.55);
+  const rr=resultSec.getBoundingClientRect();
+  const rTop=rr.top+st, rBot=rr.bottom+st;
+  const rHoldStart=Math.max(aHoldEnd+1,rTop-vh*0.85), rHoldEnd=Math.max(rHoldStart+1,rBot-vh*0.55);
   let phase;
-  if(st<holdStart) phase=(st/holdStart)*3;
-  else if(st<holdEnd) phase=3;
-  else phase=3+((st-holdEnd)/Math.max(1,docEnd-holdEnd))*3;
+  if(st<aHoldStart)        phase=(st/aHoldStart)*3;                                  /* 0 → 3 */
+  else if(st<aHoldEnd)     phase=3;                                                   /* HALT "8 AGENTEN" */
+  else if(st<rHoldStart)   phase=3+((st-aHoldEnd)/Math.max(1,rHoldStart-aHoldEnd));   /* 3 → 4 */
+  else if(st<rHoldEnd)     phase=4;                                                   /* HALT "DEIN FAHRPLAN" */
+  else                     phase=4+((st-rHoldEnd)/Math.max(1,docEnd-rHoldEnd))*2;     /* 4 → 6 (Porträt → SCHREIB MIR) */
   phase=Math.max(0,Math.min(K-1,phase));
   const seg=Math.min(K-2,Math.floor(phase)),local=phase-seg;
   setSeg(seg);
@@ -525,16 +1069,40 @@ function loop(){
   mat.uniforms.uMix.value=m;
   const swing=Math.sin(m*Math.PI);
   const nearK=Math.round(phase);
+  if(window.__audio&&window.__audio.scene) window.__audio.scene(nearK);
   const atP=(nearK===PI);
   /* Ziel-Szene dieses Segments: zu/aus PORTRAIT sanfter (weniger Stagger/Turbulenz) -> Gesicht rastet scharf+frontal ein */
   const toP=(seg+1===PI), fromP=(seg===PI);
   const calm=(toP||fromP)?0.45:1.0;
-  /* uStagger/uTurb folgen swing -> am Dwell exakt 0 (Text/Portrait stehen still, lesbar, frontal) */
-  mat.uniforms.uStagger.value=swing*0.55*calm;
-  mat.uniforms.uTurb.value=swing*1.5*calm;
+  /* uStagger/uTurb pro-Szene + swing -> am Dwell exakt 0 (Text/Portrait stehen still, lesbar, frontal) */
+  mat.uniforms.uStagger.value=swing*STAG[Math.min(STAG.length-1,seg)]*calm;
+  mat.uniforms.uTurb.value   =swing*TURB[Math.min(TURB.length-1,seg)]*calm;
   mat.uniforms.uTime.value+=0.016;
-  mat.uniforms.uGlow.value+=((atP?1.0:1.5)-mat.uniforms.uGlow.value)*.05;
-  bloom.strength+=(((atP?0.08:0.72))-bloom.strength)*.06;
+  /* lesbare Szenen: Text (1,2,3,6) + Portrait (5) scharf -> niedriger Bloom, moderater uGlow. */
+  const isReadable=(nearK===1||nearK===2||nearK===3||nearK===4||nearK===5||nearK===6);
+  const nxK=Math.min(K-1,seg+1);
+  /* uSize pro-Szene (sonst statisch): weniger Punkte -> jeder groesser -> strahlt voller */
+  mat.uniforms.uSize.value=lerp(SIZ[seg],SIZ[nxK],m)*(TIER===2?1.25:1.55)*Math.min(devicePixelRatio,PR_CAP);
+  /* uGlow pro-Szene weich nachgezogen */
+  const glowTarget=lerp(GLOW[seg],GLOW[nxK],m);
+  mat.uniforms.uGlow.value+=(glowTarget-mat.uniforms.uGlow.value)*.05;
+  /* Bloom pro-Szene-Dwell + Mid-Drama (abstrakte Szenen duerfen mitten im Morph aufstrahlen) */
+  const bloomDwell=lerp(BLM[seg],BLM[nxK],m);
+  const bloomMid=(toP||fromP||isReadable)?bloomDwell:BLOOM_HI;
+  bloom.strength+=(lerp(bloomDwell,bloomMid,swing*0.7)-bloom.strength)*.06;
+
+  /* CHROMATIC ABERRATION: subtil am Dwell, staerker mitten im Szenenwechsel; langsamer Winkel-Drift -> lebendig */
+  rgb.uniforms.amount.value=RGB_BASE+swing*RGB_SWING;
+  rgb.uniforms.angle.value=mat.uniforms.uTime.value*0.05;
+
+  /* CINEMATIC BACKDROPS: Crossfade je nach Phase, weich nachgezogen (Lerp 0.05).
+     hero peakt im Idee-Beat (~0.6), data in der "8 AGENTEN"/Pipeline-Phase (3), craft am Portraet (5). */
+  if(bgHero){
+    const tHero=0, tData=bgWeight(phase,3.0)*0.5*0.28, tCraft=bgWeight(phase,5.0)*0.32;
+    bgwHero +=(tHero -bgwHero )*0.05; bgHero.style.opacity =bgwHero.toFixed(3);
+    bgwData +=(tData -bgwData )*0.05; bgData.style.opacity =bgwData.toFixed(3);
+    bgwCraft+=(tCraft-bgwCraft)*0.05; bgCraft.style.opacity=bgwCraft.toFixed(3);
+  }
 
   /* FARBE: alle Mood-Knoebe ueber dieselbe seg->seg+1-Grenze morphen wie die Geometrie */
   const nx=Math.min(K-1,seg+1);
@@ -545,8 +1113,10 @@ function loop(){
   mat.uniforms.uHueJit.value =lerp(HUEJ[seg], HUEJ[nx], m);
   mat.uniforms.uBriJit.value =lerp(BRIJ[seg], BRIJ[nx], m);
 
-  /* Banner: "8 AGENTEN" während der Sektion nach oben heben + verkleinern */
-  const isHold=(st>=holdStart-vh*0.2 && st<holdEnd);
+  /* Banner: aktive Headline ("8 AGENTEN" bzw. "DEIN FAHRPLAN") während ihrer Sektion nach oben heben + verkleinern */
+  const inAgents=(st>=aHoldStart-vh*0.2 && st<aHoldEnd);
+  const inResult=(st>=rHoldStart-vh*0.2 && st<rHoldEnd);
+  const isHold=(inAgents||inResult);
   banner+=((isHold?1:0)-banner)*0.08;
   pts.position.y=banner*4.9;
   pts.scale.setScalar(1-banner*0.38);
@@ -559,8 +1129,10 @@ function loop(){
   pts.rotation.y=sw*0.4*(seg%2?-1:1)+px*0.1*(1-banner);
   pts.rotation.x=py*0.06*(1-banner);
 
-  heroEl.style.opacity=String(Math.max(0,1-prog*9));
-  cue.style.opacity=String(Math.max(0,1-prog*9));
+  if(introDone){
+    heroEl.style.opacity=String(Math.max(0,1-prog*20));
+    cue.style.opacity=String(Math.max(0,1-prog*20));
+  }
   const near=nearK;
   const atDwell=(local<.24||local>.76);
   capEl.style.opacity=String(banner<.35&&prog>0.02&&near<6&&atDwell?1:0);
