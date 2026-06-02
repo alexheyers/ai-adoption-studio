@@ -13,7 +13,7 @@
    Chaos → Botschaft → Pipeline → Mensch. three.js, kein Build.
    Brand Navy/Magenta/Teal/Amber/Cream · Amber 1×.
    ============================================================ */
-:root{--navy:#0E2244;--navy-deep:#06101f;--magenta:#E94B5D;--teal:#1AA591;--amber:#F2A645;--cream:#FBF6EA;--slate:#8e98ad;--ease:cubic-bezier(.16,1,.3,1)}
+:root{--navy:#0E2244;--navy-deep:#06101f;--magenta:#F2A645;--teal:#1AA591;--amber:#F2A645;--cream:#FBF6EA;--slate:#8e98ad;--ease:cubic-bezier(.16,1,.3,1)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:clip}
 body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grotesque',sans-serif;cursor:none}
@@ -119,11 +119,34 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 @media(max-width:900px){.filmstill{max-width:none}.morphimg{aspect-ratio:4/5}}
 @media(prefers-reduced-motion:reduce){.morphimg img{transition:opacity .4s ease}.morphimg img.show{transform:none}.filmstill{transition:opacity .5s ease}}
 
+/* ===== Szenen-Filmstill bei den PARTIKEL-WORT-Szenen (fix, nahe der .cap) =====
+   Gleicher Kino-Look wie .filmstill/.morphimg, aber Amber-Akzent + fix positioniert.
+   Sitzt zentriert oberhalb der Caption, dezent, stoert WOERTER/Lesbarkeit nicht. */
+.scenestill{--accent:var(--amber);position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) translateY(2px) scale(.97);z-index:24;width:min(38vh,300px);max-width:74vw;pointer-events:none;opacity:0;transition:opacity .6s var(--ease),transform .6s var(--ease);will-change:opacity,transform}
+.scenestill.in{opacity:1;transform:translate(-50%,-50%) translateY(0) scale(1)}
+.scenestill .ssframe{position:relative;width:100%;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:var(--navy-deep);box-shadow:0 24px 70px rgba(6,16,31,.6),0 0 0 1px rgba(255,255,255,.05),0 0 44px -4px color-mix(in srgb,var(--accent) 50%,transparent),inset 0 0 0 1px rgba(255,255,255,.12),inset 0 0 60px -14px rgba(6,16,31,.7)}
+.scenestill .ssframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.85) saturate(1.04) contrast(1.06);transition:opacity .6s ease,transform 1.2s var(--ease);transform:scale(1.06);will-change:opacity,transform}
+.scenestill .ssframe img.show{opacity:1;transform:scale(1)}
+.scenestill .ssframe::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(6,16,31,.34) 0%,rgba(6,16,31,.04) 30%,rgba(6,16,31,.06) 62%,rgba(6,16,31,.5) 100%),radial-gradient(ellipse 88% 78% at 50% 46%,transparent 0%,rgba(6,16,31,.46) 100%),linear-gradient(0deg,color-mix(in srgb,var(--accent) 10%,transparent),transparent 55%)}
+.scenestill .ssframe::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");background-size:190px 190px}
+.scenestill .sscap{display:flex;align-items:center;gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--slate);margin-top:.6rem;opacity:.92}
+.scenestill .sscap .ssk{color:var(--accent);font-weight:600;flex:0 0 auto}
+.scenestill .sscap .ssln{flex:1 1 auto;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 55%,transparent),transparent)}
+.scenestill .sscap .ssnm{flex:0 0 auto;color:var(--cream);letter-spacing:.18em;font-weight:500;transition:color .5s ease}
+@media(max-width:700px){.scenestill{width:min(30vh,210px);max-width:62vw;top:42%}}
+@media(prefers-reduced-motion:reduce){.scenestill{transition:opacity .4s ease}.scenestill .ssframe img{transition:opacity .4s ease}.scenestill .ssframe img.show{transform:none}}
+
 .scroll-bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;background:linear-gradient(90deg,var(--teal),var(--magenta),var(--amber))}
-.cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:60;pointer-events:none;border-radius:50%;mix-blend-mode:difference;opacity:0;transition:opacity .3s}
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:60;pointer-events:none;border-radius:50%;mix-blend-mode:difference;opacity:0;transition:opacity .35s ease}
 body.on .cur-dot,body.on .cur-ring{opacity:1}
-.cur-dot{width:6px;height:6px;background:var(--cream);transform:translate(-50%,-50%)}
-.cur-ring{width:34px;height:34px;border:1.5px solid var(--cream);transform:translate(-50%,-50%)}
+.cur-dot{width:6px;height:6px;background:var(--cream);transform:translate(-50%,-50%);transition:opacity .35s ease,width .35s cubic-bezier(.16,1,.3,1),height .35s cubic-bezier(.16,1,.3,1),background .35s ease}
+.cur-ring{width:34px;height:34px;border:1.5px solid var(--cream);box-sizing:border-box;transform:translate(-50%,-50%);will-change:transform,width,height;transition:opacity .35s ease,width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),border-color .4s ease,background-color .4s ease,border-width .4s ease}
+/* Hover: traeger Ring waechst, fuellt sich dezent, blendet weicher; Dot schrumpft fast weg */
+.cur-ring.grow{width:64px;height:64px;border-width:1px;background-color:rgba(253,248,240,.10)}
+.cur-dot.grow{width:3px;height:3px}
+/* Magnetisch verformt: Ring nimmt Akzentfarbe an (per --cur-accent), wird leicht elliptisch via JS-scale */
+.cur-ring.warp{border-color:var(--cur-accent,var(--cream));background-color:color-mix(in srgb,var(--cur-accent,var(--cream)) 12%,transparent)}
+@media(prefers-reduced-motion:reduce){.cur-dot,.cur-ring{transition:opacity .35s ease}.cur-ring.grow,.cur-ring.warp{width:34px;height:34px}}
 @media(pointer:coarse){.cur-dot,.cur-ring{display:none}}
 
 .topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:1.3rem 6vw;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);mix-blend-mode:difference}
@@ -245,6 +268,8 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
   .hero h1{font-size:clamp(2rem,9vh,3.2rem)}
   .snd{bottom:1rem}
 }
+
+#sceneStill,.scenestill{display:none!important}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -272,6 +297,11 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
   <h1>AI-Adoption<br><em>Studio.</em></h1>
   <div class="sub">Du redest über deinen Betrieb. Acht Agenten machen daraus einen Fahrplan — Gewerk für Gewerk. <b>Scroll los.</b></div>
 </div>
+
+<figure class="scenestill" id="sceneStill" aria-hidden="true">
+  <div class="ssframe"><img id="sceneImg" alt="" decoding="async"></div>
+  <figcaption class="sscap"><span class="ssk">Szene</span><span class="ssln"></span><span class="ssnm" id="sceneName"></span></figcaption>
+</figure>
 
 <div class="cap" id="cap"><div class="idx"></div><div class="t"></div><div class="s"></div></div>
 
@@ -408,6 +438,34 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 
 <script>
 window.__prog=0;window.__nmx=.5;window.__nmy=.5;
+/* ===== Inertia-/Smooth-Scroll: eigener Wheel-Lerp (nur Desktop/Wheel) =====
+   Bewusst KEIN Lenis: das Partikelsystem liest jeden Frame rootEl.scrollTop frisch
+   (Banner-Hold, 360-Grad-Uebergaenge) — die native Scroll-Position MUSS Source of
+   Truth bleiben. Diese Variante nutzt ausschliesslich window.scrollTo() (echtes
+   scrollTop, kein Transform/Wrapper, keine externe CDN) und laesst Touch + Tastatur
+   komplett nativ. So bleibt die Scroll-Kopplung garantiert intakt. */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const coarse=matchMedia('(pointer:coarse)').matches;
+  if(reduce||coarse)return;                          /* Touch/reduce -> natives Scrollen */
+  let target=window.scrollY, current=window.scrollY, running=false;
+  const EASE=0.12, MULT=1.0;
+  function clamp(v){return Math.max(0,Math.min(v,document.documentElement.scrollHeight-innerHeight));}
+  function tick(){
+    current+=(target-current)*EASE;
+    if(Math.abs(target-current)<0.4){current=target;running=false;window.scrollTo(0,current);return;}
+    window.scrollTo(0,current);                       /* echtes scrollTop -> Partikel liest korrekt */
+    requestAnimationFrame(tick);
+  }
+  addEventListener('wheel',e=>{
+    if(e.ctrlKey)return;                              /* Pinch-Zoom in Ruhe lassen */
+    e.preventDefault();
+    target=clamp(target+e.deltaY*MULT);
+    if(!running){running=true;current=window.scrollY;requestAnimationFrame(tick);}
+  },{passive:false});
+  /* native Scroll (Tastatur, Scrollbar-Drag, Touch) wieder einsyncen */
+  addEventListener('scroll',()=>{ if(!running){target=current=window.scrollY;} },{passive:true});
+})();
 /* ===== PRELOADER-CONTROLLER (kein FOUC, triggert 'studio-ready' fuer das Intro) ===== */
 (function(){
   const pl=document.getElementById('preloader'),bar=document.getElementById('plBar');
@@ -430,14 +488,59 @@ window.__prog=0;window.__nmx=.5;window.__nmy=.5;
   setTimeout(()=>{gates.fonts=gates.three=gates.portrait=true;update();done();},8000);
 })();
 const dot=document.querySelector('.cur-dot'),ring=document.querySelector('.cur-ring');
+const __cursorCoarse=matchMedia('(pointer:coarse)').matches;
 let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-addEventListener('mousemove',e=>{document.body.classList.add('on');mx=e.clientX;my=e.clientY;window.__nmx=e.clientX/innerWidth;window.__nmy=1-e.clientY/innerHeight;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
-(function l(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(l)})();
-document.querySelectorAll('[data-hover]').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('grow'));el.addEventListener('mouseleave',()=>ring.classList.remove('grow'))});
+/* Magnet-Ziel: wenn der Cursor ueber einem interaktiven Element schwebt, zieht der
+   Ring zu dessen Zentrum (traege) statt exakt der Maus zu folgen — Lusion-Feel.
+   __magT = Zielpunkt+Box des aktuell gehoverten Elements (oder null). */
+let __magT=null;
+const HOVER_SEL='.note,.rcard,[data-mag],.snd,a,button,[data-hover]';
+addEventListener('mousemove',e=>{
+  document.body.classList.add('on');
+  mx=e.clientX;my=e.clientY;
+  /* three.js-Vertrag: native normierte Maus bleibt unveraendert */
+  window.__nmx=e.clientX/innerWidth;window.__nmy=1-e.clientY/innerHeight;
+  /* Dot folgt weiterhin sofort der echten Maus */
+  dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;
+  if(__cursorCoarse)return;
+  const t=e.target&&e.target.closest&&e.target.closest(HOVER_SEL);
+  if(t){
+    const r=t.getBoundingClientRect();
+    const accent=t.getAttribute('data-accent')||getComputedStyle(t).getPropertyValue('--cur-accent')||'';
+    __magT={
+      cx:r.left+r.width/2, cy:r.top+r.height/2,
+      w:r.width, h:r.height, accent:accent.trim()
+    };
+    ring.classList.add('grow','warp');dot.classList.add('grow');
+    if(__magT.accent)ring.style.setProperty('--cur-accent',__magT.accent);
+  }else{
+    __magT=null;
+    ring.classList.remove('grow','warp');dot.classList.remove('grow');
+    ring.style.removeProperty('--cur-accent');
+  }
+});
+/* Traeger Lerp-Loop: ohne Ziel folgt der Ring der Maus (.16),
+   mit Ziel zieht er staerker zum Element-Zentrum (.22) und nimmt dessen Form an. */
+(function l(){
+  if(__magT){
+    /* magnetisch: 70% Element-Zentrum, 30% Maus — fuehlt sich "angesaugt" an */
+    const gx=__magT.cx*.7+mx*.3, gy=__magT.cy*.7+my*.3;
+    rx+=(gx-rx)*.22; ry+=(gy-ry)*.22;
+    /* dezente Verformung Richtung Element-Seitenverhaeltnis (max ~1.18 elliptisch) */
+    const ar=Math.max(.86,Math.min(1.18,(__magT.w/Math.max(__magT.h,1))**.18));
+    ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%) scale(${ar},${1/ar})`;
+  }else{
+    rx+=(mx-rx)*.16; ry+=(my-ry)*.16;
+    ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  }
+  requestAnimationFrame(l);
+})();
+/* Sicherheits-Reset, falls die Maus das Fenster verlaesst (kein mouseout-Event auf target) */
+addEventListener('mouseleave',()=>{__magT=null;ring.classList.remove('grow','warp');dot.classList.remove('grow');ring.style.removeProperty('--cur-accent');});
 const sbar=document.querySelector('.scroll-bar'),rootEl=document.documentElement;
 function onScroll(){const max=rootEl.scrollHeight-rootEl.clientHeight;window.__prog=max>0?rootEl.scrollTop/max:0;sbar.style.width=(window.__prog*100)+'%';}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-document.querySelectorAll('[data-mag]').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`});b.addEventListener('mouseleave',()=>b.style.transform='')});
+document.querySelectorAll('[data-mag]').forEach(b=>{b.style.transition='transform .35s cubic-bezier(.16,1,.3,1)';b.addEventListener('mousemove',e=>{b.style.transition='transform .05s linear';const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`});b.addEventListener('mouseleave',()=>{b.style.transition='transform .35s cubic-bezier(.16,1,.3,1)';b.style.transform=''})});
 /* Scrollytelling-Sync: auf Touch (coarse) weiteres Band + flacherer Threshold,
    sonst hängt die Beschreibung dem Scroll hinterher. Beide Observer nutzen dieselbe Config. */
 const __coarseObs=matchMedia('(pointer:coarse)').matches;
@@ -506,27 +609,49 @@ function makeMorpher(box){
   cards.forEach(c=>o.observe(c));
 })();
 
-/* ===== SOUND-ENGINE (Web Audio, additive Atmosphaere) ===== */
+/* ===== SOUND-ENGINE (Web Audio, additive Atmosphaere · Lusion-Stil) =====
+   Erweitert: geschichtetes Ambient-Bett (Drone + Pad + Air) das sich pro Szene
+   verfaerbt/filtert · Hover-Tick ueber Karten/Buttons · weicher Swell synchron
+   zu JEDEM Partikel-Morph · satter CTA-Klick · Filter-Drift nach Scroll-Tempo.
+   Alles synthetisiert, kein File. AudioContext erst bei erster Geste. ===== */
 (function(){
   const btn=document.getElementById('snd'),lbl=document.getElementById('sndLbl');
   const AC=window.AudioContext||window.webkitAudioContext;
-  if(!AC){if(btn)btn.style.display='none';window.__audio={scene:function(){},portrait:function(){},whoosh:function(){}};return;}
+  const COARSE=matchMedia('(pointer:coarse)').matches; /* Touch: Hover-Ticks aus */
+  if(!AC){if(btn)btn.style.display='none';window.__audio={scene:function(){},portrait:function(){},whoosh:function(){},swell:function(){},tick:function(){},click:function(){}};return;}
   let ctx=null,master=null,enabled=false,started=false,lastScene=-1;
+  /* Signal-Busse: ambBus (Ambient-Bett) -> ambFilter -> master ; fxBus (Events) -> master.
+     ambFilter ist das eine Tor, ueber das Szene + Scroll-Tempo die Farbwelt faerben. */
+  let ambBus=null,ambFilter=null,fxBus=null;
   const PORTRAIT_INDEX=5;
+  /* Pro-Szene Klangfarbe (indexgleich zur KEYS/ACCENT-Logik 0..6):
+     cutoff = Helligkeit des Ambient-Filters, tone = Pad-Grundton (Hz), q = Resonanz. */
+  const SCENE_TONE=[
+    {cut:520,tone:55.00,q:0.7},  /* 0 chaos   — dunkel, breit */
+    {cut:900,tone:65.41,q:0.8},  /* 1 reden    — oeffnet sich */
+    {cut:820,tone:61.74,q:0.8},  /* 2 versteht */
+    {cut:1150,tone:73.42,q:1.0}, /* 3 agenten  — hell, praesent */
+    {cut:1000,tone:69.30,q:0.9}, /* 4 fahrplan */
+    {cut:760,tone:82.41,q:0.7},  /* 5 portrait — warm, ruhig */
+    {cut:1080,tone:73.42,q:0.9}  /* 6 cta      — offen, einladend */
+  ];
   function ensure(){
     if(ctx)return;
     try{
       ctx=new AC();
       master=ctx.createGain();master.gain.value=0.0001;master.connect(ctx.destination);
+      ambFilter=ctx.createBiquadFilter();ambFilter.type='lowpass';ambFilter.frequency.value=560;ambFilter.Q.value=0.7;ambFilter.connect(master);
+      ambBus=ctx.createGain();ambBus.gain.value=1.0;ambBus.connect(ambFilter);
+      fxBus=ctx.createGain();fxBus.gain.value=1.0;fxBus.connect(master);
     }catch(e){ctx=null;}
   }
   let droneBuilt=false;
-  let droneGain=null;
+  let droneGain=null,padOscs=[];
   function buildDrone(){
     if(droneBuilt)return;droneBuilt=true;
     try{
-      droneGain=ctx.createGain();droneGain.gain.value=1.0;droneGain.connect(master);
-      /* zwei verstimmte Sinus-Stimmen */
+      droneGain=ctx.createGain();droneGain.gain.value=1.0;droneGain.connect(ambBus);
+      /* LAGE 1 — zwei verstimmte Sinus-Stimmen (Fundament) */
       [[55,-6],[82.5,5]].forEach(([f,det])=>{
         const o=ctx.createOscillator();o.type='sine';o.frequency.value=f;o.detune.value=det;
         const g=ctx.createGain();g.gain.value=0.16;
@@ -535,7 +660,17 @@ function makeMorpher(box){
         const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=f<70?0.05:0.08;
         const lg=ctx.createGain();lg.gain.value=0.06;lfo.connect(lg);lg.connect(g.gain);lfo.start();
       });
-      /* gefiltertes Loop-Noise */
+      /* LAGE 2 — Pad: zwei Triangel-Stimmen (Grundton + Quinte), Frequenz wird pro Szene gefaerbt */
+      [[1.0,-4,0.052],[1.5,7,0.038]].forEach(([mult,det,gain])=>{
+        const o=ctx.createOscillator();o.type='triangle';o.frequency.value=55*mult;o.detune.value=det;
+        const g=ctx.createGain();g.gain.value=gain;
+        const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=900;
+        o.connect(lp);lp.connect(g);g.connect(droneGain);o.start();
+        const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.07+Math.random()*0.04;
+        const lg=ctx.createGain();lg.gain.value=gain*0.4;lfo.connect(lg);lg.connect(g.gain);lfo.start();
+        padOscs.push({osc:o,mult:mult});
+      });
+      /* LAGE 3 — gefiltertes Loop-Noise (Luft) */
       const nb=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);const nd=nb.getChannelData(0);
       for(let i=0;i<nd.length;i++)nd[i]=(Math.random()*2-1)*0.5;
       const ns=ctx.createBufferSource();ns.buffer=nb;ns.loop=true;
@@ -544,20 +679,40 @@ function makeMorpher(box){
       ns.connect(nf);nf.connect(ng);ng.connect(droneGain);ns.start();
     }catch(e){}
   }
-  function whoosh(){
+  /* Ambient-Bett auf eine Szene faerben: Filter-Cutoff/Q + Pad-Grundton sanft ueberblenden. */
+  function tintScene(i){
+    if(!ctx||!ambFilter)return;
+    const s=SCENE_TONE[Math.max(0,Math.min(SCENE_TONE.length-1,i))];if(!s)return;
+    const t=ctx.currentTime;
+    try{
+      ambFilter.frequency.setTargetAtTime(s.cut,t,1.1);
+      ambFilter.Q.setTargetAtTime(s.q,t,1.1);
+      padOscs.forEach(p=>{p.osc.frequency.setTargetAtTime(s.tone*p.mult,t,1.4);});
+    }catch(e){}
+  }
+  /* (a/c) Whoosh + weicher Swell — an JEDEN Morph gekoppelt. amt 0..1 skaliert Druck/Helligkeit. */
+  function whoosh(amt){
     if(!ctx||!enabled)return;
+    const A=(amt==null?1:Math.max(0.2,Math.min(1.4,amt)));
     try{
       const t=ctx.currentTime,dur=0.9;
       const nb=ctx.createBuffer(1,ctx.sampleRate*dur,ctx.sampleRate);const nd=nb.getChannelData(0);
       for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;
       const ns=ctx.createBufferSource();ns.buffer=nb;
       const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.4;
-      bp.frequency.setValueAtTime(280,t);bp.frequency.exponentialRampToValueAtTime(2600,t+0.32);bp.frequency.exponentialRampToValueAtTime(420,t+dur);
-      const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12,t+0.12);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-      ns.connect(bp);bp.connect(g);g.connect(master);ns.start(t);ns.stop(t+dur);
+      bp.frequency.setValueAtTime(280,t);bp.frequency.exponentialRampToValueAtTime(2600*A,t+0.32);bp.frequency.exponentialRampToValueAtTime(420,t+dur);
+      const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12*A,t+0.12);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      ns.connect(bp);bp.connect(g);g.connect(fxBus);ns.start(t);ns.stop(t+dur);
       ns.onended=()=>{try{ns.disconnect();bp.disconnect();g.disconnect();}catch(e){}};
+      /* harmonischer Swell unter dem Whoosh: weicher Sinus-Up-Sweep, tonale Anhebung */
+      const o=ctx.createOscillator();o.type='sine';
+      o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(220,t+0.5);
+      const og=ctx.createGain();og.gain.setValueAtTime(0.0001,t);og.gain.exponentialRampToValueAtTime(0.05*A,t+0.18);og.gain.exponentialRampToValueAtTime(0.0001,t+0.85);
+      o.connect(og);og.connect(fxBus);o.start(t);o.stop(t+0.9);
+      o.onended=()=>{try{o.disconnect();og.disconnect();}catch(e){}};
     }catch(e){}
   }
+  function swell(amt){whoosh(amt);} /* Alias fuer explizite Morph-Kopplung */
   function portrait(){
     if(!ctx||!enabled)return;
     try{
@@ -565,21 +720,56 @@ function makeMorpher(box){
       freqs.forEach((f,i)=>{
         const t=t0+i*0.09;const o=ctx.createOscillator();o.type='sine';o.frequency.value=f;
         const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.09,t+0.04);g.gain.exponentialRampToValueAtTime(0.0001,t+1.6);
-        o.connect(g);g.connect(master);o.start(t);o.stop(t+1.7);
+        o.connect(g);g.connect(fxBus);o.start(t);o.stop(t+1.7);
         o.onended=()=>{try{o.disconnect();g.disconnect();}catch(e){}};
       });
     }catch(e){}
   }
+  /* (b) dezenter Hover-Tick — kurzer, hoher, gefilterter Klick. Throttled, leise. */
+  let lastTick=0;
+  function tick(){
+    if(!ctx||!enabled)return;
+    const now=performance.now();if(now-lastTick<55)return;lastTick=now;
+    try{
+      const t=ctx.currentTime;
+      const o=ctx.createOscillator();o.type='triangle';
+      o.frequency.setValueAtTime(2100,t);o.frequency.exponentialRampToValueAtTime(1400,t+0.05);
+      const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1900;bp.Q.value=2.2;
+      const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.035,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+0.09);
+      o.connect(bp);bp.connect(g);g.connect(fxBus);o.start(t);o.stop(t+0.1);
+      o.onended=()=>{try{o.disconnect();bp.disconnect();g.disconnect();}catch(e){}};
+    }catch(e){}
+  }
+  /* (d) satter CTA-Klick — tiefer Sinus-Thump + heller Bestaetigungs-Ping. */
+  function click(){
+    if(!ctx||!enabled)return;
+    try{
+      const t=ctx.currentTime;
+      /* Thump */
+      const o=ctx.createOscillator();o.type='sine';
+      o.frequency.setValueAtTime(180,t);o.frequency.exponentialRampToValueAtTime(70,t+0.18);
+      const g=ctx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.13,t+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t+0.34);
+      o.connect(g);g.connect(fxBus);o.start(t);o.stop(t+0.36);
+      o.onended=()=>{try{o.disconnect();g.disconnect();}catch(e){}};
+      /* Ping (Quinte) */
+      const o2=ctx.createOscillator();o2.type='triangle';o2.frequency.setValueAtTime(880,t);o2.frequency.exponentialRampToValueAtTime(1320,t+0.12);
+      const g2=ctx.createGain();g2.gain.setValueAtTime(0.0001,t);g2.gain.exponentialRampToValueAtTime(0.06,t+0.02);g2.gain.exponentialRampToValueAtTime(0.0001,t+0.42);
+      o2.connect(g2);g2.connect(fxBus);o2.start(t);o2.stop(t+0.44);
+      o2.onended=()=>{try{o2.disconnect();g2.disconnect();}catch(e){}};
+    }catch(e){}
+  }
   function scene(i){
+    tintScene(i);                 /* Farbwelt folgt immer (auch beim ersten Set) */
     if(i===lastScene)return;
     const prev=lastScene;lastScene=i;
     if(prev<0)return; /* kein Whoosh beim allerersten Set/Load */
-    whoosh();
+    whoosh(1);
     if(i===PORTRAIT_INDEX)portrait();
   }
   function setEnabled(on){
     enabled=on;if(!ctx)return;
     try{master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(on?0.16:0.0001,ctx.currentTime,0.25);}catch(e){}
+    if(on&&lastScene>=0)tintScene(lastScene);
     if(btn)btn.classList.toggle('on',on);if(lbl)lbl.textContent=on?'Ton aus':'Ton an';
   }
   function go(){buildDrone();setEnabled(true);}
@@ -596,7 +786,38 @@ function makeMorpher(box){
   ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(ev=>addEventListener(ev,firstGesture,{passive:true}));
   if(btn)btn.addEventListener('click',e=>{e.stopPropagation();if(!started){firstGesture();return;}const next=!enabled;if(next&&ctx&&ctx.state==='suspended'){try{ctx.resume();}catch(_){}}if(next)buildDrone();setEnabled(next);});
   addEventListener('visibilitychange',()=>{if(!ctx)return;try{master.gain.setTargetAtTime(document.hidden?0.0001:(enabled?0.16:0.0001),ctx.currentTime,0.2);}catch(e){}});
-  window.__audio={scene:scene,portrait:portrait,whoosh:whoosh};
+
+  /* (b) Hover-Tick verdrahten — Karten, Notes, magnetische Buttons, Toggle. Auf Touch aus. */
+  if(!COARSE){
+    const wire=()=>{document.querySelectorAll('.note,.rcard,[data-mag],.snd,[data-hover]').forEach(el=>{
+      if(el.__sndWired)return;el.__sndWired=1;el.addEventListener('mouseenter',tick,{passive:true});});};
+    wire();
+    /* IntersectionObserver/Morph-Logik baut keine neuen Hover-Targets, aber sicherheitshalber nachverdrahten */
+    addEventListener('studio-ready',wire,{once:true});
+  }
+  /* (d) CTA-Klick — auf den Mailto-Button. Klick bleibt funktional (kein preventDefault). */
+  const ctaMag=document.querySelector('.cta .mag');
+  if(ctaMag)ctaMag.addEventListener('pointerdown',()=>{if(!started){firstGesture();}click();},{passive:true});
+
+  /* (e) Filter-Modulation nach Scroll-Tempo: schnelles Scrollen oeffnet das Ambient-Bett kurz.
+     Liest window.__prog-Delta (Source of Truth bleibt native Scroll-Position, nur lesend). */
+  let lastProg=window.__prog||0,vel=0,rafV=0;
+  function velTick(){
+    rafV=0;
+    if(ctx&&ambFilter&&enabled&&lastScene>=0){
+      const base=SCENE_TONE[Math.max(0,Math.min(SCENE_TONE.length-1,lastScene))];
+      const open=base.cut+Math.min(1,vel*22)*900;   /* bis ~+900Hz bei schnellem Scroll */
+      try{ambFilter.frequency.setTargetAtTime(open,ctx.currentTime,0.12);}catch(e){}
+    }
+    vel*=0.9;
+    if(vel>0.0004)rafV=requestAnimationFrame(velTick);
+  }
+  addEventListener('scroll',()=>{
+    const p=window.__prog||0;vel+=Math.abs(p-lastProg);lastProg=p;
+    if(!rafV)rafV=requestAnimationFrame(velTick);
+  },{passive:true});
+
+  window.__audio={scene:scene,portrait:portrait,whoosh:whoosh,swell:swell,tick:tick,click:click};
 })();
 
 /* ===== FOTO-STORY-MOMENTE: Scroll-Opacity (Crossfade) + Parallax/Ken-Burns =====
@@ -843,12 +1064,12 @@ function constellation(){
 
 /* SCENES: 0 chaos · 1 "REDEN…" · 2 "DU REDEST · ES VERSTEHT" · 3 "8 AGENTEN" · 4 "DEIN FAHRPLAN" · 5 PORTRÄT · 6 "SCHREIB MIR" */
 const KEYS=[chaos(),
-  textShape('REDEN STATT AUSFÜLLEN',150,C.coral,C.peach),
-  textShape('DU REDEST · ES VERSTEHT',128,C.coral,C.cream),
+  textShape('REDEN STATT AUSFÜLLEN',150,C.amber,C.goldhot),
+  textShape('AUS WORTEN WIRD STRUKTUR',118,C.amber,C.cream),
   textShape('8 AGENTEN',300,C.cyan,C.electric),
   constellation(),
   null,
-  textShape('SCHREIB MIR',300,C.mag,C.peach)];
+  textShape('SCHREIB MIR',300,C.amber,C.goldhot)];
 const K=KEYS.length;
 const camZ=[15,13,14,13,15,9.5,13];
 const PI=5;
@@ -874,7 +1095,7 @@ const _accA=new THREE.Color(), _accB=new THREE.Color();
 const CAPS=[
   {i:'00 · Die Ausgangslage',t:'Das Wissen ist <em>da.</em>',s:'Schichtübergaben, Tabellen, Bauchgefühl — jede Abteilung weiß viel, nur nutzbar ist es nicht.'},
   {i:'Die Idee',t:'Reden statt ausfüllen.',s:'Die einzige Schnittstelle, die jede Abteilung schon kann — vom Empfang bis zur Küche.'},
-  {i:'Der Mechanismus',t:'Du redest. Es <em>versteht.</em>',s:'Ein Agent hört zu, einer liest deine Unterlagen mit. Den Rest macht die Pipeline.'},
+  {i:'Der Mechanismus',t:'Zuhören. Mitlesen. <em>Ordnen.</em>',s:'Ein Voice-Agent hört dir zu, ein Analyse-Agent liest deine Unterlagen mit. Aus beidem entsteht im Hintergrund eine saubere Datenbasis — ganz ohne dass du ein Formularfeld triffst.'},
   {i:'03 · Die Pipeline',t:'8 Agenten. Ein <em>Report.</em>',s:'Research · Dokumente · Prozesse · Use-Cases · Tools · Wirtschaftlichkeit · Compliance · Reporter → <code>PDF · Excel · MD</code>'},
   {i:'04 · Das Ergebnis',t:'Ein <em>Fahrplan</em> pro Gewerk.',s:'Kein Foliensatz für die Schublade. Pro Bereich eine ehrliche Empfehlung — was sich lohnt, was wartet, was du sein lassen kannst.'},
   {i:'Der Mensch dahinter',t:'Alex Heyers.',s:'20 Jahre Hospitality, jetzt Vibe Coder. Vater seit 2025. Diese Seite ist gebaut — und sie ist eine Bewerbung.'}
@@ -1093,6 +1314,12 @@ function smoothstep(a,b,t){t=Math.max(0,Math.min(1,(t-a)/(b-a)));return t*t*(3-2
 function lerp(a,b,t){return a+(b-a)*t;}
 const heroEl=document.getElementById('hero'),capEl=document.getElementById('cap'),ctaEl=document.getElementById('cta'),cue=document.getElementById('cue');
 const capIdx=capEl.querySelector('.idx'),capT=capEl.querySelector('.t'),capS=capEl.querySelector('.s');
+/* Szenen-Filmstill (nur bei nearK 1 = Idee / 2 = Mechanismus) */
+const sceneStill=document.getElementById('sceneStill'),sceneImg=document.getElementById('sceneImg'),sceneName=document.getElementById('sceneName');
+const SCENE_STILLS={1:{src:'studio-assets/scene-idee.jpg',name:'Die Idee'},2:{src:'studio-assets/scene-mechanismus.jpg',name:'Der Mechanismus'}};
+let sceneStillK=-1, sceneImgOk=false;
+sceneImg.addEventListener('error',()=>{sceneImg.classList.remove('show');sceneImgOk=false;});
+sceneImg.addEventListener('load',()=>{sceneImgOk=true;});
 let shownCap=-1,camX=0,camY=0,banner=0;
 const agentsSec=document.getElementById('agents');
 const resultSec=document.getElementById('result');
@@ -1178,6 +1405,8 @@ function loop(){
   const swing=Math.sin(m*Math.PI);
   const nearK=Math.round(phase);
   if(window.__audio&&window.__audio.scene) window.__audio.scene(nearK);
+  /* Morph-Swell an die bestehende swing-Kurve koppeln: einmal pro Uebergang am Peak ausloesen */
+  if(window.__audio&&window.__audio.swell){ if(swing>0.86&&!window.__swelled){window.__swelled=1;window.__audio.swell(0.7+swing*0.6);} else if(swing<0.5){window.__swelled=0;} }
   const atP=(nearK===PI);
   /* Ziel-Szene dieses Segments: zu/aus PORTRAIT sanfter (weniger Stagger/Turbulenz) -> Gesicht rastet scharf+frontal ein */
   const toP=(seg+1===PI), fromP=(seg===PI);
@@ -1250,6 +1479,17 @@ function loop(){
   capEl.style.opacity=String(banner<.35&&prog>0.02&&near<6&&atDwell?1:0);
   if(near!==shownCap&&CAPS[near]){shownCap=near;capIdx.textContent=CAPS[near].i;capT.innerHTML=CAPS[near].t;capS.innerHTML=CAPS[near].s;}
   ctaEl.classList.toggle('show',near>=6&&local>.3);
+
+  /* ===== Szenen-Filmstill: bei nearK 1 (Idee) / 2 (Mechanismus), nur am Dwell sichtbar ===== */
+  const sceneDef=SCENE_STILLS[near];
+  if(near!==sceneStillK){
+    sceneStillK=near;
+    if(sceneDef){ sceneImgOk=false; sceneImg.classList.remove('show'); sceneName.textContent=sceneDef.name; sceneImg.src=sceneDef.src; }
+  }
+  /* an dieselbe Sichtbarkeit wie die .cap koppeln (kein Morph, kein Banner) */
+  const sceneVisible=!!sceneDef && banner<.35 && prog>0.02 && atDwell;
+  sceneStill.classList.toggle('in', sceneVisible);
+  sceneImg.classList.toggle('show', sceneVisible && sceneImgOk);
 
   composer.render();requestAnimationFrame(loop);
 }
