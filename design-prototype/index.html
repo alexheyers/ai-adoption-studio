@@ -11,7 +11,7 @@
 /* ============================================================
    AI-ADOPTION STUDIO · Immersive Partikel-Edition
    Chaos → Botschaft → Pipeline → Mensch. three.js, kein Build.
-   Brand Navy/Magenta/Teal/Amber/Cream · Amber 1× · Mosbach.
+   Brand Navy/Magenta/Teal/Amber/Cream · Amber 1×.
    ============================================================ */
 :root{--navy:#0E2244;--navy-deep:#06101f;--magenta:#E94B5D;--teal:#1AA591;--amber:#F2A645;--cream:#FBF6EA;--slate:#8e98ad;--ease:cubic-bezier(.16,1,.3,1)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -51,9 +51,9 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 .story.right .scap .d{margin-left:auto}
 @media(max-width:900px){.story .scap{left:6vw;right:6vw;bottom:14vh;max-width:none}.story.right .scap{right:6vw;text-align:left}}
 @media(prefers-reduced-motion:reduce){.story .ph{transform:scale(1.05)!important}}
-.spacer-a{height:440vh;position:relative;z-index:1;pointer-events:none}
-.spacer-b{height:440vh;position:relative;z-index:1;pointer-events:none}
-.spacer-mid{height:150vh;position:relative;z-index:1;pointer-events:none}
+.spacer-a{height:620vh;position:relative;z-index:1;pointer-events:none}
+.spacer-b{height:620vh;position:relative;z-index:1;pointer-events:none}
+.spacer-mid{height:240vh;position:relative;z-index:1;pointer-events:none}
 
 /* ===== ERGEBNIS-SZENE #result — Scrollytelling, erbt Idee vom #agents-Layout ===== */
 .result{position:relative;z-index:2;padding:30vh 6vw 16vh;padding:30svh 6vw 16svh;padding:30dvh 6vw 16dvh}
@@ -79,6 +79,7 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 .agents-left{position:sticky;top:32vh;top:32svh;top:32dvh;align-self:start}
 .agents-left .alabel{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem}
 .aActive .anum{font-family:'Playfair Display',serif;font-style:italic;font-size:3.2rem;color:var(--magenta);line-height:1}
+.aActive .aEyebrow{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;color:var(--magenta);margin:0 0 .9rem;letter-spacing:-.01em;overflow-wrap:anywhere;text-shadow:0 4px 30px rgba(6,16,31,.85)}
 .aActive h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;margin:.3rem 0 .9rem;letter-spacing:-.01em;overflow-wrap:anywhere;text-shadow:0 4px 30px rgba(6,16,31,.85)}
 .aActive .st{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .7rem;border-radius:30px;display:inline-block;margin-bottom:1.1rem}
 .st.live{color:var(--teal);background:rgba(26,165,145,.16);border:1px solid var(--teal)}
@@ -96,6 +97,28 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 .note .tag.build{background:rgba(233,75,93,.18);color:#a8303e}
 .note .tag.plan{background:rgba(142,152,173,.22);color:#5a6378}
 
+/* ===== Cinematic Film-Still unter dem Detail-Text (#agents links / #result rechts) =====
+   Zwei gestapelte Ebenen fuer weichen Crossfade. Echtes Kino: Cinemascope-Rahmen,
+   feine helle Innenkante, farbiger Aussen-Glow (--accent), Vignette, Film-Grain, Mono-Caption. */
+.filmstill{--accent:var(--teal);position:relative;width:100%;max-width:470px;margin-top:1.9rem;opacity:0;transform:translateY(16px) scale(.965);transition:opacity .8s var(--ease),transform .8s var(--ease),box-shadow .8s var(--ease);will-change:transform,opacity}
+.filmstill.in{opacity:1;transform:translateY(0) scale(1)}
+/* Caption-Zeile oben: Mono, getrackt — "SZENE" + Begriff */
+.filmstill .fcap{display:flex;align-items:center;gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--slate);margin-bottom:.6rem;opacity:.92}
+.filmstill .fcap .fk{color:var(--accent);font-weight:600;flex:0 0 auto}
+.filmstill .fcap .fln{flex:1 1 auto;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 55%,transparent),transparent)}
+.filmstill .fcap .fnm{flex:0 0 auto;color:var(--cream);letter-spacing:.18em;font-weight:500;transition:color .5s ease}
+/* Die eigentliche Leinwand: Cinemascope 2.39:1, gerundet, Innenkante + Aussen-Glow */
+.morphimg{position:relative;width:100%;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:var(--navy-deep);box-shadow:0 24px 70px rgba(6,16,31,.62),0 0 0 1px rgba(255,255,255,.05),0 0 38px -4px color-mix(in srgb,var(--accent) 42%,transparent),inset 0 0 0 1px rgba(255,255,255,.12),inset 0 0 60px -14px rgba(6,16,31,.7);transition:box-shadow .8s var(--ease)}
+.filmstill.in .morphimg{box-shadow:0 30px 84px rgba(6,16,31,.66),0 0 0 1px rgba(255,255,255,.06),0 0 60px -2px color-mix(in srgb,var(--accent) 58%,transparent),inset 0 0 0 1px rgba(255,255,255,.13),inset 0 0 60px -14px rgba(6,16,31,.7)}
+.morphimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.86) saturate(1.04) contrast(1.06);transition:opacity .7s ease,transform 1.2s var(--ease);transform:scale(1.05);will-change:opacity,transform}
+.morphimg img.show{opacity:1;transform:scale(1)}
+/* Cinematischer Vignette/Letterbox-Gradient — blendet edel ins Dunkel */
+.morphimg::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(6,16,31,.34) 0%,rgba(6,16,31,.04) 30%,rgba(6,16,31,.06) 62%,rgba(6,16,31,.5) 100%),radial-gradient(ellipse 88% 78% at 50% 46%,transparent 0%,rgba(6,16,31,.46) 100%),linear-gradient(0deg,color-mix(in srgb,var(--accent) 9%,transparent),transparent 55%)}
+/* Subtiler Film-Grain-Overlay (gleiches SVG-Noise wie .story .grain) */
+.morphimg::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");background-size:190px 190px}
+@media(max-width:900px){.filmstill{max-width:none}.morphimg{aspect-ratio:4/5}}
+@media(prefers-reduced-motion:reduce){.morphimg img{transition:opacity .4s ease}.morphimg img.show{transform:none}.filmstill{transition:opacity .5s ease}}
+
 .scroll-bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;background:linear-gradient(90deg,var(--teal),var(--magenta),var(--amber))}
 .cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:60;pointer-events:none;border-radius:50%;mix-blend-mode:difference;opacity:0;transition:opacity .3s}
 body.on .cur-dot,body.on .cur-ring{opacity:1}
@@ -112,7 +135,7 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 /* HERO overlay (fades on scroll) */
 .hero{position:fixed;left:6vw;top:50%;transform:translateY(-50%);z-index:30;max-width:820px;transition:opacity .5s var(--ease)}
 .hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:1.3rem}
-.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.05rem,12.5vw,4.6rem);line-height:.94;letter-spacing:-.03em;overflow-wrap:anywhere;hyphens:auto;text-shadow:0 10px 60px rgba(6,16,31,.7)}
+.hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.05rem,12.5vw,4.6rem);line-height:.94;letter-spacing:-.03em;overflow-wrap:normal;hyphens:none;word-break:keep-all;text-shadow:0 10px 60px rgba(6,16,31,.7)}
 @media(min-width:1024px){.hero h1{font-size:clamp(4.6rem,8.5vw,9.5rem)}}
 .hero h1 em{font-style:italic;color:var(--magenta)}
 .hero .sub{margin-top:1.4rem;font-size:clamp(1rem,1.7vw,1.35rem);font-weight:300;color:#e6eaf1;max-width:560px;line-height:1.5;text-shadow:0 2px 24px rgba(6,16,31,.8)}
@@ -286,23 +309,25 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 <section class="agents" id="agents">
   <div class="agents-inner">
     <div class="agents-left">
-      <div class="alabel">03 · Die Pipeline · Agent <span id="aIdx">01</span>/08</div>
+      <div class="alabel">03 · Die Pipeline</div>
       <div class="aActive">
-        <div class="anum" id="aNum">01</div>
-        <h3 id="aName">Web-Research</h3>
-        <span class="st live" id="aStat">live</span>
-        <p id="aDesc">Markt und Region zum Haus — bevor das Gespräch überhaupt beginnt.</p>
+        <div class="aEyebrow" id="aRole">Bevor jemand redet</div>
+        <p id="aDesc">Er googelt nicht wild herum — er sammelt Lage, Wettbewerb und Saison zum Haus und legt sie als Briefing ab, damit niemand das Gespräch bei null beginnt.</p>
+        <figure class="filmstill" id="aStill" aria-hidden="true">
+          <figcaption class="fcap"><span class="fk">Szene</span><span class="fln"></span><span class="fnm" id="aStillName">Web-Research</span></figcaption>
+          <div class="morphimg" id="aMorph"><img alt="" decoding="async"><img alt="" decoding="async"></div>
+        </figure>
       </div>
     </div>
     <div class="agents-right" id="aRight">
-      <div class="note on" data-i="1" data-name="Web-Research" data-stat="live" data-desc="Markt und Region zum Haus — bevor das Gespräch überhaupt beginnt."><div class="nn">01</div><h4>Web-Research</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="2" data-name="Dokumenten-Analyst" data-stat="live" data-desc="Liest GuV, Reports, Prozess-Notizen. Aus PDF wird strukturiertes JSON."><div class="nn">02</div><h4>Dokumenten-Analyst</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="3" data-name="Prozess-Auditor" data-stat="live" data-desc="Findet, wo am Pass Zeit verloren geht. Entlang eines 12-Domänen-Schemas."><div class="nn">03</div><h4>Prozess-Auditor</h4><span class="tag live">live</span></div>
-      <div class="note" data-i="4" data-name="Use-Case-Generator" data-stat="build" data-desc="Drei umsetzbare Use-Cases. Nicht zwanzig — drei, die wirklich passen."><div class="nn">04</div><h4>Use-Case-Generator</h4><span class="tag build">im Bau</span></div>
-      <div class="note" data-i="5" data-name="Tool-Empfehlung" data-stat="build" data-desc="Welches Tool für welche Stelle. Inklusive DSGVO- und DPA-Check."><div class="nn">05</div><h4>Tool-Empfehlung</h4><span class="tag build">im Bau</span></div>
-      <div class="note" data-i="6" data-name="Wirtschaftlichkeit" data-stat="plan" data-desc="Lohnt es sich? Aufwand gegen Nutzen, pro Use-Case durchgerechnet."><div class="nn">06</div><h4>Wirtschaftlichkeit</h4><span class="tag plan">geplant</span></div>
-      <div class="note" data-i="7" data-name="Compliance-Check" data-stat="plan" data-desc="DSGVO und AI-Act — sauber dokumentiert statt überflogen."><div class="nn">07</div><h4>Compliance-Check</h4><span class="tag plan">geplant</span></div>
-      <div class="note" data-i="8" data-name="Reporter" data-stat="build" data-desc="Bündelt alles zu einem ausführbaren Report: PDF, Excel, Markdown."><div class="nn">08</div><h4>Reporter</h4><span class="tag build">im Bau</span></div>
+      <div class="note on" data-i="1" data-accent="var(--teal)" data-img="studio-assets/term-web-research.jpg" data-name="Web-Research" data-role="Bevor jemand redet" data-stat="live" data-detail="Er googelt nicht wild herum — er sammelt Lage, Wettbewerb und Saison zum Haus und legt sie als Briefing ab, damit niemand das Gespräch bei null beginnt."><div class="nn">01</div><h4>Web-Research</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="2" data-accent="var(--teal)" data-img="studio-assets/term-dokumenten-analyst.jpg" data-name="Dokumenten-Analyst" data-role="Was im Papier steckt" data-stat="live" data-detail="Du wirfst ihm den PDF-Stapel hin, den sonst keiner liest. Er zieht Zahlen und Aussagen sauber heraus, sodass danach jeder sieht, was wirklich im Papier steht."><div class="nn">02</div><h4>Dokumenten-Analyst</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="3" data-accent="var(--teal)" data-img="studio-assets/term-prozess-auditor.jpg" data-name="Prozess-Auditor" data-role="Wo Arbeit liegen bleibt" data-stat="live" data-detail="Er geht den Betrieb Station für Station durch und markiert die Stellen, an denen Arbeit doppelt passiert oder liegen bleibt — die unbequemen, aber ehrlichen."><div class="nn">03</div><h4>Prozess-Auditor</h4><span class="tag live">live</span></div>
+      <div class="note" data-i="4" data-accent="var(--amber)" data-img="studio-assets/term-use-case-generator.jpg" data-name="Use-Case-Generator" data-role="Womit man anfängt" data-stat="build" data-detail="Statt einer Wunschliste, die keiner abarbeitet, schlägt er wenige Use-Cases vor, die zum Haus passen — und sagt offen, womit man am besten anfängt."><div class="nn">04</div><h4>Use-Case-Generator</h4><span class="tag build">im Bau</span></div>
+      <div class="note" data-i="5" data-accent="var(--amber)" data-img="studio-assets/term-tool-empfehlung.jpg" data-name="Tool-Empfehlung" data-role="Vor dem Kauf geprüft" data-stat="build" data-detail="Er nennt für jede Stelle ein konkretes Tool und prüft vorher, ob es DSGVO-tauglich ist — damit man nicht erst nach dem Kauf merkt, dass es nicht eingesetzt werden darf."><div class="nn">05</div><h4>Tool-Empfehlung</h4><span class="tag build">im Bau</span></div>
+      <div class="note" data-i="6" data-accent="var(--magenta)" data-img="studio-assets/term-wirtschaftlichkeit.jpg" data-name="Wirtschaftlichkeit" data-role="Aufwand gegen Nutzen" data-stat="plan" data-detail="Er stellt Aufwand und Nutzen pro Vorschlag nüchtern gegenüber, damit am Ende eine Entscheidung steht statt eines Bauchgefühls — auch wenn das Ergebnis 'lohnt sich nicht' heißt."><div class="nn">06</div><h4>Wirtschaftlichkeit</h4><span class="tag plan">geplant</span></div>
+      <div class="note" data-i="7" data-accent="var(--magenta)" data-img="studio-assets/term-compliance-check.jpg" data-name="Compliance-Check" data-role="Schwarz auf weiß" data-stat="plan" data-detail="Er hält fest, welche Daten wohin fließen und was DSGVO und AI-Act dazu sagen — schriftlich, damit es bei Nachfragen kein Schulterzucken gibt."><div class="nn">07</div><h4>Compliance-Check</h4><span class="tag plan">geplant</span></div>
+      <div class="note" data-i="8" data-accent="var(--amber)" data-img="studio-assets/term-reporter.jpg" data-name="Reporter" data-role="Zum Ausdrucken" data-stat="build" data-detail="Am Ende klebt er alles zusammen, was die anderen Agenten gefunden haben, und gibt es so aus, dass man es ausdrucken und in die Runde legen kann — PDF, Excel oder Markdown."><div class="nn">08</div><h4>Reporter</h4><span class="tag build">im Bau</span></div>
     </div>
   </div>
 </section>
@@ -312,36 +337,36 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
 <section class="result" id="result">
   <div class="result-inner">
     <div class="result-left" id="rLeft">
-      <div class="rcard on" data-name="Anfragen vorsortieren, nicht ersetzen"
-        data-desc="Standard-Mails und -Anfragen landen vorstrukturiert beim Team. Der Mensch entscheidet, die Maschine räumt vor.">
+      <div class="rcard on" data-accent="var(--teal)" data-name="Empfang &amp; Reservierung" data-img="studio-assets/term-empfang.jpg" data-eyebrow="Was morgens Zeit frisst"
+        data-detail="Im Alltag heißt das: Die immer gleichen Reservierungs- und Standardmails kommen schon einsortiert an, sodass die Schicht morgens nicht erst das Postfach sortiert. Entschieden wird weiter am Empfang, nicht im Tool.">
         <div class="rk">Empfang &amp; Reservierung · 01</div>
         <h4>Anfragen vorsortieren, nicht ersetzen</h4>
         <p>Standard-Mails und -Anfragen landen vorstrukturiert beim Team. Der Mensch entscheidet, die Maschine räumt vor.</p>
         <span class="fmt">hoher Hebel</span>
       </div>
-      <div class="rcard" data-name="Erst messen, dann automatisieren"
-        data-desc="Wareneinsatz und Bestellungen sind selten so sauber, wie man denkt. Hier zuerst Klarheit, dann Tools.">
+      <div class="rcard" data-accent="var(--amber)" data-name="F&amp;B &amp; Küche" data-img="studio-assets/term-fnb.jpg" data-eyebrow="Warum die Reihenfolge zählt"
+        data-detail="Warum erst messen? Weil in der Küche die Bestell- und Einkaufszahlen meist verstreut in Köpfen und Lieferscheinen stecken. Wer hier zu früh ein Tool draufsetzt, automatisiert nur das Durcheinander — also zuerst Zahlen auf den Tisch.">
         <div class="rk">F&amp;B &amp; Küche · 02</div>
         <h4>Erst messen, dann automatisieren</h4>
         <p>Wareneinsatz und Bestellungen sind selten so sauber, wie man denkt. Hier zuerst Klarheit, dann Tools.</p>
         <span class="fmt">Daten zuerst</span>
       </div>
-      <div class="rcard" data-name="Kleiner Anfang, schneller Effekt"
-        data-desc="Schichtplanung und Statusmeldungen lassen sich ohne großes Projekt entlasten — der ehrlichste Quick Win.">
+      <div class="rcard" data-accent="var(--teal)" data-name="Housekeeping" data-img="studio-assets/term-housekeeping.jpg" data-eyebrow="Wo man es zuerst spürt"
+        data-detail="Konkret: Zimmerstatus und Schichtzettel laufen heute oft über Zuruf und Whatsapp. Genau das lässt sich an einem Nachmittag entlasten, ohne ein Projekt aufzusetzen — der Bereich, in dem man am schnellsten merkt, dass sich etwas bewegt.">
         <div class="rk">Housekeeping · 03</div>
         <h4>Kleiner Anfang, schneller Effekt</h4>
         <p>Schichtplanung und Statusmeldungen lassen sich ohne großes Projekt entlasten — der ehrlichste Quick Win.</p>
         <span class="fmt">Quick Win</span>
       </div>
-      <div class="rcard" data-name="Spannend — aber mit Vorsicht"
-        data-desc="Hier locken die größten Versprechen und die größten Fehlkäufe. Empfehlung: testen im Kleinen, nicht kaufen im Großen.">
+      <div class="rcard" data-accent="var(--magenta)" data-name="Revenue &amp; Pricing" data-img="studio-assets/term-revenue.jpg" data-eyebrow="Wo Anbieter zu viel versprechen"
+        data-detail="Hier verkaufen Anbieter gern die großen Versprechen — dynamische Preise, die alles regeln. In der Praxis hängt das Ergebnis an den eigenen Daten und an Erfahrung. Deshalb: erst in einer Saison testen, bevor man ein teures System unterschreibt.">
         <div class="rk">Revenue &amp; Pricing · 04</div>
         <h4>Spannend — aber mit Vorsicht</h4>
         <p>Hier locken die größten Versprechen und die größten Fehlkäufe. Empfehlung: testen im Kleinen, nicht kaufen im Großen.</p>
         <span class="fmt">mit Vorsicht</span>
       </div>
-      <div class="rcard" data-name="Wo KI heute schon trägt"
-        data-desc="Content, Antworten, Wiederkehr-Ansprache — der Bereich, in dem der Einstieg am leichtesten gelingt.">
+      <div class="rcard" data-accent="var(--amber)" data-name="Marketing &amp; Gäste-Kommunikation" data-img="studio-assets/term-marketing.jpg" data-eyebrow="Was heute schon läuft"
+        data-detail="Praktisch trägt es schon: Posts vorschreiben, wiederkehrende Gästefragen beantworten, Stammgäste gezielt ansprechen. Hier ist die Technik reif genug, dass man heute starten kann — und der Einstieg tut niemandem weh.">
         <div class="rk">Marketing &amp; Gäste-Kommunikation · 05</div>
         <h4>Wo KI heute schon trägt</h4>
         <p>Content, Antworten, Wiederkehr-Ansprache — der Bereich, in dem der Einstieg am leichtesten gelingt.</p>
@@ -352,6 +377,10 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
       <div class="rlabel">04 · Das Ergebnis</div>
       <h3 id="rName">Ein Fahrplan <em>pro Gewerk.</em></h3>
       <p id="rDesc">Kein Foliensatz für die Schublade. Pro Bereich eine ehrliche Empfehlung — was sich lohnt, was wartet, was du sein lassen kannst.</p>
+      <figure class="filmstill" id="rStill" aria-hidden="true">
+        <figcaption class="fcap"><span class="fk">Szene</span><span class="fln"></span><span class="fnm" id="rStillName">Empfang &amp; Reservierung</span></figcaption>
+        <div class="morphimg" id="rMorph"><img alt="" decoding="async"><img alt="" decoding="async"></div>
+      </figure>
     </div>
   </div>
 </section>
@@ -414,16 +443,47 @@ document.querySelectorAll('[data-mag]').forEach(b=>{b.addEventListener('mousemov
 const __coarseObs=matchMedia('(pointer:coarse)').matches;
 const OBS=__coarseObs?{threshold:.18,rootMargin:'-22% 0px -42% 0px'}
                      :{threshold:.55,rootMargin:'-30% 0px -30% 0px'};
+/* ===== Morph-Bild-Crossfade: zwei gestapelte <img>-Ebenen, abwechselnd ein-/ausblenden.
+   Lädt das neue Bild in die gerade unsichtbare Ebene; bei Load tauscht die Opazität. graceful onerror. */
+function makeMorpher(box){
+  if(!box)return function(){};
+  const still=box.closest('.filmstill')||box;
+  const layers=[...box.querySelectorAll('img')];if(layers.length<2)return function(){};
+  let active=-1,curSrc='';
+  layers.forEach(l=>{l.addEventListener('error',()=>{l.classList.remove('show');});});
+  return function(src){
+    if(!src||src===curSrc)return;curSrc=src;
+    const next=(active+1)%2,nextEl=layers[next];
+    const show=()=>{
+      still.classList.add('in');
+      layers.forEach((l,i)=>{if(i!==next){l.classList.remove('show');delete l.dataset.settled;l.style.transform='';}});
+      delete nextEl.dataset.settled;nextEl.style.transform='';   /* startet bei CSS scale(1.05) */
+      nextEl.classList.add('show');
+      active=next;
+      /* nach dem Crossfade darf der Parallax die Szene uebernehmen */
+      clearTimeout(nextEl.__settle);
+      nextEl.__settle=setTimeout(()=>{nextEl.dataset.settled='1';},900);
+    };
+    if(nextEl.getAttribute('src')===src&&nextEl.complete&&nextEl.naturalWidth>0){show();return;}
+    nextEl.classList.remove('show');
+    nextEl.onload=show;
+    nextEl.onerror=function(){nextEl.classList.remove('show');};
+    nextEl.src=src;
+  };
+}
 /* 8-Agenten: mittige Note → linkes Beschreibungsfeld */
 (function(){
   const notes=[...document.querySelectorAll('#aRight .note')];if(!notes.length)return;
-  const aIdx=document.getElementById('aIdx'),aNum=document.getElementById('aNum'),aName=document.getElementById('aName'),aStat=document.getElementById('aStat'),aDesc=document.getElementById('aDesc');
-  const label={live:'live',build:'im Bau',plan:'geplant'};
+  const aRole=document.getElementById('aRole'),aDesc=document.getElementById('aDesc');
+  const aStill=document.getElementById('aStill'),aStillName=document.getElementById('aStillName');
+  const morph=makeMorpher(document.getElementById('aMorph'));
   const o=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;
     notes.forEach(n=>n.classList.remove('on'));en.target.classList.add('on');
-    const d=en.target.dataset;const n=('0'+d.i).slice(-2);
-    aIdx.textContent=n;aNum.textContent=n;aName.textContent=d.name;aDesc.textContent=d.desc;
-    aStat.textContent=label[d.stat];aStat.className='st '+d.stat;
+    const d=en.target.dataset;
+    aRole.textContent=d.role;aDesc.textContent=d.detail;
+    if(d.accent&&aStill)aStill.style.setProperty('--accent',d.accent);
+    if(d.name&&aStillName)aStillName.textContent=d.name;
+    if(d.img)morph(d.img);
   }),OBS);
   notes.forEach(n=>o.observe(n));
 })();
@@ -432,11 +492,16 @@ const OBS=__coarseObs?{threshold:.18,rootMargin:'-22% 0px -42% 0px'}
 (function(){
   const cards=[...document.querySelectorAll('#rLeft .rcard')];if(!cards.length)return;
   const rName=document.getElementById('rName'),rDesc=document.getElementById('rDesc');
+  const rStill=document.getElementById('rStill'),rStillName=document.getElementById('rStillName');
+  const morph=makeMorpher(document.getElementById('rMorph'));
   const o=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;
     cards.forEach(c=>c.classList.remove('on'));en.target.classList.add('on');
     const d=en.target.dataset;
-    if(d.name&&rName)rName.textContent=d.name;
-    if(d.desc&&rDesc)rDesc.textContent=d.desc;
+    if(d.eyebrow&&rName)rName.textContent=d.eyebrow;
+    if(d.detail&&rDesc)rDesc.textContent=d.detail;
+    if(d.accent&&rStill)rStill.style.setProperty('--accent',d.accent);
+    if(d.name&&rStillName)rStillName.textContent=d.name;
+    if(d.img)morph(d.img);
   }),OBS);
   cards.forEach(c=>o.observe(c));
 })();
@@ -568,6 +633,32 @@ const OBS=__coarseObs?{threshold:.18,rootMargin:'-22% 0px -42% 0px'}
   addEventListener('studio-ready',()=>requestAnimationFrame(update),{once:true});
   update();
 })();
+
+/* ===== Film-Still Parallax: aktive Szene driftet sanft beim Scrollen ===== */
+(function(){
+  const stills=[...document.querySelectorAll('.filmstill .morphimg')];
+  if(!stills.length)return;
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  let ticking=false;
+  function update(){
+    ticking=false;
+    const vh=innerHeight;
+    for(const box of stills){
+      const r=box.getBoundingClientRect();
+      if(r.bottom<-80||r.top>vh+80)continue;
+      const center=r.top+r.height/2;
+      const norm=(center-vh/2)/vh;                 /* -0.5 oben … +0.5 unten */
+      const drift=(-norm*16).toFixed(2);           /* dezenter Parallax-Versatz */
+      const img=box.querySelector('img.show');
+      /* nur driften wenn der Eintritts-Crossfade fertig ist (sonst CSS scale(1.05→1) nicht stoeren) */
+      if(img&&img.dataset.settled)img.style.transform=`scale(1.035) translate3d(0,${drift}px,0)`;
+    }
+  }
+  function onS(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  addEventListener('scroll',onS,{passive:true});
+  addEventListener('resize',onS,{passive:true});
+  update();
+})();
 </script>
 
 <script type="module">
@@ -576,7 +667,6 @@ import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
-import {RGBShiftShader} from 'three/addons/shaders/RGBShiftShader.js';
 
 /* ===== GERAETE-TIER: Partikelzahl + Effekte an Mobile/Low-Power koppeln (60fps-Ziel) ===== */
 const __dm = navigator.deviceMemory || 4;            /* GB, fehlt auf iOS -> 4 */
@@ -745,7 +835,7 @@ function constellation(){
     }else{ const nd=nodes[i%NODES], f=Math.random();
       x=(nd[0])*f+(Math.random()-.5)*0.18; y=(nd[1])*f+(Math.random()-.5)*0.18; z=(nd[2])*f+(Math.random()-.5)*0.18; t=0.65; }
     o.pos[i*3]=x;o.pos[i*3+1]=y;o.pos[i*3+2]=z;
-    let c=mixC(C.gold,C.goldhot,t+Math.random()*0.2);
+    const NC=[C.mag,C.teal,C.amber,C.blue,C.indigo,C.coral,C.cyan,C.gold];let c=NC[i%NODES].clone().lerp(C.cream,t*0.22+Math.random()*0.12);
     const dHub=Math.hypot(x,y)/R; c=c.lerp(C.cream,Math.max(0,1-dHub)*0.4);
     o.col[i*3]=c.r;o.col[i*3+1]=c.g;o.col[i*3+2]=c.b; }
   return o;
@@ -776,8 +866,8 @@ const ACCA  =[0.45,  0.30,  0.34,   0.55,   0.34,  0.10,   0.40]; /* wie stark A
 const SIZ =[1.35, 1.05, 1.05, 1.20, 1.25, 0.92, 1.10]; /* Groessen-Mult */
 const GLOW=[1.55, 1.05, 1.05, 1.20, 1.30, 0.95, 1.10]; /* uGlow-Ziel */
 const BLM =[BLOOM_HI, 0.14, 0.14, 0.18, 0.20, 0.12, 0.16]; /* Bloom: Text/Porträt niedrig */
-const TURB=[1.8, 1.1, 1.6, 1.7, 0.9, 1.3];   /* Morph-Drama pro Übergang (Start-seg) */
-const STAG=[0.62, 0.42, 0.58, 0.55, 0.40, 0.50];
+const TURB=[2.8, 3.8, 2.8, 2.9, 1.8, 2.6];   /* Morph-Drama pro Übergang (Start-seg) */
+const STAG=[0.82, 0.98, 0.82, 0.8, 0.62, 0.78];
 if(TIER===0){ for(let i=0;i<SIZ.length;i++) SIZ[i]*=0.88; }  /* dünne Phones schonen */
 const _accA=new THREE.Color(), _accB=new THREE.Color();
 
@@ -969,14 +1059,32 @@ img.onload=()=>{try{KEYS[PI]=portraitShape(img);if(curSeg>=PI-1)setSeg(curSeg,tr
 img.onerror=()=>{KEYS[PI]=galaxy();if(window.__studioMark)window.__studioMark('portrait');};
 img.src='alex-heyers-portrait.jpg';
 
-const composer=new EffectComposer(renderer);
-/* Composer-RenderTarget transparent halten -> #scene-bg scheint hinter den Partikeln durch */
-composer.renderTarget1.texture.format=THREE.RGBAFormat;
-composer.renderTarget2.texture.format=THREE.RGBAFormat;
+/* HalfFloat-Composer-Target: Bloom rechnet mit 16-Bit-Praezision -> kein 8-Bit-Banding ("graue Streifen") im Glow.
+   RGBA-Format + transparent halten -> #scene-bg scheint hinter den Partikeln durch. */
+const __ctTarget=new THREE.WebGLRenderTarget(innerWidth,innerHeight,{format:THREE.RGBAFormat,type:THREE.HalfFloatType});
+const composer=new EffectComposer(renderer,__ctTarget);
 const renderPass=new RenderPass(scene,cam);renderPass.clearAlpha=0;composer.addPass(renderPass);
 const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.75,.55,.2);composer.addPass(bloom);
-/* Chromatic Aberration als FINALER Pass — blendet das Composer-Ergebnis transparent auf den Canvas */
-const rgb=new ShaderPass(RGBShiftShader);rgb.uniforms.amount.value=RGB_BASE;rgb.uniforms.angle.value=0;rgb.renderToScreen=true;composer.addPass(rgb);
+/* FINALER Pass: Chromatic Aberration + Dither. Dither bricht die 8-Bit-Quantisierung beim Ausgeben
+   auf den Canvas auf -> entfernt Rest-Banding ohne sichtbares Rauschen. Uniforms amount/angle bleiben gleich. */
+const RGBDitherShader={
+  uniforms:{tDiffuse:{value:null},amount:{value:RGB_BASE},angle:{value:0.0}},
+  vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+  fragmentShader:`uniform sampler2D tDiffuse;uniform float amount;uniform float angle;varying vec2 vUv;
+    float ign(vec2 p){return fract(52.9829189*fract(dot(p,vec2(0.06711056,0.00583715))));}
+    void main(){
+      vec2 off=amount*vec2(cos(angle),sin(angle));
+      float cr=texture2D(tDiffuse,vUv+off).r;
+      vec4  cg=texture2D(tDiffuse,vUv);
+      float cb=texture2D(tDiffuse,vUv-off).b;
+      vec3 col=vec3(cr,cg.g,cb);
+      /* Triangular-PDF Dither, Amplitude ~1.5/255 */
+      float d=(ign(gl_FragCoord.xy)+ign(gl_FragCoord.xy+11.13)-1.0)/255.0*1.5;
+      col+=d;
+      gl_FragColor=vec4(col,cg.a);
+    }`
+};
+const rgb=new ShaderPass(RGBDitherShader);rgb.uniforms.amount.value=RGB_BASE;rgb.uniforms.angle.value=0;rgb.renderToScreen=true;composer.addPass(rgb);
 function size(){renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
 size();let __rz;addEventListener('resize',()=>{clearTimeout(__rz);__rz=setTimeout(size,120);},{passive:true});
 addEventListener('orientationchange',()=>setTimeout(size,250));
@@ -1065,7 +1173,7 @@ function loop(){
   phase=Math.max(0,Math.min(K-1,phase));
   const seg=Math.min(K-2,Math.floor(phase)),local=phase-seg;
   setSeg(seg);
-  const m=smoothstep(.26,.74,local);
+  const m=smoothstep(.15,.85,local);
   mat.uniforms.uMix.value=m;
   const swing=Math.sin(m*Math.PI);
   const nearK=Math.round(phase);
@@ -1077,15 +1185,18 @@ function loop(){
   /* uStagger/uTurb pro-Szene + swing -> am Dwell exakt 0 (Text/Portrait stehen still, lesbar, frontal) */
   mat.uniforms.uStagger.value=swing*STAG[Math.min(STAG.length-1,seg)]*calm;
   mat.uniforms.uTurb.value   =swing*TURB[Math.min(TURB.length-1,seg)]*calm;
+  {const ex=Math.sin(m*Math.PI);mat.uniforms.uTurb.value+=ex*1.9*calm;mat.uniforms.uStagger.value+=ex*0.5*calm;}
   mat.uniforms.uTime.value+=0.016;
   /* lesbare Szenen: Text (1,2,3,6) + Portrait (5) scharf -> niedriger Bloom, moderater uGlow. */
   const isReadable=(nearK===1||nearK===2||nearK===3||nearK===4||nearK===5||nearK===6);
   const nxK=Math.min(K-1,seg+1);
   /* uSize pro-Szene (sonst statisch): weniger Punkte -> jeder groesser -> strahlt voller */
   mat.uniforms.uSize.value=lerp(SIZ[seg],SIZ[nxK],m)*(TIER===2?1.25:1.55)*Math.min(devicePixelRatio,PR_CAP);
+  mat.uniforms.uSize.value*=1+swing*0.6;
   /* uGlow pro-Szene weich nachgezogen */
   const glowTarget=lerp(GLOW[seg],GLOW[nxK],m);
   mat.uniforms.uGlow.value+=(glowTarget-mat.uniforms.uGlow.value)*.05;
+  mat.uniforms.uGlow.value+=swing*0.7;
   /* Bloom pro-Szene-Dwell + Mid-Drama (abstrakte Szenen duerfen mitten im Morph aufstrahlen) */
   const bloomDwell=lerp(BLM[seg],BLM[nxK],m);
   const bloomMid=(toP||fromP||isReadable)?bloomDwell:BLOOM_HI;
@@ -1121,13 +1232,14 @@ function loop(){
   pts.position.y=banner*4.9;
   pts.scale.setScalar(1-banner*0.38);
   const sw=swing*(1-banner);
-  const tz=lerp(camZ[seg],camZ[seg+1],m);
+  const tz=lerp(camZ[seg],camZ[seg+1],m)-swing*3.4;
   const tx=sw*5.0*(seg%2?1:-1),ty=sw*1.6;
   camX+=(tx-camX)*.05;camY+=(ty-camY)*.05;
   const px=(window.__nmx-.5),py=(window.__nmy-.5);
   cam.position.set(camX+px*1.1,camY+py*0.9,tz);cam.lookAt(0,0,0);
-  pts.rotation.y=sw*0.4*(seg%2?-1:1)+px*0.1*(1-banner);
-  pts.rotation.x=py*0.06*(1-banner);
+  pts.rotation.y=m*6.2831853*(seg%2?-1:1)*(1-banner)+px*0.1*(1-banner);  /* volle 360deg pro Uebergang, am Dwell frontal */
+  pts.rotation.x=py*0.06*(1-banner)+sw*0.15;
+  pts.rotation.z=sw*0.11*(seg%2?1:-1);if(nearK===4)pts.rotation.z-=rootEl.scrollTop*0.0012;
 
   if(introDone){
     heroEl.style.opacity=String(Math.max(0,1-prog*20));
