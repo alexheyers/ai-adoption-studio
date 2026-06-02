@@ -119,11 +119,12 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 @media(max-width:900px){.filmstill{max-width:none}.morphimg{aspect-ratio:4/5}}
 @media(prefers-reduced-motion:reduce){.morphimg img{transition:opacity .4s ease}.morphimg img.show{transform:none}.filmstill{transition:opacity .5s ease}}
 
-/* ===== Szenen-Filmstill bei den PARTIKEL-WORT-Szenen (fix, nahe der .cap) =====
-   Gleicher Kino-Look wie .filmstill/.morphimg, aber Amber-Akzent + fix positioniert.
-   Sitzt zentriert oberhalb der Caption, dezent, stoert WOERTER/Lesbarkeit nicht. */
-.scenestill{--accent:var(--amber);position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) translateY(2px) scale(.97);z-index:24;width:min(38vh,300px);max-width:74vw;pointer-events:none;opacity:0;transition:opacity .6s var(--ease),transform .6s var(--ease);will-change:opacity,transform}
-.scenestill.in{opacity:1;transform:translate(-50%,-50%) translateY(0) scale(1)}
+/* ===== Szenen-Filmstill bei den PARTIKEL-WORT-Szenen =====
+   Gleicher Kino-Look wie .filmstill/.morphimg, aber Amber-Akzent.
+   Bewusste Komposition im UNTEREN Bildschirmbereich: Bild LINKS, Caption RECHTS daneben.
+   Sitzt klar UNTERHALB des vertikal mittigen Partikel-Wortes — beruehrt die Wort-Mitte nie. */
+.scenestill{--accent:var(--amber);position:fixed;left:6vw;bottom:6vh;bottom:6svh;bottom:6dvh;z-index:24;width:min(26vh,300px);max-width:42vw;pointer-events:none;opacity:0;transform:translateY(16px) scale(.97);transition:opacity .6s var(--ease),transform .6s var(--ease);will-change:opacity,transform}
+.scenestill.in{opacity:1;transform:translateY(0) scale(1)}
 .scenestill .ssframe{position:relative;width:100%;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:var(--navy-deep);box-shadow:0 24px 70px rgba(6,16,31,.6),0 0 0 1px rgba(255,255,255,.05),0 0 44px -4px color-mix(in srgb,var(--accent) 50%,transparent),inset 0 0 0 1px rgba(255,255,255,.12),inset 0 0 60px -14px rgba(6,16,31,.7)}
 .scenestill .ssframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.85) saturate(1.04) contrast(1.06);transition:opacity .6s ease,transform 1.2s var(--ease);transform:scale(1.06);will-change:opacity,transform}
 .scenestill .ssframe img.show{opacity:1;transform:scale(1)}
@@ -133,7 +134,17 @@ body{background:var(--navy-deep);color:var(--cream);font-family:'Bricolage Grote
 .scenestill .sscap .ssk{color:var(--accent);font-weight:600;flex:0 0 auto}
 .scenestill .sscap .ssln{flex:1 1 auto;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 55%,transparent),transparent)}
 .scenestill .sscap .ssnm{flex:0 0 auto;color:var(--cream);letter-spacing:.18em;font-weight:500;transition:color .5s ease}
-@media(max-width:700px){.scenestill{width:min(30vh,210px);max-width:62vw;top:42%}}
+/* Caption-Paarung: wenn eine Szene aktiv ist, rueckt die .cap nach RECHTS neben das Bild
+   (Bild links, Text rechts daneben) — gemeinsam unten, ohne das Wort in der Mitte zu beruehren. */
+.cap.scene-pair{left:auto;right:6vw;bottom:6vh;bottom:6svh;bottom:6dvh;width:calc(100% - min(26vh,300px) - 6vw - 6vw - 3vw);max-width:520px;text-align:left;padding:0;display:flex;flex-direction:column;justify-content:center;min-height:min(26vh,300px)}
+.cap.scene-pair .s{margin-left:0;margin-right:0;max-width:none}
+/* Mobile: gestapelt — Bild klein OBEN, Caption darunter, beide unten, nie ueber dem Wort. */
+@media(max-width:700px){
+  .scenestill{left:50%;right:auto;transform:translateX(-50%) translateY(16px) scale(.97);bottom:30vh;bottom:30svh;bottom:30dvh;width:min(20vh,170px);max-width:54vw}
+  .scenestill.in{transform:translateX(-50%) translateY(0) scale(1)}
+  .cap.scene-pair{left:0;right:0;width:auto;max-width:none;text-align:center;padding:0 7vw;display:block;min-height:0;bottom:9svh;bottom:9dvh}
+  .cap.scene-pair .s{margin-left:auto;margin-right:auto}
+}
 @media(prefers-reduced-motion:reduce){.scenestill{transition:opacity .4s ease}.scenestill .ssframe img{transition:opacity .4s ease}.scenestill .ssframe img.show{transform:none}}
 
 .scroll-bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;background:linear-gradient(90deg,var(--teal),var(--magenta),var(--amber))}
@@ -269,7 +280,6 @@ body.on .cur-dot,body.on .cur-ring{opacity:1}
   .snd{bottom:1rem}
 }
 
-#sceneStill,.scenestill{display:none!important}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -1490,6 +1500,8 @@ function loop(){
   const sceneVisible=!!sceneDef && banner<.35 && prog>0.02 && atDwell;
   sceneStill.classList.toggle('in', sceneVisible);
   sceneImg.classList.toggle('show', sceneVisible && sceneImgOk);
+  /* Caption neben das Bild ruecken, solange eine Szene aktiv ist (Bild links, Text rechts) */
+  capEl.classList.toggle('scene-pair', sceneVisible);
 
   composer.render();requestAnimationFrame(loop);
 }
