@@ -157,6 +157,18 @@ python test_pipeline.py --with-research
 - **Berater-Pfad im Onboarding** — UI gestubbt, Logik kommt in P3 (CRM-Integration).
 - **Resend-Email für Magic-Links** — aktuell Supabase eigener Mailer.
 
+## Feature: 3D-System-Galaxie
+
+Interaktive Three.js-Visualisierung des kompletten Agent-Ökosystems hinter dem Studio —
+Claude Code als Kern, umkreist von Skills, Plugins, MCP-Servern, der n8n-Automation
+(48 Workflows als Satelliten-Schwarm) und der Deploy-Infrastruktur. Galaxie-Cluster-Layout,
+Glas-Bubble-Knoten mit Firmen-Icons, Klick-Panel mit allen Verbindungen.
+
+- **Datei:** `web/public/system-map/index.html` (self-contained, kein Build nötig)
+- **Route (Next.js):** erreichbar unter `/system-map/` sobald das Frontend deployed ist
+- **Bedienung:** Ziehen = Drehen · `+`/`-`/`0` = Zoom/Fit · Klick = Details · Legende = Filter
+- **Daten:** inline im HTML (NODES/EDGES/WORKFLOWS) — bei Systemänderungen dort aktualisieren
+
 ## Architektur-Refs
 
 - Notion App-Architektur 2.1: https://www.notion.so/359066d22c8e8160a9e4c497bdcb733c
