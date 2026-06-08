@@ -45,6 +45,23 @@ ARBEITSWEISE — VOLLE TIEFE PRO PROZESS:
 - Risks-if-done-wrong: was geht operativ kaputt wenn Automation versagt
 - Personalkosten DACH 2026: Vollkostensätze ~28-42 EUR/h je nach Rolle
 
+VOLLSTÄNDIGKEITS-KONTRAKT — DIE 15-DOMAIN-ABDECKUNG IST PFLICHT, NICHT OPTIONAL:
+- Bilde im Kopf eine Checkliste mit GENAU diesen 15 Domain-Slugs: front-office, housekeeping, fnb-service, fnb-kueche, wellness-spa, mice, marketing, crm-gaeste, beschaffung, buchhaltung, gebaeude, personal, it, compliance, strategie-kpi.
+- Jede der 15 Domains MUSS am Ende GENAU EINEN von zwei Zuständen haben:
+  (a) sie taucht als `domain` in mindestens einem Prozess auf, ODER
+  (b) ihr Slug steht in `domains_unchecked` MIT kurzem, datenbasiertem Grund (z.B. "wellness-spa: kein Spa-Bereich im Briefing erwähnt", "mice: keine Veranstaltungsdaten in Dokumenten/Voice").
+- Schreibe eine Domain NUR dann in `domains_unchecked`, wenn die vorliegenden Daten (Briefing, KPIs, current_tools, documents_summary, voice_interview_transcript) wirklich KEINEN belastbaren Hebel hergeben — nicht aus Bequemlichkeit.
+- Die Vereinigung aus genutzten Prozess-Domains und `domains_unchecked` muss alle 15 Slugs abdecken; keine Domain bleibt unerwähnt, keine Domain steht in beiden.
+- Schreibe NIE einen erfundenen Wert in `domains_unchecked` — der Grund muss aus den Input-Daten ableitbar sein.
+
+DATEN-VERANKERUNG — JEDER PROZESS MUSS AUS DEN VORLIEGENDEN HOTELDATEN ABGELEITET SEIN:
+- Lies `current_tools` (bestehender Software-Stack), `documents_summary`, `voice_interview_transcript`, `kpis` und `pain_points` aus dem Briefing als primäre Quelle. Spiegle konkrete Marken/Zahlen/Aussagen daraus in description, current_tools, touchpoints und volume_per_period.
+- `current_tools` pro Prozess: leite Marke/Vendor zuerst aus dem Briefing-`current_tools`-Stack ab; nur was dort NICHT auftaucht, ist "unbekannt". Erfinde keine Marke, die nirgends in den Daten steht.
+- `stakeholders`, `touchpoints`, `compliance`, `confidence`, `data_gaps` für JEDEN der 8-12 Prozesse befüllen — nie leer lassen.
+- `confidence` muss die Datenlage widerspiegeln: "high" nur wenn Beleg in Dokumenten ODER Voice; "low" wenn reine Branchen-Hypothese ohne Beleg im Briefing.
+- `data_gaps` benennt konkret, welche fehlende Angabe (aus genau diesem Briefing) die Schätzung unsicher macht — nicht generische Floskeln.
+- Zahlen (current_time_hours_per_week, estimated_savings_eur_year, volume_per_period) müssen aus KPIs/Dokumenten/Voice plausibel ableitbar sein — keine frei erfundenen Hardcodes.
+
 WAS DU NIE TUST:
 - Buzzword-Slang ("disruptiv", "next-gen")
 - Generische Hospitality-Floskeln
@@ -131,7 +148,11 @@ def run(briefing: Briefing) -> ProcessAuditOutput:
     user_message = f"""BRIEFING:
 {briefing.model_dump_json(indent=2)}
 
-Geh systematisch durch alle 15 Hotel-Domains. Identifiziere die 8-12 stärksten Prozess-Hebel — Front-Office, F&B, Housekeeping, aber AUCH Beschaffung, Buchhaltung, Gebäudemanagement, IT, Compliance, Reporting. Sei spezifisch zu diesem Haus, nicht generisch."""
+ARBEITSAUFTRAG:
+1. Geh systematisch durch ALLE 15 Hotel-Domains (front-office, housekeeping, fnb-service, fnb-kueche, wellness-spa, mice, marketing, crm-gaeste, beschaffung, buchhaltung, gebaeude, personal, it, compliance, strategie-kpi). Identifiziere die 8-12 stärksten Prozess-Hebel — Front-Office, F&B, Housekeeping, aber AUCH Beschaffung, Buchhaltung, Gebäudemanagement, IT, Compliance, Reporting.
+2. Jede Domain, die KEINEN belastbaren Hebel in den Daten hat, gehört mit kurzem datenbasiertem Grund in `domains_unchecked`. Am Ende decken genutzte Prozess-Domains + `domains_unchecked` alle 15 Slugs ab — keine fehlt, keine steht doppelt.
+3. Verankere jeden Prozess in den vorliegenden Daten dieses Hauses: nutze den `current_tools`-Stack ({", ".join(briefing.current_tools) if briefing.current_tools else "kein Stack im Briefing angegeben"}), die `documents_summary`, das `voice_interview_transcript` und die `kpis`. Befülle current_tools/touchpoints/compliance/stakeholders/confidence/data_gaps für JEDEN Prozess.
+4. Sei spezifisch zu diesem Haus, nicht generisch. Keine erfundenen Marken oder Zahlen — alles muss aus dem Briefing ableitbar sein."""
 
     raw = call_agent(system, user_message)
     return ProcessAuditOutput.model_validate(raw)
