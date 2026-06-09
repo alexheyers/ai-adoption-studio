@@ -1,0 +1,187 @@
+{
+  "company_name": "Hotel Mustertal (Mock)",
+  "generated_from": "mock-run-0001",
+  "nodes": [
+    {
+      "id": "pms-apaleo",
+      "name": "Apaleo PMS",
+      "category": "pms",
+      "state": "ist-und-ziel",
+      "role": "hub",
+      "vendor": "Apaleo",
+      "replaces": null,
+      "rationale": "Zentrale Wahrheit für Buchungen, bleibt Kern.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "pos-vectron",
+      "name": "Vectron POS",
+      "category": "pos",
+      "state": "ist",
+      "role": "quelle",
+      "vendor": "Vectron",
+      "replaces": null,
+      "rationale": "Kassendaten F&B.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "buha-datev",
+      "name": "DATEV (über Steuerberater)",
+      "category": "buchhaltung",
+      "state": "ist-und-ziel",
+      "role": "senke",
+      "vendor": "DATEV",
+      "replaces": null,
+      "rationale": "Rechnungs-/Umsatzziel.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "crm-hubspot",
+      "name": "HubSpot CRM",
+      "category": "crm",
+      "state": "ziel",
+      "role": "senke",
+      "vendor": "HubSpot",
+      "replaces": null,
+      "rationale": "Gäste-Kommunikation bündeln.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "inbox-mail",
+      "name": "Reservierungs-Inbox (Mail)",
+      "category": "kommunikation",
+      "state": "ist",
+      "role": "quelle",
+      "vendor": null,
+      "replaces": null,
+      "rationale": "~200 Anfragen/Woche, heute manuell.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "agent-triage",
+      "name": "KI-Triage-Agent",
+      "category": "ki-agent",
+      "state": "ziel",
+      "role": "trigger",
+      "vendor": null,
+      "replaces": null,
+      "rationale": "Klassifiziert/qualifiziert Anfragen vor.",
+      "monthly_cost_eur": null
+    },
+    {
+      "id": "ipaas-n8n",
+      "name": "n8n (Orchestrierung)",
+      "category": "ipaas-orchestrierung",
+      "state": "ziel",
+      "role": "hub",
+      "vendor": "n8n",
+      "replaces": null,
+      "rationale": "Verbindet die Systeme (Stufe 3).",
+      "monthly_cost_eur": null
+    }
+  ],
+  "connections": [
+    {
+      "id": "flow-pms-buha",
+      "source": "pms-apaleo",
+      "target": "buha-datev",
+      "data": "Tages-Umsätze + Rechnungen",
+      "direction": "einweg",
+      "integration_type": "api",
+      "automation_level": "vollautomatisiert",
+      "state": "ziel",
+      "trigger": "nächtlich 02:00",
+      "notes": ""
+    },
+    {
+      "id": "flow-pos-pms",
+      "source": "pos-vectron",
+      "target": "pms-apaleo",
+      "data": "F&B-Umsätze pro Zimmer",
+      "direction": "einweg",
+      "integration_type": "api",
+      "automation_level": "teilautomatisiert",
+      "state": "ist",
+      "trigger": "",
+      "notes": ""
+    },
+    {
+      "id": "flow-inbox-agent",
+      "source": "inbox-mail",
+      "target": "agent-triage",
+      "data": "eingehende Anfragen",
+      "direction": "einweg",
+      "integration_type": "webhook",
+      "automation_level": "vollautomatisiert",
+      "state": "ziel",
+      "trigger": "neue Mail",
+      "notes": ""
+    },
+    {
+      "id": "flow-agent-pms",
+      "source": "agent-triage",
+      "target": "pms-apaleo",
+      "data": "strukturierte Reservierungs-Vorschläge",
+      "direction": "einweg",
+      "integration_type": "api",
+      "automation_level": "teilautomatisiert",
+      "state": "ziel",
+      "trigger": "",
+      "notes": ""
+    },
+    {
+      "id": "flow-pms-crm",
+      "source": "pms-apaleo",
+      "target": "crm-hubspot",
+      "data": "Gäste-Stammdaten + Aufenthalte",
+      "direction": "bidirektional",
+      "integration_type": "ipaas",
+      "automation_level": "vollautomatisiert",
+      "state": "ziel",
+      "trigger": "",
+      "notes": ""
+    }
+  ],
+  "automations": [
+    {
+      "id": "auto-buha-sync",
+      "name": "Nächtlicher Buchhaltungs-Sync",
+      "description": "PMS-Umsätze + Rechnungen werden nachts automatisch nach DATEV exportiert.",
+      "involved_nodes": [
+        "pms-apaleo",
+        "buha-datev",
+        "ipaas-n8n"
+      ],
+      "pattern": "synchronisation",
+      "trigger": "nächtlich 02:00",
+      "frequency": "täglich",
+      "expected_benefit": "spart ~6 h/Woche manuelle Buchungsabtipperei",
+      "buildable_now": true
+    },
+    {
+      "id": "auto-reservierungs-inbox",
+      "name": "KI-Reservierungs-Inbox",
+      "description": "Eingehende Anfragen werden klassifiziert, beantwortet oder als Vorschlag ins PMS gelegt.",
+      "involved_nodes": [
+        "inbox-mail",
+        "agent-triage",
+        "pms-apaleo",
+        "ipaas-n8n"
+      ],
+      "pattern": "agent",
+      "trigger": "neue Mail",
+      "frequency": "echtzeit",
+      "expected_benefit": "Antwortzeit von Stunden auf Minuten",
+      "buildable_now": false
+    }
+  ],
+  "summary": "Ziel-Bild: das isolierte PMS wird zum Hub — Reservierungen fliessen automatisch in Buchhaltung und CRM, die Reservierungs-Inbox wird per KI-Agent vorqualifiziert.",
+  "gaps": [
+    "DATEV-Schnittstelle: Freigabe des Steuerberaters nötig",
+    "HubSpot: DSGVO-AVV + EU-Hosting prüfen"
+  ],
+  "assumptions": [
+    "Apaleo bietet offene API (Cloud-PMS)",
+    "Mail-Volumen rechtfertigt KI-Triage (~200/Woche)"
+  ]
+}
