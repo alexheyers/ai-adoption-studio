@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Adoption-Studio · Autonome Session 09.06.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,600&family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2244; --navy2:#081428; --magenta:#E94B5D; --teal:#1AA591;
+    --amber:#F59E0B; --cream:#FDF8F0; --slate:#9fb0c7; --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Lato',system-ui,sans-serif; color:var(--cream);
+    background:var(--navy2); line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .deck{scroll-snap-type:y proximity}
+  section{
+    min-height:100vh; scroll-snap-align:start; position:relative;
+    padding:88px 7vw; display:flex; flex-direction:column; justify-content:center;
+    border-bottom:1px solid var(--line);
+  }
+  section::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--teal)}
+  h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.08;letter-spacing:-.01em}
+  h1{font-size:clamp(2.6rem,6vw,5.4rem);font-weight:900}
+  h2{font-size:clamp(1.9rem,3.6vw,3rem);font-weight:900;margin-bottom:.3em}
+  h3{font-size:1.25rem;font-weight:700}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--teal);margin-bottom:1.3em;font-weight:700}
+  .lead{font-size:clamp(1.05rem,1.7vw,1.4rem);color:#dfe7f2;max-width:62ch}
+  .muted{color:var(--slate)}
+  .amber{color:var(--amber)} .mag{color:var(--magenta)} .teal{color:var(--teal)}
+  em.note{font-family:'Playfair Display',serif;font-style:italic;color:#fff}
+  /* HERO */
+  .hero{background:
+     radial-gradient(1200px 600px at 80% -10%,rgba(26,165,145,.20),transparent 60%),
+     radial-gradient(900px 500px at -10% 110%,rgba(233,75,93,.18),transparent 60%),
+     linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);}
+  .hero h1 span{color:var(--teal)}
+  .hero .sig{font-family:'JetBrains Mono',monospace;color:var(--slate);margin-top:2.4em;font-size:.85rem}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.72rem;
+    letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--line);
+    border-radius:999px;padding:.45em 1em;color:var(--cream);margin-right:.5em}
+  .badge.t{border-color:var(--teal);color:var(--teal)}
+  /* STAT GRID */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:.6em}
+  .stat{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);padding:1.7em 1.4em}
+  .stat .n{font-family:'Playfair Display',serif;font-weight:900;font-size:2.6rem;line-height:1}
+  .stat .l{font-size:.82rem;color:var(--slate);margin-top:.5em;letter-spacing:.02em}
+  /* CARDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;margin-top:.4em}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line);border-radius:16px;padding:1.5em 1.5em 1.4em;position:relative;
+    transition:transform .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--teal)}
+  .card .id{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .card h3{margin:.35em 0 .55em;color:#fff;font-size:1.12rem}
+  .card p{font-size:.92rem;color:#cdd8e8}
+  .card .meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--slate);
+    margin-top:1em;padding-top:.9em;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1em}
+  .pill{display:inline-block;font-size:.68rem;font-family:'JetBrains Mono',monospace;
+    padding:.2em .6em;border-radius:6px;background:rgba(26,165,145,.16);color:var(--teal);font-weight:700}
+  .pill.audit{background:rgba(245,158,11,.16);color:var(--amber)}
+  /* VERIFY strip */
+  .verify{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:.6em}
+  .vbox{border:1px solid var(--line);border-radius:14px;padding:1.3em;background:rgba(26,165,145,.06)}
+  .vbox .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.5rem;color:var(--teal)}
+  .vbox .l{font-size:.82rem;color:var(--slate);margin-top:.3em}
+  /* STAGES */
+  .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:1em}
+  @media(max-width:780px){.stages{grid-template-columns:1fr}}
+  .stage{border:1px solid var(--line);border-radius:16px;padding:1.7em 1.5em;position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
+  .stage .num{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--magenta);opacity:.9}
+  .stage h3{margin:.1em 0 .5em;color:#fff}
+  .stage p{font-size:.92rem;color:#cdd8e8}
+  .stage:nth-child(2) .num{color:var(--teal)} .stage:nth-child(3) .num{color:var(--amber)}
+  .arrow{font-family:'JetBrains Mono',monospace;color:var(--slate);text-align:center;margin:.2em 0 0}
+  /* HORIZON timeline */
+  .tl{margin-top:1em;border-left:2px solid var(--line);padding-left:0}
+  .tl .row{position:relative;padding:1.1em 0 1.1em 2em;border-left:2px solid transparent;margin-left:-2px}
+  .tl .row::before{content:"";position:absolute;left:-9px;top:1.5em;width:14px;height:14px;border-radius:50%;
+    background:var(--navy2);border:3px solid var(--teal)}
+  .tl .row.h2::before{border-color:var(--magenta)}
+  .tl .row .h{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.1em;color:var(--teal)}
+  .tl .row.h2 .h{color:var(--magenta)}
+  .tl .row h3{color:#fff;margin:.2em 0 .3em}
+  .tl .row p{font-size:.92rem;color:#cdd8e8;max-width:70ch}
+  /* lists */
+  ul.clean{list-style:none;margin-top:1em;display:grid;gap:.7em;max-width:80ch}
+  ul.clean li{padding-left:1.6em;position:relative;color:#dfe7f2}
+  ul.clean li::before{content:"▸";position:absolute;left:0;color:var(--teal)}
+  ul.clean li b{color:#fff}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:2.5em}
+  @media(max-width:820px){.two{grid-template-columns:1fr}}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--navy2);background:var(--amber);
+    padding:.15em .55em;border-radius:5px;font-weight:700}
+  footer{padding:3em 7vw;background:var(--navy2);color:var(--slate);font-family:'JetBrains Mono',monospace;font-size:.8rem}
+  .progress{position:fixed;top:0;left:0;height:3px;background:var(--teal);width:0;z-index:50}
+  .nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px}
+  .nav a{width:9px;height:9px;border-radius:50%;background:var(--line);display:block;transition:.2s}
+  .nav a:hover{background:var(--teal);transform:scale(1.3)}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<nav class="nav">
+  <a href="#hero"></a><a href="#build"></a><a href="#issues"></a><a href="#verify"></a>
+  <a href="#pivot"></a><a href="#vision"></a><a href="#horizon"></a><a href="#plan"></a><a href="#next"></a>
+</nav>
+
+<div class="deck">
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="kicker">AI-Adoption-Studio · Autonome Session · 09.06.2026</div>
+  <h1>Eine Nacht.<br>Acht Agenten.<br><span>Ein Plan fürs ganze Produkt.</span></h1>
+  <p class="lead" style="margin-top:1.4em">
+    Im <em class="note">/goal</em>-Modus: verifizierte Backend-Arbeit gebaut, in Linear gebankt — und
+    erkannt, dass das eigentliche Produkt erst <em class="note">nach</em> dem Audit beginnt.
+  </p>
+  <div style="margin-top:2em">
+    <span class="badge t">ultracode</span><span class="badge t">multi-agent</span>
+    <span class="badge">keine Fragen</span><span class="badge">3 h bis Shutdown</span>
+  </div>
+  <div class="sig">Claude Opus 4.8 · isoliertes Git-Worktree · Alex' Design-Arbeit: 0 Dateien angefasst</div>
+</section>
+
+<!-- BUILD overview -->
+<section id="build">
+  <div class="kicker">Teil 1 · Was gebaut wurde</div>
+  <h2>Acht isolierte Agenten,<br>je genau eine Datei.</h2>
+  <p class="lead">Parallel ausgefächert, hart auf eine Datei je Agent beschränkt (kein git, kein Restructure) —
+  committet pro Issue auf eigenem Branch, in Linear auf <span class="teal">In&nbsp;Review</span>.</p>
+  <div class="stats">
+    <div class="stat"><div class="n teal">8</div><div class="l">Agenten parallel</div></div>
+    <div class="stat"><div class="n">9</div><div class="l">Issues bewegt → In Review</div></div>
+    <div class="stat"><div class="n">+2.462</div><div class="l">Zeilen Code/Doku</div></div>
+    <div class="stat"><div class="n amber">0</div><div class="l">Dateien an Alex' WIP angefasst</div></div>
+    <div class="stat"><div class="n">317s</div><div class="l">Fan-out-Laufzeit</div></div>
+  </div>
+</section>
+
+<!-- ISSUE cards -->
+<section id="issues">
+  <div class="kicker">Teil 1 · Aufgabe & Zielerreichung pro Issue</div>
+  <h2>Sieben gebaut, einer auditiert.</h2>
+  <div class="grid">
+    <div class="card"><div class="id">ALE-30 · P4 · High</div>
+      <h3>Compliance-Checker (DSGVO + AI-Act)</h3>
+      <p>Aus 40%-Stub: deterministische Heuristik (ai_pattern + Datenkategorie → EU-AI-Act-Klasse),
+      Floor-Merge mit LLM, TSE/GoBD/Gastrecht/Hygiene, robuster Fallback.</p>
+      <div class="meta"><span class="pill">+320 LoC</span><span>e5c80fa</span></div></div>
+
+    <div class="card"><div class="id">ALE-31 · P4 · Medium</div>
+      <h3>Roadmap-Generator</h3>
+      <p>Echte Phasen-Logik statt Hardcode: Einsortierung nach Quick-Win/Payback/Komplexität,
+      Aufwand & Dauer aus Inputs, Milestones/Kill-Criteria/Critical-Path abgeleitet.</p>
+      <div class="meta"><span class="pill">+410 LoC</span><span>001c047</span></div></div>
+
+    <div class="card"><div class="id">ALE-29 · P4 · Medium</div>
+      <h3>Use-Case-Gen + Tool-Recommender</h3>
+      <p>8–12 Use-Cases, VUFVE-Pflicht + Guard (2+ false → kein Quick-Win + Anti-Liste).
+      Tools: Top-3, deterministische Kosten-Summen, Vendor-Compliance, Exit-Strategie.</p>
+      <div class="meta"><span class="pill">+170 LoC · 2 Dateien</span><span>e458be7</span></div></div>
+
+    <div class="card"><div class="id">ALE-28 · P4 · High</div>
+      <h3>Process-Auditor härten</h3>
+      <p>Additiv (kein Rewrite): 15-Domain-Vollständigkeitskontrakt + Datenverankerungs-Block,
+      damit Prozess-Felder aus echten Hoteldaten kommen.</p>
+      <div class="meta"><span class="pill">+28 LoC</span><span>c01e273</span></div></div>
+
+    <div class="card"><div class="id">ALE-32 + 33 · P4 · High</div>
+      <h3>PPTX-Deck + Excel-Generatoren</h3>
+      <p>10-Slide-Board-Deck + ROI-/Tool-Matrix-Workbook aus <code>FullReport</code>.
+      Modularisiert in <code>report_builders/</code> + neuer <code>/generate</code>-Endpoint
+      (füllt den toten Download-Pfad).</p>
+      <div class="meta"><span class="pill">+560 LoC</span><span>6d62f6e</span></div></div>
+
+    <div class="card"><div class="id">ALE-16 · P2 · High</div>
+      <h3>Production-Deployment-Checkliste</h3>
+      <p>10 Phasen, 111 Checkboxen mit Verifikationsbefehlen, geerdet in realer Infra
+      (VPS, Supabase, Vercel, ElevenLabs).</p>
+      <div class="meta"><span class="pill">+744 Zeilen</span><span>969ecee</span></div></div>
+
+    <div class="card"><div class="id">ALE-37 · P5 · High</div>
+      <h3>pytest Smoke-Suite</h3>
+      <p>11 Tests: Schema-Instanziierung, Supabase-Mock, Voice-YAML-Laden — ohne Netzwerk/LLM.</p>
+      <div class="meta"><span class="pill">+230 LoC</span><span>6fbade0</span></div></div>
+
+    <div class="card"><div class="id">ALE-20 / 23 · P3</div>
+      <h3>Voice-Pool & Hypothesen (Audit)</h3>
+      <p>Read-only: 105 Fragen / 26 Hospitality-Trigger, 35 MECE-Hypothesen-Bäume, adaptive
+      3-Phasen-Selektion. ALE-20 de facto fertig, ALE-23 ~90%.</p>
+      <div class="meta"><span class="pill audit">read-only</span><span>kein Commit</span></div></div>
+  </div>
+</section>
+
+<!-- VERIFY -->
+<section id="verify">
+  <div class="kicker">Teil 1 · Verifikation — echt, nicht nur Syntax</div>
+  <h2>Nicht „sollte gehen".<br><span class="teal">Lief.</span></h2>
+  <p class="lead">Mit der vorhandenen <code>.venv</code> (pydantic, pptx, openpyxl) wurde real ausgeführt,
+  was sich real ausführen lässt:</p>
+  <div class="verify">
+    <div class="vbox"><div class="n">40.909 B</div><div class="l">build_pptx → echtes 10-Slide-Deck</div></div>
+    <div class="vbox"><div class="n">6.820 B</div><div class="l">build_excel → ROI + Tool-Matrix Workbook</div></div>
+    <div class="vbox"><div class="n">105</div><div class="l">Fragen aus master_pool.yaml geladen</div></div>
+    <div class="vbox"><div class="n">10/10</div><div class="l">Dateien ast.parse fehlerfrei</div></div>
+  </div>
+  <p class="muted" style="margin-top:1.6em;max-width:74ch">
+    Ehrlich benannt: Die Agenten-<code>run()</code>-Funktionen wurden <b>nicht</b> end-to-end gegen die
+    Anthropic-API getestet (kein Key-Verbrauch beauftragt) — verifiziert wurden Syntax, reine Logik (Mocks),
+    Schema-Konformität und echte Byte-Generierung. Branches sind <b>nicht gemerged</b> → dein Review.</p>
+</section>
+
+<!-- PIVOT -->
+<section id="pivot">
+  <div class="kicker">Teil 2 · Der strategische Befund</div>
+  <h2>Was Linear & GitHub<br><span class="mag">nicht</span> wussten.</h2>
+  <div class="two" style="margin-top:1em">
+    <ul class="clean">
+      <li>GitHub ist angebunden — aber es läuft <b>kein echter PR/Status-Sync</b> zu Linear.</li>
+      <li>Die Linear-Projektbeschreibung war <b>leer</b>.</li>
+      <li>Die 46 Issues sind ein <b>Rückwärts-Backlog</b>: „was fehlt dem Code bis zur Spec" — nicht das Produkt.</li>
+      <li>Die echte Vision lebt entkoppelt in <code>AI-ADOPTION-STUDIO.md</code> + Notion.</li>
+    </ul>
+    <div>
+      <p class="lead" style="margin-bottom:1em">Zwei Weichen — von dir gestellt:</p>
+      <ul class="clean">
+        <li><b>Endprodukt = beides, gestaffelt.</b> <span class="tag">H1 → H2</span></li>
+        <li><b>Vorgehen = Full-BMAD-Planung</b> des Gesamtprodukts.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VISION 3 stages -->
+<section id="vision">
+  <div class="kicker">Teil 2 · Die eigentliche Produktvision</div>
+  <h2>Das Audit ist nur Stufe 1.</h2>
+  <p class="lead"><em class="note">„Das Programm ist mit dem KI-Auditing nicht vorbei.
+  Danach fängt das Ganze erst richtig an."</em></p>
+  <div class="stages">
+    <div class="stage"><div class="num">1</div><h3>Verstehen</h3>
+      <p>Voice-Agent (Ada) + Dokument-Analyse erfassen die komplette Ist-Infrastruktur &amp;
+      Bedürfnisse — Hotel oder anderes Prinzip.</p></div>
+    <div class="stage"><div class="num">2</div><h3>Designen</h3>
+      <p>Aus den Bedürfnissen die komplette <b>Ziel-Systemlandschaft</b> ableiten: Tools, Integrationen,
+      Datenflüsse, Automationen.</p></div>
+    <div class="stage"><div class="num">3</div><h3>Bauen</h3>
+      <p>Die Systeme tatsächlich aufbauen und <b>alle Tools miteinander verbinden</b>.
+      „So ein Tool wollen wir bauen."</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.6em">Branchenagnostisch — Hotel ist der erste vertikale Fall, nicht die Grenze.
+  Die heutige Codebasis deckt praktisch nur <b class="teal">Stufe 1</b> ab.</p>
+</section>
+
+<!-- HORIZON -->
+<section id="horizon">
+  <div class="kicker">Teil 2 · Zwei Horizonte</div>
+  <h2>Erst der Pitch. Dann das Produkt.</h2>
+  <div class="tl">
+    <div class="row"><div class="h">H1 · bis 21.07.2026 · Portfolio-Demo</div>
+      <h3>Die Demo, die einen Job verkauft</h3>
+      <p>Lauffähig &amp; beeindruckend: Stufe 1 voll, Stufe 2 als überzeugender Prototyp, Stufe 3 angedeutet.
+      Ziel = Alex als Vibe Coder / Solutions Engineer sichtbar machen. Final-Pitch B05-23.</p></div>
+    <div class="row h2"><div class="h">H2 · danach · BIZ26-SaaS</div>
+      <h3>Das echte Produkt</h3>
+      <p>Multi-Tenant, zahlende Kunden, Production-Hardening, Billing, Stufe 2+3 voll ausgebaut,
+      branchenagnostisch.</p></div>
+  </div>
+</section>
+
+<!-- PLAN (wird ergänzt) -->
+<section id="plan">
+  <div class="kicker">Teil 3 · Full-BMAD-Plan</div>
+  <h2>Vom Backlog zum Gesamtplan.</h2>
+  <p class="lead">Parallel generiert (3 Recherche-Lenses → Product-Brief → PRD → Architektur → Epics →
+  adversariale Kritik). Die maßgeblichen Dokumente liegen in <code>docs/plan/</code>:</p>
+  <div class="grid" id="plan-cards">
+    <div class="card"><div class="id">01</div><h3>Product Brief</h3>
+      <p class="muted">Vision, Personas, USP, Scope H1/H2, Erfolgskriterien.</p></div>
+    <div class="card"><div class="id">02</div><h3>PRD</h3>
+      <p class="muted">Funktionale/nicht-funktionale Anforderungen über alle 3 Stufen, MVP-Schnitt H1.</p></div>
+    <div class="card"><div class="id">03</div><h3>Architektur</h3>
+      <p class="muted">Ist-Stand Stufe 1 + neue Architektur für System-Design (2) &amp; Build-Layer (3).</p></div>
+    <div class="card"><div class="id">04</div><h3>Epics &amp; Stories</h3>
+      <p class="muted">Gesamtprodukt nach Stufen &amp; Horizonten + Mapping auf bestehende Issues + Linear-Struktur.</p></div>
+    <div class="card"><div class="id">05</div><h3>Offene Punkte &amp; Risiken</h3>
+      <p class="muted">Adversariale Vollständigkeitsprüfung + priorisierte Entscheidungs-Vorlagen (mit Empfehlung).</p></div>
+  </div>
+  <p style="margin-top:1.6em;font-size:1.05rem;color:#dfe7f2">Der Plan bildet das <b>gesamte</b> Produkt ab — 12 Epics über 3 Stufen &amp; 2 Horizonte.
+  <span class="mag">Der strategische Kern: EPIC-4–7</span> schließen die heute fehlende Stufe-2/3-Lücke.</p>
+  <table style="width:100%;border-collapse:collapse;margin-top:1.2em;font-size:.86rem">
+    <thead><tr style="text-align:left;color:var(--slate);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em">
+      <th style="padding:.5em .7em;border-bottom:1px solid var(--line)">Epic</th>
+      <th style="padding:.5em .7em;border-bottom:1px solid var(--line)">Thema</th>
+      <th style="padding:.5em .7em;border-bottom:1px solid var(--line)">Horizont</th>
+      <th style="padding:.5em .7em;border-bottom:1px solid var(--line)">Stufe</th>
+      <th style="padding:.5em .7em;border-bottom:1px solid var(--line)">Status</th></tr></thead>
+    <tbody>
+      <tr><td style="padding:.4em .7em;color:var(--teal);font-weight:700">1–3</td><td style="padding:.4em .7em">Verstehen — Onboarding · Voice/Ada · Multi-Agent-Report</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">1</td><td style="padding:.4em .7em muted">im Backlog</td></tr>
+      <tr style="background:rgba(233,75,93,.07)"><td style="padding:.4em .7em;color:var(--mag);font-weight:700">4</td><td style="padding:.4em .7em"><b>Designen</b> — <code>SystemLandscape</code>-Schema &amp; Integritäts-Pass</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">2</td><td style="padding:.4em .7em"><span class="tag" style="background:var(--magenta);color:#fff">NEU</span></td></tr>
+      <tr style="background:rgba(233,75,93,.07)"><td style="padding:.4em .7em;color:var(--mag);font-weight:700">5</td><td style="padding:.4em .7em"><b>Designen</b> — <code>system_architect</code>-Agent (Ist→Ziel-Verdichter)</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">2</td><td style="padding:.4em .7em"><span class="tag" style="background:var(--magenta);color:#fff">NEU</span></td></tr>
+      <tr style="background:rgba(233,75,93,.07)"><td style="padding:.4em .7em;color:var(--mag);font-weight:700">6</td><td style="padding:.4em .7em"><b>Designen</b> — Ist→Ziel-Systemkarte &amp; Report-Sektion</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">2</td><td style="padding:.4em .7em"><span class="tag" style="background:var(--magenta);color:#fff">NEU</span></td></tr>
+      <tr style="background:rgba(245,158,11,.08)"><td style="padding:.4em .7em;color:var(--amber);font-weight:700">7</td><td style="padding:.4em .7em"><b>Bauen</b> — Stufe-3-Teaser: 1 n8n-Flow live</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">3</td><td style="padding:.4em .7em"><span class="tag" style="background:var(--amber)">NEU</span></td></tr>
+      <tr><td style="padding:.4em .7em;color:var(--teal);font-weight:700">8</td><td style="padding:.4em .7em">Querschnitt — Demo-Härtung, Pitch, Leitplanken</td><td style="padding:.4em .7em">H1</td><td style="padding:.4em .7em">Q</td><td style="padding:.4em .7em">teils Backlog</td></tr>
+      <tr><td style="padding:.4em .7em;color:var(--mag);font-weight:700">9–12</td><td style="padding:.4em .7em">Designen voll · Build-Layer (Compiler/Konnektoren) · Multi-Tenant/Billing · 2. Branche</td><td style="padding:.4em .7em">H2</td><td style="padding:.4em .7em">2/3/Q</td><td style="padding:.4em .7em"><span class="tag" style="background:var(--magenta);color:#fff">NEU</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:2em;color:#fff">5 offene Entscheidungen — mit Empfehlung (kein Block)</h3>
+  <ul class="clean" style="margin-top:.8em">
+    <li><b>D1 · Risiko zuerst:</b> diese Woche je 1-h-Spike für <code>system_architect</code> + Trivial-n8n-Deploy — fällt einer, wird der H1-Stufe-2/3-Plan jetzt umgeplant, nicht im Juli.</li>
+    <li><b>D2 · Ehrliche Stufe 3:</b> harte Deadline 30.06. für den Live-n8n-Teaser; sonst im Pitch ein <em class="note">aufgezeichneter</em> echter Deploy — schützt die No-Fake-Regel.</li>
+    <li><b>D3 · Scope-Schutz:</b> Voice + Stufe-2-Generator sind die zwei L-Wetten; zur Not Ist→Ziel-Graph aus fixem <code>SystemLandscape</code>-JSON rendern statt live.</li>
+    <li><b>D4 · Diese Woche fixieren:</b> ein Teaser-Pattern + minimaler <code>integration_catalog.yaml</code> (~10–15 Vendoren des Mock-Hotels).</li>
+    <li><b>D5 · Pitch-Sicherheit:</b> Code-Freeze 17.07., 18.–20.07. nur Proben + vollständiger Fallback-Mitschnitt der 3-Stufen-Story.</li>
+  </ul>
+  <p class="muted" style="margin-top:1.4em">Linear-Vorschlag (additiv, ohne Umbau): neue Initiative <code>3-Stufen-Vision</code> + Milestones <b class="teal">P6</b> (Stufe 2/3 · H1) und <b class="mag">P7</b> (H2-SaaS).
+  Quelle: <code>docs/plan/01–05</code>.</p>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <div class="kicker">Wie es weitergeht</div>
+  <h2>Bereit für dein Review.</h2>
+  <ul class="clean">
+    <li><b>Mergen:</b> 7 Branches warten (Empfehlung: ALE-16 → ALE-37 → ALE-32/33 → Agenten).</li>
+    <li><b>Linear neu strukturieren:</b> Initiative → Projekte je Stufe/Horizont aus <code>docs/plan/04</code>.</li>
+    <li><b>Stufe 2 + 3 modellieren:</b> als neue Epics/Issues — der größte weiße Fleck im aktuellen Backlog.</li>
+    <li><b>Optional:</b> Feature-Branches nach GitHub pushen (reviewbar, Linear-Verlinkung).</li>
+  </ul>
+  <p class="lead" style="margin-top:1.8em"><em class="note">Wie im Kleinen, so im Großen.</em></p>
+</section>
+
+</div>
+
+<footer>
+  AI-Adoption-Studio · Autonome Session 2026-06-09 · generiert von Claude Opus 4.8 ·
+  isoliertes Worktree · Quelle: docs/SESSION-LOG-2026-06-09.md + docs/plan/*
+</footer>
+
+<script>
+  const prog=document.getElementById('prog');
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+</script>
+</body>
+</html>
