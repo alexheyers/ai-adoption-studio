@@ -1,11 +1,65 @@
-"""Multi-Agent-Pipeline-Runs: Trigger + Status + Report."""
+"""Multi-Agent-Pipeline-Runs: Trigger + Status + Report + Deliverable-Generierung."""
+import os
+
+import httpx
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel
 
 from api.auth import AuthUser, get_current_user
 from api.deps import supabase_for
+from schemas.outputs import FullReport
 
 router = APIRouter(prefix="/run", tags=["run"])
+
+SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+
+# Welche Formate kennt die Pipeline + welcher Content-Type gehört dazu.
+_DELIVERABLE_CONTENT_TYPES = {
+    "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+}
+
+
+def _load_full_report(sb, run_id: str) -> FullReport:
+    """Lädt das vom Reporter aggregierte FullReport-Result eines Runs."""
+    res = (
+        sb.table("run_results")
+        .select("output")
+        .eq("run_id", run_id)
+        .eq("agent_name", "full_report")
+        .maybe_single()
+        .execute()
+    )
+    if not res or not res.data or not res.data.get("output"):
+        raise HTTPException(status_code=409, detail="Run hat noch kein fertiges full_report-Ergebnis")
+    try:
+        return FullReport.model_validate(res.data["output"])
+    except Exception as e:  # pragma: no cover - defensiv
+        raise HTTPException(status_code=500, detail=f"full_report nicht lesbar: {e}")
+
+
+def _upload_deliverable(run_id: str, fmt: str, content: bytes, user_jwt: str) -> str:
+    """Lädt ein generiertes Deliverable in den deliverables-Bucket (User-JWT → RLS)."""
+    storage_path = f"{run_id}/report.{fmt}"
+    upload_url = f"{SUPABASE_URL}/storage/v1/object/deliverables/{storage_path}"
+    headers = {
+        "Authorization": f"Bearer {user_jwt}",
+        "apikey": SUPABASE_ANON_KEY,
+        "Content-Type": _DELIVERABLE_CONTENT_TYPES[fmt],
+        "x-upsert": "true",
+    }
+    try:
+        with httpx.Client(timeout=60.0) as cx:
+            up = cx.post(upload_url, headers=headers, content=content)
+        if up.status_code >= 300:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Deliverable-Upload fehlgeschlagen ({fmt}): {up.status_code} · {up.text[:200]}",
+            )
+    except httpx.HTTPError as e:
+        raise HTTPException(status_code=500, detail=f"Deliverable-Upload-Netzwerkfehler: {e}")
+    return storage_path
 
 
 class RunStartPayload(BaseModel):
@@ -77,6 +131,36 @@ def get_run(run_id: str, user: AuthUser = Depends(get_current_user)):
     return {
         "run": run.data,
         "results": {r["agent_name"]: r["output"] for r in (results.data or [])},
+    }
+
+
+@router.post("/{run_id}/generate")
+def generate_deliverables(run_id: str, user: AuthUser = Depends(get_current_user)):
+    """Generiert PPTX (ALE-32) + XLSX (ALE-33) aus dem FullReport und legt sie
+    im deliverables-Bucket ab. Danach via GET /run/{run_id}/download/{fmt} abrufbar.
+
+    Die eigentliche Generierung liegt in report_builders/pptx_generator.py + report_builders/excel_generator.py.
+    """
+    sb = supabase_for(user)
+    run = sb.table("runs").select("status, companies(owner_id)").eq("id", run_id).maybe_single().execute()
+    if not run or not run.data or run.data["companies"]["owner_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Run gehört nicht dem User")
+
+    report = _load_full_report(sb, run_id)
+
+    # Generatoren aus den dedizierten Output-Modulen (ALE-32 / ALE-33)
+    from report_builders import build_excel, build_pptx
+
+    pptx_bytes = build_pptx(report)
+    xlsx_bytes = build_excel(report)
+
+    pptx_path = _upload_deliverable(run_id, "pptx", pptx_bytes, user.jwt)
+    xlsx_path = _upload_deliverable(run_id, "xlsx", xlsx_bytes, user.jwt)
+
+    return {
+        "run_id": run_id,
+        "generated": ["pptx", "xlsx"],
+        "paths": {"pptx": pptx_path, "xlsx": xlsx_path},
     }
 
 
