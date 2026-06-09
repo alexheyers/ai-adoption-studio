@@ -149,6 +149,16 @@ def run_pipeline_async(run_id: str, briefing_dict: dict, user_jwt: str) -> None:
         )
         save_agent_output(client, run_id, "full_report", report.model_dump(mode="json"))
 
+        # 9b. System-Architect — Stufe 2: Ziel-Systemlandschaft aus dem Report ableiten
+        update_run_step(client, run_id, "system_architect")
+        try:
+            from agents import system_architect
+            report.system_landscape = system_architect.run(briefing, report)
+            save_agent_output(client, run_id, "system_landscape", report.system_landscape.model_dump(mode="json"))
+        except Exception as e:
+            print(f"[pipeline] system_architect fehlgeschlagen: {e}")
+        time.sleep(_PAUSE_SECONDS)
+
         # 10. Deliverables
         update_run_step(client, run_id, "deliverables")
         _generate_and_upload_deliverables(client, run_id, report)
@@ -165,32 +175,27 @@ def run_pipeline_async(run_id: str, briefing_dict: dict, user_jwt: str) -> None:
 
 
 def _generate_and_upload_deliverables(client, run_id: str, report: "FullReport") -> dict[str, str]:
-    """Generiert Excel/PPTX/PDF, lädt in Storage-Bucket "deliverables"."""
-    from outputs.excel_generator import generate_excel
-    from outputs.pptx_generator import generate_pptx
-    from outputs.pdf_generator import generate_pdf
+    """Generiert Excel + PPTX (Bytes) und lädt sie in den Storage-Bucket "deliverables".
 
+    Nutzt report_builders.build_* (Rückgabe = Bytes). PDF-Generator ist noch offen (eigene Story).
+    """
+    from report_builders import build_excel, build_pptx
+
+    generators = [
+        ("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", build_excel),
+        ("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation", build_pptx),
+    ]
     out_paths: dict[str, str] = {}
-    with tempfile.TemporaryDirectory() as td:
-        td_path = Path(td)
-        generators = [
-            ("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", generate_excel),
-            ("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation", generate_pptx),
-            ("pdf",  "application/pdf", generate_pdf),
-        ]
-        for ext, mime, fn in generators:
-            try:
-                local = td_path / f"report.{ext}"
-                fn(report, local)
-                with local.open("rb") as f:
-                    content = f.read()
-                storage_path = f"{run_id}/report.{ext}"
-                client.storage.from_("deliverables").upload(
-                    path=storage_path,
-                    file=content,
-                    file_options={"content-type": mime, "upsert": "true"},
-                )
-                out_paths[ext] = storage_path
-            except Exception as e:
-                print(f"[deliverables] {ext} fehlgeschlagen: {e}")
+    for ext, mime, fn in generators:
+        try:
+            content = fn(report)  # -> bytes
+            storage_path = f"{run_id}/report.{ext}"
+            client.storage.from_("deliverables").upload(
+                path=storage_path,
+                file=content,
+                file_options={"content-type": mime, "upsert": "true"},
+            )
+            out_paths[ext] = storage_path
+        except Exception as e:
+            print(f"[deliverables] {ext} fehlgeschlagen: {e}")
     return out_paths

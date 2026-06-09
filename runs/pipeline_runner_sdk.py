@@ -102,6 +102,15 @@ def run_pipeline_async(run_id: str, briefing_dict: dict, user_jwt: str) -> None:
         report: FullReport = results["reporter"].output
         save_agent_output(client, run_id, "full_report", report.model_dump(mode="json"))
 
+        # System-Architect — Stufe 2: Ziel-Systemlandschaft (Post-Step, nicht im SDK-Registry)
+        update_run_step(client, run_id, "system_architect")
+        try:
+            from agents import system_architect
+            report.system_landscape = system_architect.run(briefing, report)
+            save_agent_output(client, run_id, "system_landscape", report.system_landscape.model_dump(mode="json"))
+        except Exception as exc:
+            print(f"[pipeline-sdk] system_architect fehlgeschlagen: {exc}")
+
         # Deliverables — Funktion aus dem bestehenden Runner wiederverwenden.
         update_run_step(client, run_id, "deliverables")
         from runs.pipeline_runner import _generate_and_upload_deliverables

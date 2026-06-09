@@ -8,7 +8,7 @@ from schemas.briefing import Briefing
 from schemas.outputs import FullReport
 from agents import (
     process_auditor, use_case_generator, tool_recommender, roi_calculator,
-    compliance_checker, roadmap_generator, reporter,
+    compliance_checker, roadmap_generator, reporter, system_architect,
 )
 
 # Pause zwischen Agent-Calls, um Anthropic-Rate-Limit (Tier 1: 30k Tokens/Min) zu schonen.
@@ -69,6 +69,16 @@ def run_pipeline(briefing: Briefing, verbose: bool = True, with_research: bool =
         briefing, audit, use_cases, tools, roi,
         compliance=compliance, roadmap=roadmap, web_research=web_research_output,
     )
+
+    # [8] System-Architect — Stufe 2: aus dem Report die Ziel-Systemlandschaft ableiten
+    if verbose: print("[8/8] System-Architect (Stufe 2: Ziel-Systemlandschaft) …")
+    try:
+        report.system_landscape = system_architect.run(briefing, report)
+        if verbose:
+            sl = report.system_landscape
+            print(f"      → {len(sl.nodes)} Knoten, {len(sl.connections)} Verbindungen, {len(sl.automations)} Automationen")
+    except Exception as e:
+        if verbose: print(f"      ! system_architect fehlgeschlagen: {e}")
 
     if verbose: print("\n=== Pipeline fertig ===\n")
     return report

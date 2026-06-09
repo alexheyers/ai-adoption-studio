@@ -2,6 +2,8 @@
 from typing import Literal
 from pydantic import BaseModel, Field
 
+from schemas.system_landscape import SystemLandscape  # Stufe 2 (DESIGNEN)
+
 
 class ProcessTouchpoint(BaseModel):
     """Ein einzelner System-Berührungspunkt (PMS, POS, Channel-Manager etc.)."""
@@ -306,4 +308,5 @@ class FullReport(BaseModel):
     compliance: ComplianceOutput | None = None
     roadmap: RoadmapOutput | None = None
     web_research: WebResearchOutput | None = None
+    system_landscape: SystemLandscape | None = Field(default=None, description="Stufe 2: aus dem Report abgeleitete Ziel-Systemlandschaft (system_architect)")
     executive_summary: str = Field(description="3-4 Sätze Top-Empfehlung für CEO")
