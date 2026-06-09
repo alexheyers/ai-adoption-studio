@@ -4,7 +4,7 @@
 > **Projekt:** AI-Adoption-Studio
 > **Stand:** 09.06.2026
 > **Autor-Kontext:** Alex Heyers · Vibe Coding Bootcamp (Digitale Leute School, Kohorte 05/26)
-> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = BIZ26-SaaS danach
+> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = kommerzielles SaaS-Produkt danach
 > **Prüfgegenstand (real gelesen):** `docs/plan/01-product-brief.md`, `docs/plan/02-prd.md`, `docs/plan/03-architecture.md`, `docs/plan/04-epics-and-stories.md`
 > **Lesart:** Dies ist eine bewusst feindselige Prüfung durch die Brille eines skeptischen Lead-Architekten + Product-Owners. Ziel ist nicht, die Pläne zu loben, sondern ihre Bruchstellen zu finden, bevor die Zeit es tut. Jeder offene Punkt endet mit einer **dokumentierten Entscheidungs-Vorlage inkl. Empfehlung** — keine Rückfragen, da Alex aktuell keine Fragen beantwortet.
 
@@ -90,7 +90,7 @@ Wo ich „unbelegt" schreibe, meine ich: Die Aussage steht in den Plänen als ge
 
 **T2 — AI-Act: Das Studio gibt geschäftskritische Empfehlungen — Einordnung des eigenen Systems fehlt.** NFR-3 fordert eine AI-Act-Risikoklasse **pro Use-Case** (Output). Niemand klassifiziert das **Studio selbst**. Ein System, das automatisiert Investitions-/ROI-/Organisations-Empfehlungen erzeugt, könnte je nach Auslegung über „minimal risk" liegen, sobald es in HR-nahe oder bonitätsnahe Kontexte hineinempfiehlt. Der Disclaimer „ersetzt keine Rechtsberatung" deckt das **eigene** Produkt-Risiko nicht ab. Für H1 (Demo) irrelevant, für H2 ein offenes Tor.
 
-**T3 — Generiertes-und-deploytes n8n-JSON ist eine Remote-Code-Ausführungs-Fläche.** Stufe 3 generiert per LLM Workflow-JSON und deployt es auf eine **live** VPS-n8n-Instanz. Ein halluziniertes oder (in H2, mit echten Credentials) bösartig promptbares JSON kann auf dem VPS reale Aktionen auslösen. Der Plan nennt nur einen Pre-Deploy-grep auf Marken-/Münster-Begriffe (NFR-9) — das ist eine **String-Prüfung, keine Sicherheits-Validierung**. `n8n_validate_workflow` prüft Schema-Validität, nicht Harmlosigkeit. In H2 mit dem Credential-Vault wird das zu einer ernsten Injection-/Privilege-Fläche, die im Sicherheitskonzept fehlt.
+**T3 — Generiertes-und-deploytes n8n-JSON ist eine Remote-Code-Ausführungs-Fläche.** Stufe 3 generiert per LLM Workflow-JSON und deployt es auf eine **live** VPS-n8n-Instanz. Ein halluziniertes oder (in H2, mit echten Credentials) bösartig promptbares JSON kann auf dem VPS reale Aktionen auslösen. Der Plan nennt nur einen Pre-Deploy-grep auf Marken-/falscher Wohnort-Begriffe (NFR-9) — das ist eine **String-Prüfung, keine Sicherheits-Validierung**. `n8n_validate_workflow` prüft Schema-Validität, nicht Harmlosigkeit. In H2 mit dem Credential-Vault wird das zu einer ernsten Injection-/Privilege-Fläche, die im Sicherheitskonzept fehlt.
 
 **T4 — Service-Role-Key umgeht RLS — der einzige Schutz ist Backend-Disziplin.** Architektur Z. 100/279 sagt offen: Das Backend umgeht RLS „gezielt über den Service-Role-Key". Damit ist RLS **kein** Schutz gegen einen Bug in der Backend-Autorisierungslogik (jeder Endpoint, der `company_id` nicht streng gegen `auth.uid()` prüft, leakt über alle Tenants). FR-33/NFR-1 verkaufen RLS als Isolations-Garantie; faktisch ist die Garantie nur so stark wie die manuelle Ownership-Prüfung in jedem einzelnen Router. Das Security-Audit (ALE-40, EPIC-8/Story-5) muss genau das zum Schwerpunkt machen — heute ist es nur eine generische „Backlog"-Story.
 

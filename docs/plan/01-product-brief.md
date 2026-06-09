@@ -4,14 +4,14 @@
 > **Projekt:** AI-Adoption-Studio
 > **Stand:** 09.06.2026
 > **Autor-Kontext:** Alex Heyers · Vibe Coding Bootcamp (Digitale Leute School, Kohorte 05/26)
-> **Horizonte:** H1 = Portfolio-Demo bis Final-Pitch 21.07.2026 · H2 = BIZ26-SaaS danach
+> **Horizonte:** H1 = Portfolio-Demo bis Final-Pitch 21.07.2026 · H2 = kommerzielles SaaS-Produkt danach
 > **Quellen:** `AI-ADOPTION-STUDIO.md` (Master-Spec, Architektur 2.1, Stand 13.05.), `schemas/outputs.py`, `agents/`, `knowledge/`, `docs/sdk-architecture.md`, 46 Linear-Issues (Team ALE, Milestones P1–P5), Recherche-Digests Lens 1–3 (09.06.)
 
 ---
 
 ## Executive Summary
 
-Das AI-Adoption-Studio ist eine Multi-Agent-Plattform, die KI-Adoptions-Beratung im Mittelstand automatisiert — erster vertikaler Fall: Hospitality DACH, konzeptionell aber branchenagnostisch gedacht ("Hotel oder anderes Prinzip"). Es hat zwei Zwecke in klarer Priorität: **primär** ist es Alex Heyers' Bewerbungs-Portfolio, das ihn als Vibe Coder und Solutions Engineer beweist (Final-Pitch 21.07.2026); **sekundär** ist es die Keimzelle eines echten BIZ26-SaaS-Produkts danach.
+Das AI-Adoption-Studio ist eine Multi-Agent-Plattform, die KI-Adoptions-Beratung im Mittelstand automatisiert — erster vertikaler Fall: Hospitality DACH, konzeptionell aber branchenagnostisch gedacht ("Hotel oder anderes Prinzip"). Es hat zwei Zwecke in klarer Priorität: **primär** ist es Alex Heyers' Bewerbungs-Portfolio, das ihn als Vibe Coder und Solutions Engineer beweist (Final-Pitch 21.07.2026); **sekundär** ist es die Keimzelle eines echten kommerzielles SaaS-Produkt-Produkts danach.
 
 Der entscheidende Schärfungs-Schritt vom 09.06.2026: Das Produkt ist **nicht** ein KI-Audit- oder Report-Tool. Das Audit ist nur **Stufe 1**. Das vollständige Produkt hat **drei Stufen** — **Verstehen → Designen → Bauen/Orchestrieren**. Heute deckt die Codebasis (FastAPI-Backend, 7 Multi-Agenten, Voice-Agent "Ada", Supabase, PPTX/Excel-Report) zusammen mit den 46 bestehenden Linear-Issues praktisch ausschließlich **Stufe 1 (Verstehen)** ab. Stufe 2 (System-Design-Generator) und Stufe 3 (Build-/Orchestrierungs-Plattform) sind im Plan bisher **nicht modelliert**. Dieser Brief setzt die Vision für genau diese Lücke und trennt dabei diszipliniert nach Horizont: Was ist **H1** (lauffähige, beeindruckende Demo bis zum Pitch) und was ist **H2** (zahlende Kunden, Multi-Tenant, Production).
 
@@ -86,7 +86,7 @@ Die Personas unterscheiden sich fundamental zwischen den Horizonten. In H1 ist d
 - *Job-to-be-done:* Verstehen, wo der Betrieb KI/Automation einsetzen kann, ohne sich in Tool-Jargon zu verlieren.
 - *Funktion in H1:* Liefert den glaubwürdigen, branchentiefen Anwendungsfall, an dem die drei Stufen demonstriert werden. Dient der Erzählung, ist aber kein zahlender Nutzer.
 
-### H2 — BIZ26-SaaS danach
+### H2 — kommerzielles SaaS-Produkt danach
 
 **Persona C — "Der KMU-/Mittelstands-Entscheider DACH" (zahlender Self-Service-Kunde).**
 - *Wer:* Inhaber:in / Geschäftsführung / Ops-Lead eines KMU im Mittelstand DACH — zuerst Hospitality, dann über die heutigen Stubs (Retail, Healthcare) hinaus branchenagnostisch.
@@ -131,7 +131,7 @@ Ziel: eine lauffähige, beeindruckende Demo, die Alex als Vibe Coder / Solutions
 
 Vorgeschlagener neuer Milestone für H1: **"P6 · System-Design-Demo"** (~21.06.–14.07., parallel zu P4) mit Epics: (E1) `SystemLandscape`-Schema + Validierungspass · (E2) `system_architect`-Agent additiv via `agent_patterns` · (E3) Ist→Ziel-Graph-Renderer · (E4) Report-Integration · (E5) Stufe-3-Teaser (1 n8n-Flow generiert + deployt).
 
-### Scope H2 — BIZ26-SaaS (post-Bootcamp)
+### Scope H2 — kommerzielles SaaS-Produkt (post-Bootcamp)
 
 Ziel: echtes Produkt mit zahlenden Kunden.
 
@@ -155,7 +155,7 @@ Vorgeschlagener neuer Milestone für H2: **"P7 · Orchestrierungs-Plattform"** m
 - Der Ist→Ziel-Systemlandschafts-Graph wird für den Mock-Hotel-Fall live gerendert und ist in unter 10 Sekunden als "aus Bedürfnissen wird Struktur" verständlich.
 - Mindestens **eine** Automation wird im Pitch real generiert, validiert und deployt — kein Slide, sondern ein laufender Flow.
 - Der Final-Pitch B05-23 am 21.07. wird ohne erfundene Zahlen gehalten; jede gezeigte Verbindung hat einen realen Mechanismus (Integritäts-Guardrail bestanden).
-- Alle Projekt-Leitplanken sind erfüllt (kein BIZ26/KI-Boutique im Repo, kein Münster, echte Umlaute, Trevor-Noah-Voice in Texten).
+- Alle Projekt-Leitplanken sind erfüllt (kein interne Eigenmarke/Eigenmarke im Repo, kein falscher Wohnort, echte Umlaute, Trevor-Noah-Voice in Texten).
 
 ### H2 — North-Star: "Zahlt ein KMU-Entscheider für eine real gebaute und betriebene Ziel-Landschaft?"
 
@@ -196,7 +196,7 @@ Vorgeschlagener neuer Milestone für H2: **"P7 · Orchestrierungs-Plattform"** m
 
 **Explizit NICHT Teil dieses Produkts (jeglicher Horizont):**
 - Die **Meta-Delivery-Plattform** (Studio baut sich selbst per Email-One-Click / VPS-Webhook, Linear ALE-44/49/50) — das ist ein **separates** internes Werkzeug, kein Endkunden-Feature, und darf mit Stufe 3 nicht vermischt werden.
-- Branchen-/Tonalitäts-Verstöße gegen die Projekt-Leitplanken (BIZ26/KI-Boutique-Nennung im Repo, "Münster", ae/oe/ue-Schreibung) — harte No-Gos, kein Scope-Thema.
+- Branchen-/Tonalitäts-Verstöße gegen die Projekt-Leitplanken (interne Eigenmarke/Eigenmarke-Nennung im Repo, "falscher Wohnort", ae/oe/ue-Schreibung) — harte No-Gos, kein Scope-Thema.
 
 ---
 

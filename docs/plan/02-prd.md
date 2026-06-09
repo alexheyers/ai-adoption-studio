@@ -4,7 +4,7 @@
 > **Projekt:** AI-Adoption-Studio
 > **Stand:** 09.06.2026
 > **Autor-Kontext:** Alex Heyers · Vibe Coding Bootcamp (Digitale Leute School, Kohorte 05/26)
-> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = BIZ26-SaaS danach
+> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = kommerzielles SaaS-Produkt danach
 > **Vorgelagert:** `docs/plan/01-product-brief.md` (Vision & Scope, 3-Stufen-Modell)
 > **Quellen (real gelesen):** `schemas/outputs.py`, `schemas/briefing.py`, `agents/orchestrator.py`, `docs/sdk-architecture.md`, `supabase/migrations/20260509_001_init.sql`, `api/routers/run.py`, `knowledge/vendor_landscape.yaml`, `AI-ADOPTION-STUDIO.md`
 
@@ -28,7 +28,7 @@ Das AI-Adoption-Studio soll ein mittelständisches Unternehmen (Erstfall: Hotel 
 ### Doppelter Zweck (Priorität fest)
 
 1. **Primär — Karriere-Asset (H1):** lauffähige, beeindruckende Demo, die Alex als Vibe Coder / Solutions Engineer beweist. Erfolg = ein Hiring-Manager lädt nach der Demo zum Gespräch ein.
-2. **Sekundär — BIZ26-SaaS (H2):** echtes Multi-Tenant-Produkt mit zahlenden Kunden danach.
+2. **Sekundär — kommerzielles SaaS-Produkt (H2):** echtes Multi-Tenant-Produkt mit zahlenden Kunden danach.
 
 ### Belegter Ist-Stand (Anker für die Anforderungen)
 
@@ -145,7 +145,7 @@ Alex nutzt das Studio als Beratungs-Werkzeug bei eigenen Kunden: vom Erst-Gespr�
 | **NFR-6** | **Kosten** | Agent-Token-Verbrauch MUSS pro Run nachvollziehbar sein (`run_results.tokens_input`/`tokens_output`); die Pipeline MUSS für die Demo innerhalb des Anthropic-Tier-1-Budgets laufen. | [H1] |
 | **NFR-7** | **Security** | Secrets/API-Keys MÜSSEN aus `.env` geladen, niemals ins Repo committet werden; Service-Role-Key umgeht RLS nur backend-seitig. In H2 MÜSSEN Konnektor-Credentials verschlüsselt und Tenant-scoped abgelegt sein. | [H1]/[H2] |
 | **NFR-8** | **Ehrlichkeit/Integrität** | Es DÜRFEN keine erfundenen Zahlen oder als "fertig" verkaufte leere Features gezeigt werden. Jede gezeigte Verbindung MUSS einen realen Mechanismus haben (Integritäts-Guardrail, FR-21). | [H1] |
-| **NFR-9** | **Projekt-Leitplanken** | Das Repo DARF nirgends "BIZ26"/"KI-Boutique" enthalten; "Münster" ist verboten; echte Umlaute (ä/ö/ü) statt ae/oe/ue überall; Trevor-Noah-Voice in Texten. Pre-Deploy-grep Pflicht. | [H1]/[H2] |
+| **NFR-9** | **Projekt-Leitplanken** | Das Repo DARF nirgends "interne Eigenmarke"/"Eigenmarke" enthalten; "falscher Wohnort" ist verboten; echte Umlaute (ä/ö/ü) statt ae/oe/ue überall; Trevor-Noah-Voice in Texten. Pre-Deploy-grep Pflicht. | [H1]/[H2] |
 | **NFR-10** | **Wartbarkeit/Erweiterbarkeit** | Neue Agenten MÜSSEN additiv via `agent_patterns` (3-Schritt-Registrierung, kein Core-Eingriff) eingehängt werden; Output-Schemas (`schemas/`) bleiben für SDK- und Legacy-Pfad identisch. | [H1] |
 | **NFR-11** | **Deploybarkeit** | Das System MUSS auf den bestehenden Deploy-Zielen (Vercel Frontend / Hostinger-VPS Backend, n8n self-hosted) lauffähig sein. | [H1] |
 | **NFR-12** | **Auditierbarkeit** | In H2 MÜSSEN Multi-Tenant-Isolation und Credential-Zugriffe auditierbar protokolliert werden. | [H2] |
@@ -252,7 +252,7 @@ Neuer Milestone **"P6 · System-Design-Demo"** (~21.06.–14.07., parallel zu P4
 
 - **Given** der fertige Demo-Stand vor dem Pitch,
 - **When** der Pre-Deploy-Check läuft,
-- **Then** findet ein grep auf "BIZ26"/"KI-Boutique"/"Münster"/"ae|oe|ue" (in betroffenen Kontexten) **keine** Treffer,
+- **Then** findet ein grep auf "interne Eigenmarke"/"Eigenmarke"/"falscher Wohnort"/"ae|oe|ue" (in betroffenen Kontexten) **keine** Treffer,
 - **And** keine im Pitch gezeigte Zahl ist erfunden, keine Kante ohne realen Mechanismus, kein leeres Feature als "fertig" deklariert.
 
 ### AC-7 — Mandanten-Isolation H2 (FR-35, NFR-1)

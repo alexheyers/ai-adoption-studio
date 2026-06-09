@@ -96,7 +96,7 @@ Auf Alex' Frage hin diagnostiziert:
 - Echte Vision lebt entkoppelt in `AI-ADOPTION-STUDIO.md` + Notion.
 
 **Aufgelöste Weichen (Entscheidung Alex, 09.06.):**
-1. **Endprodukt = beides, gestaffelt** — H1 Portfolio-Demo bis Pitch 21.07. → H2 BIZ26-SaaS.
+1. **Endprodukt = beides, gestaffelt** — H1 Portfolio-Demo bis Pitch 21.07. → H2 kommerzielles SaaS-Produkt.
 2. **Vorgehen = Full-BMAD-Planung** des Gesamtprodukts.
 
 **Erweiterte 3-Stufen-Produktvision:** Das Audit ist nur **Stufe 1**. Das eigentliche Produkt: (1) Verstehen (Voice+Docs) → (2) komplette Ziel-**Systemlandschaft designen** → (3) Systeme **bauen/orchestrieren** (alle Tools verbinden). Branchenagnostisch (Hotel = erster vertikaler Fall).

@@ -4,7 +4,7 @@
 > **Projekt:** AI-Adoption-Studio
 > **Stand:** 09.06.2026
 > **Autor-Kontext:** Alex Heyers · Vibe Coding Bootcamp (Digitale Leute School, Kohorte 05/26)
-> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = BIZ26-SaaS danach
+> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = kommerzielles SaaS-Produkt danach
 > **Vorgelagert:** `docs/plan/01-product-brief.md`, `docs/plan/02-prd.md`
 > **Quellen (real gelesen, nicht geraten):** `api/main.py`, `api/routers/run.py`, `agents/orchestrator.py`, `schemas/outputs.py`, `schemas/briefing.py`, `docs/sdk-architecture.md`, `supabase/migrations/20260509_001_init.sql`, `knowledge/vendor_landscape.yaml`, `config.py`, `requirements.txt`, `docker-compose.yml`, `web/app/*`, `agent_patterns/`
 
@@ -230,7 +230,7 @@ Der Compiler-Output geht durch `n8n_validate_workflow` (lokale Validierung, kein
   - Nur Automationen mit `buildable_now=true` UND bestandenem Integritäts-Pass dürfen kompiliert werden.
   - Jeder deployte Flow ist im UI/Pitch **ehrlich gerahmt** („gegen echte API live schaltbar", nie „produktiv fertig" — FR-28, NFR-8).
   - n8n-MCP `n8n_validate_workflow` ist ein **harter Gate** vor jedem Deploy.
-  - Pre-Deploy-grep (NFR-9): kein „BIZ26"/„KI-Boutique"/„Münster", echte Umlaute — auch im generierten Workflow-JSON.
+  - Pre-Deploy-grep (NFR-9): kein „interne Eigenmarke"/„Eigenmarke"/„falscher Wohnort", echte Umlaute — auch im generierten Workflow-JSON.
 
 ---
 
@@ -278,7 +278,7 @@ Bestehend (unverändert): `profiles`, `companies`, `documents`, `web_research`, 
 - **H2 — echte Tenant-Isolation:** Tenant-Slug/Namespace-Spalte zusätzlich zu `owner_id` (FR-35); RLS-Policies um Tenant-Scope erweitert; Cross-Tenant-Zugriff technisch ausgeschlossen + **auditierbar protokolliert** (NFR-12, AC-7).
 - **Credentials/Secrets (NFR-7):** API-Keys ausschließlich aus `.env` (siehe `config.py`, hartes `RuntimeError` bei fehlendem Key) — nie im Repo. Service-Role-Key umgeht RLS **nur** backend-seitig. Stufe-3-Konnektor-Credentials in H2 verschlüsselt + Tenant-scoped (`connector_credentials`).
 - **DSGVO/AI-Act (NFR-2/3):** EU-Hosting für Firmendaten möglich; `VendorComplianceBlock.eu_hosting`/`avv_available` im Schema; jede Stufe-2-Kante mit personenbezogenen Datenflüssen trägt `dsgvo_personal_data`; AI-Act-Risikoklasse je Use-Case/Empfehlung; Disclaimer „ersetzt keine Rechtsberatung" bleibt.
-- **Leitplanken (NFR-9):** Pre-Deploy-grep auf „BIZ26"/„KI-Boutique"/„Münster"/falsche Umlaute — Pflicht-Gate vor jedem Deploy, auch auf generiertes n8n-JSON.
+- **Leitplanken (NFR-9):** Pre-Deploy-grep auf „interne Eigenmarke"/„Eigenmarke"/„falscher Wohnort"/falsche Umlaute — Pflicht-Gate vor jedem Deploy, auch auf generiertes n8n-JSON.
 
 ---
 

@@ -4,7 +4,7 @@
 > **Projekt:** AI-Adoption-Studio
 > **Stand:** 09.06.2026
 > **Autor-Kontext:** Alex Heyers · Vibe Coding Bootcamp (Digitale Leute School, Kohorte 05/26)
-> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = BIZ26-SaaS danach
+> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 · **H2** = kommerzielles SaaS-Produkt danach
 > **Vorgelagert:** `docs/plan/01-product-brief.md`, `docs/plan/02-prd.md`, `docs/plan/03-architecture.md`
 > **Linear-Anker (real verifiziert, Team ALE):** 50 Issues ALE-1…ALE-50, Milestones P1 (100%) · P2 (52%) · P3 (3%) · P4 (17%) · P5 (4%); Targets P3 30.06., P4 14.07., P5 20.07.
 
@@ -161,7 +161,7 @@
 5. 🆕 Als **Operator** möchte ich, dass `n8n_validate_workflow` als **harter Gate** vor jedem Deploy läuft (kein Fehler = Freigabe), um nur valide Flows live zu schalten (FR-27). **(S)**
 6. 🆕 Als **Hiring-Manager** möchte ich im Pitch sehen, wie der Flow live generiert, validiert und gegen Sandbox deployt wird (lauffähig, kein Mockup-Screenshot), um zu glauben, dass „bauen" kein Buzzword ist (AC-4). **(M)**
 7. 🆕 Als **Hiring-Manager** möchte ich, dass der Teaser ehrlich als „gegen echte API live schaltbar" gerahmt ist — nie als produktiv fertig (FR-28, NFR-8), um Substanz statt Hochglanz zu erleben. **(S)**
-8. 🆕 Als **Entwickler** möchte ich den Pre-Deploy-grep (NFR-9) auch über das **generierte n8n-JSON** laufen lassen (kein BIZ26/KI-Boutique/Münster, echte Umlaute), um die Leitplanken auch im erzeugten Artefakt zu halten. **(S)**
+8. 🆕 Als **Entwickler** möchte ich den Pre-Deploy-grep (NFR-9) auch über das **generierte n8n-JSON** laufen lassen (kein interne Eigenmarke/Eigenmarke/falscher Wohnort, echte Umlaute), um die Leitplanken auch im erzeugten Artefakt zu halten. **(S)**
 
 ---
 
@@ -177,13 +177,13 @@
 3. Als **Hiring-Manager** möchte ich, dass der Ist→Ziel-Graph live für das Mock-Hotel rendert (DoD-2), um die Designen-Stufe selbst zu sehen. **(S)** — *speist EPIC-6*
 4. Als **Hiring-Manager** möchte ich, dass mindestens eine Automation im Pitch real deployt wird (DoD-3), um den Bauen-Beweis zu erleben. **(S)** — *speist EPIC-7*
 5. Als **Entwickler** möchte ich ein Security-Audit (JWT, RLS, Secrets aus `.env`, NFR-7), um keine offensichtliche Lücke im Demo-System zu haben. **(M)** — *ALE-40 (Backlog)*
-6. Als **Entwickler** möchte ich einen Pre-Deploy-grep auf „BIZ26"/„KI-Boutique"/„Münster"/falsche Umlaute über das **gesamte** Repo inkl. generierter Artefakte (NFR-9, AC-6), um die Leitplanken hart durchzusetzen. **(S)** — 🆕 *(als Gate noch nicht als Issue)*
+6. Als **Entwickler** möchte ich einen Pre-Deploy-grep auf „interne Eigenmarke"/„Eigenmarke"/„falscher Wohnort"/falsche Umlaute über das **gesamte** Repo inkl. generierter Artefakte (NFR-9, AC-6), um die Leitplanken hart durchzusetzen. **(S)** — 🆕 *(als Gate noch nicht als Issue)*
 7. Als **Hiring-Manager** möchte ich, dass der Integritäts-Guardrail (FR-21) vor dem Pitch grün ist und keine Kante ohne realen Mechanismus existiert (DoD-4, NFR-8), um Substanz statt Behauptung zu sehen. **(S)** — *speist EPIC-4*
 8. Als **Operator** möchte ich die volle Pipeline (Stufe 1→2→3) als E2E-Smoke-Test gegen das Mock-Hotel laufen lassen, um vor dem Pitch Regressionen auszuschliessen. **(M)** — *ALE-37 (In Review), erweitert um Stufe 2/3* 🆕
 
 ---
 
-# HORIZONT H2 — BIZ26-SaaS danach
+# HORIZONT H2 — kommerzielles SaaS-Produkt danach
 
 ---
 
@@ -299,7 +299,7 @@ Klammer über beide Horizonte; trägt die Vision „Verstehen → Designen → B
 | Projekt | Inhalt | Status |
 |---|---|---|
 | **`Studio H1 · Portfolio-Demo`** | bestehendes Projekt „AI Adoption Studio" umbenannt/erweitert; trägt P1–P5 **plus neuen Milestone P6** | bestehend, erweitert |
-| **`Studio H2 · BIZ26-SaaS`** | neues Projekt für den Post-Bootcamp-Ausbau; trägt neuen Milestone **P7** | **neu** |
+| **`Studio H2 · kommerzielles SaaS-Produkt`** | neues Projekt für den Post-Bootcamp-Ausbau; trägt neuen Milestone **P7** | **neu** |
 
 > Pragmatische Alternative (weniger Umbau): alles im bestehenden Projekt belassen und nur **P6** und **P7** als Milestones ergänzen — Horizont-Trennung dann rein über Milestone + Label.
 

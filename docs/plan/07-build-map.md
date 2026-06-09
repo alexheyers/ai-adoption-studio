@@ -3,7 +3,7 @@
 > **Dokument-Typ:** Bau-Übersicht (Synthese der 6 Cluster-Dekompositionen)
 > **Erzeugt:** 2026-06-09 · gegen den realen Code im Worktree `ai-adoption-studio-auto` (main) verifiziert
 > **Produkt:** 3-Stufen-Plattform — **Stufe 1 Verstehen** · **Stufe 2 Systemlandschaft designen** · **Stufe 3 bauen/orchestrieren**
-> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 → lauffähige URL auf `myflowmotion.cloud` · **H2** = BIZ26-SaaS danach
+> **Horizonte:** **H1** = Portfolio-Demo bis Final-Pitch 21.07.2026 → lauffähige URL auf `myflowmotion.cloud` · **H2** = kommerzielles SaaS-Produkt danach
 
 ---
 
@@ -86,7 +86,7 @@ Diese Datei ist die operative Zusammenführung der sechs Cluster-Dekompositionen
 | BM-S3-13 | H2: Verschlüsselter Tenant-scoped Credential-Vault | H2 | 3 | L | neu | `supabase/migrations/…005_system_design.sql`, `agents/_supabase.py` | BM-S3-12 |
 | BM-S3-14 | H2: Bundle-Deploy ganze Landschaft (FR-32) | H2 | 3 | L | neu | `builders/deploy.py`, orchestration_runs | BM-S3-11, BM-S3-13 |
 | BM-S3-15 | H2: Orchestration-Monitoring + ROI-Nachhalten (FR-31) | H2 | 3 | M | neu | `…005_…sql` (orchestration_runs), n8n-MCP, `web/app/dashboard` | BM-S3-14 |
-| BM-EN-01 | Zug 0a: SSH-Pubkey claude-code-deploy auf VPS authorisieren | H1 | Engine | S | teilweise | VPS `~/.ssh/authorized_keys`, `~/.ssh/biz26_vps_claude.pub` | — |
+| BM-EN-01 | Zug 0a: SSH-Pubkey claude-code-deploy auf VPS authorisieren | H1 | Engine | S | teilweise | VPS `~/.ssh/authorized_keys`, `~/.ssh/<dein-vps-deploy-key>.pub` | — |
 | BM-EN-02 | Zug 0b: Anthropic-Key (CMA-Beta) sicher auf VPS hinterlegen | H1 | Engine | S | neu | VPS `/opt/ai-adoption-agent/.env` | BM-EN-01 |
 | BM-EN-03 | ai-adoption-agent-Repo auf VPS deployen (/opt/ai-adoption-agent) | H1 | Engine | M | teilweise | VPS `/opt/ai-adoption-agent`, `~/…/ai-adoption-agent/*` | BM-EN-01, BM-EN-02 |
 | BM-EN-04 | ALE-45: n8n-Bridge Token-Auth härten | H1 | Engine | S | teilweise | n8n-Workflow „vps-bridge", `scripts/vps.sh` | — |
@@ -245,7 +245,7 @@ WIE: Orchestrator-Sequenz aus `agents/orchestrator.py` übernehmen, je Agent `sa
 
 **BM-S3-06 · Validierungs-Gate n8n_validate_workflow — [S · neu]** — nach `compile()` JSON durch `n8n_validate_workflow`; Fehler = kein Deploy; optional `n8n_autofix_workflow` im Loop, Gate bleibt hart.
 
-**BM-S3-07 · Pre-Deploy-grep auf n8n-JSON (NFR-9) — [S · neu]** — Regex-Pass über serialisierten JSON-String (Node-Namen/Notizen) auf `BIZ26`/`KI-Boutique`/`Münster`/ae-oe-ue; Treffer = harter Abbruch.
+**BM-S3-07 · Pre-Deploy-grep auf n8n-JSON (NFR-9) — [S · neu]** — Regex-Pass über serialisierten JSON-String (Node-Namen/Notizen) auf `interne Eigenmarke`/`Eigenmarke`/`falscher Wohnort`/ae-oe-ue; Treffer = harter Abbruch.
 
 **BM-S3-08 · Deploy Teaser-Flow + Fallback — [M · neu]** — `builders/deploy.py`: `n8n_create_workflow` → optional activate → `n8n_test_workflow` als Smoke; gibt Workflow-ID + Status zurück; Fallback-Schalter (lokale Sandbox) bei A2-Ausfall (R2/D2).
 
@@ -259,13 +259,13 @@ WIE: Orchestrator-Sequenz aus `agents/orchestrator.py` übernehmen, je Agent `sa
 
 > Abgrenzung: Dies ist die **interne Meta-Delivery-Plattform** (ALE-43/44/45/46), NICHT das Produkt-Feature Stufe 3. Viel existiert als Prototyp im Nachbar-Repo `~/Documents/Claude/Projects/ai-adoption-agent`. Größter Brocken: **Zug 0** (SSH-Pubkey + Anthropic-Key auf VPS) + produktive VPS-Verkabelung.
 
-**BM-EN-01 · Zug 0a SSH-Pubkey auf VPS — [S · teilweise · Alex-Schritt]** — `ssh-copy-id -i ~/.ssh/biz26_vps_claude.pub root@srv1405308.hstgr.cloud`, dann Probe. Claude darf VPS-Shell nicht selbst freischalten (Safety-Gate). **Identisch mit BM-HP-Zug-0.**
+**BM-EN-01 · Zug 0a SSH-Pubkey auf VPS — [S · teilweise · Alex-Schritt]** — `ssh-copy-id -i ~/.ssh/<dein-vps-deploy-key>.pub root@srv1405308.hstgr.cloud`, dann Probe. Claude darf VPS-Shell nicht selbst freischalten (Safety-Gate). **Identisch mit BM-HP-Zug-0.**
 
 **BM-EN-02 · Zug 0b Anthropic-Key (CMA-Beta) auf VPS — [S · neu · Alex-Schritt]** — Secrets als 0600-`.env` auf VPS (`/opt/ai-adoption-agent/.env`), nie ins Repo/Container.
 
 **BM-EN-03 · Repo auf VPS deployen — [M · teilweise]** — rsync nach `/opt/ai-adoption-agent`, venv + `pip install -r requirements.txt`, einmalig `setup_agent.py` für CMA_ENV_ID/CMA_AGENT_ID. GitHub-Publish nicht nötig (Worker mountet `alexheyers/ai-adoption-studio`).
 
-**BM-EN-04 · ALE-45 Bridge Token-Auth härten — [S · teilweise]** — Hardcode-Token `BIZ26-VPS-BRIDGE-2026` durch `$env.VPS_BRIDGE_KEY` ersetzen, timing-sicher; neuen Key in `reference_credentials.md` + `.env`; Blockliste (rm -rf / etc.) beibehalten.
+**BM-EN-04 · ALE-45 Bridge Token-Auth härten — [S · teilweise]** — Hardcode-Token `interne Eigenmarke-VPS-BRIDGE-2026` durch `$env.VPS_BRIDGE_KEY` ersetzen, timing-sicher; neuen Key in `reference_credentials.md` + `.env`; Blockliste (rm -rf / etc.) beibehalten.
 
 **BM-EN-05 · ALE-44 Worker@VPS E2E (1 Issue) — [L · teilweise]** — Orchestrator einmal end-to-end (ALE-43-Muster): Issue → isolierter Worktree → Headless-Claude → Branch push → PR → Linear In Progress→In Review. Guardrails: networking=limited, bash=always_ask, Custom-Tools host-seitig, max_iterations=5, niemals main.
 
@@ -281,7 +281,7 @@ WIE: Orchestrator-Sequenz aus `agents/orchestrator.py` übernehmen, je Agent `sa
 
 **BM-EN-11 · ALE-60 Deploy-Trigger bei Merge → myflowmotion.cloud — [M · teilweise]** — Merge-Webhook ruft `deploy.sh` (auf VPS via Bridge / VPS pullt main + compose-build); Pflicht-Pre-Deploy-grep; Verify gegen `https://www.myflowmotion.cloud` (HTTP 200 + Title). (ALE-60 anzulegen/verifizieren.)
 
-**BM-EN-12 · Pre-Deploy-Guardrail-grep als Gate — [S · neu]** — `grep -riE 'münster|munster|biz ?26|ki-boutique' web/ docs/` → exit!=0 bricht Deploy ab. **Dublette mit BM-Q-10 / BM-HP-Gate — als EIN wiederverwendbares Skript bauen, an mehreren Stellen einhängen.**
+**BM-EN-12 · Pre-Deploy-Guardrail-grep als Gate — [S · neu]** — `grep -riE '<verbotene-marken-und-ort-begriffe>' web/ docs/` → exit!=0 bricht Deploy ab. **Dublette mit BM-Q-10 / BM-HP-Gate — als EIN wiederverwendbares Skript bauen, an mehreren Stellen einhängen.**
 
 **BM-EN-13 · ALE-46 Status-Sync Git↔GitHub↔Linear — [M · teilweise]** — Worker In Progress→In Review (PR-Link-Kommentar vorhanden); Merge-Endpoint → Done; Fehler → Blocked; optional native GitHub↔Linear-App. Status meldet nach oben an Notion (Layered SSoT).
 
@@ -299,7 +299,7 @@ WIE: Orchestrator-Sequenz aus `agents/orchestrator.py` übernehmen, je Agent `sa
 
 **BM-HP-04 · App unter einer URL — [S · vorhanden]** — Nav-Links + Auth-Callback durchklicken (localhost), Supabase-Redirect auf `https://myflowmotion.cloud/**` prüfen, tote Links beheben. WO: `Layout.tsx`, `login/page.tsx`, `auth/callback/route.ts`.
 
-**BM-HP-05 · Impressum & Datenschutz — [S · neu]** — `web/app/impressum/page.tsx` + `datenschutz/page.tsx`, Footer-Links. Mosbach als Adresse (NICHT Münster — Pre-Commit-grep).
+**BM-HP-05 · Impressum & Datenschutz — [S · neu]** — `web/app/impressum/page.tsx` + `datenschutz/page.tsx`, Footer-Links. Mosbach als Adresse (NICHT falscher Wohnort — Pre-Commit-grep).
 
 **BM-HP-06 · SEO-Basics — [S · neu]** — Metadata-API in `layout.tsx`, OG-Image, `robots.ts`/`sitemap.ts`; Title-Check deckt sich mit `verify.sh`-Title-Probe.
 

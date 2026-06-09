@@ -32,17 +32,17 @@ n8n-Bridge @VPS  ──[Token-Auth]──►  Worker @VPS
 | 5 | **Deploy-Trigger** bei Merge → `deploy-ai-adoption-studio` → myflowmotion.cloud | neu | *anzulegen* |
 | 6 | **Status-Sync** Git/GitHub/Linear (schließt die fehlende Verknüpfung) | neu | **ALE-46** |
 
-**Existiert bereits:** n8n@VPS + ungesicherte Bridge · AgentMail-Key · Deploy-Skill · Linear-API · SSH-Key (`~/.ssh/biz26_vps_claude`) · `gh`.
+**Existiert bereits:** n8n@VPS + ungesicherte Bridge · AgentMail-Key · Deploy-Skill · Linear-API · SSH-Key (`~/.ssh/<dein-vps-deploy-key>`) · `gh`.
 
 ## Guardrails (nicht verhandelbar)
 - Worker baut **nur in isolierten Git-Worktrees**, **additiv**, **PR-only**, **niemals direkt auf `main`**.
 - **Kosten-Limit** pro Run; **eng pro Issue** gescoped (Lektion: „Agent strukturiert das ganze Repo um").
 - **Merge bleibt menschlicher Klick** (deine E-Mail-Bestätigung). Kein Auto-Merge ohne dich.
-- Pre-Deploy-greps bleiben Pflicht (kein „Münster", kein „BIZ 26" im Studio-Repo).
+- Pre-Deploy-greps bleiben Pflicht (kein „falscher Wohnort", kein „interne Eigenmarke" im Studio-Repo).
 
 ## Zug 0 — nur Alex (schaltet alles frei)
 1. SSH-Pubkey auf den VPS:
-   `ssh-copy-id -i ~/.ssh/biz26_vps_claude.pub root@<VPS-IP>`
+   `ssh-copy-id -i ~/.ssh/<dein-vps-deploy-key>.pub root@<VPS-IP>`
    (Pubkey: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPt2AkAmO/qUNPdA7k0bkBTVpaDqfAkcI/4XfTiLcylW claude-code-deploy`)
 2. **Anthropic-API-Key** auf dem VPS hinterlegen (für den Headless-Builder).
 3. Optional: GitHub↔Linear-App für native PR-Verlinkung.
