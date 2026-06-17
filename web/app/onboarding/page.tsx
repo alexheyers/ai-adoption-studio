@@ -5,23 +5,40 @@ import { useRouter } from "next/navigation";
 import { ShellLayout } from "@/components/Layout";
 import { api } from "@/lib/api";
 
-const SUB_SEGMENTS = [
-  "Hotellerie",
-  "Boutique-Hotel",
-  "Stadthotel",
-  "Ferienhotel",
-  "Tagungshotel",
-  "Hotelgruppe",
-  "Familienbetrieb",
-  "Gastronomie",
+// Branche/Betriebsart — als optgroups gruppiert, damit die Hierarchie sichtbar wird.
+// WICHTIG: die value-Strings müssen exakt so bleiben, weil voice/master_pool.yaml
+// darauf triggert (z.B. trigger_on: ["sub_segment:Hotellerie"]).
+const SEGMENT_GROUPS: { group: string; options: { value: string; label: string }[] }[] = [
+  {
+    group: "Hotellerie",
+    options: [
+      { value: "Hotellerie", label: "Hotellerie (allgemein)" },
+      { value: "Boutique-Hotel", label: "Boutique-Hotel" },
+      { value: "Stadthotel", label: "Stadthotel" },
+      { value: "Ferienhotel", label: "Ferienhotel" },
+      { value: "Tagungshotel", label: "Tagungshotel" },
+      { value: "Hotelgruppe", label: "Hotelgruppe (mehrere Häuser)" },
+      { value: "Familienbetrieb", label: "Familienbetrieb" },
+    ],
+  },
+  {
+    group: "Gastronomie",
+    options: [{ value: "Gastronomie", label: "Gastronomie" }],
+  },
 ];
 
-const SIZE_CLASSES = [
-  { value: "S", label: "S — bis 25 Mitarbeitende" },
-  { value: "M", label: "M — 26 bis 100 Mitarbeitende" },
-  { value: "L", label: "L — 101 bis 250 Mitarbeitende" },
-  { value: "XL", label: "XL — über 250 Mitarbeitende" },
+// Größenklasse wird NICHT mehr separat abgefragt, sondern aus der Mitarbeiterzahl
+// abgeleitet — sonst kann der User M wählen und 200 tippen (Widerspruch).
+const SIZE_BANDS = [
+  { value: "S" as const, label: "S · bis 25", max: 25 },
+  { value: "M" as const, label: "M · 26–100", max: 100 },
+  { value: "L" as const, label: "L · 101–250", max: 250 },
+  { value: "XL" as const, label: "XL · über 250", max: Infinity },
 ];
+
+function deriveSizeClass(employees: number): "S" | "M" | "L" | "XL" {
+  return (SIZE_BANDS.find((b) => employees <= b.max) ?? SIZE_BANDS[3]).value;
+}
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -34,14 +51,16 @@ export default function OnboardingPage() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [subSegment, setSubSegment] = useState(SUB_SEGMENTS[0]);
-  const [sizeClass, setSizeClass] = useState("M");
-  const [employees, setEmployees] = useState(50);
-  const [locations, setLocations] = useState(1);
-  const [annualRevenue, setAnnualRevenue] = useState(2_000_000);
-  const [region, setRegion] = useState("");
   const [website, setWebsite] = useState("");
+  const [subSegment, setSubSegment] = useState("Hotellerie");
+  const [region, setRegion] = useState("");
+  const [employees, setEmployees] = useState("");
+  const [locations, setLocations] = useState("1");
+  const [annualRevenue, setAnnualRevenue] = useState("");
   const [painPoints, setPainPoints] = useState("");
+
+  // Größenklasse abgeleitet, nicht abgefragt (siehe deriveSizeClass).
+  const sizeClass = deriveSizeClass(Number(employees) || 0);
 
   // Step 2 (Upload)
   const [files, setFiles] = useState<File[]>([]);
@@ -61,9 +80,9 @@ export default function OnboardingPage() {
         company_name: companyName,
         sub_segment: subSegment,
         size_class: sizeClass,
-        employees,
-        locations,
-        annual_revenue_eur: annualRevenue,
+        employees: Number(employees) || 1,
+        locations: Number(locations) || 1,
+        annual_revenue_eur: Number(annualRevenue) || 0,
         region,
         website: website || null,
         pain_points_freitext: painPoints || null,
@@ -112,68 +131,81 @@ export default function OnboardingPage() {
       )}
 
       {step === 1 && (
-        <form onSubmit={submitStep1} className="card space-y-5 max-w-2xl">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="label">Ihr Name</label>
-              <input className="input" value={fullName} onChange={(e) => setFullName(e.target.value)} required minLength={2} />
-            </div>
-            <div>
-              <label className="label">Telefon (optional)</label>
-              <input className="input" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
-          </div>
-          <div>
-            <label className="label">Firmenname</label>
-            <input className="input" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required minLength={2} />
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="label">Sub-Segment</label>
-              <select className="input" value={subSegment} onChange={(e) => setSubSegment(e.target.value)}>
-                {SUB_SEGMENTS.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="label">Größenklasse</label>
-              <select className="input" value={sizeClass} onChange={(e) => setSizeClass(e.target.value)}>
-                {SIZE_CLASSES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
+        <form onSubmit={submitStep1} className="card space-y-8 max-w-2xl">
+          {/* ── Über dich ── */}
+          <div className="space-y-4">
+            <p className="label text-ink/40">Über dich</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="label">Ihr Name</label>
+                <input className="input" value={fullName} onChange={(e) => setFullName(e.target.value)} required minLength={2} />
+              </div>
+              <div>
+                <label className="label">Telefon (optional)</label>
+                <input className="input" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="für Rückfragen" />
+              </div>
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div>
-              <label className="label">Mitarbeitende</label>
-              <input type="number" min={1} className="input" value={employees} onChange={(e) => setEmployees(Number(e.target.value))} />
+
+          {/* ── Über das Unternehmen ── */}
+          <div className="space-y-4 border-t border-ink/10 pt-6">
+            <p className="label text-ink/40">Über das Unternehmen</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="label">Firmenname</label>
+                <input className="input" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required minLength={2} />
+              </div>
+              <div>
+                <label className="label">Website (optional)</label>
+                <input className="input" type="url" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://…" />
+              </div>
             </div>
-            <div>
-              <label className="label">Standorte</label>
-              <input type="number" min={1} className="input" value={locations} onChange={(e) => setLocations(Number(e.target.value))} />
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="label">Branche / Betriebsart</label>
+                <select className="input" value={subSegment} onChange={(e) => setSubSegment(e.target.value)}>
+                  {SEGMENT_GROUPS.map((g) => (
+                    <optgroup key={g.group} label={g.group}>
+                      {g.options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="label">Region/Stadt</label>
+                <input className="input" value={region} onChange={(e) => setRegion(e.target.value)} placeholder="z.B. München, Bayern" required />
+              </div>
             </div>
-            <div>
-              <label className="label">Jahresumsatz EUR</label>
-              <input type="number" min={0} step={50000} className="input" value={annualRevenue} onChange={(e) => setAnnualRevenue(Number(e.target.value))} />
+            <div className="grid md:grid-cols-3 gap-4">
+              <div>
+                <label className="label">Mitarbeitende</label>
+                <input type="number" min={1} className="input" value={employees} onChange={(e) => setEmployees(e.target.value)} placeholder="z.B. 50" required />
+              </div>
+              <div>
+                <label className="label">Standorte</label>
+                <input type="number" min={1} className="input" value={locations} onChange={(e) => setLocations(e.target.value)} placeholder="1" />
+              </div>
+              <div>
+                <label className="label">Jahresumsatz EUR (optional)</label>
+                <input type="number" min={0} step={50000} className="input" value={annualRevenue} onChange={(e) => setAnnualRevenue(e.target.value)} placeholder="z.B. 2.000.000" />
+              </div>
             </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
+            {employees && (
+              <p className="text-xs text-ink/50">
+                Größenklasse <span className="text-ink/40">(automatisch aus Mitarbeitenden)</span>:{" "}
+                <span className="font-semibold text-teal">{SIZE_BANDS.find((b) => b.value === sizeClass)?.label}</span>
+              </p>
+            )}
             <div>
-              <label className="label">Region/Stadt</label>
-              <input className="input" value={region} onChange={(e) => setRegion(e.target.value)} placeholder="z.B. München, Berlin, Bayern" required />
+              <label className="label">Wo drückt der Schuh aktuell? (Pain Points, freie Beschreibung)</label>
+              <textarea
+                className="input"
+                rows={4}
+                value={painPoints}
+                onChange={(e) => setPainPoints(e.target.value)}
+                placeholder="z.B. Personalmangel im Service, lange Antwortzeiten bei Anfragen, Bewertungs-Druck …"
+              />
             </div>
-            <div>
-              <label className="label">Website (optional)</label>
-              <input className="input" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." />
-            </div>
-          </div>
-          <div>
-            <label className="label">Wo drückt der Schuh aktuell? (Pain Points, freie Beschreibung)</label>
-            <textarea
-              className="input"
-              rows={4}
-              value={painPoints}
-              onChange={(e) => setPainPoints(e.target.value)}
-              placeholder="z.B. Personalmangel im Service, lange Antwortzeiten bei Anfragen, Bewertungs-Druck …"
-            />
           </div>
           <div className="flex justify-end">
             <button type="submit" className="btn-primary" disabled={submitting}>
