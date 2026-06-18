@@ -264,11 +264,18 @@ function VoicePageInner() {
         </div>
       )}
 
-      {/* Das offizielle Widget. Pre-Brief + dynamische first_message (mit Daten-Recap) via override-Attributes. */}
+      {/* Das offizielle Widget.
+          WICHTIG (Fix 18.06.): Der volle Per-Call-Prompt (Persona + Kontext + Dokument-Recap,
+          ~24k Zeichen) geht als override-prompt direkt in den Agent-Prompt — NICHT mehr als
+          Dynamic Variable {{briefing_context}}. ElevenLabs droppt Dynamic Variables ab ~ein paar k
+          Zeichen still, weshalb Ada vorher keinerlei Dokument-Kontext hatte. Prompt-Override hat
+          ein großes Limit und ist in den Agent-Security-Settings freigeschaltet (agent.prompt.prompt). */}
       {(phase === "ready" || phase === "live") && AGENT_ID && preBrief?.system_prompt && (
         <elevenlabs-convai
           ref={widgetRef as any}
           agent-id={AGENT_ID}
+          override-prompt={preBrief.system_prompt}
+          override-first-message={preBrief.first_message}
           dynamic-variables={JSON.stringify(preBrief.dynamic_variables || {})}
         ></elevenlabs-convai>
       )}
@@ -283,6 +290,8 @@ declare global {
         React.HTMLAttributes<HTMLElement> & {
           "agent-id"?: string;
           "dynamic-variables"?: string;
+          "override-prompt"?: string;
+          "override-first-message"?: string;
         },
         HTMLElement
       >;
