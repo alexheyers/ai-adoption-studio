@@ -9,6 +9,15 @@ import { api } from "@/lib/api";
 
 const AGENT_ID = process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID || "";
 
+// Schritte der Vorbereitung — spiegeln die echte Backend-Pipeline in /voice/start.
+const PREP_STEPS = [
+  { k: "Unterlagen werden gelesen", d: "PDF · Excel · CSV → Klartext + KPIs" },
+  { k: "Web-Research zu Haus & Region", d: "öffentliche Signale, Wettbewerb, Lage" },
+  { k: "Pre-Audit: Hypothesen werden gebildet", d: "wo drückt der Schuh — vor dem Gespräch" },
+  { k: "Fragen aus dem 105er-Pool selektiert", d: "passend zu Branche, Größe, Pain Points" },
+  { k: "Ada-Session wird vorbereitet", d: "Briefing an die Stimme übergeben" },
+];
+
 type Phase = "idle" | "preparing" | "ready" | "live" | "wrapping" | "done" | "error";
 
 export default function VoicePage() {
@@ -34,6 +43,14 @@ function VoicePageInner() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const widgetRef = useRef<HTMLElement | null>(null);
 
+  // Vorbereitungs-Fortschritt
+  const [prepStep, setPrepStep] = useState(0);
+  const [prepSeconds, setPrepSeconds] = useState(0);
+  const [prepDocs, setPrepDocs] = useState<any[]>([]);
+  const prepTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => () => { if (prepTimerRef.current) clearInterval(prepTimerRef.current); }, []);
+
   // Vorbereitung starten
   async function prepare() {
     if (!companyId) {
@@ -43,6 +60,23 @@ function VoicePageInner() {
     }
     setPhase("preparing");
     setError(null);
+    setPrepStep(0);
+    setPrepSeconds(0);
+    setPrepDocs([]);
+
+    // Reale Unterlagen laden, die Ada gerade liest (für die Anzeige)
+    api.listDocuments(companyId).then((r) => setPrepDocs(r.documents || [])).catch(() => undefined);
+
+    // Animierter Fortschritt: alle 2s ein Schritt weiter, hält am letzten Schritt
+    // bis die echte Antwort da ist. 1s-Takt für den Sekunden-Zähler.
+    if (prepTimerRef.current) clearInterval(prepTimerRef.current);
+    let tick = 0;
+    prepTimerRef.current = setInterval(() => {
+      tick += 1;
+      setPrepSeconds(tick);
+      if (tick % 2 === 0) setPrepStep((s) => Math.min(s + 1, PREP_STEPS.length - 1));
+    }, 1000);
+
     try {
       // Web-Research parallel (Fire-and-forget)
       api.startResearch(companyId).catch(() => undefined);
@@ -55,6 +89,11 @@ function VoicePageInner() {
     } catch (err: any) {
       setError(err.message);
       setPhase("error");
+    } finally {
+      if (prepTimerRef.current) {
+        clearInterval(prepTimerRef.current);
+        prepTimerRef.current = null;
+      }
     }
   }
 
@@ -168,15 +207,78 @@ function VoicePageInner() {
       )}
 
       {phase === "preparing" && (
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <p className="eyebrow-ink">Vorbereitung läuft …</p>
-          <p className="mt-4 font-display text-2xl text-ink leading-tight">
+          <p className="mt-4 font-display text-display-sm text-ink leading-tight">
             Ada studiert dein Haus.
           </p>
-          <div className="mt-8 space-y-2 font-mono text-[11px] tracking-eyebrow uppercase text-ink3">
-            <p>· Web-Research-Agent läuft (Hintergrund)</p>
-            <p>· Pre-Brief-Builder selektiert Fragen</p>
-            <p>· ElevenLabs-Session wird vorbereitet</p>
+
+          {/* Fortschrittsbalken */}
+          <div className="mt-8 h-[3px] w-full bg-ink/10 overflow-hidden rounded-full">
+            <div
+              className="h-full bg-teal transition-all duration-700 ease-out"
+              style={{ width: `${((prepStep + 1) / PREP_STEPS.length) * 100}%` }}
+            />
+          </div>
+          <p className="mt-2 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+            Schritt {Math.min(prepStep + 1, PREP_STEPS.length)} / {PREP_STEPS.length} · {prepSeconds}s
+          </p>
+
+          <div className="mt-9 grid md:grid-cols-2 gap-10">
+            {/* Pipeline-Schritte */}
+            <ol className="space-y-4">
+              {PREP_STEPS.map((s, i) => {
+                const done = i < prepStep;
+                const active = i === prepStep;
+                return (
+                  <li key={s.k} className="flex gap-3 items-start">
+                    <span
+                      className={`mt-0.5 grid place-items-center h-5 w-5 rounded-full text-[10px] font-mono shrink-0 ${
+                        done ? "bg-teal/15 text-tealDeep" : active ? "bg-burgundy/10 text-burgundy" : "bg-ink/5 text-ink3"
+                      }`}
+                    >
+                      {done ? "✓" : active ? <span className="h-1.5 w-1.5 rounded-full bg-burgundy animate-pulse" /> : i + 1}
+                    </span>
+                    <div className={done ? "opacity-90" : active ? "" : "opacity-40"}>
+                      <p className={`text-sm leading-snug ${active ? "text-ink font-medium" : "text-ink2"}`}>
+                        {s.k}{active && <span className="text-ink3"> …</span>}
+                      </p>
+                      <p className="font-mono text-[10px] tracking-eyebrow uppercase text-ink3 mt-0.5">{s.d}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+
+            {/* Unterlagen, die gerade gelesen werden */}
+            <div className="border-l border-ink/15 pl-6">
+              <p className="eyebrow">Unterlagen · Ada liest mit</p>
+              {prepDocs.length === 0 ? (
+                <p className="mt-4 text-sm text-ink3 leading-relaxed">
+                  Keine Dokumente hochgeladen — Ada startet mit Profil &amp; Web-Research.
+                </p>
+              ) : (
+                <ul className="mt-4 space-y-2.5">
+                  {prepDocs.map((d) => {
+                    const ok = d.parser_status === "parsed";
+                    const failed = d.parser_status === "failed";
+                    return (
+                      <li key={d.id} className="flex items-center gap-2.5 text-sm">
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                            ok ? "bg-teal" : failed ? "bg-burgundy" : "bg-gold animate-pulse"
+                          }`}
+                        />
+                        <span className="truncate text-ink2">{d.filename}</span>
+                      </li>
+                    );
+                  })}
+                  <li className="pt-1 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
+                    {prepDocs.filter((d) => d.parser_status === "parsed").length} / {prepDocs.length} verarbeitet
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       )}
