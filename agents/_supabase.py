@@ -39,6 +39,19 @@ def get_client(user_jwt: str | None = None) -> Client:
     return client
 
 
+def get_service_client() -> Client:
+    """Service-Role-Client für serverseitige Operationen, die NICHT zuverlässig im
+    RLS-Kontext eines Users laufen — v.a. der Deliverable-Upload aus dem Background-Task
+    (der Storage-Client lässt sich dort nicht stabil als User authentifizieren → RLS-403).
+    Umgeht RLS; NUR serverseitig nutzen, Eigentum wird im API-Layer geprüft.
+    """
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    if not url or not key:
+        raise RuntimeError("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen in .env")
+    return create_client(url, key)
+
+
 def create_run(client: Client, company_id: str, briefing: Briefing) -> str:
     """Legt einen neuen Run an und gibt die Run-ID zurück."""
     result = client.table("runs").insert({

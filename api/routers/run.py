@@ -90,9 +90,12 @@ def download_deliverable(run_id: str, fmt: str, user: AuthUser = Depends(get_cur
     if not run or not run.data or run.data["companies"]["owner_id"] != user.id:
         raise HTTPException(status_code=403, detail="Run gehört nicht dem User")
 
+    # Signed-URL über Service-Client erzeugen — Eigentum ist oben geprüft; der User-Storage-Client
+    # ist nicht zuverlässig RLS-authentifiziert (analog zum Upload).
+    from agents._supabase import get_service_client
     storage_path = f"{run_id}/report.{fmt}"
     try:
-        signed = sb.storage.from_("deliverables").create_signed_url(storage_path, 3600)
+        signed = get_service_client().storage.from_("deliverables").create_signed_url(storage_path, 3600)
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Deliverable nicht gefunden: {e}")
     url = signed.get("signedURL") or signed.get("signed_url") if isinstance(signed, dict) else getattr(signed, "signed_url", None)
