@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track B · Der Tool-Stack des AI-Adoption-Studios — wann MCP, wann API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF6EE; --paper2:#F2EBDD; --ink:#161616; --ink2:#3A3735; --ink3:#7D7872;
+    --rule:#C9C1B0; --burgundy:#6B2737; --burgundy2:#8B3A4A; --gold:#B8945F; --teal:#1AA591;
+    --bottle:#1B3A2F;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif; line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:64px 28px 120px}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--burgundy); font-weight:500;
+  }
+  h1{
+    font-family:"Playfair Display",Georgia,serif; font-weight:900;
+    font-size:clamp(2.3rem,5.6vw,3.7rem); line-height:1.03; letter-spacing:-.02em;
+    margin:.4em 0 .3em;
+  }
+  .dek{font-size:1.2rem; color:var(--ink2); max-width:52ch}
+  h2{
+    font-family:"Playfair Display",Georgia,serif; font-weight:700;
+    font-size:clamp(1.5rem,3.4vw,2.1rem); line-height:1.1; letter-spacing:-.015em;
+    margin:2.6em 0 .5em;
+  }
+  h2 .num{font-family:"JetBrains Mono",monospace; font-size:.5em; color:var(--gold); vertical-align:middle; margin-right:.6em; font-weight:700}
+  h3{font-family:"Inter",sans-serif; font-weight:600; font-size:1.08rem; margin:1.8em 0 .3em; color:var(--ink)}
+  p{margin:.9em 0}
+  strong{font-weight:600}
+  em{color:var(--burgundy); font-style:italic}
+  .lead{font-size:1.05rem}
+  hr.rule{border:0; border-top:1px solid var(--rule); margin:0}
+  .meta{font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--ink3); letter-spacing:.04em; margin-top:14px}
+  a{color:var(--burgundy)}
+  sup a{text-decoration:none; font-family:"JetBrains Mono",monospace; font-size:.62em; color:var(--gold); font-weight:700}
+
+  /* principle card */
+  .tldr{
+    background:var(--paper2); border:1px solid var(--rule); border-left:4px solid var(--burgundy);
+    padding:22px 26px; margin:32px 0; border-radius:2px;
+  }
+  .tldr .k{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--burgundy); display:block; margin-bottom:6px}
+  .tldr p{margin:.45em 0; font-size:1rem}
+
+  /* table */
+  .tblwrap{overflow-x:auto; margin:22px 0; border:1px solid var(--rule); border-radius:4px}
+  table{border-collapse:collapse; width:100%; font-size:.9rem; background:#fff}
+  th,td{text-align:left; vertical-align:top; padding:13px 15px; border-bottom:1px solid var(--rule)}
+  thead th{
+    background:var(--ink); color:var(--paper); font-family:"JetBrains Mono",monospace;
+    font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:500;
+    position:sticky; top:0;
+  }
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:nth-child(even){background:var(--paper)}
+  td.fn{font-family:"Inter",sans-serif; font-weight:600; color:var(--burgundy); white-space:nowrap}
+  td.tool{font-weight:600}
+  .pill{display:inline-block; font-family:"JetBrains Mono",monospace; font-size:10px; font-weight:700;
+        letter-spacing:.06em; padding:2px 7px; border-radius:3px; margin:1px 0;}
+  .pill.api{background:rgba(26,165,145,.16); color:var(--bottle)}
+  .pill.mcp{background:rgba(184,148,95,.2); color:#6e5424}
+  .pill.both{background:rgba(107,39,55,.12); color:var(--burgundy)}
+
+  /* connection lists */
+  ul.conn{list-style:none; margin:18px 0; padding:0}
+  ul.conn li{padding:15px 18px; border:1px solid var(--rule); border-radius:4px; margin-bottom:12px; background:#fff}
+  ul.conn li b{display:block; font-size:1rem; margin-bottom:3px}
+  ul.conn li .role{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--ink3); letter-spacing:.04em; display:block; margin-top:6px}
+  ul.conn li.mcp{border-left:4px solid var(--gold)}
+  ul.conn li.api{border-left:4px solid var(--teal)}
+
+  /* code / wiring */
+  pre{
+    background:#161616; color:#EDE7DA; border-radius:6px; padding:18px 20px;
+    overflow:auto; font-family:"JetBrains Mono",monospace; font-size:12px; line-height:1.5;
+    margin:18px 0;
+  }
+  pre.wiring{font-size:11.5px; line-height:1.45}
+  code.inl{font-family:"JetBrains Mono",monospace; font-size:.86em; background:var(--paper2); border:1px solid var(--rule); padding:1px 6px; border-radius:4px}
+
+  /* root callout */
+  .root{
+    background:var(--burgundy); color:#F6ECEC; padding:26px 28px; border-radius:4px; margin:28px 0;
+  }
+  .root .k{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; opacity:.7; display:block; margin-bottom:8px}
+  .root p{font-family:"Playfair Display",serif; font-size:1.3rem; line-height:1.38; margin:0; font-weight:500}
+
+  /* risks */
+  ul.risks{list-style:none; padding:0; margin:18px 0}
+  ul.risks li{padding:13px 0 13px 30px; position:relative; border-bottom:1px dotted var(--rule)}
+  ul.risks li::before{content:"!"; position:absolute; left:0; top:13px; color:var(--burgundy);
+    font-family:"JetBrains Mono",monospace; font-weight:700; background:rgba(107,39,55,.12);
+    width:20px; height:20px; border-radius:50%; display:grid; place-items:center; font-size:12px}
+  ul.risks li b{color:var(--ink)}
+
+  /* linkedin draft */
+  .draft{
+    background:#fff; border:1px dashed var(--burgundy2); border-radius:6px; padding:24px 26px; margin:22px 0;
+    font-size:.98rem;
+  }
+  .draft .lbl{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--burgundy); margin-bottom:12px}
+  .draft .post{white-space:pre-wrap; line-height:1.7}
+
+  /* footnotes */
+  ol.notes{font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--ink3); line-height:1.7; padding-left:26px; margin:18px 0}
+  ol.notes a{color:var(--burgundy); text-decoration:none; word-break:break-all}
+
+  footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--rule); font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink3); letter-spacing:.04em}
+  footer a{color:var(--burgundy); text-decoration:none}
+  .legend{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--ink3); margin:6px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Build-Log · Track B · AI-Adoption-Studio · 18.06.2026</p>
+  <h1>Der Tool-Stack des Studios — und die eine Regel, wann MCP und wann API</h1>
+  <p class="dek">Voice, LLM, Recherche, Automatisierung, Daten, Deliverables: sieben Funktionen, je ein empfohlenes Werkzeug. Warum jedes nötig ist — und über welche Leitung es andockt.</p>
+  <p class="meta">Recherche-Stand 2025–2026 · MCP-Spec 2025-11-25 (Streamable HTTP + OAuth 2.1) · Stack: Next.js · FastAPI · Supabase · Hostinger-VPS</p>
+
+  <div class="tldr">
+    <span class="k">Leitprinzip</span>
+    <p><strong>„API als Fundament, MCP als Agent-Fassade.“</strong></p>
+    <p>Jeder Dienst behält seine REST-API/SDK als belastbare, deterministische Laufzeit-Anbindung — FastAPI ruft direkt. <strong>MCP</strong> nur dort, wo (a) ich beim <em>Bauen</em> mit Claude Code Werkzeuge dynamisch entdecke, oder (b) ein <em>Agent zur Laufzeit</em> eine Fähigkeit als Tool entdecken/auswählen soll.</p>
+    <p><strong>Faustregel:</strong> REST/SDK im Daten- und Control-Pfad (reproduzierbar, schnell, retrybar, Budget-Caps). MCP für Agent-Tooling und Build-Zeit.</p>
+  </div>
+
+  <h2><span class="num">01</span>Executive Summary</h2>
+  <p class="lead">Das Studio hat sieben Funktionen, von der Dokument-Annahme bis zum fertigen Deliverable. Für jede gibt es eine Ein-Satz-Empfehlung:</p>
+  <ul class="risks" style="list-style:none">
+    <li style="padding-left:30px"><b>(1) Onboarding / Upload</b> — Supabase Storage + RLS, Pfad <code class="inl">org_id/run_id</code> (REST/SDK).</li>
+    <li style="padding-left:30px"><b>(2) Vorab-Recherche</b> — Tavily + Exa (zwei Such-Achsen) + Google Places (Geo/Wettbewerb) + Destatis/DEHOGA (DACH-Fakten) + Firecrawl (Volltext). Runtime via REST in n8n, explorativ via MCP.</li>
+    <li style="padding-left:30px"><b>(3) Voice-Ada</b> — bei ElevenLabs Agents bleiben (beste Deutsch-Qualität). Kontext per Dynamic Variables / Overrides <em>vor</em> dem Call, Transkript per Post-Call-Webhook <em>danach</em>.</li>
+    <li style="padding-left:30px"><b>(4) Transkript-Auswertung</b> — ElevenLabs-Webhook → n8n → Supabase.</li>
+    <li style="padding-left:30px"><b>(5) Multi-Agenten-Endanalyse</b> — Claude Opus 4.8 + Claude Agent SDK (Per-Run-Isolation der 9 Agenten), deterministisch von FastAPI getaktet.</li>
+    <li style="padding-left:30px"><b>(6) Deliverables</b> — Presenton (Pitch-Decks, self-hosted) + Carbone (Excel/Report/Rechnung) + WeasyPrint (Print-PDF).</li>
+    <li style="padding-left:30px"><b>(7) Automatisierung</b> — n8n bleibt Glue + MCP-Hub, ABER die fragile langlaufende LLM-Kette zieht in eine Durable-Execution-Schicht (Inngest, self-hosted).</li>
+  </ul>
+
+  <div class="root">
+    <span class="k">Die einzige echte Architektur-Änderung</span>
+    <p>NICHT n8n die robuste, langlaufende Per-Run-Pipeline orchestrieren lassen — der 300s-Cap, Memory-Pressure und hängende LLM-Calls killen sonst den ganzen Run. Stattdessen Inngest als durablen Motor einziehen; n8n bleibt der sichtbare Glue / MCP-Hub. Gleichzeitig ein starkes Bewerbungs-Narrativ: <em>„Ich trenne Orchestrierung von Glue.“</em></p>
+  </div>
+
+  <h2><span class="num">02</span>Empfohlener Stack je Funktion</h2>
+  <p class="legend">Verbindung: <span class="pill api">API/SDK</span> Laufzeit-Daten/Control · <span class="pill mcp">MCP</span> Build-Zeit/agentisch · <span class="pill both">BEIDE</span> je nach Pfad</p>
+  <div class="tblwrap">
+  <table>
+    <thead>
+      <tr><th>Funktion</th><th>Tool</th><th>Warum nötig</th><th>Verbindung</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fn">(1) Onboarding + Upload</td>
+        <td class="tool">Supabase Storage + RLS<br><span style="font-weight:400;color:var(--ink3)">Pfad org_id/run_id</span></td>
+        <td>DSGVO-Uploads (Verträge, Speisekarten, Gastdaten) müssen revisionssicher und strikt pro company/run getrennt liegen. RLS + indexierte <code class="inl">org_id</code> = dokumentierter Multi-Tenant-Best-Practice; eine DB hält Rohdaten, Metadaten und später Vektoren.<sup><a href="#n1">1</a></sup></td>
+        <td><span class="pill api">API/SDK</span><br><span style="font-size:.82rem;color:var(--ink3)">supabase-py / Storage-API</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(1b) Dokument-Parsing</td>
+        <td class="tool">LlamaParse (Standard)<br>+ Docling (DSGVO/On-Prem)</td>
+        <td>pdfplumber scheitert an heterogenen Hotel-Dokumenten (Tabellen, Scans, Schichtpläne). LlamaParse liefert in ~6s RAG-taugliches Markdown. Docling läuft self-hosted (Apache-2.0) für sensible Daten, die nicht in eine US-Cloud dürfen — klares Hospitality-DACH-Verkaufsargument.<sup><a href="#n2">2</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">LlamaParse REST · Docling self-host SDK</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(2) Vorab-Recherche (Markt/national)</td>
+        <td class="tool">Tavily Search+Extract (Haupt) + Exa (semantisch)</td>
+        <td>Tavily ist agenten-optimiert, relevanz-gefiltert, sehr günstig (~$0,008/Query). Exa findet semantisch ähnliche Wettbewerber, die Keyword-Suche verfehlt. Redundant für lokale UND nationale Abdeckung; beide mit offiziellem MCP <em>und</em> REST.<sup><a href="#n3">3</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">Runtime REST in n8n · Build-Zeit MCP</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(2b) Recherche (Standort/lokal)</td>
+        <td class="tool">Google Places (New) + Destatis GENESIS + DEHOGA (via Firecrawl)</td>
+        <td>Places liefert die Hospitality-entscheidende Geo-/Wettbewerbs-Ebene strukturiert (Konkurrenz im Umkreis, Bewertungen, Preisniveau). Destatis (kostenlos, REST/JSON) + DEHOGA geben zitierfähige DACH-Branchenzahlen, die einen Showcase glaubwürdig machen.<sup><a href="#n4">4</a></sup></td>
+        <td><span class="pill api">API/SDK</span><br><span style="font-size:.82rem;color:var(--ink3)">REST in n8n · quartalsweise gecacht</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(3) Voice-Interview „Ada“</td>
+        <td class="tool">ElevenLabs Agents — bleiben</td>
+        <td>Reifste Managed-Plattform 2026 für geführtes deutschsprachiges Intake; beste Deutsch-Stimme, sub-1s Flash-TTS. Deckt alle vier Andock-Mechanismen ab: Kontext VOR dem Call, RAG-Knowledge-Base, Server-Tools/MCP mid-call, Transkript DANACH. Ada ist bereits hierauf gebaut. Self-Host-Migrationspfad: Pipecat.<sup><a href="#n5">5</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">REST-Init + Webhook + opt. MCP-Client</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(4) Transkript-Auswertung</td>
+        <td class="tool">ElevenLabs Post-Call-Webhook → n8n → Supabase</td>
+        <td>Push-Mechanismus, liefert volles Transkript (Turns/Rollen/Timing) + Summary + call_successful + Kosten. Entkoppelt Voice und Endanalyse über Supabase als State-Store; GET-Conversation-REST optional redundant.<sup><a href="#n5">5</a></sup></td>
+        <td><span class="pill api">API/SDK</span><br><span style="font-size:.82rem;color:var(--ink3)">Webhook → n8n → Supabase REST</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(5) Multi-Agenten-Endanalyse (9 Agenten)</td>
+        <td class="tool">Claude Opus 4.8 + Claude Agent SDK (Python)</td>
+        <td>Voll im Anthropic-Stack. Das SDK liefert beide harten Anforderungen out-of-the-box: PER-RUN-ISOLATION (jeder Agent frisches Kontextfenster, nur Endnachricht zurück — kein Leak) + Tool-Allowlist/Modell-Override pro Agent. Opus 4.8 hat 1M-Kontext zu Standardpreis. Fan-out/Fan-in gehört in FastAPI-Code, nicht ins LLM-Routing. Extraktion auf Haiku/Sonnet, nur finale Synthese auf Opus.<sup><a href="#n6">6</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">Inferenz via SDK · Daten via Supabase-MCP read-only</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(6) Deliverables PPTX/Excel/PDF</td>
+        <td class="tool">Presenton + Carbone + WeasyPrint <span style="font-weight:400;color:var(--ink3)">(Playwright/Typst Spezial)</span></td>
+        <td>python-pptx baut box-für-box und wirkt „zusammengeklebt“. Presenton (Apache-2.0, FastAPI+Next.js = euer Stack) gibt pitch-taugliche Decks per HTML/Tailwind-Templates, editierbares PPTX+PDF, Daten beim Kunden. Carbone-Templates baut Alex no-code in Excel/Word, gefüllt per JSON (inkl. ZUGFeRD/Factur-X für DACH-Rechnungen). WeasyPrint = schlanker Print-PDF-Default.<sup><a href="#n7">7</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">Presenton/Carbone REST od. MCP · WeasyPrint FastAPI-intern</span></td>
+      </tr>
+      <tr>
+        <td class="fn">(7) Automatisierung / Orchestrierung</td>
+        <td class="tool">n8n (Glue + MCP-Hub) + Inngest (Durable-Kern)</td>
+        <td>n8n bleibt stark für Trigger, Konnektoren, Versand und als sichtbarer MCP-Hub (Build-in-Public). ABER die robuste, langlaufende LLM-Kette gehört in Inngest: <code class="inl">step.run()</code> sorgt dafür, dass ein hängender 90s-Claude-Call NUR diesen Step retryt statt den ganzen Run zu killen — genau die Durability, die n8n bei langen AI-Workflows fehlt. Temporal wäre overkill, Restate Plan B.<sup><a href="#n8">8</a></sup></td>
+        <td><span class="pill both">BEIDE</span><br><span style="font-size:.82rem;color:var(--ink3)">n8n-Nodes + MCP-Trigger · Inngest SDK; n8n↔Inngest = Event (kein MCP)</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><span class="num">03</span>MCP-Verbindungen</h2>
+  <p>MCP wird selektiv eingesetzt — fast immer zur <strong>Build-Zeit mit Claude Code</strong> oder für <strong>agentische Tool-Discovery</strong> zur Laufzeit. Nie als Inferenz- oder Massendaten-Kanal.</p>
+  <ul class="conn">
+    <li class="mcp"><b>Supabase MCP (offiziell, read_only=true + project_ref)</b>Schema inspizieren, Migrationen, Edge Functions, Logs/Advisors debuggen — ohne SQL-Copy-Paste. <strong>NUR Dev-Zeit gegen Staging</strong> (dokumentierter Prompt-Injection-Leak).<span class="role">Claude Code (Mac) ↔ Supabase · NIEMALS im Laufzeit-Pfad</span></li>
+    <li class="mcp"><b>n8n MCP Server Trigger</b>Studio-Workflows (<code class="inl">starte_recherche</code>, <code class="inl">erzeuge_deliverable</code>) als Tools für Claude/Ada exponieren — sichtbares Build-in-Public-Orchestrieren echter Workflows.<span class="role">Claude/Agent ↔ n8n-Workflows · Bearer/OAuth-Pflicht</span></li>
+    <li class="mcp"><b>n8n MCP Client Tool</b>n8n-AI-Agent zieht externe MCP-Server (Supabase/Notion/Tavily) als Tools — Klammer zwischen Build-Zeit-Claude und Produktion.<span class="role">n8n-Agent ↔ externe MCP-Server</span></li>
+    <li class="mcp"><b>n8n native Instance-MCP (Public Preview)</b>Neue Glue-Workflows direkt aus Claude Code generieren statt manuell klicken — reine Build-Velocity bei kurzem Runway.<span class="role">Claude Code ↔ n8n-Instanz · reines DEV-Tool</span></li>
+    <li class="mcp"><b>ElevenLabs MCP (offiziell)</b>Adas Agent-Konfiguration, Tools, Knowledge-Base per Claude verwalten (Agent CRUD, TTS, Transcription) — Build-Zeit-Pflege.<span class="role">Claude Code ↔ ElevenLabs · Runtime dockt Ada via Server-Tools/Webhook, nicht hierüber</span></li>
+    <li class="mcp"><b>Notion MCP (offiziell v2.x, API 2025-09-03)</b>Onboarding/PM/Decision-Log direkt in Notion (Business-SSoT) schreiben/lesen.<span class="role">Claude Code ↔ Notion · Runtime alternativ via n8n-Notion-Node</span></li>
+    <li class="mcp"><b>Linear MCP (offiziell, remote, OAuth)</b>Dev-SSoT pflegen (Team ALE, 5 Phasen-Milestones) — jeder Build-Schritt = Linear-Issue + LinkedIn-Inhalt.<span class="role">Claude Code / Skill /studio ↔ Linear · kein Kunden-Runtime-Dock</span></li>
+    <li class="mcp"><b>Presenton MCP (/mcp, Bearer)</b>Der Claude-Analyse-Agent erzeugt das Pitch-Deck autonom als Tool-Call, wenn er selbst entscheidet WAS er rendert.<span class="role">Analyse-Agent ↔ Presenton (VPS) · alternativ deterministisch via REST</span></li>
+    <li class="mcp"><b>Carbone MCP (render_document)</b>Agent rendert Excel/Report/Rechnung selbst aus Analyse-JSON, wenn agentisch entschieden.<span class="role">Claude-Agent ↔ Carbone (self-hosted) · alternativ via n8n-Node</span></li>
+    <li class="mcp"><b>Such-/Geo-MCP (Tavily / Exa / Google-Maps / Brave / SerpAPI)</b>Explorative Nachrecherche zur Build-Zeit oder wenn ein Agent bei Lücken selbst nachsucht.<span class="role">Agent ↔ Recherche-Dienste · Runtime-Pflichtabfragen via REST in n8n</span></li>
+    <li class="mcp"><b>MCP-Standard 2025-11-25 (Querschnitt)</b>Verbindliches Andock-Protokoll: Remote = Streamable HTTP (SSE deprecated), Auth = OAuth-2.1 + RFC-8707 Resource Indicators, URL-basierte Client-Registrierung (SEP-991), M2M Client Credentials (SEP-1046).<span class="role">Alle MCP-Clients ↔ alle MCP-Server · lokal stdio, remote Streamable HTTP</span></li>
+  </ul>
+
+  <h2><span class="num">04</span>API-Verbindungen</h2>
+  <p>REST/SDK trägt den gesamten <strong>Daten- und Control-Pfad</strong> — reproduzierbar, schnell, retrybar, mit Budget-Caps.</p>
+  <ul class="conn">
+    <li class="api"><b>Supabase Postgres + pgvector + Storage</b>Zentraler Daten-, Vektor- und State-Store: companies/runs/documents/doc_chunks/research_runs. RPC <code class="inl">match_documents(query_embedding, org_id, run_id)</code> liefert mandanten-gefilterten RAG-Kontext.<span class="role">FastAPI · n8n · Ada (mid-call) · Claude-Agenten — alle Laufzeit via REST/SDK</span></li>
+    <li class="api"><b>Supabase Edge Functions + pgmq + pg_net + pg_cron</b>In-DB-Pipeline: Chunk-INSERT enqueued Embedding-Job (pgmq), pg_net ruft async Edge Function, pg_cron retried — Vektoren synchron ohne separaten Microservice.<span class="role">Intern Supabase · getriggert durch Chunk-INSERT nach Parsing</span></li>
+    <li class="api"><b>Anthropic Messages API / Claude Agent SDK</b>LLM-Inferenz der 9-Agenten-Analyse + strukturierte JSON-Outputs als „Deliverable-Vertrag“. Prompt Caching für gemeinsamen Kontext (~0,1×). Modelle: claude-opus-4-8, Haiku 4.5, Sonnet 4.6.<span class="role">FastAPI/Inngest-Steps ↔ Anthropic · SDK = Inferenz, MCP = Daten</span></li>
+    <li class="api"><b>ElevenLabs Agents API + Post-Call-Webhook</b>Call-Init mit Dynamic Variables/Overrides (Briefing VOR Call); Transkript DANACH per Webhook/GET-Conversation.<span class="role">Frontend/FastAPI → ElevenLabs · ElevenLabs → n8n → Supabase</span></li>
+    <li class="api"><b>Tavily + Exa Search/Research API</b>Markt-/national-/semantische Web-Recherche als deterministische Pflichtabfrage pro Run; Treffer mergen/dedupen → Briefing.<span class="role">n8n/FastAPI → Tavily/Exa · Ergebnisse in research_runs</span></li>
+    <li class="api"><b>Google Places API (New)</b>Lokaler Wettbewerbs-Snapshot (Nearby/Details/Text): Konkurrenz, Bewertungen, Preisniveau, Öffnungszeiten.<span class="role">n8n/FastAPI → Places (gekapselt) → research_runs</span></li>
+    <li class="api"><b>Destatis GENESIS REST/JSON + DEHOGA-PDF (via Firecrawl)</b>Zitierfähige nationale DACH-Branchenzahlen (Umsatz/Beschäftigung/Übernachtungen/Insolvenzen) + Branchen-Narrativ.<span class="role">n8n/FastAPI → Destatis (kostenlos) / Firecrawl → quartalsweise gecacht</span></li>
+    <li class="api"><b>Firecrawl Scrape/Crawl/Map</b>Verlässlicher Volltext aus bekannten URLs (Betriebs-Website, Speisekarte, Buchungsseite, lokale Presse, DEHOGA).<span class="role">Nachgelagert zu Tavily/Exa (URL → Volltext) → research_runs</span></li>
+    <li class="api"><b>LlamaParse API + Docling (self-hosted)</b>Dokument-Parsing der Uploads zu RAG-Markdown. LlamaParse = Standard; Docling = DSGVO-On-Prem für sensible Verträge/Gastdaten.<span class="role">n8n/Edge Function → Parser → Chunks INSERT (löst Auto-Embeddings)</span></li>
+    <li class="api"><b>Presenton REST + Carbone REST + WeasyPrint/Playwright/Typst</b>Deliverable-Generierung: Pitch-Deck (Presenton), Excel/Report/Rechnung (Carbone), Print-PDF (WeasyPrint), JS-Chart-PDF (Playwright), Hochglanz (Typst). Gemeinsames Deliverable-JSON speist Deck UND Excel.<span class="role">n8n/FastAPI → Engines (Docker auf VPS) → Output in Supabase-Bucket</span></li>
+    <li class="api"><b>Inngest Event-/SDK-API (self-hosted)</b>Durable-Execution-Kern: jeder Schritt durabel (step.run), nur fehlgeschlagener Step retryt (Step Journaling). Löst hängende LLM-Calls.<span class="role">n8n startet Inngest per Event · Inngest ruft Claude/Recherche/Supabase als Steps · INNGEST_SIGNING_KEY + EVENT_KEY zwingend</span></li>
+    <li class="api"><b>Supabase Vault</b>API-Keys (LlamaParse/Embedding/ElevenLabs/Inngest) verschlüsselt in der DB statt Klartext in n8n-Nodes/Env.<span class="role">Edge Functions/RPCs lesen Secrets beim Aufruf externer APIs</span></li>
+  </ul>
+
+  <h2><span class="num">05</span>Wiring — der End-to-End-Fluss</h2>
+  <p>Wo MCP liegt, wo API liegt — durchgezogen über die ganze Kette. Build-Zeit oben (MCP), Studio-Runtime darunter (API/SDK).</p>
+  <pre class="wiring">END-TO-END-FLUSS — AI-Adoption-Studio   (MCP = Build-Zeit/agentisch | API = Laufzeit-Daten/Control)
+
+  [Claude Code @ Mac]  --MCP--> Supabase-MCP (read-only/Staging), Notion-MCP, Linear-MCP,
+   (BUILD-ZEIT)                 n8n-Instance-MCP, ElevenLabs-MCP        <- nur beim BAUEN
+        |
+        v
+============================ STUDIO-RUNTIME (Hostinger-VPS) ============================
+
+(1) ONBOARDING/UPLOAD
+   Next.js Frontend --API--> n8n Form/Webhook-Trigger
+        |                         |
+        |                         +--API--> Supabase Storage  (Pfad org_id/run_id, RLS)
+        |                                      |  Storage-Webhook/DB-Trigger
+        |                                      v
+        |                   Parser:  LlamaParse(REST, Std)  |  Docling(self-hosted, DSGVO)
+        |                                      |  Markdown-Chunks INSERT
+        |                                      v
+        |                   doc_chunks --(pgmq/pg_net/pg_cron)--> Edge Fn --API--> Embeddings (pgvector)
+        v
+(2) VORAB-RECHERCHE   (n8n, deterministisch via REST; Budget-Caps)
+   n8n --API--> Tavily + Exa (Markt/national/semantisch)
+       --API--> Google Places (lokal: Wettbewerb/Bewertungen/Preisniveau)
+       --API--> Destatis GENESIS + DEHOGA(Firecrawl)  [quartalsweise gecacht]
+       --API--> Firecrawl (Volltext bekannter URLs)
+        |  merge/dedupe --> Supabase.research_runs --> n8n verdichtet zu Briefing-JSON (~1-2k Tokens)
+        v
+(3) VOICE-INTERVIEW "ADA"  (ElevenLabs Agents)
+   FastAPI --API(init)--> ElevenLabs: conversation_initiation_client_data
+                          + Dynamic Variables {{branche}},{{standort}},{{recherche_summary}}
+                          + RAG-Knowledge-Base (Onboarding-Doku)
+   Ada  --(mid-call, optional)--> Server-Tools(REST FastAPI) / MCP-Client (Live-Lookup Supabase)
+        v
+(4) TRANSKRIPT-AUSWERTUNG
+   ElevenLabs --Webhook(POST,200)--> n8n --API--> Supabase (Transkript+Summary+Metadaten)
+        |  +--Event/HTTP--> startet Durable Run
+        v
+(7) DURABLE MOTOR  (Inngest, self-hosted; n8n bleibt Glue/Hub)
+   n8n --Event--> Inngest:  step.run('recherche') -> step.waitForEvent('ada-transkript')
+                            -> step.run('transkript-auswertung'=Claude)
+                            -> step.run('multi-agenten-analyse'=Claude)  <- haengt? nur DIESER Step retryt
+                            -> step.run('deliverables')
+        v
+(5) MULTI-AGENTEN-ENDANALYSE  (Claude Agent SDK, von FastAPI/Inngest getaktet)
+   FastAPI --SDK--> 9 Agenten (Opus 4.8 Synthese | Haiku/Sonnet Extraktion)
+                    Per-Run-Isolation: jeder Agent frisches Kontextfenster, nur Endnachricht zurueck
+                    Agenten --MCP--> Supabase-MCP(read-only) / Recherche-MCP (Tool-Allowlist pro Agent)
+                    Inferenz --SDK/API--> Anthropic Messages API   (MCP=Datenkanal, API=Inferenzkanal)
+        |  Output: strukturiertes Deliverable-JSON (Single Source)
+        v
+(6) DELIVERABLES  (Docker neben FastAPI; gemeinsames JSON-Schema)
+   --REST/MCP--> Presenton (Pitch-Deck: editierbares PPTX+PDF, HTML/Tailwind-Brand-Templates)
+   --n8n-Node/MCP--> Carbone (Excel/Report/Rechnung, ZUGFeRD/Factur-X)
+   --SDK/CLI--> WeasyPrint (Print-PDF Default) | Playwright (JS-Charts) | Typst (Hochglanz)
+        |  Dateien --> Supabase-Bucket (URL)
+        v
+ABSCHLUSS
+   Inngest --Webhook(Done)--> n8n --API--> E-Mail-Versand (Deliverable-Links)
+                                   --API--> Supabase Status-Update (Live-State Frontend)
+                                   --MCP/Node--> Linear (Dev-SSoT) + Notion (Business-SSoT)
+
+REGEL DURCHGEZOGEN:
+  * API/SDK ueberall im Daten-/Control-Pfad (reproduzierbar, schnell, retrybar, Budget-Caps).
+  * MCP nur fuer (a) Build-Zeit mit Claude Code und (b) agentische Tool-Discovery zur Laufzeit.
+  * n8n &lt;-&gt; Inngest = Event/Webhook (Maschine-zu-Maschine), bewusst KEIN MCP.</pre>
+
+  <h2><span class="num">06</span>Risiken</h2>
+  <ul class="risks">
+    <li><b>Hängende LLM-Calls in n8n.</b> 300s-Cap + Memory-Pressure; ein hängender 90s-Claude-Call kann den ganzen Run killen. Mitigation: Durable-Execution-Schicht (Inngest, step.run/Step Journaling); n8n nur als Glue/Hub.</li>
+    <li><b>Supabase-MCP Prompt-Injection („lethal trifecta“).</b> Dokumentierter Leak kann Mandantendaten exfiltrieren. ZWINGEND read_only + project_ref, nur gegen Staging, NIE Live-Runtime. Laufzeit-Zugriff ausschließlich via RPC/REST mit erzwungenem <code class="inl">org_id</code>-Filter.</li>
+    <li><b>DSGVO / Datenresidenz Hospitality DACH.</b> LlamaParse + OpenAI-Embeddings + ElevenLabs schicken Daten in US-Clouds. Sensible Gastdaten/Verträge brauchen self-hosted Docling + lokales Embedding-Modell + EU-Region. Klare Routing-Regel pro Dokumenttyp (Schwelle festlegen).</li>
+    <li><b>Anbieter-/Preis-Risiken.</b> Tavily-Übernahme durch Nebius (02/2026) — API/Preis beobachten, Brave/SerpAPI real parallel verdrahten. Brave Free-Tier fällt 12.02.2026 weg. Google-Places-SKU-Modell seit 03/2025 geändert (kein $200-Pool).</li>
+    <li><b>Kosten-Akkumulation pro Run.</b> Places ($17/1k Details) + Tavily + Exa + Firecrawl + LlamaParse + Claude-Token summieren sich. Hartes Kosten-Cap pro Run (Places nur Nearby; Branchenzahlen cachen; Prompt Caching; Extraktion auf Haiku/Sonnet, nur Synthese auf Opus).</li>
+    <li><b>VPS-Kapazität (srv1405308).</b> pgvector-HNSW-RAM + Docling-VLM + Presenton + Carbone + Playwright-Chromium + n8n + Inngest + FastAPI parallel. RAM/Container-Budget prüfen; Engines lazy starten oder Supabase Cloud (EU) für Vektor-Store, ggf. Restate statt Inngest (2vCPU/4GB).</li>
+    <li><b>Ada-Briefing-Zuverlässigkeit.</b> Briefing IMMER serverseitig (n8n) verdichten + schema-validieren bevor es an ElevenLabs geht — nie rohe Suchtreffer durchreichen (Token-Overflow + Halluzination). Token-Limit pro EL-Agent verifizieren; ab Schwelle auf per-Run-Knowledge-Base+RAG. <code class="inl">system__</code>-Variablen sind NICHT überschreibbar.</li>
+    <li><b>RAG-Latenz im Live-Call.</b> pgvector-Lookup während des Voice-Interviews muss &lt;300ms sein — RPC/Index-Tuning vorab benchmarken, sonst stockt Ada.</li>
+    <li><b>Inngest self-host.</b> INNGEST_SIGNING_KEY + INNGEST_EVENT_KEY zwingend (sonst Crash-Loop) — in reference_credentials.md aufnehmen. Migrationspfad zu Temporal für SaaS-Horizont-2 als ADR dokumentieren (kein Lock-in).</li>
+    <li><b>MCP-Sicherheit allgemein.</b> Endor-Labs fand 82% der MCP-Implementierungen Path-Traversal-anfällig. Least privilege strikt; exponierter n8n-MCP-Trigger braucht Bearer/OAuth-2.1; remote MCP = OAuth-2.1-Resource-Server + RFC-8707.</li>
+    <li><b>Beta-Reife mehrerer Bausteine.</b> Anthropic Managed Agents (pptx/xlsx-Skills), n8n-Instance-MCP, Google-Maps-Remote-MCP, Restate — für Pitch-Deadline 21.07. evtl. zu früh. Fallback: Gamma-API als 1-Tag-Deck-Notnagel, Presenton als H2-Ausbau.</li>
+    <li><b>Deliverable-Vertrag fehlt.</b> Ohne EIN verbindliches JSON-Schema zwischen Endanalyse und Generierung rendern Presenton und Carbone aus unterschiedlichen Quellen. Single-Source-Schema definieren.</li>
+    <li><b>Offene Architektur-Entscheidungen.</b> 9-Agenten-Schnitt (bestimmt Modell-Mix); linear vs. zyklische Refinement-Loops (Agent SDK vs. LangGraph/Pydantic-AI+Temporal); Web-Interview vs. Telefonie/SIP (verschiebt Voice-Wahl Richtung Vapi/Retell/LiveKit); AT/CH-Branchenquellen oder nur DE als Showcase-Tiefe.</li>
+  </ul>
+
+  <h2><span class="num">07</span>LinkedIn-Entwurf</h2>
+  <p class="lead" style="color:var(--ink3)">Copy-fertig — bei Bedarf kürzen oder zuspitzen.</p>
+  <div class="draft">
+    <div class="lbl">Entwurf · Personal Editorial</div>
+    <div class="post">Ich habe 30 KI-Tools recherchiert, um mein Studio zu bauen.
+
+Am Ende blieb eine einzige Frage übrig:
+Wann MCP — wann ganz normale API?
+
+Mein AI-Adoption-Studio macht für Hotels und Gastronomie das, was früher Wochen dauerte: Unterlagen hochladen, ein Sprach-Interview mit einer KI führen, am Ende eine fertige Analyse als Pitch-Deck, Excel und PDF.
+
+Sieben Funktionen. Für jede gibt es heute zehn Tools. Die schwere Arbeit war nicht „welches Tool“ — sondern „über welche Leitung dockt es an“.
+
+Meine Regel, die jetzt alles trägt:
+→ API als Fundament. MCP als Agent-Fassade.
+
+Im Klartext:
+✓ Daten- und Steuerpfad läuft über REST/SDK — reproduzierbar, schnell, retrybar, mit hartem Kosten-Limit.
+✓ MCP nur dort, wo ich beim BAUEN mit Claude Tools dynamisch entdecke — oder wo ein Agent zur Laufzeit selbst entscheidet, welches Werkzeug er greift.
+
+Der Stack kurz:
+• Voice: ElevenLabs (beste deutsche Stimme)
+• LLM: Claude Opus 4.8, 9 Agenten — jeder im eigenen Kontextfenster, kein Leak
+• Recherche: Tavily + Exa + Google Places + Destatis
+• Daten/RAG: Supabase mit Mandanten-Trennung pro Kunde
+• Deliverables: Presenton + Carbone + WeasyPrint
+• Glue: n8n
+
+Und die einzige echte Architektur-Entscheidung:
+Ich lasse n8n NICHT die lange, fragile KI-Kette orchestrieren. Ein hängender 90-Sekunden-Call killt sonst den ganzen Lauf.
+
+Stattdessen zieht ein durabler Motor (Inngest) ein: hängt ein Schritt, wird NUR dieser Schritt wiederholt — nicht alles.
+
+Orchestrierung ist nicht dasselbe wie Glue. Wer das trennt, baut Systeme, die nicht beim ersten langen Call umkippen.
+
+Nächster Schritt: das eine JSON-Schema definieren, das Deck und Excel aus EINER Quelle füttert.
+
+#VibeCoding #BuildInPublic #KI #AIEngineering #MCP</div>
+  </div>
+
+  <h2><span class="num">08</span>Quellen</h2>
+  <ol class="notes">
+    <li id="n1">Supabase RLS / Multi-Tenant: <a href="https://makerkit.dev/blog/tutorials/supabase-rls-best-practices">makerkit.dev</a> · <a href="https://supabase.com/features/row-level-security">supabase.com/features/row-level-security</a> · <a href="https://supabase.com/blog/automatic-embeddings">supabase.com/blog/automatic-embeddings</a> · <a href="https://supabase.com/docs/guides/database/vault">Vault</a></li>
+    <li id="n2">Parsing: <a href="https://www.llamaindex.ai/compare/llamaparse-vs-azure-document-intelligence">LlamaParse vs. Azure</a> · <a href="https://huggingface.co/ibm-granite/granite-docling-258M">granite-docling-258M</a> · <a href="https://llms.reducto.ai/document-parser-comparison">Parser-Vergleich</a></li>
+    <li id="n3">Recherche-APIs: <a href="https://github.com/tavily-ai/tavily-mcp">Tavily MCP</a> · <a href="https://exa.ai/mcp">Exa MCP</a> · <a href="https://pricepertoken.com/mcp-servers/tavily-mcp-server">Tavily Pricing</a> · <a href="https://www.implicator.ai/brave-drops-free-search-api-tier-puts-all-developers-on-metered-billing/">Brave Free-Tier-Ende</a></li>
+    <li id="n4">Geo/national: <a href="https://developers.google.com/maps/documentation/places/web-service/usage-and-billing">Google Places Billing</a> · <a href="https://www.destatis.de/DE/Service/OpenData/genesis-api-webservice-oberflaeche.html">Destatis GENESIS</a> · <a href="https://www.dehoga-bundesverband.de/fileadmin/Startseite/04_Zahlen___Fakten/DEHOGA-Zahlenspiegel_4._Quartal_2025.pdf">DEHOGA-Zahlenspiegel</a></li>
+    <li id="n5">ElevenLabs: <a href="https://elevenlabs.io/docs/agents-platform/customization/personalization/dynamic-variables">Dynamic Variables</a> · <a href="https://elevenlabs.io/docs/eleven-agents/customization/personalization/overrides">Overrides</a> · <a href="https://elevenlabs.io/docs/eleven-agents/workflows/post-call-webhooks">Post-Call-Webhooks</a> · <a href="https://elevenlabs.io/blog/introducing-elevenlabs-mcp">ElevenLabs MCP</a> · <a href="https://www.cekura.ai/blogs/pipecat-vs-livekit-the-real-difference">Pipecat-Migration</a></li>
+    <li id="n6">Claude: <a href="https://platform.claude.com/docs/en/about-claude/models/overview">Modell-Overview</a> · <a href="https://code.claude.com/docs/en/agent-sdk/subagents">Agent SDK Subagents</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">Agent Skills</a></li>
+    <li id="n7">Deliverables: <a href="https://github.com/presenton/presenton">Presenton</a> · <a href="https://docs.presenton.ai/">Presenton Docs</a> · <a href="https://carbone.io/">Carbone</a> · <a href="https://github.com/carboneio/carbone-mcp">Carbone MCP</a> · <a href="https://pdf4.dev/blog/playwright-vs-weasyprint">WeasyPrint vs. Playwright</a> · <a href="https://typst.app/blog/2025/automated-generation/">Typst</a></li>
+    <li id="n8">Orchestrierung: <a href="https://blog.n8n.io/n8n-mcp-server/">n8n MCP Server</a> · <a href="https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/">n8n MCP-Trigger</a> · <a href="https://www.inngest.com/blog/ai-agents-inngest-durable-steps">Inngest Durable Steps</a> · <a href="https://www.inngest.com/compare-to-temporal">Inngest vs. Temporal</a> · <a href="https://joelclaw.com/self-hosting-inngest-background-tasks">Inngest self-host</a></li>
+    <li id="n9">MCP-Standard / Security: <a href="https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/">MCP-Spec 2025-11-25</a> · <a href="https://auth0.com/blog/mcp-specs-update-all-about-auth/">OAuth 2.1</a> · <a href="https://generalanalysis.com/blog/supabase-mcp-blog">Supabase-MCP lethal trifecta</a> · <a href="https://supabase.com/blog/defense-in-depth-mcp">Defense-in-depth MCP</a> · <a href="https://www.kai-waehner.de/blog/2026/04/10/mcp-vs-rest-http-api-vs-kafka-the-architects-guide-to-agentic-ai-integration/">MCP vs. REST</a></li>
+  </ol>
+
+  <footer>
+    AI-Adoption-Studio · Build-Log · Track B · 18.06.2026<br>
+    Leitprinzip: API als Fundament, MCP als Agent-Fassade · Recherche-Stand 2025–2026 · MCP-Spec 2025-11-25
+  </footer>
+
+</div>
+</body>
+</html>

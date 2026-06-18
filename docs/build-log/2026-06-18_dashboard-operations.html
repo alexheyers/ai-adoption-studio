@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build-Log · Von der Analyse zur Umsetzung — Dashboard & Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#FAF6EE;--paper2:#F2EBDD;--ink:#161616;--ink2:#3A3735;--ink3:#7D7872;--rule:#C9C1B0;--burgundy:#6B2737;--gold:#B8945F;--teal:#1AA591;--bottle:#1B3A2F;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.65;font-size:18px}
+  .wrap{max-width:760px;margin:0 auto;padding:64px 28px 120px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--burgundy);font-weight:500}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.02em;margin:.4em 0 .3em}
+  .dek{font-size:1.2rem;color:var(--ink2);max-width:46ch}
+  h2{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.1;margin:2.4em 0 .5em}
+  h2 .num{font-family:"JetBrains Mono",monospace;font-size:.5em;color:var(--gold);vertical-align:middle;margin-right:.6em;font-weight:700}
+  p{margin:.9em 0}
+  strong{font-weight:600}
+  em{color:var(--burgundy);font-style:italic}
+  .meta{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink3);letter-spacing:.04em;margin-top:14px}
+  .tldr{background:var(--paper2);border:1px solid var(--rule);border-left:4px solid var(--burgundy);padding:22px 26px;margin:32px 0;border-radius:2px}
+  .tldr .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--burgundy);display:block;margin-bottom:6px}
+  .tldr p{margin:.35em 0;font-size:1rem}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.04em}
+  .flow span{background:var(--paper2);border:1px solid var(--rule);padding:8px 12px;border-radius:3px;color:var(--ink2)}
+  .flow .now{border-color:var(--teal);color:var(--bottle);background:rgba(26,165,145,.08)}
+  .flow b{color:var(--gold)}
+  .board{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:22px 0}
+  .board .col{background:var(--paper2);border:1px solid var(--rule);border-radius:3px;padding:12px}
+  .board .col p{margin:0 0 8px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+  .card{background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:9px 10px;font-size:12px;margin-bottom:7px;color:var(--ink2)}
+  ul.lessons{list-style:none;padding:0;margin:18px 0}
+  ul.lessons li{padding:12px 0 12px 30px;position:relative;border-bottom:1px dotted var(--rule)}
+  ul.lessons li::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .draft{background:#fff;border:1px dashed var(--burgundy);border-radius:6px;padding:24px 26px;margin:22px 0;font-size:.98rem}
+  .draft .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--burgundy);margin-bottom:12px}
+  .draft .post{white-space:pre-wrap;line-height:1.7}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--rule);font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Build-Log · AI-Adoption-Studio · 18.06.2026</p>
+  <h1>Eine Analyse ist erst dann etwas wert, wenn sie umgesetzt wird.</h1>
+  <p class="dek">Der Beratungs-Report war fertig — aber es gab keinen Weg zurück zu ihm und keinen Weg nach vorn in die Umsetzung. Zwei neue Oberflächen schließen den Kreis: ein Dashboard als Einstieg, ein Operations-Board als Ausgang.</p>
+  <p class="meta">Lesezeit ~3 Min · Stack: Next.js · FastAPI · Supabase</p>
+
+  <div class="tldr">
+    <span class="k">TL;DR</span>
+    <p><strong>Lücke:</strong> Nach dem Report endete die Reise. Keine Übersicht aller Analysen, kein Schritt in die Umsetzung.</p>
+    <p><strong>Neu:</strong> <em>Dashboard</em> = alle Analysen pro Unternehmen mit Status. <em>Operations-Board</em> = die generierten Use-Cases als Kanban, verfolgbar von Backlog bis Erledigt.</p>
+  </div>
+
+  <h2><span class="num">01</span>Der Bogen, der gefehlt hat</h2>
+  <p>Das Produkt konnte ein Gespräch führen, analysieren und einen Report bauen — aber danach lief die Nutzerin ins Leere. Genau dieser Bogen fehlte:</p>
+  <div class="flow">
+    <span>Gespräch mit Ada</span><b>→</b><span>9-Agenten-Analyse</span><b>→</b><span>Report</span><b>→</b><span class="now">Dashboard</span><b>→</b><span class="now">Operations</span>
+  </div>
+
+  <h2><span class="num">02</span>Dashboard — der Einstieg</h2>
+  <p>Statt einer Sackgasse jetzt ein Zuhause: pro Unternehmen die <strong>Liste aller Analysen</strong> mit Datum und Status — <em>läuft</em>, <em>fertig</em> oder <em>fehlgeschlagen</em>. Ein Klick führt zurück in den fertigen Report oder in den Live-Fortschritt eines laufenden Durchlaufs. „Neue Analyse" startet direkt das nächste Gespräch.</p>
+
+  <h2><span class="num">03</span>Operations — der Ausgang</h2>
+  <p>Die KI liefert sieben konkrete Use-Cases. Das Operations-Board macht aus Empfehlungen <strong>Arbeit</strong>: jede Karte trägt Impact, Komplexität, das empfohlene Tool und ein Quick-Win-Signal — und wandert per Klick durch drei Spalten. Der Stand wird pro Analyse gespeichert.</p>
+  <div class="board">
+    <div class="col"><p>Backlog</p><div class="card">OTA-Direktbuchung reaktivieren</div><div class="card">Dienstplan-Automatisierung</div></div>
+    <div class="col"><p>In Arbeit</p><div class="card">Reservierungs-Mail-Triage</div></div>
+    <div class="col"><p>Erledigt</p><div class="card">Review-Antwort-Generator</div></div>
+  </div>
+
+  <h2><span class="num">04</span>Warum das zählt</h2>
+  <ul class="lessons">
+    <li><strong>Ein Report ohne Wiedereinstieg ist verloren.</strong> Das Dashboard macht jede Analyse dauerhaft auffindbar.</li>
+    <li><strong>Empfehlungen ohne Tracking verpuffen.</strong> Das Board hält den Umsetzungs-Fortschritt fest — sichtbar, pro Haus.</li>
+    <li><strong>Der Wert entsteht nach der Analyse.</strong> Aus „hier ist deine Auswertung" wird „hier ist dein nächster Schritt".</li>
+  </ul>
+
+  <h2><span class="num">05</span>LinkedIn-Entwurf</h2>
+  <div class="draft">
+    <div class="lbl">Entwurf · Personal Editorial</div>
+    <div class="post">Eine KI-Analyse ist erst dann etwas wert, wenn sie umgesetzt wird.
+
+Mein Studio konnte ein Gespräch führen, mit 9 Agenten analysieren und einen 16-Seiten-Report bauen. Klang fertig. War es nicht.
+
+Denn nach dem Report endete die Reise. Keine Übersicht der bisherigen Analysen. Kein Schritt in die Umsetzung. Eine Sackgasse mit schönem Ausblick.
+
+Diese Woche habe ich den Kreis geschlossen:
+
+→ Ein DASHBOARD als Einstieg: jede Analyse pro Unternehmen, mit Status, jederzeit wieder auffindbar.
+
+→ Ein OPERATIONS-BOARD als Ausgang: die generierten Use-Cases als Kanban — Backlog, In Arbeit, Erledigt. Aus Empfehlung wird verfolgbare Arbeit.
+
+Die Lektion: Der Wert eines KI-Produkts entsteht nicht in der Analyse. Er entsteht danach — wenn aus „hier ist deine Auswertung" ein „hier ist dein nächster Schritt" wird.
+
+#VibeCoding #BuildInPublic #KI #ProductDesign #AIEngineering</div>
+  </div>
+
+  <footer>
+    AI-Adoption-Studio · Build-Log · 18.06.2026 · Commits 4829464 / 72fe4df<br>
+    Bogen: Voice → 9 Agenten → Report → Dashboard (/dashboard) → Operations (/operations/[runId])
+  </footer>
+
+</div>
+</body>
+</html>

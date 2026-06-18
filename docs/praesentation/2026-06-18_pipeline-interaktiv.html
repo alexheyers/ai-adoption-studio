@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Adoption-Studio · Der komplette Weg — interaktiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF6EE; --paper2:#F2EBDD; --ink:#161616; --ink2:#3A3735; --ink3:#7D7872;
+    --rule:#C9C1B0; --burgundy:#6B2737; --burgundy2:#8B3A4A; --gold:#B8945F;
+    --teal:#1AA591; --tealDeep:#0E7A6A; --navy:#0E2244;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif; line-height:1.6; font-size:17px;
+  }
+
+  /* ───── Layout ───── */
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+  section{padding:72px 0; border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--burgundy); font-weight:500; margin:0 0 14px;
+  }
+  h1{
+    font-family:"Playfair Display",Georgia,serif; font-weight:900;
+    font-size:clamp(2.4rem,6vw,4.4rem); line-height:1.02; letter-spacing:-.02em; margin:.15em 0 .35em;
+  }
+  h2{
+    font-family:"Playfair Display",Georgia,serif; font-weight:700;
+    font-size:clamp(1.7rem,3.6vw,2.5rem); line-height:1.08; letter-spacing:-.015em; margin:.1em 0 .35em;
+  }
+  h2 .num{font-family:"JetBrains Mono",monospace; font-size:.46em; color:var(--gold); vertical-align:middle; margin-right:.7em; font-weight:700}
+  h3{font-family:"Inter",sans-serif; font-weight:700; font-size:1.12rem; margin:0 0 .3em}
+  .dek{font-size:1.18rem; color:var(--ink2); max-width:62ch; margin:.2em 0 0}
+  p{margin:.8em 0}
+  strong{font-weight:600}
+  em{color:var(--burgundy); font-style:italic}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .center{text-align:center}
+
+  /* ───── Sticky nav / step bar ───── */
+  header.bar{
+    position:sticky; top:0; z-index:40; background:rgba(250,246,238,.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--rule);
+  }
+  .bar-in{max-width:1080px; margin:0 auto; padding:11px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+  .brand{font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--burgundy); font-weight:700; white-space:nowrap}
+  .navsteps{display:flex; gap:6px; flex-wrap:wrap; margin-left:auto}
+  .navsteps a{
+    font-family:"JetBrains Mono",monospace; font-size:11.5px; letter-spacing:.04em;
+    text-decoration:none; color:var(--ink3); padding:5px 10px; border:1px solid transparent; border-radius:20px; transition:.18s;
+  }
+  .navsteps a:hover{color:var(--ink); background:var(--paper2)}
+  .navsteps a.active{color:#fff; background:var(--burgundy); border-color:var(--burgundy)}
+
+  /* ───── Hero ───── */
+  .hero{padding-top:64px}
+  .hero .stack{font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--ink3); letter-spacing:.04em; margin-top:18px}
+  .hero .stack b{color:var(--tealDeep)}
+  .pills{display:flex; gap:10px; flex-wrap:wrap; margin-top:26px}
+  .pill{font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.05em; padding:7px 14px; border:1px solid var(--rule); border-radius:20px; background:#fff; color:var(--ink2)}
+  .pill b{color:var(--burgundy)}
+
+  /* ───── Generic card grid ───── */
+  .grid{display:grid; gap:18px; margin-top:30px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.g3,.g2{grid-template-columns:1fr}}
+
+  .card{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:22px 22px}
+  .card .k{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--burgundy); display:block; margin-bottom:8px}
+  .card p{margin:.4em 0; font-size:.97rem; color:var(--ink2)}
+
+  /* ───── Flow (Daten-Genese) ───── */
+  .flow{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:34px}
+  @media(max-width:920px){.flow{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.flow{grid-template-columns:1fr}}
+  .src{
+    position:relative; background:#fff; border:1px solid var(--rule); border-radius:10px; padding:20px 18px;
+    cursor:pointer; transition:.2s; overflow:hidden;
+  }
+  .src:hover{transform:translateY(-3px); box-shadow:0 10px 28px rgba(22,22,22,.10); border-color:var(--gold)}
+  .src .icon{font-size:26px; line-height:1; margin-bottom:12px; display:block}
+  .src h3{font-size:1.04rem}
+  .src .sub{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--ink3); letter-spacing:.04em; text-transform:uppercase; display:block; margin-bottom:10px}
+  .src .more{font-size:.9rem; color:var(--ink2); max-height:0; opacity:0; overflow:hidden; transition:.3s}
+  .src.open .more{max-height:340px; opacity:1; margin-top:10px}
+  .src .tag{position:absolute; top:14px; right:14px; font-family:"JetBrains Mono",monospace; font-size:10px; color:var(--ink3)}
+  .src .field{font-family:"JetBrains Mono",monospace; font-size:11.5px; background:var(--paper2); border:1px solid var(--rule); border-radius:4px; padding:1px 6px; color:var(--tealDeep)}
+
+  .converge{
+    margin:28px auto 0; max-width:640px; text-align:center; background:var(--navy); color:#EDE7DA;
+    border-radius:10px; padding:22px 26px;
+  }
+  .converge .k{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:8px}
+  .converge b{color:#fff}
+  .arrowdown{text-align:center; font-size:24px; color:var(--gold); margin:6px 0}
+
+  /* ───── Agent pipeline ───── */
+  .runinfo{display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 8px}
+  .chip{font-family:"JetBrains Mono",monospace; font-size:11.5px; letter-spacing:.04em; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:8px 12px; color:var(--ink2)}
+  .chip b{color:var(--burgundy)}
+
+  .pipectrl{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:22px 0 18px}
+  .btn{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase;
+    border:1px solid var(--burgundy); background:var(--burgundy); color:#fff; padding:10px 18px; border-radius:6px; cursor:pointer; transition:.15s;
+  }
+  .btn:hover{background:var(--burgundy2); border-color:var(--burgundy2)}
+  .btn.ghost{background:#fff; color:var(--burgundy)}
+  .btn.ghost:hover{background:var(--paper2)}
+  .btn:disabled{opacity:.4; cursor:not-allowed}
+  .progress{flex:1; min-width:200px; height:6px; background:var(--paper2); border:1px solid var(--rule); border-radius:6px; overflow:hidden}
+  .progress > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--teal),var(--tealDeep)); transition:width .4s}
+  .stepcount{font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink3); white-space:nowrap}
+
+  .agents{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  @media(max-width:780px){.agents{grid-template-columns:1fr}}
+  .agent{
+    position:relative; background:#fff; border:1px solid var(--rule); border-left:4px solid var(--rule); border-radius:8px;
+    padding:16px 18px 16px 18px; cursor:pointer; transition:.2s;
+  }
+  .agent:hover{border-color:var(--gold); border-left-color:var(--gold)}
+  .agent.done{border-left-color:var(--teal)}
+  .agent.active{border-left-color:var(--burgundy); box-shadow:0 8px 24px rgba(107,39,55,.14)}
+  .agent .row{display:flex; align-items:baseline; gap:12px}
+  .agent .seq{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px; color:var(--gold); flex:0 0 auto}
+  .agent.done .seq{color:var(--teal)}
+  .agent .name{font-weight:700; font-size:1.05rem; flex:1}
+  .agent .file{font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--ink3)}
+  .agent .role{font-size:.9rem; color:var(--ink2); margin:6px 0 0}
+  .agent .state{
+    position:absolute; top:14px; right:16px; font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink3);
+  }
+  .agent.active .state{color:var(--burgundy)}
+  .agent.done .state{color:var(--tealDeep)}
+  .agent .detail{max-height:0; opacity:0; overflow:hidden; transition:.32s}
+  .agent.open .detail{max-height:600px; opacity:1; margin-top:14px}
+  .io{display:grid; grid-template-columns:1fr; gap:10px}
+  .io .box{background:var(--paper2); border:1px solid var(--rule); border-radius:6px; padding:10px 12px}
+  .io .box .lbl{font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:4px}
+  .io .in .lbl{color:var(--tealDeep)} .io .do .lbl{color:var(--burgundy)} .io .out .lbl{color:var(--gold)}
+  .io .box p{margin:0; font-size:.9rem; color:var(--ink2)}
+  .io .box .f{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--ink2)}
+
+  .spinner{display:inline-block; width:11px; height:11px; border:2px solid rgba(107,39,55,.25); border-top-color:var(--burgundy); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-left:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ───── Reporter ───── */
+  .reporter{background:var(--navy); color:#EDE7DA; border-radius:12px; padding:34px 32px; margin-top:30px}
+  .reporter h3{color:#fff}
+  .reporter .feeds{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 22px}
+  .reporter .feed{font-family:"JetBrains Mono",monospace; font-size:11px; padding:5px 11px; border:1px solid rgba(255,255,255,.22); border-radius:16px; color:#D9D2C5}
+  .reporter .feed b{color:var(--gold)}
+  .deliv{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:8px}
+  @media(max-width:680px){.deliv{grid-template-columns:1fr}}
+  .deliv .d{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18); border-radius:8px; padding:16px 16px}
+  .deliv .d .ext{font-family:"JetBrains Mono",monospace; font-weight:700; color:var(--gold); font-size:13px; letter-spacing:.1em}
+  .deliv .d p{margin:6px 0 0; font-size:.88rem; color:#CFC8BB}
+  .summarylist{list-style:none; padding:0; margin:14px 0 0}
+  .summarylist li{padding:8px 0 8px 26px; position:relative; border-bottom:1px solid rgba(255,255,255,.12); font-size:.95rem; color:#E4DDD0}
+  .summarylist li::before{content:"›"; position:absolute; left:6px; color:var(--gold); font-weight:700}
+
+  /* ───── Organisation / Tracks ───── */
+  .track{background:#fff; border:1px solid var(--rule); border-top:4px solid var(--burgundy); border-radius:8px; padding:22px}
+  .track.b{border-top-color:var(--teal)} .track.c{border-top-color:var(--gold)}
+  .track .id{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--burgundy); display:block; margin-bottom:6px}
+  .track.b .id{color:var(--tealDeep)} .track.c .id{color:var(--gold)}
+  .track ul{margin:10px 0 0; padding-left:18px}
+  .track li{font-size:.93rem; color:var(--ink2); margin:.3em 0}
+
+  .meta-flow{display:flex; align-items:stretch; gap:0; flex-wrap:wrap; margin-top:26px; border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff}
+  .meta-flow .step{flex:1; min-width:160px; padding:18px 18px; border-right:1px solid var(--rule)}
+  .meta-flow .step:last-child{border-right:0}
+  .meta-flow .step .n{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--gold); font-weight:700}
+  .meta-flow .step h3{font-size:1rem; margin:4px 0}
+  .meta-flow .step p{font-size:.86rem; margin:0; color:var(--ink2)}
+
+  /* ───── Output / Deliverables ───── */
+  .out-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:30px}
+  @media(max-width:860px){.out-grid{grid-template-columns:1fr}}
+  .outcard{
+    position:relative; background:#fff; border:1px solid var(--rule); border-radius:10px; padding:22px 22px;
+    cursor:pointer; transition:.2s; overflow:hidden;
+  }
+  .outcard:hover{transform:translateY(-3px); box-shadow:0 10px 28px rgba(22,22,22,.10); border-color:var(--gold)}
+  .outcard .k{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--burgundy); display:block; margin-bottom:6px}
+  .outcard h3{font-size:1.12rem}
+  .outcard > p{font-size:.95rem; color:var(--ink2); margin:.3em 0 0}
+  .outcard .chevr{position:absolute; top:20px; right:20px; font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--ink3); transition:.25s}
+  .outcard.open .chevr{transform:rotate(90deg); color:var(--gold)}
+  .outcard .more{max-height:0; opacity:0; overflow:hidden; transition:.32s}
+  .outcard.open .more{max-height:520px; opacity:1; margin-top:16px}
+
+  /* mini editorial report mockup */
+  .mock-report{background:var(--paper2); border:1px solid var(--rule); border-radius:8px; padding:16px 16px; margin-top:6px}
+  .mock-report .mr-eye{font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--burgundy)}
+  .mock-report .mr-h{font-family:"Playfair Display",serif; font-weight:900; font-size:1.25rem; line-height:1.05; margin:3px 0 8px; color:var(--ink)}
+  .mock-report .mr-line{height:7px; background:var(--rule); border-radius:4px; margin:5px 0; opacity:.6}
+  .mock-report .mr-line.s{width:78%} .mock-report .mr-line.m{width:92%} .mock-report .mr-line.amber{background:var(--gold); opacity:.85; width:46%}
+  .mock-report .mr-kpis{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+  .mock-report .mr-kpi{flex:1; min-width:74px; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:8px 9px; text-align:center}
+  .mock-report .mr-kpi b{display:block; font-family:"JetBrains Mono",monospace; font-size:1rem; color:var(--tealDeep)}
+  .mock-report .mr-kpi span{font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3)}
+
+  /* deliverable download row */
+  .dl-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+  .dl{display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--rule); border-radius:7px; padding:9px 13px; text-decoration:none; transition:.16s; cursor:pointer}
+  .dl:hover{border-color:var(--gold); transform:translateY(-2px); box-shadow:0 6px 16px rgba(22,22,22,.08)}
+  .dl .ico{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:11px; letter-spacing:.06em; padding:4px 7px; border-radius:4px; color:#fff; background:var(--burgundy)}
+  .dl.x .ico{background:var(--tealDeep)} .dl.p .ico{background:var(--gold); color:#161616}
+  .dl .meta{line-height:1.25} .dl .meta b{font-size:.86rem; color:var(--ink)} .dl .meta span{display:block; font-family:"JetBrains Mono",monospace; font-size:10px; color:var(--ink3)}
+  .dl .arr{margin-left:6px; color:var(--ink3); font-size:13px; transition:.16s} .dl:hover .arr{color:var(--gold); transform:translateY(2px)}
+
+  /* dashboard mock */
+  .dash{background:var(--navy); border-radius:8px; padding:14px; margin-top:6px}
+  .dash .drow{display:flex; align-items:center; gap:10px; padding:9px 11px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:6px; margin-bottom:8px}
+  .dash .drow:last-child{margin-bottom:0}
+  .dash .dn{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--gold); flex:0 0 auto}
+  .dash .dt{font-size:.86rem; color:#EDE7DA; flex:1}
+  .dash .dbadge{font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:12px}
+  .dash .dbadge.ok{background:rgba(26,165,145,.22); color:#7fe0cf; border:1px solid rgba(26,165,145,.4)}
+  .dash .dbadge.run{background:rgba(184,148,95,.2); color:var(--gold); border:1px solid rgba(184,148,95,.45)}
+
+  /* kanban mock */
+  .kanban{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:6px}
+  @media(max-width:520px){.kanban{grid-template-columns:1fr}}
+  .kcol{background:var(--paper2); border:1px solid var(--rule); border-radius:7px; padding:9px}
+  .kcol .kh{font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); margin-bottom:7px; display:flex; justify-content:space-between}
+  .kcol .kh b{color:var(--burgundy)}
+  .kcard{background:#fff; border:1px solid var(--rule); border-left:3px solid var(--gold); border-radius:5px; padding:7px 9px; margin-bottom:6px; font-size:.8rem; color:var(--ink2)}
+  .kcard:last-child{margin-bottom:0}
+  .kcard.q{border-left-color:var(--teal)} .kcard.r{border-left-color:var(--burgundy)}
+  .kcard .kt{font-weight:600; color:var(--ink); display:block; font-size:.82rem}
+  .kcard .km{font-family:"JetBrains Mono",monospace; font-size:9px; color:var(--ink3); letter-spacing:.04em}
+
+  /* ───── Iterativ bauen — Loop ───── */
+  .loop-wrap{display:grid; grid-template-columns:340px 1fr; gap:34px; margin-top:34px; align-items:start}
+  @media(max-width:880px){.loop-wrap{grid-template-columns:1fr; gap:24px}}
+  .loop{position:relative; width:300px; height:300px; margin:0 auto}
+  @media(max-width:880px){.loop{margin:0 auto}}
+  .loop .hub{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:118px; height:118px; border-radius:50%;
+    background:var(--navy); color:#EDE7DA; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; z-index:3;
+    border:2px solid var(--gold);
+  }
+  .loop .hub b{font-family:"Playfair Display",serif; font-weight:900; font-size:1.05rem; line-height:1; color:#fff}
+  .loop .hub span{font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-top:5px}
+  .loop .ring{position:absolute; inset:0; border:1.5px dashed var(--rule); border-radius:50%; z-index:0}
+  .loop .node{
+    position:absolute; width:62px; height:62px; border-radius:50%; transform:translate(-50%,-50%);
+    background:#fff; border:2px solid var(--rule); display:flex; flex-direction:column; align-items:center; justify-content:center;
+    cursor:pointer; transition:.22s; z-index:2; text-align:center;
+  }
+  .loop .node:hover{border-color:var(--gold); transform:translate(-50%,-50%) scale(1.08)}
+  .loop .node.active{border-color:var(--burgundy); background:var(--burgundy); box-shadow:0 8px 22px rgba(107,39,55,.3)}
+  .loop .node.active .ni{color:#fff} .loop .node.active .nn{color:#fff}
+  .loop .node .ni{font-size:20px; line-height:1}
+  .loop .node .nn{font-family:"JetBrains Mono",monospace; font-size:8px; font-weight:700; letter-spacing:.04em; color:var(--ink2); margin-top:2px}
+  .loop .node .seq{position:absolute; top:-7px; left:-7px; width:19px; height:19px; border-radius:50%; background:var(--gold); color:#161616; font-family:"JetBrains Mono",monospace; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center}
+  .loop .node.active .seq{background:var(--navy); color:var(--gold)}
+
+  .loop-detail{background:#fff; border:1px solid var(--rule); border-left:4px solid var(--burgundy); border-radius:10px; padding:24px 26px; min-height:260px}
+  .loop-detail .ld-step{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:700}
+  .loop-detail h3{font-family:"Playfair Display",serif; font-weight:700; font-size:1.55rem; margin:4px 0 6px}
+  .loop-detail .ld-rule{font-size:1.02rem; color:var(--ink2); margin:0 0 16px}
+  .loop-detail .ld-ex{background:var(--paper2); border:1px solid var(--rule); border-radius:7px; padding:13px 15px}
+  .loop-detail .ld-ex .lbl{font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--burgundy); display:block; margin-bottom:5px}
+  .loop-detail .ld-ex p{margin:0; font-size:.92rem; color:var(--ink2)}
+  .loop-detail .ld-nav{display:flex; gap:8px; margin-top:18px}
+  .loop-detail .ld-nav button{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; border:1px solid var(--rule); background:#fff; color:var(--ink2); padding:7px 13px; border-radius:6px; cursor:pointer; transition:.15s}
+  .loop-detail .ld-nav button:hover{border-color:var(--burgundy); color:var(--burgundy); background:var(--paper2)}
+
+  /* the broken-heart case study */
+  .case{margin-top:34px; background:var(--navy); color:#EDE7DA; border-radius:12px; padding:30px 30px}
+  .case .ceye{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold)}
+  .case h3{color:#fff; font-family:"Playfair Display",serif; font-weight:700; font-size:1.5rem; margin:6px 0 4px}
+  .case .csub{color:#CFC8BB; font-size:.98rem; margin:0 0 18px; max-width:64ch}
+  .breaks{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; counter-reset:brk}
+  @media(max-width:780px){.breaks{grid-template-columns:1fr}}
+  .brk{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18); border-left:3px solid var(--burgundy2); border-radius:8px;
+    padding:13px 13px 14px; cursor:pointer; transition:.2s; position:relative;
+  }
+  .brk:hover{background:rgba(255,255,255,.1); border-left-color:var(--gold)}
+  .brk.fixed{border-left-color:var(--teal)}
+  .brk .bn{font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--gold); font-weight:700}
+  .brk .bt{font-weight:700; font-size:.95rem; color:#fff; margin:5px 0 0}
+  .brk .bd{font-size:.82rem; color:#CFC8BB; max-height:0; opacity:0; overflow:hidden; transition:.3s}
+  .brk.open .bd{max-height:240px; opacity:1; margin-top:9px}
+  .brk .bstat{font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#9b94a0; margin-top:8px; display:block}
+  .brk.fixed .bstat{color:#7fe0cf}
+  .case .cnote{font-family:"JetBrains Mono",monospace; font-size:11.5px; color:#9b94a0; margin:18px 0 0; letter-spacing:.02em}
+  .case .cnote b{color:var(--gold)}
+
+  footer{padding:40px 24px 80px; font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink3); letter-spacing:.04em; text-align:center}
+  footer b{color:var(--burgundy)}
+
+  .note{font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--ink3); margin-top:18px; letter-spacing:.02em}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <span class="brand">AI-Adoption-Studio</span>
+    <nav class="navsteps" id="nav">
+      <a href="#hero">Übersicht</a>
+      <a href="#genese">1 · Daten-Genese</a>
+      <a href="#agents">2 · Multi-Agent</a>
+      <a href="#reporter">3 · Reporter</a>
+      <a href="#output">4 · Output</a>
+      <a href="#iterativ">5 · Iterativ bauen</a>
+      <a href="#org">6 · Organisation</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero" class="hero">
+    <p class="eyebrow">Pitch & Demo · Der komplette Weg · 18.06.2026</p>
+    <h1>Von rohen Hotel-Daten<br>zur Vorstands-Empfehlung.</h1>
+    <p class="dek">Das AI-Adoption-Studio nimmt ein Hotel auf, hört ihm zu — und lässt zehn spezialisierte KI-Agenten daraus eine ehrliche KI-Strategie bauen. Diese Seite zeigt jeden Schritt der echten Pipeline. Klick dich durch.</p>
+    <p class="stack mono">Stack: <b>Next.js</b> · <b>FastAPI</b> · <b>Supabase</b> · <b>ElevenLabs</b> Conversational AI · <b>Claude</b> (Sonnet)</p>
+    <div class="pills">
+      <span class="pill">4 <b>Datenquellen</b> fließen zusammen</span>
+      <span class="pill">10 <b>Agenten</b> sequenziell</span>
+      <span class="pill">3 <b>Deliverables</b>: PPTX · Excel · PDF</span>
+      <span class="pill">1 <b>Run</b> = vollständig isoliert</span>
+    </div>
+    <p class="note">Hinweis: Die Pipeline läuft hier als Klick-Demo nach. Sie spiegelt 1:1 die echte Reihenfolge aus <span class="field mono">runs/pipeline_runner.py</span> und die echten Input/Output-Verträge aus <span class="field mono">schemas/outputs.py</span>.</p>
+  </section>
+
+  <!-- ═══════════ 1 · DATEN-GENESE ═══════════ -->
+  <section id="genese">
+    <p class="eyebrow">Schritt 1 · Woher die Daten kommen</p>
+    <h2><span class="num">01</span>Die Daten-Genese</h2>
+    <p class="dek">Bevor ein einziger Agent denkt, entsteht ein gemeinsames Bild des Hauses — aus vier Quellen. Klick jede Karte an, um zu sehen, was sie beisteuert und wo sie landet.</p>
+
+    <div class="flow" id="flow">
+      <div class="src" data-src>
+        <span class="tag mono">A</span>
+        <span class="icon">📝</span>
+        <span class="sub">Onboarding-Formular</span>
+        <h3>Firma & Pain Points</h3>
+        <div class="more">
+          Das Hotel beschreibt sich selbst: Name, Sub-Segment (Boutique, Stadthotel, Resort …), Größenklasse, Mitarbeitende, Standorte, Jahresumsatz, Region, aktueller Tool-Stack und die spürbaren Schmerzpunkte.
+          <p style="margin:8px 0 0">→ landet in der Tabelle <span class="field">companies</span> und füllt das <span class="field">Briefing</span>.</p>
+        </div>
+      </div>
+
+      <div class="src" data-src>
+        <span class="tag mono">B</span>
+        <span class="icon">📄</span>
+        <span class="sub">Dokument-Upload</span>
+        <h3>PDF / Excel → KPIs</h3>
+        <div class="more">
+          GuV, Monats-KPIs, Personalstruktur, Prozessdoku. Jede Datei geht über <span class="field">/upload</span> in den Storage, wird <em>inline geparst</em> und liefert <span class="field">parsed_text</span> + <span class="field">extracted_kpis</span>.
+          <p style="margin:8px 0 0">→ Status <span class="field">parsed</span> macht das Dokument für die Agenten sichtbar.</p>
+        </div>
+      </div>
+
+      <div class="src" data-src>
+        <span class="tag mono">C</span>
+        <span class="icon">🌐</span>
+        <span class="sub">Web-Research</span>
+        <h3>Reputation & Benchmarks</h3>
+        <div class="more">
+          Ein eigener Agent (Claude mit Server-Side <span class="field">web_search</span>) findet Online-Reputation, Presse, Eigentümer-Struktur und Region-Benchmarks (Auslastung, ADR, Wettbewerber, Förderprogramme).
+          <p style="margin:8px 0 0">→ landet als <span class="field">web_research</span> mit sauberen Quellen.</p>
+        </div>
+      </div>
+
+      <div class="src" data-src>
+        <span class="tag mono">D</span>
+        <span class="icon">🎙️</span>
+        <span class="sub">Voice mit Ada</span>
+        <h3>Gespräch & Transkript</h3>
+        <div class="more">
+          <strong>Vor</strong> dem Gespräch baut der Pre-Audit-Analyst aus A+B+C 5–7 Hypothesen. Daraus entsteht Adas <em>informierter System-Prompt</em> — sie kennt die echten Zahlen. ElevenLabs führt ~30 Min Interview, validiert Hypothesen, fragt alle Hotel-Bereiche ab.
+          <p style="margin:8px 0 0">→ <span class="field">voice_sessions.transcript</span> + persistierter Pre-Brief.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrowdown">↓</div>
+    <div class="converge">
+      <span class="k">Konvergenz</span>
+      <p>Alle vier Quellen verschmelzen zum <b>Briefing</b> — dem gemeinsamen Kontext, der jeden Agenten speist. <span class="mono" style="font-size:.85rem; opacity:.8">build_briefing(company, voice_session, web_research)</span></p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <span class="k">Der Clou bei Ada</span>
+        <p>Ada ist kein generischer Bot. Ihr Prompt enthält die Pre-Audit-Hypothesen, passende Hypothesen-Bäume, Benchmarks und einen <em>Daten-Recap</em> der hochgeladenen Dokumente. Sie eröffnet mit KI-Deklaration + Consent — und arbeitet dann hypothesen-getrieben statt Formular-Fragen abzuhaken.</p>
+      </div>
+      <div class="card">
+        <span class="k">Isolation pro Haus</span>
+        <p>Voice-Session und Web-Research müssen zur selben Company gehören, sonst weist der Run sie ab (HTTP 422). Ein Nutzer mit mehreren Hotels kann Transkript A nie in den Run von Hotel B mischen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 2 · MULTI-AGENT ═══════════ -->
+  <section id="agents">
+    <p class="eyebrow">Schritt 2 · Die Analyse-Maschine</p>
+    <h2><span class="num">02</span>Multi-Agent-Analyse</h2>
+    <p class="dek">Zehn Agenten laufen <strong>sequenziell</strong> — jeder bekommt das Briefing plus die Outputs der Vorgänger. Starte den Lauf oder klick einzelne Karten an, um Input → Aufgabe → Output zu sehen.</p>
+
+    <div class="runinfo">
+      <span class="chip mono">Orchestrierung: <b>sequenziell</b>, ein Schritt nach dem anderen</span>
+      <span class="chip mono">Gemeinsamer Kontext: das <b>Briefing</b></span>
+      <span class="chip mono">Pause: <b>~8 s</b> zwischen Schritten (Rate-Limit)</span>
+      <span class="chip mono">Jeder Output: <b>geprüftes JSON</b> (Pydantic)</span>
+    </div>
+
+    <div class="pipectrl">
+      <button class="btn" id="runBtn">▶ Pipeline durchlaufen</button>
+      <button class="btn ghost" id="stepBtn">Schritt vor ›</button>
+      <button class="btn ghost" id="resetBtn">Zurücksetzen</button>
+      <div class="progress"><i id="bar"></i></div>
+      <span class="stepcount mono" id="count">0 / 10</span>
+    </div>
+
+    <div class="agents" id="agents"></div>
+
+    <p class="note">Die Reihenfolge folgt exakt <span class="field mono">runs/pipeline_runner.py</span>. Web-Research läuft im echten System schon vor dem Voice-Gespräch und wird hier als Quelle 0 mitgeführt. Schlägt ein optionaler Schritt (Document-Analyst) fehl, läuft die Pipeline weiter.</p>
+  </section>
+
+  <!-- ═══════════ 3 · REPORTER ═══════════ -->
+  <section id="reporter">
+    <p class="eyebrow">Schritt 3 · Alles zusammenführen</p>
+    <h2><span class="num">03</span>Der Reporter</h2>
+    <p class="dek">Der letzte Agent schreibt keine neue Analyse — er <strong>verdichtet</strong>. Aus allen Teil-Reports baut er den FullReport: eine Executive Summary für den CEO, der 30 Sekunden hat.</p>
+
+    <div class="reporter">
+      <h3>full_report — was reinfließt</h3>
+      <div class="feeds">
+        <span class="feed mono"><b>pre_audit</b> · Hypothesen</span>
+        <span class="feed mono"><b>document_analysis</b> · Daten-Layer</span>
+        <span class="feed mono"><b>audit</b> · Prozesse</span>
+        <span class="feed mono"><b>use_cases</b> · KI-Ideen + VUFVE</span>
+        <span class="feed mono"><b>tools</b> · Stack + Kosten</span>
+        <span class="feed mono"><b>roi</b> · Business-Case</span>
+        <span class="feed mono"><b>compliance</b> · DSGVO/AI-Act</span>
+        <span class="feed mono"><b>roadmap</b> · 3 Phasen</span>
+      </div>
+
+      <ul class="summarylist">
+        <li><b>Executive Summary</b> in fester 3–5-Satz-Struktur: klare Investieren-JA/NEIN-Empfehlung mit Zahl → Top-Use-Case zuerst → was NICHT zu tun → Critical-Path-Risiko.</li>
+        <li><b>KPIs konsolidiert</b>: Investment Y1, Savings Y1, 3-Jahres-Savings, Payback-Monate — direkt aus dem ROI-Output.</li>
+        <li><b>Use-Cases, ROI, Roadmap</b> bleiben als strukturierte Objekte erhalten — nichts geht verloren, alles bleibt prüfbar.</li>
+      </ul>
+
+      <h3 style="margin-top:26px">→ Deliverables generieren & hochladen</h3>
+      <p style="color:#CFC8BB; font-size:.95rem; margin:.4em 0 16px">Aus dem FullReport erzeugt das System drei Dateien und lädt sie in den Storage-Bucket <span class="mono" style="color:var(--gold)">deliverables</span> (Service-Role, damit der Background-Task die RLS nicht reißt). Download später per Signed-URL.</p>
+      <div class="deliv">
+        <div class="d"><span class="ext">.PPTX</span><p>Pitch-Deck für den Vorstand — generate_pptx</p></div>
+        <div class="d"><span class="ext">.XLSX</span><p>ROI- & Tool-Tabellen zum Durchrechnen — generate_excel</p></div>
+        <div class="d"><span class="ext">.PDF</span><p>Vollständiger Bericht zum Teilen — generate_pdf</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4 · OUTPUT ═══════════ -->
+  <section id="output">
+    <p class="eyebrow">Schritt 4 · Was am Ende herauskommt</p>
+    <h2><span class="num">04</span>Output — der greifbare Wert</h2>
+    <p class="dek">Die Pipeline endet nicht im JSON. Sie liefert vier Artefakte, die ein Hotel direkt benutzen kann — vom Vorstands-Bericht bis zum Operations-Board. Klick jede Karte an.</p>
+
+    <div class="out-grid" id="outGrid">
+      <!-- 16-Seiten-Report -->
+      <div class="outcard" data-out>
+        <span class="chevr mono">›</span>
+        <span class="k">Artefakt A</span>
+        <h3>16-Seiten-Beratungs-Report</h3>
+        <p>Ein Editorial-Bericht im Stil einer echten Strategieberatung — nicht generisches Tool-Output, sondern lesbar wie ein Vorstands-Memo.</p>
+        <div class="more">
+          <div class="mock-report" aria-hidden="true">
+            <span class="mr-eye">Executive Summary · Hotel Seeblick</span>
+            <div class="mr-h">Investieren: JA — 142.000 € Savings in Jahr 1.</div>
+            <div class="mr-line m"></div>
+            <div class="mr-line s"></div>
+            <div class="mr-line amber"></div>
+            <div class="mr-kpis">
+              <div class="mr-kpi"><b>58 T€</b><span>Invest Y1</span></div>
+              <div class="mr-kpi"><b>142 T€</b><span>Savings Y1</span></div>
+              <div class="mr-kpi"><b>5,1 Mo</b><span>Payback</span></div>
+            </div>
+          </div>
+          <p style="font-size:.92rem; color:var(--ink2); margin-top:12px">Aufbau: Executive Summary → Ausgangslage → Prozess-Audit → Use-Cases mit VUFVE → Tool-Stack → ROI-Rechnung → Compliance → 3-Phasen-Roadmap. Jede Aussage ist auf einen Agent-Output zurückführbar.</p>
+        </div>
+      </div>
+
+      <!-- Deliverables Download -->
+      <div class="outcard" data-out>
+        <span class="chevr mono">›</span>
+        <span class="k">Artefakt B</span>
+        <h3>Deliverables zum Download</h3>
+        <p>Drei Dateien aus dem FullReport, in den Bucket <span class="mono" style="font-size:.85em; color:var(--burgundy)">deliverables</span> geladen, abrufbar per Signed-URL.</p>
+        <div class="more">
+          <div class="dl-row">
+            <span class="dl" role="button" tabindex="0"><span class="ico">PPTX</span><span class="meta"><b>Pitch-Deck</b><span>generate_pptx</span></span><span class="arr">↓</span></span>
+            <span class="dl x" role="button" tabindex="0"><span class="ico">XLSX</span><span class="meta"><b>ROI & Tools</b><span>generate_excel</span></span><span class="arr">↓</span></span>
+            <span class="dl p" role="button" tabindex="0"><span class="ico">PDF</span><span class="meta"><b>Voller Bericht</b><span>generate_pdf</span></span><span class="arr">↓</span></span>
+          </div>
+          <p style="font-size:.92rem; color:var(--ink2); margin-top:12px">Generiert im Background-Task mit Service-Role, damit RLS den Upload nicht blockt. Der Klick hier ist eine Demo — im Live-System löst er die Signed-URL aus.</p>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="outcard" data-out>
+        <span class="chevr mono">›</span>
+        <span class="k">Artefakt C</span>
+        <h3>Dashboard — alle Analysen pro Firma</h3>
+        <p>Eine Übersicht über jeden Run eines Hauses: Status, Datum, Kennzahlen — ein Klick öffnet den vollen Report.</p>
+        <div class="more">
+          <div class="dash" aria-hidden="true">
+            <div class="drow"><span class="dn">#R-204</span><span class="dt">Hotel Seeblick · Voll-Audit</span><span class="dbadge ok">fertig</span></div>
+            <div class="drow"><span class="dn">#R-203</span><span class="dt">Stadthotel Anker · Voll-Audit</span><span class="dbadge ok">fertig</span></div>
+            <div class="drow"><span class="dn">#R-205</span><span class="dt">Resort Tann · Pre-Audit</span><span class="dbadge run">läuft</span></div>
+          </div>
+          <p style="font-size:.92rem; color:var(--ink2); margin-top:12px">Pro Company sauber isoliert: ein Nutzer mit mehreren Hotels sieht jede Analyse getrennt, nie vermischt.</p>
+        </div>
+      </div>
+
+      <!-- Operations-Board -->
+      <div class="outcard" data-out>
+        <span class="chevr mono">›</span>
+        <span class="k">Artefakt D</span>
+        <h3>Operations-Board — Use-Cases als Kanban</h3>
+        <p>Aus Analyse wird Umsetzung: jeder Use-Case wandert als Karte über ein Board — von der Idee in den Betrieb.</p>
+        <div class="more">
+          <div class="kanban" aria-hidden="true">
+            <div class="kcol">
+              <div class="kh"><span>Backlog</span><b>3</b></div>
+              <div class="kcard"><span class="kt">Auto-Antwort Anfragen</span><span class="km">chatbot · quick-win</span></div>
+              <div class="kcard"><span class="kt">Dynamic Pricing</span><span class="km">automation</span></div>
+            </div>
+            <div class="kcol">
+              <div class="kh"><span>In Arbeit</span><b>2</b></div>
+              <div class="kcard q"><span class="kt">Rechnungs-OCR</span><span class="km">automation · P1</span></div>
+            </div>
+            <div class="kcol">
+              <div class="kh"><span>Live</span><b>1</b></div>
+              <div class="kcard r"><span class="kt">Concierge-RAG</span><span class="km">rag · ROI ✓</span></div>
+            </div>
+          </div>
+          <p style="font-size:.92rem; color:var(--ink2); margin-top:12px">Status nach Fortschritt (Backlog → In Arbeit → Live), nicht nach Kategorie — die Roadmap-Phasen werden so betrieblich greifbar.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">Klick eine Karte, um Mockup &amp; Details aufzuklappen. Die Deliverable-Buttons demonstrieren den Download-Trigger; Mockups skizzieren die echten Views.</p>
+  </section>
+
+  <!-- ═══════════ 5 · ITERATIV BAUEN ═══════════ -->
+  <section id="iterativ">
+    <p class="eyebrow">Schritt 5 · Wie dieser Prozess entsteht</p>
+    <h2><span class="num">05</span>Iterativ bauen — der Loop</h2>
+    <p class="dek">Das Studio entsteht nicht in einem Wurf, sondern in einer wiederholbaren Schleife. Klick einen Knoten im Kreis an — oder navigier dich Schritt für Schritt durch.</p>
+
+    <div class="loop-wrap">
+      <div class="loop" id="loop">
+        <div class="ring"></div>
+        <div class="hub"><b>Loop</b><span>wiederholbar</span></div>
+        <!-- nodes positioned via JS -->
+      </div>
+
+      <div class="loop-detail" id="loopDetail">
+        <!-- filled via JS -->
+      </div>
+    </div>
+
+    <!-- Echter Fall: Herzstück an 5 Stellen gebrochen -->
+    <div class="case">
+      <span class="ceye">Echter Fall · Systematisches Debugging</span>
+      <h3>„Das Herzstück war an 5 Stellen gebrochen."</h3>
+      <p class="csub">Der Voice-zu-Report-Pfad lief nicht. Nicht ein Bug — fünf, hintereinander gestapelt. Statt zu raten: Root Cause für jede Schicht messen, eine nach der anderen fixen, jede Schicht live gegenprüfen. Klick jede Station an.</p>
+      <div class="breaks" id="breaks">
+        <div class="brk" data-brk>
+          <span class="bn">01</span>
+          <p class="bt">Voice-Event kam nicht an</p>
+          <p class="bd">Das Ende des Ada-Gesprächs löste den Run nicht aus — das Event-Webhook lief ins Leere. Erst gemessen (Logs), dann das Event-Handling repariert.</p>
+          <span class="bstat">gemessen → gefixt</span>
+        </div>
+        <div class="brk" data-brk>
+          <span class="bn">02</span>
+          <p class="bt">Pipeline war eigentlich gesund</p>
+          <p class="bd">Verdacht: die Agenten-Kette sei kaputt. Messung zeigte das Gegenteil — die Pipeline lief sauber. Diese Schicht NICHT angefasst. Raten hätte hier Schaden angerichtet.</p>
+          <span class="bstat">gemessen → entlastet</span>
+        </div>
+        <div class="brk" data-brk>
+          <span class="bn">03</span>
+          <p class="bt">PDF-SyntaxError (Py 3.11)</p>
+          <p class="bd">Die PDF-Generierung warf einen SyntaxError unter Python 3.11 — Syntax, die in der lokalen Version durchging, brach in der Ziel-Runtime. Root Cause statt Workaround: den Code 3.11-konform gemacht.</p>
+          <span class="bstat">gemessen → gefixt</span>
+        </div>
+        <div class="brk" data-brk>
+          <span class="bn">04</span>
+          <p class="bt">WeasyPrint-Libs fehlten</p>
+          <p class="bd">Selbst mit korrektem Code rendert WeasyPrint nichts ohne seine System-Libraries (pango, cairo …). In der Deploy-Umgebung nachinstalliert — erst dann entstand wirklich ein PDF.</p>
+          <span class="bstat">gemessen → gefixt</span>
+        </div>
+        <div class="brk" data-brk>
+          <span class="bn">05</span>
+          <p class="bt">RLS blockte den Upload</p>
+          <p class="bd">Der Background-Task durfte die fertige Datei nicht in den Bucket schreiben — Row-Level-Security wies ihn ab. Lösung: Upload mit Service-Role, damit der Task die RLS sauber passiert.</p>
+          <span class="bstat">gemessen → gefixt</span>
+        </div>
+      </div>
+      <p class="cnote">Fünf Schichten, fünf Messungen, fünf gezielte Fixes — <b>nie geraten</b>. Genau das ist der VERSTEHEN-Schritt des Loops in echt.</p>
+    </div>
+
+    <p class="note">Der Kreis ist anklickbar; der aktive Knoten füllt das Detail-Panel. „Zurück / Weiter" geht den Loop durch und springt nach Schritt 5 wieder auf 1.</p>
+  </section>
+
+  <!-- ═══════════ 6 · ORGANISATION ═══════════ -->
+  <section id="org">
+    <p class="eyebrow">Schritt 6 · Meta · Wie wir arbeiten</p>
+    <h2><span class="num">06</span>Wie das Projekt gesteuert wird</h2>
+    <p class="dek">Das Studio ist nicht nur ein Produkt — es ist auch ein Beweis, wie man mit Agenten <em>organisiert</em> baut. Die Arbeit läuft in drei parallelen Tracks, orchestriert über Sub-Agenten und Multi-Agent-Workflows.</p>
+
+    <div class="grid g3">
+      <div class="track a">
+        <span class="id">Track A</span>
+        <h3>Lineage-Fix</h3>
+        <p style="font-size:.93rem; color:var(--ink2)">Die Daten-Kette dicht halten: jede Grenze von Upload → Parsing → Briefing → Ada wird verifiziert, damit kein Kontext lautlos verloren geht.</p>
+        <ul>
+          <li>Daten an jeder Station prüfen</li>
+          <li>Stille Fehler sichtbar machen</li>
+          <li>Quelle = Wahrheit, nicht Status-Felder</li>
+        </ul>
+      </div>
+      <div class="track b">
+        <span class="id">Track B</span>
+        <h3>Tool-Research</h3>
+        <p style="font-size:.93rem; color:var(--ink2)">Die Vendor- & Benchmark-Landschaft aktuell halten, die die Agenten als Wissensbasis nutzen — damit Empfehlungen real bleiben.</p>
+        <ul>
+          <li>Knowledge-Pack pflegen</li>
+          <li>Case-Studies & Benchmarks</li>
+          <li>Compliance-Regelwerk (DSGVO/AI-Act)</li>
+        </ul>
+      </div>
+      <div class="track c">
+        <span class="id">Track C</span>
+        <h3>Doku / Build-in-Public</h3>
+        <p style="font-size:.93rem; color:var(--ink2)">Jeder Build-Schritt wird zu nachvollziehbarer Doku — und zu LinkedIn-Content. Zeigen, was geht, statt es nur zu behaupten.</p>
+        <ul>
+          <li>Build-Logs pro Durchbruch</li>
+          <li>Diese Präsentation</li>
+          <li>Entscheidungen festhalten</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:38px; font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem">Orchestrierung: vom Mensch delegiert, von Agenten ausgeführt</h3>
+    <div class="meta-flow">
+      <div class="step">
+        <span class="n mono">01</span>
+        <h3>Aufgabe</h3>
+        <p>Ein klar umrissenes Stück Arbeit — ein Track-Ticket.</p>
+      </div>
+      <div class="step">
+        <span class="n mono">02</span>
+        <h3>Sub-Agent</h3>
+        <p>Isoliert (eigener Worktree, eng additiv) ausgeführt — kein Repo-Flurschaden.</p>
+      </div>
+      <div class="step">
+        <span class="n mono">03</span>
+        <h3>Multi-Agent</h3>
+        <p>Bei Bedarf mehrere Agenten parallel auf unabhängigen Teilen.</p>
+      </div>
+      <div class="step">
+        <span class="n mono">04</span>
+        <h3>Review</h3>
+        <p>Sichtbares Ergebnis prüfen, dann erst der nächste Schritt.</p>
+      </div>
+    </div>
+    <p class="note">Dieselbe Idee wie im Produkt: ein gemeinsamer Kontext, spezialisierte Agenten, klare Übergaben, alles nachvollziehbar. Wie im Kleinen, so im Großen.</p>
+  </section>
+
+</div>
+
+<footer>
+  AI-Adoption-Studio · Bewerbungs-Portfolio von <b>Alex Heyers</b> · Vibe Coding Bootcamp · 2026<br>
+  <span style="opacity:.7">Faktenbasis: runs/pipeline_runner.py · agents/*.py · voice/pre_brief.py · api/routers/*.py · schemas/outputs.py</span>
+</footer>
+
+<script>
+/* ───────── 1 · Daten-Genese: Karten aufklappen ───────── */
+document.querySelectorAll('[data-src]').forEach(el=>{
+  el.addEventListener('click',()=>el.classList.toggle('open'));
+});
+
+/* ───────── 2 · Agenten-Pipeline ───────── */
+const AGENTS = [
+  { seq:'00', key:'web_research', name:'Web-Research', file:'agents/web_research.py',
+    role:'Findet die Firma & Region-Benchmarks online (läuft schon vor dem Voice).',
+    in:'company {name, sub_segment, region, website}',
+    do:'Claude + Server-Side web_search: Reputation, Presse, Eigentümer, Auslastung/ADR der Region, Wettbewerber, Förderprogramme.',
+    out:'WebResearchOutput · company_findings, region_benchmarks, sources[]' },
+
+  { seq:'01', key:'pre_audit', name:'Pre-Audit-Analyst', file:'agents/pre_audit_analyst.py',
+    role:'Baut VOR dem Gespräch 5–7 datengetriebene Hypothesen — der Kern für Ada.',
+    in:'company + documents_summary + web_research (+ optional Transkript)',
+    do:'Senior-Consultant-Denke: jede Kennzahl gegen Benchmark, falsifizierbare Hypothesen mit Evidenz, Push-Back-Frage, Quantifizierung. Schreibt Adas Daten-Recap.',
+    out:'PreAuditOutput · hypotheses[], overall_situation, focus_topics, data_recap_for_voice' },
+
+  { seq:'02', key:'document_analysis', name:'Document-Analyst', file:'agents/document_analyst.py',
+    role:'Liest die Unterlagen separat — der "was-steht-wirklich-drin"-Layer.',
+    in:'company + parsed documents + voice_transcript',
+    do:'Pro Dokument key_findings + Anomalien (>20% vom Benchmark), konsolidierte KPIs, Daten-Qualitäts-Score, Cross-Validation: stimmen Voice-Aussagen mit den Zahlen überein?',
+    out:'DocumentAnalysisOutput · insights[], consolidated_kpis, data_quality_score, cross_validation' },
+
+  { seq:'03', key:'process_auditor', name:'Process-Auditor', file:'agents/process_auditor.py',
+    role:'Identifiziert die 8–12 stärksten Prozess-Hebel über alle 15 Hotel-Domains.',
+    in:'Briefing (Company + Docs + Transkript)',
+    do:'Geht systematisch jede Domain durch (Front-Office bis IT/Compliance). Pro Prozess: Pain, eingesetzte Tools, Stakeholder/FTE, Touchpoints, Compliance-Block, Savings-Schätzung, Risiken.',
+    out:'ProcessAuditOutput · processes[], summary, domains_unchecked[]' },
+
+  { seq:'04', key:'use_case_generator', name:'Use-Case-Generator', file:'agents/use_case_generator.py',
+    role:'Übersetzt Prozesse in 5–8 konkrete KI-Use-Cases mit Reality-Check.',
+    in:'Briefing + ProcessAuditOutput',
+    do:'Pro Prozess 1–2 Use-Cases, AI-Pattern (rag/chatbot/automation …), Quick-Win-Flag. VUFVE-Filter (Valuable/Usable/Feasible/Viable/Ethical) — wer durchfällt, wird Anti-Use-Case.',
+    out:'UseCaseOutput · use_cases[] (+ vufve), quick_wins_summary' },
+
+  { seq:'05', key:'tool_recommender', name:'Tool-Recommender', file:'agents/tool_recommender.py',
+    role:'Empfiehlt pro Use-Case ein konkretes Tool — mit Alternativen & Exit.',
+    in:'Briefing + UseCaseOutput + Vendor-Landschaft',
+    do:'Primärtool + 1–2 echte Alternativen, Tier (Enterprise/SMB/Bootstrap), EU-Hosting, TSE/GoBD, Integration in den Stack, Kosten, Switching-/Exit-Strategie.',
+    out:'ToolRecommendationOutput · recommendations[], total_monthly_cost_eur, stack_summary' },
+
+  { seq:'06', key:'roi_calculator', name:'ROI-Calculator', file:'agents/roi_calculator.py',
+    role:'Rechnet den Business-Case auf CFO-Niveau — konservativ, mit Annahmen.',
+    in:'Briefing + Audit + UseCases + Tools',
+    do:'Pro Use-Case Invest + Savings (Y1–Y3), Payback, 3-Jahres-ROI, transparente Annahmen, Sensitivity (was kippt bei −20%?). Keine Hockey-Sticks.',
+    out:'ROIOutput · line_items[], total_investment, total_savings_3_years, payback' },
+
+  { seq:'07', key:'compliance_checker', name:'Compliance-Checker', file:'agents/compliance_checker.py',
+    role:'Prüft jeden Use-Case auf DSGVO + EU-AI-Act + Branchenpflichten.',
+    in:'Briefing + UseCases + Tools',
+    do:'Pro Use-Case: DSGVO-Relevanz + Rechtsgrundlage, AI-Act-Risikoklasse, branchenspezifische Pflichten (Meldeschein, TSE, HACCP), konkrete Mitigationen. Keine Rechtsberatung — mit Disclaimer.',
+    out:'ComplianceOutput · flags[], general_advice, disclaimer' },
+
+  { seq:'08', key:'roadmap_generator', name:'Roadmap-Generator', file:'agents/roadmap_generator.py',
+    role:'Baut eine umsetzbare 3-Phasen-Roadmap über 12 Monate.',
+    in:'Briefing + UseCases + Tools + ROI',
+    do:'P1 Quick-Wins (0–3 Mo), P2 Foundation (3–6), P3 Scale (6–12). Pro Phase: Use-Cases, Tools, Personentage, Dependencies, Milestones, Kill-Kriterien. Nennt den Critical Path.',
+    out:'RoadmapOutput · phases[], critical_path, total_effort_pt' },
+
+  { seq:'09', key:'full_report', name:'Reporter → FullReport', file:'agents/reporter.py',
+    role:'Verdichtet ALLES zur Executive Summary + erzeugt PPTX/Excel/PDF.',
+    in:'audit + use_cases + tools + roi + compliance + roadmap + pre_audit + doc_analysis',
+    do:'Schreibt die 3–5-Satz-CEO-Summary (Investieren JA/NEIN → Top-Use-Case → was NICHT → Risiko), bündelt alle Teil-Reports, triggert die Deliverable-Generierung.',
+    out:'FullReport · executive_summary + alle Sub-Reports → 3 Dateien im Storage' },
+];
+
+const host = document.getElementById('agents');
+AGENTS.forEach((a,i)=>{
+  const el = document.createElement('div');
+  el.className='agent'; el.dataset.i=i;
+  el.innerHTML = `
+    <div class="row">
+      <span class="seq mono">${a.seq}</span>
+      <span class="name">${a.name}</span>
+    </div>
+    <span class="state mono" data-state>bereit</span>
+    <div class="file mono">${a.file}</div>
+    <p class="role">${a.role}</p>
+    <div class="detail">
+      <div class="io">
+        <div class="box in"><span class="lbl">Input ←</span><p class="f mono">${a.in}</p></div>
+        <div class="box do"><span class="lbl">Aufgabe ⚙</span><p>${a.do}</p></div>
+        <div class="box out"><span class="lbl">Output →</span><p class="f mono">${a.out}</p></div>
+      </div>
+    </div>`;
+  el.addEventListener('click', ()=> el.classList.toggle('open'));
+  host.appendChild(el);
+});
+
+const cards = [...document.querySelectorAll('.agent')];
+const bar = document.getElementById('bar');
+const count = document.getElementById('count');
+const runBtn = document.getElementById('runBtn');
+const stepBtn = document.getElementById('stepBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+let cur = 0;      // next step to run (index)
+let running = false;
+let timer = null;
+
+function setState(el, txt){ el.querySelector('[data-state]').textContent = txt; }
+
+function render(){
+  cards.forEach((el,idx)=>{
+    el.classList.remove('active','done');
+    const st = el.querySelector('[data-state]');
+    if(idx < cur){ el.classList.add('done'); st.innerHTML='fertig'; }
+    else if(idx === cur && running){ el.classList.add('active'); st.innerHTML='läuft<span class="spinner"></span>'; }
+    else { st.textContent='bereit'; }
+  });
+  bar.style.width = (cur/AGENTS.length*100) + '%';
+  count.textContent = `${cur} / ${AGENTS.length}`;
+}
+
+function stepOnce(){
+  if(cur >= AGENTS.length) return false;
+  cur++;
+  render();
+  return true;
+}
+
+function reset(){
+  clearTimeout(timer); running=false; cur=0;
+  cards.forEach(el=>el.classList.remove('open'));
+  render();
+  runBtn.textContent='▶ Pipeline durchlaufen'; runBtn.disabled=false; stepBtn.disabled=false;
+}
+
+function autorun(){
+  if(cur >= AGENTS.length){
+    running=false; render();
+    runBtn.textContent='✓ Lauf abgeschlossen — Report fertig'; runBtn.disabled=true; stepBtn.disabled=true;
+    return;
+  }
+  running=true; render();           // show current as active/spinning
+  // open the active card briefly to reveal its IO
+  cards[cur].classList.add('open');
+  timer = setTimeout(()=>{
+    cards[cur].classList.remove('open');
+    cur++;
+    autorun();
+  }, 1100);
+}
+
+runBtn.addEventListener('click', ()=>{
+  if(cur >= AGENTS.length){ reset(); }
+  stepBtn.disabled = true;
+  autorun();
+});
+stepBtn.addEventListener('click', ()=>{
+  if(running) return;
+  cards.forEach(el=>el.classList.remove('open'));
+  if(cur < AGENTS.length){ cards[cur].classList.add('open'); }
+  stepOnce();
+  if(cur >= AGENTS.length){ stepBtn.disabled=true; runBtn.textContent='✓ Lauf abgeschlossen'; runBtn.disabled=true; }
+});
+resetBtn.addEventListener('click', reset);
+render();
+
+/* ───────── 4 · Output: Karten aufklappen ───────── */
+document.querySelectorAll('[data-out]').forEach(el=>{
+  el.addEventListener('click', (e)=>{
+    // don't toggle when clicking an inner download button
+    if(e.target.closest('.dl')) return;
+    el.classList.toggle('open');
+  });
+});
+// deliverable buttons: little feedback (demo)
+document.querySelectorAll('.dl').forEach(d=>{
+  const fire = ()=>{
+    const arr = d.querySelector('.arr');
+    const old = arr.textContent;
+    arr.textContent='✓';
+    d.style.borderColor='var(--teal)';
+    setTimeout(()=>{ arr.textContent=old; d.style.borderColor=''; }, 1100);
+  };
+  d.addEventListener('click', e=>{ e.stopPropagation(); fire(); });
+  d.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fire(); } });
+});
+
+/* ───────── 5 · Iterativ bauen: Loop ───────── */
+const LOOP = [
+  { icon:'🔍', short:'Verstehen', step:'Schritt 01 — Verstehen',
+    title:'Root Cause vor Fix',
+    rule:'Bei jedem Bug oder unklaren Verhalten erst die echte Ursache finden — systematisch, eine Schicht nach der anderen. Bei Unklarheit wird gemessen, nicht geraten.',
+    exLbl:'In echt', ex:'„Herzstück an 5 Stellen gebrochen" — jede Schicht (Voice-Event, Pipeline, PDF, Libs, RLS) erst gemessen, dann gezielt gefixt. Siehe Fallstudie unten.' },
+  { icon:'🧱', short:'Bauen', step:'Schritt 02 — Bauen',
+    title:'Kleine, sichtbare Schritte',
+    rule:'Ein Element bauen → zeigen → urteilen. Keine großen unsichtbaren Refactors. Jede Iteration ist in zwei Sekunden als Veränderung wahrnehmbar.',
+    exLbl:'Konkret', ex:'Eine Karte, eine Sektion, ein Loop-Knoten — gebaut, gerendert, beurteilt, dann der nächste. Genau so ist diese Präsentation entstanden.' },
+  { icon:'🕸️', short:'Orchestr.', step:'Schritt 03 — Orchestrieren',
+    title:'Multi-Agent-Fan-out',
+    rule:'Audit & Recherche parallel über mehrere Sub-Agenten verteilen (isoliert, eng additiv) — danach selbst gezielt zusammenführen und umsetzen.',
+    exLbl:'Muster', ex:'Track A (Lineage), Track B (Tool-Research), Track C (Doku) laufen parallel; Sub-Agenten im eigenen Worktree, kein Repo-Flurschaden. Mensch delegiert, Agenten führen aus.' },
+  { icon:'🚀', short:'Deploy', step:'Schritt 04 — Deployen & Verifizieren',
+    title:'Live gegenprüfen, nicht behaupten',
+    rule:'Build → Commit → Deploy → live gegenprüfen. Fertig heißt: an der echten URL verifiziert. Echte Beweise statt Status-Felder.',
+    exLbl:'Regel', ex:'Erst wenn der Run live ein PDF erzeugt und der Download funktioniert, gilt das Feature als fertig. Quelle = Wahrheit, nicht das Status-Feld.' },
+  { icon:'📡', short:'Doku', step:'Schritt 05 — Dokumentieren',
+    title:'Build-in-Public',
+    rule:'Jeder Durchbruch wird festgehalten: ein Notion-Log für die Entscheidung — und pro Aufgabe eine LinkedIn-HTML, die zeigt, was geht.',
+    exLbl:'Output', ex:'Diese Seite ist selbst ein Doku-Artefakt. Zeigen statt behaupten — der Build-Log wird zum Content. Danach: zurück zu Schritt 01.' },
+];
+
+const loopEl = document.getElementById('loop');
+const loopDetail = document.getElementById('loopDetail');
+let loopCur = 0;
+
+// place nodes evenly on the ring, starting at top (-90°)
+(function placeNodes(){
+  const R = 119; // radius in px (loop is 300px → center 150)
+  LOOP.forEach((s,i)=>{
+    const ang = (-90 + i*(360/LOOP.length)) * Math.PI/180;
+    const x = 150 + R*Math.cos(ang);
+    const y = 150 + R*Math.sin(ang);
+    const n = document.createElement('div');
+    n.className='node'; n.dataset.i=i;
+    n.style.left = x+'px'; n.style.top = y+'px';
+    n.innerHTML = `<span class="seq mono">${i+1}</span><span class="ni">${s.icon}</span><span class="nn">${s.short}</span>`;
+    n.addEventListener('click', ()=> selectLoop(i));
+    loopEl.appendChild(n);
+  });
+})();
+
+function selectLoop(i){
+  loopCur = (i+LOOP.length)%LOOP.length;
+  const s = LOOP[loopCur];
+  [...loopEl.querySelectorAll('.node')].forEach((n,idx)=> n.classList.toggle('active', idx===loopCur));
+  loopDetail.innerHTML = `
+    <span class="ld-step mono">${s.step}</span>
+    <h3>${s.title}</h3>
+    <p class="ld-rule">${s.rule}</p>
+    <div class="ld-ex"><span class="lbl">${s.exLbl}</span><p>${s.ex}</p></div>
+    <div class="ld-nav">
+      <button data-prev>‹ Zurück</button>
+      <button data-next>Weiter ›</button>
+    </div>`;
+  loopDetail.querySelector('[data-prev]').addEventListener('click', ()=>selectLoop(loopCur-1));
+  loopDetail.querySelector('[data-next]').addEventListener('click', ()=>selectLoop(loopCur+1));
+}
+selectLoop(0);
+
+/* ───────── 5 · Fallstudie: Bruchstellen aufklappen ───────── */
+document.querySelectorAll('[data-brk]').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    el.classList.toggle('open');
+    el.classList.toggle('fixed', el.classList.contains('open'));
+  });
+});
+
+/* ───────── Sticky nav active state ───────── */
+const navLinks = [...document.querySelectorAll('#nav a')];
+const secs = navLinks.map(a=>document.querySelector(a.getAttribute('href')));
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = '#'+e.target.id;
+      navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===id));
+    }
+  });
+}, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+secs.forEach(s=>s && obs.observe(s));
+</script>
+</body>
+</html>

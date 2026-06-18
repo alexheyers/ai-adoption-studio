@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build-Log · Das Herzstück lief nicht — 5 Brüche in einer Kette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#FAF6EE;--paper2:#F2EBDD;--ink:#161616;--ink2:#3A3735;--ink3:#7D7872;--rule:#C9C1B0;--burgundy:#6B2737;--gold:#B8945F;--teal:#1AA591;--bottle:#1B3A2F;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.65;font-size:18px}
+  .wrap{max-width:760px;margin:0 auto;padding:64px 28px 120px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--burgundy);font-weight:500}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.02em;margin:.4em 0 .3em}
+  .dek{font-size:1.2rem;color:var(--ink2);max-width:46ch}
+  h2{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.1;margin:2.4em 0 .5em}
+  h2 .num{font-family:"JetBrains Mono",monospace;font-size:.5em;color:var(--gold);vertical-align:middle;margin-right:.6em;font-weight:700}
+  p{margin:.9em 0}
+  strong{font-weight:600}
+  em{color:var(--burgundy);font-style:italic}
+  .meta{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink3);letter-spacing:.04em;margin-top:14px}
+  .tldr{background:var(--paper2);border:1px solid var(--rule);border-left:4px solid var(--burgundy);padding:22px 26px;margin:32px 0;border-radius:2px}
+  .tldr .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--burgundy);display:block;margin-bottom:6px}
+  .tldr p{margin:.35em 0;font-size:1rem}
+  .chain{list-style:none;margin:24px 0;padding:0;counter-reset:b}
+  .chain li{position:relative;padding:18px 0 18px 64px;border-bottom:1px solid var(--rule);counter-increment:b}
+  .chain li::before{content:counter(b);position:absolute;left:0;top:16px;width:40px;height:40px;border-radius:50%;background:rgba(107,39,55,.08);color:var(--burgundy);font-family:"JetBrains Mono",monospace;font-weight:700;display:grid;place-items:center}
+  .chain b{display:block;font-size:1.05rem}
+  .chain span{color:var(--ink2);font-size:.95rem}
+  .chain code{font-family:"JetBrains Mono",monospace;font-size:.82em;background:var(--paper2);border:1px solid var(--rule);padding:1px 5px;border-radius:4px}
+  .root{background:var(--burgundy);color:#F6ECEC;padding:26px 28px;border-radius:4px;margin:28px 0}
+  .root .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.7;display:block;margin-bottom:8px}
+  .root p{font-family:"Playfair Display",serif;font-size:1.3rem;line-height:1.35;margin:0;font-weight:500}
+  ul.lessons{list-style:none;padding:0;margin:18px 0}
+  ul.lessons li{padding:12px 0 12px 30px;position:relative;border-bottom:1px dotted var(--rule)}
+  ul.lessons li::before{content:"→";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .draft{background:#fff;border:1px dashed var(--burgundy);border-radius:6px;padding:24px 26px;margin:22px 0;font-size:.98rem}
+  .draft .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--burgundy);margin-bottom:12px}
+  .draft .post{white-space:pre-wrap;line-height:1.7}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--rule);font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Build-Log · AI-Adoption-Studio · 18.06.2026</p>
+  <h1>Das Herzstück lief nicht. Es war an 5 Stellen gebrochen.</h1>
+  <p class="dek">Nach dem Voice-Gespräch sollte eine Multi-Agent-Analyse als Report mit PDF herauskommen. Es kam: nichts. Die Spurensuche durch eine Kette, in der jeder einzelne Baustein funktionierte — und trotzdem nichts ankam.</p>
+  <p class="meta">Lesezeit ~5 Min · Stack: Next.js · FastAPI · Supabase · ElevenLabs · WeasyPrint · Python 3.11</p>
+
+  <div class="tldr">
+    <span class="k">TL;DR</span>
+    <p><strong>Symptom:</strong> „Das Herzstück unserer App funktioniert nicht." Gespräch beendet → keine Analyse, keine Animation, kein Report.</p>
+    <p><strong>Befund:</strong> Die Pipeline selbst war gesund. Aber <em>fünf</em> unabhängige Brüche entlang der Kette verhinderten, dass sie je startete oder ihr Ergebnis ablieferte.</p>
+    <p><strong>Methode:</strong> An jeder Systemgrenze nachsehen, was wirklich passiert — statt zu raten. Jeder Bruch hatte eine andere Ursache in einer anderen Schicht.</p>
+  </div>
+
+  <h2><span class="num">01</span>Eine Kette, fünf Brüche</h2>
+  <p>Der Ablauf klingt simpel: Hotel spricht mit der KI-Stimme „Ada" → 9 Agenten analysieren → fertiger Beratungs-Report mit PDF/PPTX/Excel. Genau diese Kette war an fünf Stellen unterbrochen — jede in einer anderen Schicht des Stacks:</p>
+
+  <ol class="chain">
+    <li><b>Frontend · Der Übergang feuerte nie</b><span>Die Voice-Seite lauschte auf Events <code>convai-call-start/-end</code>, die das ElevenLabs-Widget gar nicht sendet. Das echte Event heißt <code>elevenlabs-convai:call</code>. Folge: Beim Auflegen wurde die Analyse <em>nie</em> gestartet. Beweis: 0 Pipeline-Läufe seit Wochen.</span></li>
+    <li><b>Pipeline · gesund</b><span>Die 9 Agenten liefen sauber durch und produzierten echte, spezifische Beratung aus den hochgeladenen Zahlen. Dieser Teil war nie das Problem — wichtig zu wissen, bevor man „das Backend" verdächtigt.</span></li>
+    <li><b>PDF · Sprach-Version stolperte</b><span>Der PDF-Generator hatte einen Backslash im f-String-Ausdruck — auf dem Server (<code>Python 3.11</code>) ein harter SyntaxError. Erzeugung crashte beim Import.</span></li>
+    <li><b>Container · fehlende Systembibliotheken</b><span><code>cannot load library 'libgobject-2.0-0'</code> — die PDF-Engine WeasyPrint braucht Pango/Cairo/GLib, die im schlanken Container nicht installiert waren.</span></li>
+    <li><b>Storage · Upload lautlos blockiert</b><span>Die fertigen Dateien wurden erzeugt, aber der Upload scheiterte still an einer Berechtigungs-Regel (RLS-403) — der Hintergrund-Job war nicht als Nutzer authentifiziert. Der Download-Bucket blieb <em>immer</em> leer.</span></li>
+  </ol>
+
+  <h2><span class="num">02</span>Warum „das Backend ist kaputt" der falsche Reflex war</h2>
+  <p>Vier von fünf Brüchen lagen <strong>nicht</strong> dort, wo man zuerst sucht. Der erste war im Frontend (ein Event-Name). Zwei waren Infrastruktur (Python-Version, fehlende OS-Bibliotheken). Einer war eine Datenbank-Policy. Nur die Pipeline „in der Mitte" — der naheliegende Verdächtige — war kerngesund.</p>
+
+  <div class="root">
+    <span class="k">Die Wurzel hinter den Wurzeln</span>
+    <p>Ein End-to-End-Flow ist nur so stark wie seine schwächste <em>Übergabe</em>. Die Bugs saßen nicht in den Komponenten — sie saßen zwischen ihnen: Frontend↔Widget, Code↔Python-Version, App↔Container-OS, Backend↔Storage-RLS.</p>
+  </div>
+
+  <h2><span class="num">03</span>Wie ich es gefunden habe</h2>
+  <p>Kein Raten — an jeder Grenze den echten Zustand messen: das tatsächlich gesendete Widget-Event aus dem Bundle gelesen; die echte ElevenLabs-Conversation inspiziert; die Pipeline live Schritt für Schritt gepollt; die Container-Logs nach dem stillen Fehler durchsucht; den Upload isoliert im Container getestet. Jeder Schritt lieferte genau einen nächsten Bruch — bis die Kette stand.</p>
+
+  <h2><span class="num">04</span>Das Ergebnis</h2>
+  <p>Ein echter Lauf, vollständig belegt: Gespräch → 9 Agenten → 16-seitiger Beratungs-Report → <strong>report.pdf (73 KB) · report.pptx (49 KB) · report.xlsx (28 KB)</strong> im Bucket, herunterladbar. Dazu neu: ein Dashboard als Analyse-Einstieg und ein Operations-Board, das die generierten Use-Cases von Backlog → In Arbeit → Erledigt verfolgbar macht.</p>
+
+  <h2><span class="num">05</span>Was ich mitnehme</h2>
+  <ul class="lessons">
+    <li><strong>„Es funktioniert nicht" ist eine Kette, kein Punkt.</strong> Erst die Grenzen kartieren, dann an jeder messen.</li>
+    <li><strong>Der gesunde Teil lenkt ab.</strong> Die Pipeline lief — genau deshalb fühlte sich „das Backend" falsch an. War es auch.</li>
+    <li><strong>Stille Fehler sind die teuersten.</strong> RLS-403 und ein leerer Bucket schreien nicht — man muss an der Grenze nachsehen.</li>
+    <li><strong>Infrastruktur ist Code.</strong> Eine Python-Minor-Version und eine fehlende OS-Bibliothek kippen ein perfektes Feature.</li>
+  </ul>
+
+  <h2><span class="num">06</span>LinkedIn-Entwurf</h2>
+  <div class="draft">
+    <div class="lbl">Entwurf · Personal Editorial</div>
+    <div class="post">„Das Herzstück unserer App funktioniert nicht."
+
+Diese Nachricht bekam ich gestern. Nach dem KI-Gespräch sollte eine Analyse mit fertigem Report herauskommen. Es kam: nichts.
+
+Erster Reflex bei allen: „Das Backend ist kaputt."
+Fast immer falsch. Also nicht geraten, sondern an jeder Systemgrenze gemessen, was wirklich passiert.
+
+Das Ergebnis: Die Kette war an FÜNF Stellen gebrochen — jede in einer anderen Schicht:
+
+1. Frontend lauschte auf ein Event, das es nicht gibt → die Analyse startete nie.
+2. Die Pipeline selbst? Kerngesund. (Genau deshalb fühlte sich „Backend" falsch an.)
+3. Der PDF-Generator stolperte über eine Python-Versions-Eigenheit.
+4. Dem Container fehlten die System-Bibliotheken der PDF-Engine.
+5. Der Datei-Upload wurde von einer DB-Berechtigung lautlos blockiert.
+
+Vier von fünf lagen NICHT dort, wo man zuerst sucht.
+
+Die Lektion: Ein End-to-End-Flow ist nur so stark wie seine schwächste Übergabe. Die Bugs saßen nicht IN den Komponenten — sie saßen ZWISCHEN ihnen.
+
+Jetzt läuft die ganze Kette: Gespräch → 9 KI-Agenten → 16-Seiten-Report → PDF, PPTX, Excel zum Download.
+
+Stille Fehler an Systemgrenzen sind die teuersten. Da hilft kein Raten — nur nachsehen, was wirklich ankam.
+
+#VibeCoding #BuildInPublic #KI #Debugging #AIEngineering</div>
+  </div>
+
+  <footer>
+    AI-Adoption-Studio · Build-Log · 18.06.2026 · Commits 6d64ac7 / 685ac45 / 4c67535<br>
+    Kette: Voice (elevenlabs-convai:call) → /run/start → 9 Agenten → WeasyPrint-PDF → Service-Role-Upload → Download
+  </footer>
+
+</div>
+</body>
+</html>
