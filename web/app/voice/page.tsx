@@ -49,6 +49,11 @@ function VoicePageInner() {
   const [prepDocs, setPrepDocs] = useState<any[]>([]);
   const prepTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // "Latest"-Ref auf finishAndRun (vermeidet stale Closures in den Widget-Callbacks)
+  // + Guard gegen doppelten Pipeline-Start (onDisconnect + manueller Button).
+  const finishRef = useRef<() => void>(() => {});
+  const ranRef = useRef(false);
+
   useEffect(() => () => { if (prepTimerRef.current) clearInterval(prepTimerRef.current); }, []);
 
   // Vorbereitung starten
@@ -97,30 +102,42 @@ function VoicePageInner() {
     }
   }
 
-  // Conversation-Events vom Widget abfangen
+  // finishRef immer auf die aktuelle finishAndRun-Closure zeigen lassen (latest-ref-Pattern)
   useEffect(() => {
-    function onCall(ev: Event) {
-      console.log("[voice]", ev.type, (ev as any).detail);
-      if (ev.type === "convai-call-start") {
+    finishRef.current = () => { void finishAndRun(); };
+  });
+
+  // Widget-Lifecycle: das offizielle Event ist `elevenlabs-convai:call` (NICHT convai-call-start/-end).
+  // Es feuert EINMAL beim Call-Start und liefert detail.config — dort registrieren wir onConnect
+  // (→ Phase "live" + Timer) und onDisconnect (→ Pipeline starten). Genau hier hing die Übergabe:
+  // ohne onDisconnect wurde nach dem Gespräch NIE /run/start ausgelöst → keine Analyse.
+  useEffect(() => {
+    function onCallEvent(ev: Event) {
+      const cfg = (ev as CustomEvent).detail?.config;
+      if (!cfg) return;
+      const prevConnect = cfg.onConnect;
+      const prevDisconnect = cfg.onDisconnect;
+      cfg.onConnect = (...args: any[]) => {
+        try { prevConnect?.(...args); } catch {}
         setPhase("live");
         setSeconds(0);
-        timerRef.current = setInterval(() => setSeconds((s) => s + 1), 1000);
-      }
-      if (ev.type === "convai-call-end") {
         if (timerRef.current) clearInterval(timerRef.current);
-        finishAndRun();
-      }
+        timerRef.current = setInterval(() => setSeconds((s) => s + 1), 1000);
+      };
+      cfg.onDisconnect = (...args: any[]) => {
+        try { prevDisconnect?.(...args); } catch {}
+        if (timerRef.current) clearInterval(timerRef.current);
+        finishRef.current();
+      };
     }
-    window.addEventListener("convai-call-start", onCall);
-    window.addEventListener("convai-call-end", onCall);
-    return () => {
-      window.removeEventListener("convai-call-start", onCall);
-      window.removeEventListener("convai-call-end", onCall);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId, companyId]);
+    document.addEventListener("elevenlabs-convai:call", onCallEvent);
+    return () => document.removeEventListener("elevenlabs-convai:call", onCallEvent);
+  }, []);
 
   async function finishAndRun(opts: { manualTrigger?: boolean } = {}) {
+    if (ranRef.current) return; // Doppelstart verhindern (onDisconnect + Button)
+    ranRef.current = true;
+    if (timerRef.current) clearInterval(timerRef.current);
     setPhase("wrapping");
     try {
       // Versuche aktuelles Transcript von ElevenLabs zu pullen (Pull-API)
@@ -145,6 +162,7 @@ function VoicePageInner() {
         router.push(`/report/${run.run_id}`);
       }
     } catch (err: any) {
+      ranRef.current = false; // Retry erlauben
       setError(err.message);
       setPhase("error");
     }
