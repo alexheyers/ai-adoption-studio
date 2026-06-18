@@ -46,7 +46,15 @@ def _ensure_agent(system_prompt: str) -> str:
                         "prompt": system_prompt,
                         "llm": "claude-sonnet-4-6",
                     },
-                    "first_message": "",  # leer → wir injizieren via initial_context
+                    # Phase-0 Beat A als Default-Greeting mit Dynamic-Variable {{first_name}}.
+                    # Pro Gespräch kann das Frontend dies via conversation-override + dynamic_variables
+                    # (aus pre_brief["first_message"] / pre_brief["dynamic_variables"]) überschreiben.
+                    "first_message": (
+                        "Hallo und herzlich willkommen, {{first_name}}! Schön, dass du dir die Zeit nimmst. "
+                        "Kurz zu mir: Ich bin Ada, die KI-Stimme aus dem AI-Adoption-Studio — also kein Mensch, "
+                        "sondern dein digitaler Gesprächspartner. Unser Gespräch wird mitgeschrieben, damit das "
+                        "Studio daraus deine Auswertung baut. Ist das für dich in Ordnung?"
+                    ),
                     "language": "de",
                 },
                 "tts": {
