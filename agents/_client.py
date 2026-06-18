@@ -8,26 +8,37 @@ from config import ANTHROPIC_API_KEY, MODEL, MAX_TOKENS
 client = Anthropic(api_key=ANTHROPIC_API_KEY)
 
 
-def call_agent(system_prompt: str, user_message: str) -> dict:
+def call_agent(system_prompt: str, user_message: str, _attempts: int = 3) -> dict:
     """Ruft Claude auf und parsed JSON aus der Antwort.
 
     Erwartet, dass der System-Prompt sagt: 'Antworte nur mit JSON.'
+    Robust gegen transient malformed/abgeschnittenes JSON: bis zu _attempts Versuche.
+    Bei max_tokens-Abschnitt (truncation) wird das Token-Budget im Retry erhöht.
     """
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=MAX_TOKENS,
-        system=[
-            {
-                "type": "text",
-                "text": system_prompt,
-                "cache_control": {"type": "ephemeral"},
-            }
-        ],
-        messages=[{"role": "user", "content": user_message}],
-    )
-
-    text = response.content[0].text
-    return _extract_json(text)
+    last_err: Exception | None = None
+    for attempt in range(_attempts):
+        max_tokens = MAX_TOKENS if attempt == 0 else min(int(MAX_TOKENS * 1.5), 32000)
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=max_tokens,
+            system=[
+                {
+                    "type": "text",
+                    "text": system_prompt,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+            messages=[{"role": "user", "content": user_message}],
+        )
+        text = response.content[0].text
+        try:
+            return _extract_json(text)
+        except ValueError as e:
+            last_err = e
+            stop = getattr(response, "stop_reason", "?")
+            print(f"[call_agent] JSON-Parse fehlgeschlagen (Versuch {attempt + 1}/{_attempts}, stop_reason={stop}) — retry")
+    # Alle Versuche erschöpft
+    raise last_err  # type: ignore[misc]
 
 
 def _extract_json(text: str) -> dict:
@@ -36,7 +47,8 @@ def _extract_json(text: str) -> dict:
     """
     candidates: list[str] = []
 
-    fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+    # GREEDY (.*) — sonst bricht der Match bei verschachteltem JSON am ersten "}" ab.
+    fenced = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.DOTALL)
     if fenced:
         candidates.append(fenced.group(1))
 
