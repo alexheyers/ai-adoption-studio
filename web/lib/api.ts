@@ -74,6 +74,10 @@ export const api = {
     }),
   getRun: (runId: string) =>
     apiFetch<{ run: any; results: Record<string, any> }>(`/run/${runId}`),
+  listRuns: (companyId: string) =>
+    apiFetch<{ runs: Array<{ id: string; status: string; current_step: string; created_at: string; completed_at: string | null }> }>(
+      `/run/list/${companyId}`,
+    ),
   downloadDeliverable: (runId: string, fmt: "xlsx" | "pptx" | "pdf") =>
     apiFetch<{ format: string; signed_url: string; expires_in: number }>(`/run/${runId}/download/${fmt}`),
   fetchTranscript: (payload: { conversation_id: string; session_id: string }) =>
