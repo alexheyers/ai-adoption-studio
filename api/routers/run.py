@@ -110,3 +110,19 @@ def list_runs(company_id: str, user: AuthUser = Depends(get_current_user)):
         raise HTTPException(status_code=403, detail="Company gehört nicht dem User")
     runs = sb.table("runs").select("id, status, current_step, created_at, completed_at").eq("company_id", company_id).order("created_at", desc=True).execute()
     return {"runs": runs.data or []}
+
+
+class OperationsPayload(BaseModel):
+    operations: dict
+
+
+@router.patch("/{run_id}/operations")
+def update_operations(run_id: str, payload: OperationsPayload, user: AuthUser = Depends(get_current_user)):
+    """Speichert den Umsetzungs-Status der Use-Cases (Operations-Board) pro Run.
+    operations = { "<use_case_name>": "backlog" | "in_progress" | "done" }."""
+    sb = supabase_for(user)
+    run = sb.table("runs").select("companies(owner_id)").eq("id", run_id).maybe_single().execute()
+    if not run or not run.data or run.data["companies"]["owner_id"] != user.id:
+        raise HTTPException(status_code=403, detail="Run gehört nicht dem User")
+    sb.table("runs").update({"operations": payload.operations}).eq("id", run_id).execute()
+    return {"status": "ok", "operations": payload.operations}

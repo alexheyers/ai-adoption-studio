@@ -78,6 +78,11 @@ export const api = {
     apiFetch<{ runs: Array<{ id: string; status: string; current_step: string; created_at: string; completed_at: string | null }> }>(
       `/run/list/${companyId}`,
     ),
+  setOperations: (runId: string, operations: Record<string, string>) =>
+    apiFetch<{ status: string; operations: Record<string, string> }>(`/run/${runId}/operations`, {
+      method: "PATCH",
+      body: JSON.stringify({ operations }),
+    }),
   downloadDeliverable: (runId: string, fmt: "xlsx" | "pptx" | "pdf") =>
     apiFetch<{ format: string; signed_url: string; expires_in: number }>(`/run/${runId}/download/${fmt}`),
   fetchTranscript: (payload: { conversation_id: string; session_id: string }) =>

@@ -1306,6 +1306,15 @@ function DeliverablesSection({ runId }: { runId: string }) {
       <p className="mt-6 font-mono text-[10px] tracking-eyebrow uppercase text-ink3">
         Tipp · diesen Browser-Bericht als PDF: Cmd+P · Hintergrundgrafiken AN · Querformat
       </p>
+
+      <div className="mt-12 border-t border-ink/15 pt-8 flex items-center justify-between gap-6 flex-wrap">
+        <div>
+          <p className="eyebrow">Und jetzt?</p>
+          <p className="mt-2 font-display text-xl text-ink leading-snug">Aus der Analyse Umsetzung machen.</p>
+          <p className="mt-1 text-sm text-ink2">Use-Cases als Board verfolgen — Backlog → In Arbeit → Erledigt.</p>
+        </div>
+        <Link href={`/operations/${runId}`} className="btn-primary shrink-0">Zur Umsetzung →</Link>
+      </div>
     </section>
   );
 }
