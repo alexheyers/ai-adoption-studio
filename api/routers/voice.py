@@ -55,6 +55,7 @@ def start_voice(payload: VoiceStartPayload, user: AuthUser = Depends(get_current
 
     # Pre-Audit-Analyst: Hypothesen generieren BEVOR Ada spricht
     pre_audit_data: dict | None = None
+    pre_audit_ok = False
     try:
         from agents.pre_audit_analyst import run as run_pre_audit
         pre_audit_output = run_pre_audit(
@@ -63,9 +64,11 @@ def start_voice(payload: VoiceStartPayload, user: AuthUser = Depends(get_current
             web_research=web_research_data,
         )
         pre_audit_data = pre_audit_output.model_dump(mode="json")
+        pre_audit_ok = True
     except Exception as e:
-        print(f"[voice/start] Pre-Audit fehlgeschlagen: {e}")
-        # Nicht fatal — Pre-Brief funktioniert auch ohne
+        # NICHT verschlucken: loggen + flaggen. Ada bekommt den DOKUMENTE-Block trotzdem
+        # (documents_summary geht direkt in build_pre_brief), nur die Hypothesen fehlen.
+        print(f"[voice/start] Pre-Audit fehlgeschlagen: {type(e).__name__}: {e}")
 
     # Pre-Brief + Hypothesen-Bäume
     from voice.pre_brief import build_pre_brief
@@ -76,6 +79,7 @@ def start_voice(payload: VoiceStartPayload, user: AuthUser = Depends(get_current
         company=company.data,
         web_research=web_research_data,
         pre_audit=pre_audit_data,
+        documents_summary=documents_summary,
     )
 
     agent_id, conversation_id, signed_url = create_conversation(

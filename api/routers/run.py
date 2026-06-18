@@ -31,6 +31,18 @@ def start_run(
     if not company or not company.data or company.data["owner_id"] != user.id:
         raise HTTPException(status_code=403, detail="Company gehört nicht dem User")
 
+    # Per-Run-Isolation: Voice-Session und Web-Research MÜSSEN zur selben Company gehören.
+    # RLS ist nur user-scoped — ein User mit mehreren Firmen koennte sonst Transkript/Research
+    # von Firma A in den Run von Firma B mischen.
+    if payload.voice_session_id:
+        vs = sb.table("voice_sessions").select("company_id").eq("id", payload.voice_session_id).maybe_single().execute()
+        if not vs or not vs.data or vs.data["company_id"] != payload.company_id:
+            raise HTTPException(status_code=422, detail="Voice-Session gehört nicht zu dieser Company")
+    if payload.web_research_id:
+        wr = sb.table("web_research").select("company_id").eq("id", payload.web_research_id).maybe_single().execute()
+        if not wr or not wr.data or wr.data["company_id"] != payload.company_id:
+            raise HTTPException(status_code=422, detail="Web-Research gehört nicht zu dieser Company")
+
     # Briefing aus Company + Voice-Transcript + Web-Research zusammenbauen
     from runs.briefing_builder import build_briefing
     briefing = build_briefing(

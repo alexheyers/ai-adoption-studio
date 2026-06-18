@@ -53,6 +53,8 @@ function VoicePageInner() {
   // + Guard gegen doppelten Pipeline-Start (onDisconnect + manueller Button).
   const finishRef = useRef<() => void>(() => {});
   const ranRef = useRef(false);
+  // Web-Research-ID festhalten, damit die Recherche bis in die Endanalyse durchgereicht wird.
+  const researchIdRef = useRef<string | null>(null);
 
   useEffect(() => () => { if (prepTimerRef.current) clearInterval(prepTimerRef.current); }, []);
 
@@ -83,8 +85,8 @@ function VoicePageInner() {
     }, 1000);
 
     try {
-      // Web-Research parallel (Fire-and-forget)
-      api.startResearch(companyId).catch(() => undefined);
+      // Web-Research parallel starten und die ID festhalten, damit sie bis in die Endanalyse läuft.
+      api.startResearch(companyId).then((r) => { researchIdRef.current = r.research_id; }).catch(() => undefined);
       const res = await api.startVoice(companyId);
       setSessionId(res.session_id);
       setConversationId(res.conversation_id || null);
@@ -158,7 +160,11 @@ function VoicePageInner() {
         await api.finishVoice({ session_id: sessionId, transcript, duration_seconds: duration });
       }
       if (companyId && sessionId) {
-        const run = await api.startRun({ company_id: companyId, voice_session_id: sessionId });
+        const run = await api.startRun({
+          company_id: companyId,
+          voice_session_id: sessionId,
+          web_research_id: researchIdRef.current || undefined,
+        });
         router.push(`/report/${run.run_id}`);
       }
     } catch (err: any) {
