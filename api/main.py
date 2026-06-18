@@ -30,9 +30,14 @@ app = FastAPI(
 allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    # Produktions-Origins FEST verankert — nicht von FRONTEND_URL allein abhängig machen,
+    # sonst killt eine falsche .env (z.B. localhost) den Live-CORS → "Failed to fetch".
+    "https://myflowmotion.cloud",
+    "https://www.myflowmotion.cloud",
 ]
 if frontend_url := os.getenv("FRONTEND_URL"):
-    allowed_origins.append(frontend_url)
+    if frontend_url not in allowed_origins:
+        allowed_origins.append(frontend_url)
 
 app.add_middleware(
     CORSMiddleware,
