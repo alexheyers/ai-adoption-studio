@@ -5,7 +5,9 @@ from anthropic import Anthropic
 
 from config import ANTHROPIC_API_KEY, MODEL, MAX_TOKENS
 
-client = Anthropic(api_key=ANTHROPIC_API_KEY)
+# timeout bounded pro Request (gegen unendliches Hängen eines Agenten in der Pipeline);
+# max_retries = SDK-eigene Wiederholung bei transient API-Fehlern (429/500/Connection).
+client = Anthropic(api_key=ANTHROPIC_API_KEY, timeout=180.0, max_retries=2)
 
 
 def call_agent(system_prompt: str, user_message: str, _attempts: int = 3) -> dict:
